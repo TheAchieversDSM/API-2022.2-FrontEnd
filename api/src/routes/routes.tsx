@@ -1,7 +1,8 @@
 import { Fragment } from "react";
 import { Route, BrowserRouter, Routes as Switch } from "react-router-dom";
 
-import Promocao from "../pages/promocao";
+import Promocao from "../pages/promoção/promocao";
+import Visualizacao from "../pages/visualização/visualizacao";
 
 const Routes = () => {
     return (
@@ -9,6 +10,7 @@ const Routes = () => {
             <Fragment>
                 <Switch>
                     <Route path="/" element={<Promocao/>}/>
+                    <Route path="/prodserv" element={<Visualizacao/>}/>
                 </Switch>
             </Fragment>
         </BrowserRouter>
