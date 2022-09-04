@@ -1,0 +1,57 @@
+.container {
+    margin-inline: auto;
+    margin-top: 30px;
+}
+
+.display {
+    background-color: #3a6ea5;
+    height: 300px;
+    width: 100%;
+}
+
+.container {
+    margin-inline: auto;
+}
+
+.colecao-categorias {
+    margin: auto;
+    margin-bottom: 40px;
+    width: 500px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+}
+
+.categoria {
+    background-color: #ff6700;
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+}
+
+.feed {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.card {
+    width: 250px;
+    height: 270px;
+    margin-bottom: 20px;
+}
+
+.card-img {
+    margin-top: 30px;
+    margin-inline: auto;
+    width: 200px;
+    height: 160px;
+    background-color: gray;
+}
+
+.btn.btn-primary {
+    margin-top: 20px;
+    margin-left: 55px;
+    background-color: #ff6700;
+    border: none;
+    /*margin-inline: auto*/;
+}
