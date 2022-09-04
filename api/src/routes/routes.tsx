@@ -8,7 +8,7 @@ const Routes = () => {
         <BrowserRouter>
             <Fragment>
                 <Switch>
-                    <Route path="/" element={<Promocao/>}/>
+                    <Route path="/criacao-promocao" element={<Promocao />} />
                 </Switch>
             </Fragment>
         </BrowserRouter>
