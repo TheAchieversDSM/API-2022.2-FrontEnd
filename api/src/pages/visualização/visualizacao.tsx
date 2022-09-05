@@ -1,6 +1,7 @@
 import React from 'react';
 import Botao from '../../components/button';
 import Navigation from '../../components/navbar';
+import Outline from '../../components/outlinebutton';
 
 import './visu.css'
 
@@ -10,25 +11,41 @@ export default function Visualizacao() {
     return (
         <>
             <Navigation/>
-            <div>
-                <h1>NOME DO PRODUTO</h1>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                <h2>R$ 230,00</h2>
-                <Botao/>
-                <a>Adicionar ao carrinho</a>
-            </div>
-            <div>
-                <h1>Confira nossos pacotes</h1>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-3"></div>
-                        <div className="col-3"></div>
-                        <div className="col-3"></div>
+            <div className="geral">
+                <div className="principal">
+                    <h1 className="name">NOME DO PRODUTO</h1>
+                    <div className="descricao">
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div>
+                    <h2 className="preço">R$ 230,00</h2>
+                    <Botao/>
+                    <a>Adicionar ao carrinho</a>
+                </div>
+                <div className="prom">
+                    <h2 className="confira">Confira nossos pacotes</h2>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-3">
+                                <div className="pacotes"></div>
+                                <h3>R$ 180,00</h3>
+                                <Outline/>
+                            </div>
+                            <div className="col-3">
+                                <div className="pacotes"></div>
+                                <h3>R$ 180,00</h3>
+                                <Outline/>
+                            </div>
+                            <div className="col-3">
+                                <div className="pacotes"></div>
+                                <h3>R$ 180,00</h3>
+                                <Outline/>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div>
-                <h1>Outras sugestões</h1>
+                <div>
+                    <h2 className="sugestao">Outras sugestões</h2>
+                </div>
             </div>
         </>
     )

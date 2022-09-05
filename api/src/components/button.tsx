@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 function Botao() {
     return (
     <>
-        <Button variant="primary">Adquirir</Button>{' '}
+        <Button type="button" size="lg" className="comprar">Adquirir</Button>{' '}
     </>
     );
 }
