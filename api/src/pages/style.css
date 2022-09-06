@@ -1,16 +1,14 @@
 .container {
     margin-inline: auto;
     margin-top: 30px;
+    margin-inline: auto;
+    align-items: center !important;
 }
 
 .display {
     background-color: #3a6ea5;
     height: 300px;
     width: 100%;
-}
-
-.container {
-    margin-inline: auto;
 }
 
 .colecao-categorias {
@@ -38,6 +36,7 @@
     width: 250px;
     height: 270px;
     margin-bottom: 20px;
+    align-items: center !important;
 }
 
 .card-img {
@@ -50,8 +49,11 @@
 
 .btn.btn-primary {
     margin-top: 20px;
-    margin-left: 55px;
     background-color: #ff6700;
     border: none;
-    /*margin-inline: auto*/;
+}
+
+a,
+.dropdown {
+    color: white !important;
 }

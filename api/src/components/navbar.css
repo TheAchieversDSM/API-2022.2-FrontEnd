@@ -1,11 +1,20 @@
 .btn-outline-success {
-    color: #004e98;
-    border: 1px solid #004e98;
+    color: #ff6700;
+    border: 1px solid #ff6700;
     transition: 0.6s;
 }
 
 .btn-outline-success:hover {
-    border: 1px solid #004e98;
-    background-color: #004e98;
+    border: 1px solid #ff6700;    
+    background-color: #ff6700;
     transition: 0.6s;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.navbar {
+    background-color: #004e98 !important;
 }
