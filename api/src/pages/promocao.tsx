@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import Sidebar from '../components/sidebar';
+
 //import Multiselect from 'multiselect-react-dropdown';
 import Select from 'react-select';
 
@@ -17,12 +19,16 @@ const options = [
     { value: 'produto 5', label: 'Produto 5' },
 ];
 
+
+
 export default function Promocao() {
     return (
         <>
             <Navigation />
+            <Sidebar />
 
             <div className='container'>
+            
 
                 <h1>Criação de Promoção</h1>
 
