@@ -13,6 +13,12 @@
     padding: 10px;
 }
 
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .prom{
     background-color: #376FA6 !important;
     padding: 20px 0px 20px 0px;
@@ -63,10 +69,16 @@ h3{
 }
 
 .descricao{
-    color: #2D5274;
-    width: 70%;
     font-weight: 450;
     font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.descricao > p{
+    color: #2D5274;
+    width: 70%;
 }
 
 .confira{
@@ -77,10 +89,30 @@ h3{
 
 .promo{
     border-color: #F06823 !important;
-    border-width: 3px;
+    border-width: 4px;
     color: white !important;
+    font-weight: 500;
 }
 
 .promo:hover{
     background-color: #F06823 !important;
+}
+
+.card {
+    width: 250px;
+    height: 270px;
+    align-items: center !important;
+    margin: 10px;
+}
+
+.card-img {
+    margin-top: 30px;
+    margin-inline: auto;
+    width: 200px;
+    height: 160px;
+    background-color: gray;
+}
+
+h3{
+    color: aliceblue;
 }
