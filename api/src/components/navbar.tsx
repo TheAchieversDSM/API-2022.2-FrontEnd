@@ -12,11 +12,12 @@ function Navigation() {
         <>
             <Navbar bg="light" expand="lg">
                 <Container fluid>
-                    <Navbar.Brand href="#">UOL</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
-                    <Navbar.Collapse id="navbarScroll">
+                    <Navbar.Brand href="#" className="mobile-logo">UOL</Navbar.Brand>
+                    <Navbar.Collapse id="navbarScroll" className="flex-row-reverse">
+                    <Navbar.Brand href="#" className="desktop-logo">UOL</Navbar.Brand>
                         <Nav
-                            className="me-auto my-2 my-lg-0"
+                            className="ms-auto my-2 my-lg-0"
                             style={{ maxHeight: '100px' }}
                             navbarScroll
                         >
