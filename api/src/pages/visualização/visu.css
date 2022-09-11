@@ -109,8 +109,9 @@ h3{
     margin-top: 30px;
     margin-inline: auto;
     width: 200px;
-    height: 160px;
+    height: 200px;
     background-color: gray;
+    border-radius: 100%;
 }
 
 h3{

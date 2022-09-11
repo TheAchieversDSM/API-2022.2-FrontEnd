@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Botao from '../../components/button';
 import Navigation from '../../components/navbar';
 import Outline from '../../components/outlinebutton';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import axios from 'axios';
 
 import './visu.css'
 
 
 
 export default function Visualizacao() {
-
+    const [produto,setProduto] = useState({})
+    const [pacote,setPacotes] = useState([{}])
     
+
+    axios.post("http://localhost:8080/produtos/pegarProduto", "631291b2f726cc25058ad2e4").then((res)=>{
+        setProduto(res.data)
+        console.log(res.data)
+    })
 
     return (
         <>

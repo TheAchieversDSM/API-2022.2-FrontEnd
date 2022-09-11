@@ -22,11 +22,16 @@ function Navigation() {
             <NavDropdown title="Categorias" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="#action3"></NavDropdown.Item>
                 <NavDropdown.Item href="#action4">
-                Another action
+                Meu negócio
                 </NavDropdown.Item>
-                <NavDropdown.Divider />
                 <NavDropdown.Item href="#action5">
-                Something else here
+                Streaming
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action5">
+                Música
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action5">
+                Segurança digital
                 </NavDropdown.Item>
             </NavDropdown>
             </Nav>
@@ -37,7 +42,7 @@ function Navigation() {
                 className="me-2"
                 aria-label="Search"
             />
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline-success">Procurar</Button>
             </Form>
         </Navbar.Collapse>
         </Container>
