@@ -1,0 +1,119 @@
+.geral{
+    padding: 40px 0px 0px 0px;
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.col-3{
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.prom{
+    background-color: #376FA6 !important;
+    padding: 20px 0px 20px 0px;
+    margin: 30px 0px 30px 0px;
+    height: 400px;
+}
+
+.comprar{
+    background-color: #F06823 !important;
+    border-color: #F06823 !important;
+}
+
+.nav{
+    background-color: #004F98 !important;
+}
+
+.pacotes{
+    width: 100%;
+    height: 90%;
+    background-color: beige;
+}
+
+.name{
+    color: #F06823;
+    font-weight: 650;
+}
+
+.preço, .sugestao{
+    color: #004F98;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.preço{
+    margin: 40px
+}
+
+.principal{
+    margin: 10px 30px 20px 20px
+}
+
+a{
+    color:#004F98;
+}
+
+h3{
+    margin: 10px;
+}
+
+.descricao{
+    font-weight: 450;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.descricao > p{
+    color: #2D5274;
+    width: 70%;
+}
+
+.confira{
+    color: aliceblue;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.promo{
+    border-color: #F06823 !important;
+    border-width: 4px;
+    color: white !important;
+    font-weight: 500;
+}
+
+.promo:hover{
+    background-color: #F06823 !important;
+}
+
+.card {
+    width: 250px;
+    height: 270px;
+    align-items: center !important;
+    margin: 10px;
+}
+
+.card-img {
+    margin-top: 30px;
+    margin-inline: auto;
+    width: 200px;
+    height: 200px;
+    background-color: gray;
+    border-radius: 100%;
+}
+
+h3{
+    color: aliceblue;
+}
