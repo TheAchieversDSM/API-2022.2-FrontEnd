@@ -13,7 +13,9 @@ function Navigation() {
         <>
             <Navbar bg="light" expand="lg">
                 <Container fluid>
+                
                     <Navbar.Brand><Link to="/">UOL</Link></Navbar.Brand>
+
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <Nav
@@ -22,6 +24,7 @@ function Navigation() {
                             navbarScroll
                         >
                             <Nav.Link><Link to="/">Home</Link></Nav.Link>
+
                             <NavDropdown title="Categorias" id="navbarScrollingDropdown">
                                 <NavDropdown.Item href="#action3"></NavDropdown.Item>
                                 <NavDropdown.Item href="#action4">
