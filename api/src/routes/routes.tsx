@@ -1,16 +1,22 @@
 import { Fragment } from "react";
 import { Route, BrowserRouter, Routes as Switch } from "react-router-dom";
 
-import Promocao from "../pages/promoção/promocao";
 import Visualizacao from "../pages/visualização/visualizacao";
+import Promocao from "../pages/criacao-promocao/promocao";
+import Login from "../pages/login/login";
+import Home from "../pages/home/home";
 
 const Routes = () => {
     return (
         <BrowserRouter>
             <Fragment>
                 <Switch>
-                    <Route path="/" element={<Promocao/>}/>
-                    <Route path="/prodserv" element={<Visualizacao/>}/>
+
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/login" element={<Login/>}/>   
+                    <Route path="/produto" element={<Visualizacao/>}/>
+                    <Route path="/criacao-promocao" element={<Promocao />} /> 
+
                 </Switch>
             </Fragment>
         </BrowserRouter>

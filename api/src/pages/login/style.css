@@ -1,0 +1,40 @@
+.flex {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+h1 {
+    margin-bottom: 1rem;   
+    color: #F06823;
+}
+
+.container {
+    margin-left: 50px !important;
+    margin: auto;
+}
+
+.display {
+    background-color: #3a6ea5;
+    width: 800px;
+    height: 697px;
+    margin-right: 0;
+}
+
+.btn-primary {
+    background-color: #ff6700;
+    border: none;
+    transition: 0.8s;
+    margin-top: 0.5rem;
+}
+
+.btn-primary:hover {
+    background-color: #3a6ea5;
+    border: none;
+    transition: 0.8s;
+}
+
+.form-label {
+    color: #004e98;
+    font-weight: 500;
+    font-size: 18px;
+}
