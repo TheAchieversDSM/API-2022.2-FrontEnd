@@ -8,12 +8,12 @@ h1 {
     color: #F06823;
 }
 
-.container {
+.container-login {
     margin-left: 50px !important;
     margin: auto;
 }
 
-.display {
+.display-login {
     background-color: #3a6ea5;
     width: 800px;
     height: 697px;

@@ -4,8 +4,8 @@ h1 {
     margin-bottom: 1rem;
 }
 
-.container {
-    margin-inline: auto;
+.container-promo {
+    margin-inline: auto !important;
     margin-top: 30px;
 }
 

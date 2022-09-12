@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Navigation from '../components/navbar';
+import Navigation from '../../components/navbar';
+import { Alert } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -8,7 +9,6 @@ import Select from 'react-select';
 import axios from 'axios';
 
 import './style.css'
-import { Alert } from 'react-bootstrap';
 
 const options = [
     { value: 'produto 1', label: 'Produto 1' },
@@ -53,7 +53,7 @@ export default function Promocao() {
         <>
             <Navigation />
 
-            <div className='container'>
+            <div className='container-promo'>
 
                 <h1>Criação de Promoção</h1>
 
