@@ -9,7 +9,7 @@ import Sidebar from '../../components/sidebar';
 //import Multiselect from 'multiselect-react-dropdown';
 import Select from 'react-select';
 
-import './style.css'
+import './produto.css'
 
 const options = [
     { value: 'produto 1', label: 'Produto 1' },
