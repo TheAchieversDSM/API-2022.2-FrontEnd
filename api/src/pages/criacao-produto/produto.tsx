@@ -1,10 +1,10 @@
 import React from 'react';
-import Navigation from '../components/navbar';
+import Navigation from '../../components/navbar';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Sidebar from '../components/sidebar';
+import Sidebar from '../../components/sidebar';
 
 //import Multiselect from 'multiselect-react-dropdown';
 import Select from 'react-select';
@@ -18,17 +18,15 @@ const options = [
     { value: 'produto 4', label: 'Produto 4' },
 ];
 
-
-
 export default function Produto() {
     return (
         <>
             <Navigation />
+            
             <Sidebar />
 
             <div className='container'>
             
-
                 <h1>Criação de Produto</h1>
 
                 <Form /*noValidate validated={validated} onSubmit={handleSubmit}*/>
@@ -93,8 +91,6 @@ export default function Produto() {
 
                     <Button type="submit">Criar Produto!</Button>
 
-                  
-                
                 </Form>
             
             </div>
