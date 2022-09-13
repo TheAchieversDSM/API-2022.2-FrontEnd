@@ -56,7 +56,7 @@ export default function Promocao() {
             <Navigation />
             <Sidebar />
 
-            <div className='container'>
+            <div className='container-promo'>
 
                 <h1>Criação de Promoção</h1>
 

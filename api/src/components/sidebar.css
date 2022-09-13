@@ -62,6 +62,10 @@
   padding: 20px;
 }
 
+.pro-sidebar > .pro-sidebar-inner > .pro-sidebar-layout .pro-sidebar-header {
+    padding-top: 20px;
+}
+
 @media only screen and (max-width: 720px) {
   html {
     overflow: hidden;
