@@ -44,7 +44,7 @@ export default function Promocao() {
     const { promocaoNome, promocaoPreco, promocaoProdutos, promocaoProdutosComp, promocaoProdutosObrig, promocaoProdutosRestring } = formValue;
 
     const handleSubmit = (event: any) => {
-        alert('Produto criado!');
+        alert('Promoção criada!');
         event.preventDefault();
 
         console.log("enviado");

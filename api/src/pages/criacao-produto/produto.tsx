@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navigation from '../../components/navbar';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -17,6 +17,33 @@ const options = [
 ];
 
 export default function Produto() {
+
+    const [formValue, setFormValue] = useState({
+        produtoNome: "",
+        produtoPreco: "",
+        produtoCategoria: "",
+        produtoDescricao: ""
+    });
+
+    const handleChange = (event: any) => {
+        const { name, value } = event.target;
+        setFormValue((prevState) => {
+            return {
+                ...prevState,
+                [name]: value,
+            };
+        });
+    };
+
+    const { produtoNome, produtoPreco, produtoCategoria, produtoDescricao} = formValue;
+
+    const handleSubmit = (event: any) => {
+        alert('Produto criado!');
+        event.preventDefault();
+
+        console.log("enviado");
+    };
+
     return (
         <>
             <Navigation />
@@ -35,9 +62,11 @@ export default function Produto() {
                             <Form.Label>Nome do Produto</Form.Label>
                             <Form.Control
                                 required
+                                name="produtoNome"
+                                value={produtoNome}
+                                onChange={handleChange}
                                 type="text"
                                 placeholder="Nome do Produto"
-                                defaultValue=""
                             />
                         </Form.Group>
 
@@ -49,9 +78,11 @@ export default function Produto() {
                             <Form.Label>Preço </Form.Label>
                             <Form.Control
                                 required
+                                name="produtoPreco"
+                                value={produtoPreco}
+                                onChange={handleChange}
                                 type="number"
                                 placeholder="Preço da Promoção"
-                                defaultValue=""
                             />
                         </Form.Group>
 
@@ -63,7 +94,9 @@ export default function Produto() {
                             <Form.Label>Categoria</Form.Label>
                             <Select 
                                 isMulti
-                                options={options} 
+                                name="produtoCategoria"
+                                value={produtoCategoria}
+                                onChange={handleChange}
                                 isClearable={true}
                                 isSearchable={true}
                                 isLoading={false}
@@ -78,16 +111,18 @@ export default function Produto() {
                             <Form.Label>Descrição</Form.Label>
                             <Form.Control 
                                 required
+                                name="produtoDescricao"
+                                value={produtoDescricao}
+                                onChange={handleChange}
                                 as="textarea"                                
                                 type="text"
-                                placeholder="Descrição"
-                                defaultValue=""
+                                placeholder="Descrição do Produto"
                             />                          
                         </Form.Group>
 
                     </Row>
 
-                    <Button type="submit">Criar Produto!</Button>
+                    <Button type="submit" onClick={handleSubmit}>Criar Produto!</Button>
 
                 </Form>
             
