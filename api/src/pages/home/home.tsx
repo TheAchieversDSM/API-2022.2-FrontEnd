@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Navigation from '../../components/navbar';
@@ -6,6 +7,18 @@ import Navigation from '../../components/navbar';
 import './style.css'
 
 export default function Home() {
+    const [produtos,setProdutos] = useState([Object])
+
+    useEffect(()=>{
+        async function render() { 
+        axios.get(`http://localhost:8080/produtos/pegarTodosProdutos`, ).then((res)=>{
+            setProdutos(res.data)
+            console.log(res.data)
+            })
+        }
+        render()
+    },[])
+
     return (
         <>
             <Navigation />
@@ -25,86 +38,22 @@ export default function Home() {
                 </div>
 
                 <div className="feed">
+                {produtos.map(produto =>
+                    <>
+                     <div className="card">
 
-                    <div className="card">
+                     <div className="card-img"></div>
+                      {//  <h4>{produto.nome}</h4>
+                      }
+                     <div className="card-botao">
+                         <Button type="submit"><Link to="/">Ver Produto!</Link></Button>
+                     </div>
 
-                        <div className="card-img"></div>
+                 </div>
+                 </>
+                )}
+                   
 
-                        <div className="card-botao">
-                            <Button type="submit"><Link to="/">Ver Produto!</Link></Button>
-                        </div>
-
-                    </div>
-
-                    <div className="card">
-
-                        <div className="card-img"></div>
-
-                        <div className="card-botao">
-                            <Button type="submit"><Link to="/">Ver Produto!</Link></Button>
-                        </div>
-
-                    </div>
-
-                    <div className="card">
-
-                        <div className="card-img"></div>
-
-                        <div className="card-botao">
-                            <Button type="submit"><Link to="/">Ver Produto!</Link></Button>
-                        </div>
-
-                    </div>
-
-                    <div className="card">
-
-                        <div className="card-img"></div>
-
-                        <div className="card-botao">
-                            <Button type="submit"><Link to="/">Ver Produto!</Link></Button>
-                        </div>
-
-                    </div>
-
-                    <div className="card">
-
-                        <div className="card-img"></div>
-
-                        <div className="card-botao">
-                            <Button type="submit"><Link to="/">Ver Produto!</Link></Button>
-                        </div>
-
-                    </div>
-
-                    <div className="card">
-
-                        <div className="card-img"></div>
-
-                        <div className="card-botao">
-                            <Button type="submit"><Link to="/">Ver Produto!</Link></Button>
-                        </div>
-
-                    </div>
-
-                    <div className="card">
-
-                        <div className="card-img"></div>
-
-                        <div className="card-botao">
-                            <Button type="submit"><Link to="/">Ver Produto!</Link></Button>
-                        </div>
-
-                    </div>
-
-                    <div className="card">
-
-                        <div className="card-img"></div>
-
-                        <div className="card-botao">
-                            <Button type="submit"><Link to="/">Ver Produto!</Link></Button>
-                        </div>
-
-                    </div>
 
                 </div>
             

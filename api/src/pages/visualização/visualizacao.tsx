@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Botao from '../../components/button';
 import Navigation from '../../components/navbar';
 import Outline from '../../components/outlinebutton';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
+import { useParams } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import axios from 'axios';
@@ -13,23 +14,30 @@ import './visu.css'
 
 
 export default function Visualizacao() {
-    const [produto,setProduto] = useState({})
+    const [produto,setProduto] = useState(Object)
     const [pacote,setPacotes] = useState([{}])
+    const {id} = useParams();
+    console.log(id);
+    useEffect(()=>{
+        async function render() { 
+        axios.get(`http://localhost:8080/produtos/pegarProduto/${id}`, ).then((res)=>{
+            setProduto(res.data)
+            console.log(res.data)
+            })
+        }
+        render()
+    },[])
     
-
-    axios.post("http://localhost:8080/produtos/pegarProduto", "631291b2f726cc25058ad2e4").then((res)=>{
-        setProduto(res.data)
-        console.log(res.data)
-    })
+    
 
     return (
         <>
             <Navigation/>
             <div className="geral">
                 <div className="principal">
-                    <h1 className="name">NOME DO PRODUTO</h1>
+                    <h1 className="name">{produto.nome}</h1>
                     <div className="descricao">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                            <p>{produto.descricao}</p>
                     </div>
                     <h2 className="preço">R$ 230,00</h2>
                     <Botao/>
