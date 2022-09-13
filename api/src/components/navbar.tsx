@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Link } from 'react-router-dom';
 
 import './navbar.css'
 
@@ -12,12 +13,11 @@ function Navigation() {
         <>
             <Navbar bg="light" expand="lg">
                 <Container fluid>
+                    <Navbar.Brand href="#">UOL</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
-                    <Navbar.Brand href="#" className="mobile-logo">UOL</Navbar.Brand>
-                    <Navbar.Collapse id="navbarScroll" className="flex-row-reverse">
-                    <Navbar.Brand href="#" className="desktop-logo">UOL</Navbar.Brand>
+                    <Navbar.Collapse id="navbarScroll">
                         <Nav
-                            className="ms-auto my-2 my-lg-0"
+                            className="me-auto my-2 my-lg-0"
                             style={{ maxHeight: '100px' }}
                             navbarScroll
                         >

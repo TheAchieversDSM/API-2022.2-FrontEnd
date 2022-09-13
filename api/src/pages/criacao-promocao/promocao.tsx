@@ -1,13 +1,13 @@
-import React from 'react';
-import Navigation from '../components/navbar';
+import React, { useState } from 'react';
+import Navigation from '../../components/navbar';
+import { Alert } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Sidebar from '../components/sidebar';
-
 //import Multiselect from 'multiselect-react-dropdown';
 import Select from 'react-select';
+import axios from 'axios';
 
 import './style.css'
 
@@ -22,13 +22,42 @@ const options = [
 
 
 export default function Promocao() {
+    
+    const [formValue, setFormValue] = useState({
+        promocaoNome: "",
+        promocaoPreco: "",
+        promocaoProdutos: "",
+        promocaoProdutosComp: "",
+        promocaoProdutosObrig: "",
+        promocaoProdutosRestring: "",
+    });
+
+    const handleChange = (event: any) => {
+        const { name, value } = event.target;
+        setFormValue((prevState) => {
+            return {
+                ...prevState,
+                [name]: value,
+            };
+        });
+    };
+
+    const { promocaoNome, promocaoPreco, promocaoProdutos, promocaoProdutosComp, promocaoProdutosObrig, promocaoProdutosRestring } = formValue;
+
+    const handleSubmit = (event: any) => {
+        alert('Produto criado!');
+        event.preventDefault();
+
+        console.log("enviado");
+    };
+    
+
     return (
         <>
             <Navigation />
             <Sidebar />
 
             <div className='container'>
-            
 
                 <h1>Criação de Promoção</h1>
 
@@ -40,9 +69,11 @@ export default function Promocao() {
                             <Form.Label>Nome da Promoção</Form.Label>
                             <Form.Control
                                 required
+                                name="promocaoNome"
+                                value={promocaoNome}
+                                onChange={handleChange}
                                 type="text"
                                 placeholder="Nome da Promoção"
-                                defaultValue=""
                             />
                         </Form.Group>
 
@@ -54,6 +85,9 @@ export default function Promocao() {
                             <Form.Label>Preço da Promoção</Form.Label>
                             <Form.Control
                                 required
+                                name="promocaoPreco"
+                                value={promocaoPreco}
+                                onChange={handleChange}
                                 type="number"
                                 placeholder="Preço da Promoção"
                                 defaultValue=""
@@ -68,7 +102,9 @@ export default function Promocao() {
                             <Form.Label>Produtos que compõem a promoção</Form.Label>
                             <Select 
                                 isMulti
-                                options={options} 
+                                name="promocaoProdutos"
+                                value={promocaoProdutos}
+                                onChange={handleChange}
                                 isClearable={true}
                                 isSearchable={true}
                             />
@@ -82,7 +118,9 @@ export default function Promocao() {
                             <Form.Label>Produtos complementares</Form.Label>
                             <Select 
                                 isMulti
-                                options={options} 
+                                name="promocaoProdutosComp"
+                                value={promocaoProdutosComp}
+                                onChange={handleChange}
                                 isClearable={true}
                                 isSearchable={true}
                                 isLoading={false}
@@ -97,7 +135,9 @@ export default function Promocao() {
                             <Form.Label>Produtos obrigatórios</Form.Label>
                             <Select 
                                 isMulti
-                                options={options} 
+                                name="promocaoProdutosObrig"
+                                value={promocaoProdutosObrig}
+                                onChange={handleChange}
                                 isClearable={true}
                                 isSearchable={true}
                             />
@@ -111,7 +151,9 @@ export default function Promocao() {
                             <Form.Label>Produtos restringentes</Form.Label>
                             <Select 
                                 isMulti
-                                options={options} 
+                                name="promocaoProdutosRestring"
+                                value={promocaoProdutosRestring}
+                                onChange={handleChange}
                                 isClearable={true}
                                 isSearchable={true}
                             />
@@ -119,7 +161,7 @@ export default function Promocao() {
                         
                     </Row>
 
-                    <Button type="submit">Criar Promoção!</Button>
+                    <Button type="submit" onClick={handleSubmit}>Criar Promoção!</Button>
                 
                 </Form>
             
@@ -127,4 +169,8 @@ export default function Promocao() {
 
         </>
     )
+}
+
+function validateForm() {
+    throw new Error('Function not implemented.');
 }
