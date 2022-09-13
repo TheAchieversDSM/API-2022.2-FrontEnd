@@ -14,7 +14,7 @@ export default function Home() {
 
             <div className="flex">
 
-                <div className='container'>
+                <div className='container-login'>
 
                     <h1>Login</h1>
 
@@ -54,7 +54,7 @@ export default function Home() {
 
                 </div>
 
-                <div className='display'></div>
+                <div className='display-login'></div>
 
             </div>
 

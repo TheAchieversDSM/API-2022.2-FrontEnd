@@ -33,7 +33,7 @@ export default function Visualizacao() {
                     </div>
                     <h2 className="preço">R$ 230,00</h2>
                     <Botao/>
-                    <a>Adicionar ao carrinho</a>
+                    <a className='texto'>Adicionar ao carrinho</a>
                 </div>
                 <div className="prom">
                     <h2 className="confira">Confira nossos pacotes</h2>

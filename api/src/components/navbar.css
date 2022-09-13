@@ -10,8 +10,9 @@
     transition: 0.6s;
 }
 
-a {
-    color: black;
+a,
+.dropdown-item {
+    color: black !important;
     text-decoration: none;
 }
 
