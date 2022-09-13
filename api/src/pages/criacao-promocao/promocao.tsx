@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import Sidebar from '../../components/sidebar';
+//import Multiselect from 'multiselect-react-dropdown';
 import Select from 'react-select';
 import axios from 'axios';
 
@@ -52,8 +54,9 @@ export default function Promocao() {
     return (
         <>
             <Navigation />
+            <Sidebar />
 
-            <div className='container-promo'>
+            <div className='container'>
 
                 <h1>Criação de Promoção</h1>
 
