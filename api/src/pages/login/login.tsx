@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
-import './style.css'
+import './login.css'
 import { Link } from 'react-router-dom';
 
 export default function Home() {

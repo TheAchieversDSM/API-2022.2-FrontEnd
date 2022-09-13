@@ -10,7 +10,7 @@ import Sidebar from '../../components/sidebar';
 import Select from 'react-select';
 import axios from 'axios';
 
-import './style.css'
+import './promocao.css'
 
 const options = [
     { value: 'produto 1', label: 'Produto 1' },

@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Route, BrowserRouter, Routes as Switch } from "react-router-dom";
 
 import Produto from "../pages/criacao-produto/produto";
-import Visualizacao from "../pages/visualização/visualizacao";
+import Visualizacao from "../pages/visualizacao/visualizacao";
 import Promocao from "../pages/criacao-promocao/promocao";
 import Login from "../pages/login/login";
 import Home from "../pages/home/home";

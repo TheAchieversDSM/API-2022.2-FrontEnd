@@ -5,8 +5,6 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Sidebar from '../../components/sidebar';
-
-//import Multiselect from 'multiselect-react-dropdown';
 import Select from 'react-select';
 
 import './produto.css'
@@ -25,15 +23,15 @@ export default function Produto() {
             
             <Sidebar />
 
-            <div className='container'>
+            <div className='container-prod'>
             
                 <h1>Criação de Produto</h1>
 
                 <Form /*noValidate validated={validated} onSubmit={handleSubmit}*/>
 
-                    <Row className="mb-4">
+                    <Row className="mb-3">
                         
-                        <Form.Group as={Col} md="10">
+                        <Form.Group as={Col} md="6">
                             <Form.Label>Nome do Produto</Form.Label>
                             <Form.Control
                                 required
@@ -45,9 +43,9 @@ export default function Produto() {
 
                     </Row>
 
-                    <Row className="mb-4">
+                    <Row className="mb-3">
 
-                        <Form.Group as={Col} md="4">
+                        <Form.Group as={Col} md="6">
                             <Form.Label>Preço </Form.Label>
                             <Form.Control
                                 required
@@ -59,7 +57,7 @@ export default function Produto() {
 
                     </Row>
 
-                    <Row className="mb-4">
+                    <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
                             <Form.Label>Categoria</Form.Label>
@@ -74,9 +72,9 @@ export default function Produto() {
                         
                     </Row>
 
-                    <Row className="mb-4 FormText" >
+                    <Row className="mb-3 FormText" >
                         
-                        <Form.Group as={Col} md="10">
+                        <Form.Group as={Col} md="6">
                             <Form.Label>Descrição</Form.Label>
                             <Form.Control 
                                 required

@@ -4,8 +4,8 @@ h1 {
     margin-bottom: 1rem;
 }
 
-.container {
-    margin-inline: auto;
+.container-prod {
+    margin-left: 30%;
     margin-top: 30px;
 }
 
@@ -27,7 +27,6 @@ h1 {
     font-weight: 500;
     font-size: 18px;
 }
-
 
 .FormText{
   max-height: auto;

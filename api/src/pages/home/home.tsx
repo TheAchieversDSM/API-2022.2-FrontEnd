@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Navigation from '../../components/navbar';
 
-import './style.css'
+import './home.css'
 
 export default function Home() {
     const [produtos,setProdutos] = useState([Object])
