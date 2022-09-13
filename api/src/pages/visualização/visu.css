@@ -60,9 +60,9 @@
     margin: 10px 30px 20px 20px
 }
 
-a, 
-.texto {
+a.texto {
     color:#004F98 !important; 
+    text-decoration: none;
 }
 
 h3{

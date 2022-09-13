@@ -14,24 +14,20 @@ function Navigation() {
             <Navbar bg="light" expand="lg">
                 <Container fluid>
                     <Navbar.Toggle aria-controls="navbarScroll" />
-                    <Navbar.Brand href="#" className="mobile-logo">UOL</Navbar.Brand>
+                    <Navbar.Brand className="mobile-logo"><Link to="/">UOL</Link></Navbar.Brand>
                     <Navbar.Collapse id="navbarScroll" className="flex-row-reverse">
-                    <Navbar.Brand href="#" className="desktop-logo">UOL</Navbar.Brand>
+                    <Navbar.Brand className="desktop-logo"><Link to="/">UOL</Link></Navbar.Brand>
                         <Nav
                             className="ms-auto my-2 my-lg-0"
                             style={{ maxHeight: '100px' }}
                             navbarScroll
                         >
-                            <Nav.Link href="#action1">Home</Nav.Link>
+                            <Nav.Link><Link to="/">Home</Link></Nav.Link>
                             <NavDropdown title="Categorias" id="navbarScrollingDropdown">
-                                <NavDropdown.Item href="#action3"></NavDropdown.Item>
-                                <NavDropdown.Item href="#action4">
-                                    Another action
-                                </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action5">
-                                    Something else here
-                                </NavDropdown.Item>
+                                <NavDropdown.Item>Meu Negócio</NavDropdown.Item>
+                                <NavDropdown.Item>Streaming</NavDropdown.Item>
+                                <NavDropdown.Item>Música</NavDropdown.Item>
+                                <NavDropdown.Item>Segurança digital</NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
                         <Form className="d-flex">

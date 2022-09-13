@@ -43,8 +43,12 @@ export default function Home() {
                      <div className="card">
 
                      <div className="card-img"></div>
-                      {//  <h4>{produto.nome}</h4>
-                      }
+
+                     <div className="nome-prod">
+                        <h4>Nome do Produto</h4>
+                        {/*<h4>{produto.nome}</h4>*/}
+                    </div>
+                      
                      <div className="card-botao">
                          <Button type="submit"><Link to="/">Ver Produto!</Link></Button>
                      </div>
@@ -53,8 +57,6 @@ export default function Home() {
                  </>
                 )}
                    
-
-
                 </div>
             
             </div>
