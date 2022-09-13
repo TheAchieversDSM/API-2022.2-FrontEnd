@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
 import './style.css'
+import { Link } from 'react-router-dom';
 
 export default function Home() {
     return (
@@ -22,7 +23,7 @@ export default function Home() {
 
                         <Row className="mb-3">
 
-                            <Form.Group as={Col} md="10">
+                            <Form.Group as={Col} md="12">
                                 <Form.Label>E-mail</Form.Label>
                                 <Form.Control
                                     required
@@ -36,7 +37,7 @@ export default function Home() {
 
                         <Row className="mb-3">
 
-                            <Form.Group as={Col} md="10">
+                            <Form.Group as={Col} md="12">
                                 <Form.Label>Senha</Form.Label>
                                 <Form.Control
                                     required
@@ -50,7 +51,7 @@ export default function Home() {
 
                     </Form>
 
-                    <Button type="submit">Entrar!</Button>
+                    <Button type="submit"><Link to="/criacao-produto">Entrar!</Link></Button>
 
                 </div>
 

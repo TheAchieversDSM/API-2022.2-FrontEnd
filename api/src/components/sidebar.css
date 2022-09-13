@@ -52,8 +52,9 @@
   color: #424542;
   border-radius: 3px;
 }
-#header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper .pro-item-content {
-  color: #424542;
+#header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper .pro-item-content,
+.pro-item-content a {
+  color: #424542 !important;
 }
 #header .pro-sidebar-inner .pro-sidebar-layout .active {
   background-image: linear-gradient(0deg, #FF6600 0%, #FFA600 100%);
