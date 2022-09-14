@@ -12,7 +12,7 @@ import {
 //import icons from react icons
 import { FaCartPlus, FaList, FaRegHeart } from "react-icons/fa";
 import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
-import { RiPencilLine } from "react-icons/ri";
+import { RiHandHeartLine, RiPencilLine, RiPriceTag3Line } from "react-icons/ri";
 import { BiCog } from "react-icons/bi";
 
 //import sidebar css from react-pro-sidebar module and our custom css 
@@ -50,16 +50,16 @@ const Header = () => {
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
-              <MenuItem active={true} icon={<FiHome />}>
+              <MenuItem active={true} icon={<FiHome />}><Link to="/">
                 Inicio
-              </MenuItem>
+                </Link></MenuItem>
               <MenuItem icon={<FaList />}>Categorias</MenuItem>
               <MenuItem icon={<FaRegHeart />}>Favoritos</MenuItem>
               <MenuItem icon={<FaCartPlus />}><Link to="/criacao-produto">Cadastro de Produtos</Link></MenuItem>
-              <MenuItem icon={<RiPencilLine />}><Link to="/criacao-pacote">Cadastro de Pacote</Link></MenuItem>
-              <MenuItem icon={<RiPencilLine />}><Link to="/criacao-promocao">Cadastro de Promoções</Link></MenuItem>
+              <MenuItem icon={<RiPriceTag3Line />}><Link to="/criacao-promocao">Cadastro de Promoções</Link></MenuItem>
+              <MenuItem icon={<RiHandHeartLine />}><Link to="/criacao-servico">Cadastro de Serviços</Link></MenuItem>
               <MenuItem icon={<BiCog />}>Configurações</MenuItem>
-              <MenuItem icon={<FiLogOut />}><Link to="/">Sair</Link></MenuItem>
+              <MenuItem icon={<FiLogOut />}><Link to="/login">Sair</Link></MenuItem>
             </Menu>
           </SidebarContent>
           <SidebarFooter>
