@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Navigation from '../../components/navbar';
-import { Alert } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -9,22 +8,21 @@ import Sidebar from '../../components/sidebar';
 import Select from 'react-select';
 import axios from 'axios';
 
-import './promocao.css'
+import './pacote.css'
 
 const options = [
     { value: 'produto 1', label: 'Produto 1' },
     { value: 'produto 2', label: 'Produto 2' },
     { value: 'produto 3', label: 'Produto 3' },
     { value: 'produto 4', label: 'Produto 4' },
-    { value: 'produto 5', label: 'Produto 5' },
 ];
 
-export default function Promocao() {
-    
+export default function Produto() {
+
     const [formValue, setFormValue] = useState({
-        promocaoNome: "",
-        promocaoPreco: "",
-        promocaoPacotes: ""
+        pacoteNome: "",
+        pacoteDescricao: "",
+        pacoteServicos: ""
     });
 
     const handleChange = (event: any) => {
@@ -37,53 +35,52 @@ export default function Promocao() {
         });
     };
 
-    const { promocaoNome, promocaoPreco, promocaoPacotes } = formValue;
+    const { pacoteNome, pacoteDescricao, pacoteServicos} = formValue;
 
     const handleSubmit = (event: any) => {
-        const promocao = {
-            nome: promocaoNome,
-            preco: promocaoPreco,
-            pacotes: promocaoPacotes
+        const pacote = {
+            nome: pacoteNome,
+            descricao: pacoteDescricao
         }
 
         event.preventDefault();
 
-        axios.post(`http://localhost:8080/promocoes/criarPromocao`, promocao).then((res) => {
-            alert('Promoção criado!');
+        axios.post(`http://localhost:8080/pacotes/criarPacote`, pacote).then((res) => {
+            alert('Pacote criado!');
         })
 
         let valores = {
-            promocaoNome: "",
-            promocaoPreco: "",
-            promocaoPacotes: ""
+            pacoteNome: "",
+            pacoteDescricao: "",
+            pacoteServicos: ""
         }
-
+        
         setFormValue(valores);
     };
-    
 
     return (
         <>
             <Navigation />
+            
             <Sidebar />
 
-            <div className='container-promo'>
-
-                <h1>Criação de Promoção</h1>
+            <div className='container-prod'>
+            
+                <h1>Criação de Pacote</h1>
 
                 <Form /*noValidate validated={validated} onSubmit={handleSubmit}*/>
 
                     <Row className="mb-3">
                         
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Nome da Promoção</Form.Label>
+                            <Form.Label>Nome do Pacote</Form.Label>
                             <Form.Control
                                 required
-                                name="promocaoNome"
-                                value={promocaoNome}
+                                name="pacoteNome"
+                                value={pacoteNome}
                                 onChange={handleChange}
                                 type="text"
-                                placeholder="Nome da Promoção"
+                                placeholder="Nome do Pacote"
                             />
                         </Form.Group>
 
@@ -92,15 +89,15 @@ export default function Promocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Preço da Promoção</Form.Label>
+                            <Form.Label>Descrição do Pacote</Form.Label>
                             <Form.Control
                                 required
-                                name="promocaoPreco"
-                                value={promocaoPreco}
+                                name="pacoteDescricao"
+                                value={pacoteDescricao}
                                 onChange={handleChange}
-                                type="number"
-                                placeholder="Preço da Promoção"
-                                defaultValue=""
+                                as="textarea"
+                                type="text"
+                                placeholder="Descrição da Pacote"
                             />
                         </Form.Group>
 
@@ -109,21 +106,22 @@ export default function Promocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Pacotes que compõem a promoção</Form.Label>
-                            <Select 
+                            <Form.Label>Categoria</Form.Label>
+                            <Select
                                 isMulti
-                                name="promocaoPacotes"
-                                value={promocaoPacotes}
+                                name="pacoteServicos"
+                                value={pacoteServicos}
                                 onChange={handleChange}
                                 isClearable={true}
                                 isSearchable={true}
+                                isLoading={false}
                             />
                         </Form.Group>
                         
                     </Row>
 
-                    <Button type="submit" onClick={handleSubmit}>Criar Promoção!</Button>
-                
+                    <Button type="submit" onClick={handleSubmit}>Criar Pacote!</Button>
+
                 </Form>
             
             </div>
