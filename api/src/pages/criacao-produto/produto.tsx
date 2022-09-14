@@ -23,7 +23,8 @@ export default function Produto() {
         produtoNome: "",
         produtoPreco: "",
         produtoCategoria: "",
-        produtoDescricao: ""
+        produtoDescricao: "",
+        produtoComplementares: ""
     });
 
     const handleChange = (event: any) => {
@@ -36,7 +37,7 @@ export default function Produto() {
         });
     };
 
-    const { produtoNome, produtoPreco, produtoCategoria, produtoDescricao } = formValue;
+    const { produtoNome, produtoPreco, produtoCategoria, produtoDescricao, produtoComplementares } = formValue;
 
     const handleSubmit = (event: any) => {
         const produto = {
@@ -56,9 +57,10 @@ export default function Produto() {
             produtoNome: "",
             produtoPreco: "",
             produtoCategoria: "",
-            produtoDescricao: ""
+            produtoDescricao: "",
+            produtoComplementares: ""
         }
-        
+
         setFormValue(valores);
 
     };
@@ -136,6 +138,23 @@ export default function Produto() {
                                 as="textarea"
                                 type="text"
                                 placeholder="Descrição do Produto"
+                            />
+                        </Form.Group>
+
+                    </Row>
+
+                    <Row className="mb-3">
+
+                        <Form.Group as={Col} md="6">
+                            <Form.Label>Produtos Complementares</Form.Label>
+                            <Select
+                                isMulti
+                                name="produtoComplementares"
+                                value={produtoComplementares}
+                                onChange={handleChange}
+                                isClearable={true}
+                                isSearchable={true}
+                                isLoading={false}
                             />
                         </Form.Group>
 
