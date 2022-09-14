@@ -56,6 +56,7 @@ const Header = () => {
               <MenuItem icon={<FaList />}>Categorias</MenuItem>
               <MenuItem icon={<FaRegHeart />}>Favoritos</MenuItem>
               <MenuItem icon={<FaCartPlus />}><Link to="/criacao-produto">Cadastro de Produtos</Link></MenuItem>
+              <MenuItem icon={<RiPencilLine />}><Link to="/criacao-pacote">Cadastro de Pacote</Link></MenuItem>
               <MenuItem icon={<RiPencilLine />}><Link to="/criacao-promocao">Cadastro de Promoções</Link></MenuItem>
               <MenuItem icon={<BiCog />}>Configurações</MenuItem>
               <MenuItem icon={<FiLogOut />}><Link to="/">Sair</Link></MenuItem>
