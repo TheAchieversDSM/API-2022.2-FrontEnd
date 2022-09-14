@@ -40,10 +40,25 @@ export default function Promocao() {
     const { promocaoNome, promocaoPreco, promocaoPacotes } = formValue;
 
     const handleSubmit = (event: any) => {
-        alert('Promoção criada!');
+        const promocao = {
+            nome: promocaoNome,
+            preco: promocaoPreco,
+            pacotes: promocaoPacotes
+        }
+
         event.preventDefault();
 
-        console.log("enviado");
+        axios.post(`http://localhost:8080/promocoes/criarPromocao`, promocao).then((res) => {
+            alert('Promoção criado!');
+        })
+
+        let valores = {
+            promocaoNome: "",
+            promocaoPreco: "",
+            promocaoPacotes: ""
+        }
+
+        setFormValue(valores);
     };
     
 
