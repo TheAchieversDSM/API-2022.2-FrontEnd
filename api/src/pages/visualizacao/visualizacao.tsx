@@ -4,25 +4,34 @@ import Navigation from '../../components/navbar';
 import Outline from '../../components/outlinebutton';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import axios from 'axios';
 
 import './visualizacao.css'
+import { Button } from 'react-bootstrap';
 
+let modelo = [
+    {
+        'id':'',
+        'nome':'',
+    }
+]
 
 
 export default function Visualizacao() {
     const [produto,setProduto] = useState(Object)
+    const [complementos,setComplementos] = useState(modelo)
     const [pacote,setPacotes] = useState([{}])
     const {id} = useParams();
-    console.log(id);
     useEffect(()=>{
         async function render() { 
         axios.get(`http://localhost:8080/produtos/pegarProduto/${id}`, ).then((res)=>{
             setProduto(res.data)
-            console.log(res.data)
+            setComplementos(res.data.complementares)
+            console.log(complementos);
+            
             })
         }
         render()
@@ -39,7 +48,7 @@ export default function Visualizacao() {
                     <div className="descricao">
                             <p>{produto.descricao}</p>
                     </div>
-                    <h2 className="preço">R$ 230,00</h2>
+                    <h2 className="preço">{produto.preco}</h2>
                     <Botao/>
                     <a className='texto'>Adicionar ao carrinho</a>
                 </div>
@@ -68,104 +77,27 @@ export default function Visualizacao() {
                 <div>
                     <h2 className="sugestao">Outras sugestões</h2>
                     <AliceCarousel>
+                        
                         <div className="yours-custom-class container">
+                        
                             <div className="row">
+                            {complementos!= null?
+                            complementos.map(complemento =>
                                 <div className="card col-4">
                                     <div className="card-img"></div>
+                                    <h4>{complemento.nome}</h4>
                                     <div className="card-botao">
+                                        <Button type="submit"><Link to={`/produto/${complemento.id}`} >Ver Produto!</Link></Button>
                                     </div>
+                                    <a className='texto'>Adicionar ao carrinho</a>
                                 </div>
-                                <div className="card col-4">
-                                    <div className="card-img"></div>
-                                    <div className="card-botao">
-                                    </div>
-                                </div>
-                                <div className="card col-4">
-                                    <div className="card-img"></div>
-                                    <div className="card-botao">
-                                    </div>
-                                </div>
-                                <div className="card col-4">
-                                    <div className="card-img"></div>
-                                    <div className="card-botao">
-                                    </div>
-                                </div>
+                                )
+                                : <></>
+                                }
                             </div>
+                             
                         </div>
-                        <div className="yours-custom-class container">
-                            <div className="row">
-                                <div className="card col-4">
-                                    <div className="card-img"></div>
-                                    <div className="card-botao">
-                                    </div>
-                                </div>
-                                <div className="card col-4">
-                                    <div className="card-img"></div>
-                                    <div className="card-botao">
-                                    </div>
-                                </div>
-                                <div className="card col-4">
-                                    <div className="card-img"></div>
-                                    <div className="card-botao">
-                                    </div>
-                                </div>
-                                <div className="card col-4">
-                                    <div className="card-img"></div>
-                                    <div className="card-botao">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="yours-custom-class container">
-                            <div className="row">
-                                <div className="card col-4">
-                                    <div className="card-img"></div>
-                                    <div className="card-botao">
-                                    </div>
-                                </div>
-                                <div className="card col-4">
-                                    <div className="card-img"></div>
-                                    <div className="card-botao">
-                                    </div>
-                                </div>
-                                <div className="card col-4">
-                                    <div className="card-img"></div>
-                                    <div className="card-botao">
-                                    </div>
-                                </div>
-                                <div className="card col-4">
-                                    <div className="card-img"></div>
-                                    <div className="card-botao">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="yours-custom-class container">
-                            <div className="row">
-                                <div className="card col-4">
-                                    <div className="card-img"></div>
-                                    <div className="card-botao">
-                                    </div>
-                                </div>
-                                <div className="card col-4">
-                                    <div className="card-img"></div>
-                                    <div className="card-botao">
-                                    </div>
-                                </div>
-                                <div className="card col-4">
-                                    <div className="card-img"></div>
-                                    <div className="card-botao">
-                                    </div>
-                                </div>
-                                <div className="card col-4">
-                                    <div className="card-img"></div>
-                                    <div className="card-botao">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
                     </AliceCarousel>
                 </div>
             </div>

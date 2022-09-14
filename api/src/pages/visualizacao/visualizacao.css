@@ -101,7 +101,7 @@ h3{
 
 .card {
     width: 250px;
-    height: 270px;
+    height: 290px;
     align-items: center !important;
     margin: 10px;
 }
@@ -117,4 +117,13 @@ h3{
 
 h3{
     color: aliceblue;
+}
+
+.card-botao > .btn-primary > a {
+    color: white !important;
+    
+}
+
+.card-botao > .btn-primary{
+    margin-bottom: 5px;
 }

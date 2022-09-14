@@ -36,9 +36,9 @@ a.desktop-logo.navbar-brand {
 
 @media only screen and (max-width: 720px) {
     .desktop-logo {
-      display:none;
+        display:none;
     }
     .mobile-logo{
         display: inline;
     }
-  }
+}
