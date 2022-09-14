@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navigation from '../../components/navbar';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -36,7 +36,7 @@ export default function Produto() {
         });
     };
 
-    const { produtoNome, produtoPreco, produtoCategoria, produtoDescricao} = formValue;
+    const { produtoNome, produtoPreco, produtoCategoria, produtoDescricao } = formValue;
 
     const handleSubmit = (event: any) => {
         const produto = {
@@ -51,22 +51,32 @@ export default function Produto() {
         axios.post(`http://localhost:8080/produtos/criarProduto`, produto).then((res) => {
             alert('Produto criado!');
         })
+
+        let valores = {
+            produtoNome: "",
+            produtoPreco: "",
+            produtoCategoria: "",
+            produtoDescricao: ""
+        }
+        
+        setFormValue(valores);
+
     };
 
     return (
         <>
             <Navigation />
-            
+
             <Sidebar />
 
             <div className='container-prod'>
-            
+
                 <h1>Criação de Produto</h1>
 
                 <Form /*noValidate validated={validated} onSubmit={handleSubmit}*/>
 
                     <Row className="mb-3">
-                        
+
                         <Form.Group as={Col} md="6">
                             <Form.Label>Nome do Produto</Form.Label>
                             <Form.Control
@@ -101,7 +111,7 @@ export default function Produto() {
 
                         <Form.Group as={Col} md="6">
                             <Form.Label>Categoria</Form.Label>
-                            <Select 
+                            <Select
                                 isMulti
                                 name="produtoCategoria"
                                 value={produtoCategoria}
@@ -111,22 +121,22 @@ export default function Produto() {
                                 isLoading={false}
                             />
                         </Form.Group>
-                        
+
                     </Row>
 
                     <Row className="mb-3 FormText" >
-                        
+
                         <Form.Group as={Col} md="6">
                             <Form.Label>Descrição</Form.Label>
-                            <Form.Control 
+                            <Form.Control
                                 required
                                 name="produtoDescricao"
                                 value={produtoDescricao}
                                 onChange={handleChange}
-                                as="textarea"                                
+                                as="textarea"
                                 type="text"
                                 placeholder="Descrição do Produto"
-                            />                          
+                            />
                         </Form.Group>
 
                     </Row>
@@ -134,7 +144,7 @@ export default function Produto() {
                     <Button type="submit" onClick={handleSubmit}>Criar Produto!</Button>
 
                 </Form>
-            
+
             </div>
 
         </>
