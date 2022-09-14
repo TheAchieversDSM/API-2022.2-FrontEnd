@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Sidebar from '../../components/sidebar';
 import Select from 'react-select';
+import axios from 'axios';
 
 import './produto.css'
 
@@ -38,10 +39,18 @@ export default function Produto() {
     const { produtoNome, produtoPreco, produtoCategoria, produtoDescricao} = formValue;
 
     const handleSubmit = (event: any) => {
-        alert('Produto criado!');
+        const produto = {
+            nome: produtoNome,
+            preco: produtoPreco,
+            /* produtoCategoria: produtoCategoria, */
+            descricao: produtoDescricao
+        }
+
         event.preventDefault();
 
-        console.log("enviado");
+        axios.post(`http://localhost:8080/produtos/criarProduto`, produto).then((res) => {
+            alert('Produto criado!');
+        })
     };
 
     return (
