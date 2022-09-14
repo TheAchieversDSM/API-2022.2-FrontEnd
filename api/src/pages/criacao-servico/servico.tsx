@@ -1,30 +1,28 @@
 import React, { useState } from 'react';
 import Navigation from '../../components/navbar';
-import { Alert } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Sidebar from '../../components/sidebar';
 import Select from 'react-select';
-import axios from 'axios';
 
-import './promocao.css'
+import './servico.css'
 
 const options = [
-    { value: 'produto 1', label: 'Produto 1' },
-    { value: 'produto 2', label: 'Produto 2' },
-    { value: 'produto 3', label: 'Produto 3' },
-    { value: 'produto 4', label: 'Produto 4' },
-    { value: 'produto 5', label: 'Produto 5' },
+    { value: 'servico 1', label: 'Servico 1' },
+    { value: 'servico 2', label: 'Servico 2' },
+    { value: 'servico 3', label: 'Servico 3' },
+    { value: 'servico 4', label: 'Servico 4' },
 ];
 
-export default function Promocao() {
-    
+export default function Servico() {
+
     const [formValue, setFormValue] = useState({
-        promocaoNome: "",
-        promocaoPreco: "",
-        promocaoPacotes: ""
+        servicoNome: "",
+        servicoPreco: "",
+        servicoProduto: "",
+        servicoDescricao: ""
     });
 
     const handleChange = (event: any) => {
@@ -37,53 +35,38 @@ export default function Promocao() {
         });
     };
 
-    const { promocaoNome, promocaoPreco, promocaoPacotes } = formValue;
+    const { servicoNome, servicoPreco, servicoProduto, servicoDescricao} = formValue;
 
     const handleSubmit = (event: any) => {
-        const promocao = {
-            nome: promocaoNome,
-            preco: promocaoPreco,
-            pacotes: promocaoPacotes
-        }
-
+        alert('Serviço criado!');
         event.preventDefault();
 
-        axios.post(`http://localhost:8080/promocoes/criarPromocao`, promocao).then((res) => {
-            alert('Promoção criado!');
-        })
-
-        let valores = {
-            promocaoNome: "",
-            promocaoPreco: "",
-            promocaoPacotes: ""
-        }
-
-        setFormValue(valores);
+        console.log("enviado");
     };
-    
 
     return (
         <>
             <Navigation />
+            
             <Sidebar />
 
-            <div className='container-promo'>
-
-                <h1>Criação de Promoção</h1>
+            <div className='container-prod'>
+            
+                <h1>Criação de Serviço</h1>
 
                 <Form /*noValidate validated={validated} onSubmit={handleSubmit}*/>
 
                     <Row className="mb-3">
                         
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Nome da Promoção</Form.Label>
+                            <Form.Label>Nome do Serviço</Form.Label>
                             <Form.Control
                                 required
-                                name="promocaoNome"
-                                value={promocaoNome}
+                                name="servicoNome"
+                                value={servicoNome}
                                 onChange={handleChange}
                                 type="text"
-                                placeholder="Nome da Promoção"
+                                placeholder="Nome do Serviço"
                             />
                         </Form.Group>
 
@@ -92,15 +75,14 @@ export default function Promocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Preço da Promoção</Form.Label>
+                            <Form.Label>Preço </Form.Label>
                             <Form.Control
                                 required
-                                name="promocaoPreco"
-                                value={promocaoPreco}
+                                name="servicoPreco"
+                                value={servicoPreco}
                                 onChange={handleChange}
                                 type="number"
-                                placeholder="Preço da Promoção"
-                                defaultValue=""
+                                placeholder="Preço do Serviço"
                             />
                         </Form.Group>
 
@@ -109,21 +91,39 @@ export default function Promocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Pacotes que compõem a promoção</Form.Label>
+                            <Form.Label>Produtos</Form.Label>
                             <Select 
                                 isMulti
-                                name="promocaoPacotes"
-                                value={promocaoPacotes}
+                                name="servicoProduto"
+                                value={servicoProduto}
                                 onChange={handleChange}
                                 isClearable={true}
                                 isSearchable={true}
+                                isLoading={false}
                             />
                         </Form.Group>
                         
                     </Row>
 
-                    <Button type="submit" onClick={handleSubmit}>Criar Promoção!</Button>
-                
+                    <Row className="mb-3 FormText" >
+                        
+                        <Form.Group as={Col} md="6">
+                            <Form.Label>Descrição</Form.Label>
+                            <Form.Control 
+                                required
+                                name="servicoDescricao"
+                                value={servicoDescricao}
+                                onChange={handleChange}
+                                as="textarea"                                
+                                type="text"
+                                placeholder="Descrição do Serviço"
+                            />                          
+                        </Form.Group>
+
+                    </Row>
+
+                    <Button type="submit" onClick={handleSubmit}>Criar Servico!</Button>
+
                 </Form>
             
             </div>
