@@ -6,7 +6,6 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Sidebar from '../../components/sidebar';
-//import Multiselect from 'multiselect-react-dropdown';
 import Select from 'react-select';
 import axios from 'axios';
 
@@ -25,10 +24,7 @@ export default function Promocao() {
     const [formValue, setFormValue] = useState({
         promocaoNome: "",
         promocaoPreco: "",
-        promocaoProdutos: "",
-        promocaoProdutosComp: "",
-        promocaoProdutosObrig: "",
-        promocaoProdutosRestring: "",
+        promocaoPacotes: ""
     });
 
     const handleChange = (event: any) => {
@@ -41,7 +37,7 @@ export default function Promocao() {
         });
     };
 
-    const { promocaoNome, promocaoPreco, promocaoProdutos, promocaoProdutosComp, promocaoProdutosObrig, promocaoProdutosRestring } = formValue;
+    const { promocaoNome, promocaoPreco, promocaoPacotes } = formValue;
 
     const handleSubmit = (event: any) => {
         alert('Promoção criada!');
@@ -98,60 +94,11 @@ export default function Promocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Produtos que compõem a promoção</Form.Label>
+                            <Form.Label>Pacotes que compõem a promoção</Form.Label>
                             <Select 
                                 isMulti
-                                name="promocaoProdutos"
-                                value={promocaoProdutos}
-                                onChange={handleChange}
-                                isClearable={true}
-                                isSearchable={true}
-                            />
-                        </Form.Group>
-                        
-                    </Row>
-
-                    <Row className="mb-3">
-
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Produtos complementares</Form.Label>
-                            <Select 
-                                isMulti
-                                name="promocaoProdutosComp"
-                                value={promocaoProdutosComp}
-                                onChange={handleChange}
-                                isClearable={true}
-                                isSearchable={true}
-                                isLoading={false}
-                            />
-                        </Form.Group>
-
-                    </Row>
-
-                    <Row className="mb-3">
-
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Produtos obrigatórios</Form.Label>
-                            <Select 
-                                isMulti
-                                name="promocaoProdutosObrig"
-                                value={promocaoProdutosObrig}
-                                onChange={handleChange}
-                                isClearable={true}
-                                isSearchable={true}
-                            />
-                        </Form.Group>
-                        
-                    </Row>
-
-                    <Row className="mb-3">
-
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Produtos restringentes</Form.Label>
-                            <Select 
-                                isMulti
-                                name="promocaoProdutosRestring"
-                                value={promocaoProdutosRestring}
+                                name="promocaoPacotes"
+                                value={promocaoPacotes}
                                 onChange={handleChange}
                                 isClearable={true}
                                 isSearchable={true}
@@ -168,8 +115,4 @@ export default function Promocao() {
 
         </>
     )
-}
-
-function validateForm() {
-    throw new Error('Function not implemented.');
 }
