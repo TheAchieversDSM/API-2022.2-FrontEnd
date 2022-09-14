@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { Route, BrowserRouter, Routes as Switch } from "react-router-dom";
 
 import Produto from "../pages/criacao-produto/produto";
@@ -11,7 +10,6 @@ import Home from "../pages/home/home";
 const Routes = () => {
     return (
         <BrowserRouter>
-            <Fragment>
                 <Switch>
                     <Route path="/criacao-produto" element={<Produto />} />
                     <Route path="/" element={<Home/>}/>
@@ -21,7 +19,6 @@ const Routes = () => {
                     <Route path="/criacao-produto" element={<Produto />} />
                     <Route path="/criacao-servico" element={<Servico />} />
                 </Switch>
-            </Fragment>
         </BrowserRouter>
     )
 }
