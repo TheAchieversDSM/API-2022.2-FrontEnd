@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navigation from '../../components/navbar';
 import { Alert } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
@@ -11,22 +11,31 @@ import axios from 'axios';
 
 import './promocao.css'
 
-const options = [
-    { value: 'produto 1', label: 'Produto 1' },
-    { value: 'produto 2', label: 'Produto 2' },
-    { value: 'produto 3', label: 'Produto 3' },
-    { value: 'produto 4', label: 'Produto 4' },
-    { value: 'produto 5', label: 'Produto 5' },
+const modeloPacote = [
+    { value: '', label: '' }
 ];
 
 export default function Promocao() {
-    
+    const [pacotes,setPacotes] = useState(modeloPacote)
+
     const [formValue, setFormValue] = useState({
         promocaoNome: "",
         promocaoPreco: "",
         promocaoPacotes: ""
     });
 
+
+    const handleChangePacote= (event: any) => {
+        const { name, value } = {name: 'promocaoPacotes', value: event[0].value};
+        setFormValue((prevState) => {
+            return {
+                ...prevState,
+                [name]: value,
+            };
+        });
+        console.log(formValue)
+    };
+    
     const handleChange = (event: any) => {
         const { name, value } = event.target;
         setFormValue((prevState) => {
@@ -37,13 +46,29 @@ export default function Promocao() {
         });
     };
 
+    useEffect(()=>{
+        async function render() { 
+        axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res)=>{
+                var pacotes = []
+                for (let index = 0; index < res.data.length; index++) {
+                    let option = {
+                        value: res.data[index].id,
+                        label: res.data[index].nome
+                    }
+                    pacotes.push(option)
+                }
+                setPacotes(pacotes)
+            })
+        }
+        render()
+    },[])
+
     const { promocaoNome, promocaoPreco, promocaoPacotes } = formValue;
 
     const handleSubmit = (event: any) => {
         const promocao = {
             nome: promocaoNome,
             preco: promocaoPreco,
-            pacotes: promocaoPacotes
         }
 
         event.preventDefault();
@@ -113,10 +138,11 @@ export default function Promocao() {
                             <Select 
                                 isMulti
                                 name="promocaoPacotes"
-                                value={promocaoPacotes}
-                                onChange={handleChange}
+                                options={pacotes}
+                                onChange={handleChangePacote}
                                 isClearable={true}
                                 isSearchable={true}
+                                closeMenuOnSelect ={false}
                             />
                         </Form.Group>
                         

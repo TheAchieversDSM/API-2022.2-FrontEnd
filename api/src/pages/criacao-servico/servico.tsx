@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navigation from '../../components/navbar';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -8,15 +8,24 @@ import Sidebar from '../../components/sidebar';
 import Select from 'react-select';
 
 import './servico.css'
+import axios from 'axios';
 
-const options = [
-    { value: 'servico 1', label: 'Servico 1' },
-    { value: 'servico 2', label: 'Servico 2' },
-    { value: 'servico 3', label: 'Servico 3' },
-    { value: 'servico 4', label: 'Servico 4' },
+const modeloOptions = [
+    { 
+    value: '', 
+    label: '' 
+    }
 ];
 
+let modelo = [
+    {
+        'id':'',
+        'nome':'',
+    }
+]
 export default function Servico() {
+
+    const [options, setOptions] = useState(modeloOptions)
 
     const [formValue, setFormValue] = useState({
         servicoNome: "",
@@ -24,6 +33,7 @@ export default function Servico() {
         servicoProduto: "",
         servicoDescricao: ""
     });
+
 
     const handleChange = (event: any) => {
         const { name, value } = event.target;
@@ -34,15 +44,50 @@ export default function Servico() {
             };
         });
     };
+    
 
-    const { servicoNome, servicoPreco, servicoProduto, servicoDescricao} = formValue;
+    const { servicoNome, servicoPreco, servicoProduto, servicoDescricao } = formValue;
+
+    const handleChangeProduto= (event: any) => {
+        const { name, value } = {name: 'servicoProduto', value: event[0].value};
+        setFormValue((prevState) => {
+            return {
+                ...prevState,
+                [name]: value,
+            };
+        });
+        console.log(formValue)
+    };
 
     const handleSubmit = (event: any) => {
-        alert('Serviço criado!');
+        const servico = {
+            nome: servicoNome,
+            descricao: servicoDescricao,
+            preco: servicoPreco,
+        }
+        axios.post("http://localhost:8080/servicos/criarServico",servico).then((res)=>{
+            alert('Serviço criado!')
+        })
+        
         event.preventDefault();
-
-        console.log("enviado");
     };
+
+    useEffect(()=>{
+        async function render() { 
+        axios.get(`http://localhost:8080/produtos/pegarTodosProdutos`).then((res)=>{
+                var produtos = []
+                for (let index = 0; index < res.data.length; index++) {
+                    let option = {
+                        value: res.data[index].id,
+                        label: res.data[index].nome
+                    }
+                    produtos.push(option)
+                }
+                setOptions(produtos)
+            })
+        }
+        render()
+    },[])
 
     return (
         <>
@@ -95,11 +140,12 @@ export default function Servico() {
                             <Select 
                                 isMulti
                                 name="servicoProduto"
-                                value={servicoProduto}
-                                onChange={handleChange}
+                                onChange={handleChangeProduto}
                                 isClearable={true}
                                 isSearchable={true}
+                                closeMenuOnSelect ={false}
                                 isLoading={false}
+                                options={options}
                             />
                         </Form.Group>
                         

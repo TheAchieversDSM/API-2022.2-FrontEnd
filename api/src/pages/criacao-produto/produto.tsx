@@ -10,21 +10,29 @@ import axios from 'axios';
 
 import './produto.css'
 
-const options = [
-    { value: 'produto 1', label: 'Produto 1' },
-    { value: 'produto 2', label: 'Produto 2' },
-    { value: 'produto 3', label: 'Produto 3' },
-    { value: 'produto 4', label: 'Produto 4' },
+const categorias = [
+    { value: 'Meu Negócio', label: 'Meu Negócio' },
+    { value: 'Streaming', label: 'Streaming' },
+    { value: 'Música', label: 'Música' },
+    { value: 'Segurança Digital', label: 'Segurança Digital' },
 ];
 
+const complementaresModelo = [
+    {value:'', label:''}
+]
+
 export default function Produto() {
+
+    const [produtos,setProdutos] = useState(complementaresModelo)
+
+    const [complementos,setComplementos] = useState([{id:"",nome:""}])
 
     const [formValue, setFormValue] = useState({
         produtoNome: "",
         produtoPreco: "",
         produtoCategoria: "",
         produtoDescricao: "",
-        produtoComplementares: ""
+        produtoComplementares:""
     });
 
     const handleChange = (event: any) => {
@@ -36,6 +44,28 @@ export default function Produto() {
             };
         });
     };
+
+    const handleChangeCategoria = (event: any) => {
+        const { name, value } = {name: 'produtoCategoria', value: event[0].value};
+        setFormValue((prevState) => {
+            return {
+                ...prevState,
+                [name]: value,
+            };
+        });
+        console.log(formValue)
+    };
+
+    {/*const handleChangeComplementares = (event: any) => {
+        var produtosSelecionados:  []
+        for (let index = 0; index < event.length; index++) {
+            let produto = {id:event[index].id, nome:event[index].nome}
+            produtosSelecionados.push(produto)
+            
+        }
+        setComplementos(produtosSelecionados)
+        console.log(formValue)
+    };*/}
 
     const { produtoNome, produtoPreco, produtoCategoria, produtoDescricao, produtoComplementares } = formValue;
 
@@ -64,6 +94,23 @@ export default function Produto() {
         setFormValue(valores);
 
     };
+
+    useEffect(()=>{
+        async function render() { 
+        axios.get(`http://localhost:8080/produtos/pegarTodosProdutos`).then((res)=>{
+                var produtos = []
+                for (let index = 0; index < res.data.length; index++) {
+                    let option = {
+                        value: res.data[index].id,
+                        label: res.data[index].nome
+                    }
+                    produtos.push(option)
+                }
+                setProdutos(produtos)
+            })
+        }
+        render()
+    },[])
 
     return (
         <>
@@ -114,12 +161,13 @@ export default function Produto() {
                         <Form.Group as={Col} md="6">
                             <Form.Label>Categoria</Form.Label>
                             <Select
-                                isMulti
+                                isMulti = {true}
                                 name="produtoCategoria"
-                                value={produtoCategoria}
-                                onChange={handleChange}
+                                options={categorias}
+                                onChange={handleChangeCategoria}
                                 isClearable={true}
                                 isSearchable={true}
+                                closeMenuOnSelect ={false}
                                 isLoading={false}
                             />
                         </Form.Group>
@@ -150,10 +198,11 @@ export default function Produto() {
                             <Select
                                 isMulti
                                 name="produtoComplementares"
-                                value={produtoComplementares}
+                                options={produtos}
                                 onChange={handleChange}
                                 isClearable={true}
                                 isSearchable={true}
+                                closeMenuOnSelect ={false}
                                 isLoading={false}
                             />
                         </Form.Group>
