@@ -50,22 +50,22 @@ export default function Home() {
                 <div className="feed">
                 {produtos.map(produto =>
                     <>
-                     <div className="card">
+                        <div className="card">
 
-                     <div className="card-img"></div>
+                        <div className="card-img"></div>
 
-                     <div className="nome-prod">
+                        <div className="nome-prod">
                         <h4>{produto.nome}</h4>
                     </div>
-                      
-                     <div className="card-botao">
-                         <Button type="submit"><Link to={`/produto/${produto.id}`} >Ver Produto!</Link></Button>
-                     </div>
+                        
+                        <div className="card-botao">
+                            <Button type="submit"><Link to={`/produto/${produto.id}`} >Ver Produto!</Link></Button>
+                        </div>
 
-                 </div>
-                 </>
+                    </div>
+                    </>
                 )}
-                   
+                    
                 </div>
             
             </div>

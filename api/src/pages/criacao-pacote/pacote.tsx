@@ -11,19 +11,22 @@ import axios from 'axios';
 import './pacote.css'
 
 const options = [
-    { value: 'produto 1', label: 'Produto 1' },
-    { value: 'produto 2', label: 'Produto 2' },
-    { value: 'produto 3', label: 'Produto 3' },
-    { value: 'produto 4', label: 'Produto 4' },
+    { value: 'Meu Negócio', label: 'Meu Negócio' },
+    { value: 'Streaming', label: 'Streaming' },
+    { value: 'Música', label: 'Música' },
+    { value: 'Segurança Digital', label: 'Segurança Digital' },
 ];
 
-export default function Produto() {
+export default function Pacote() {
+
 
     const [formValue, setFormValue] = useState({
         pacoteNome: "",
         pacoteDescricao: "",
         pacoteServicos: ""
     });
+
+
 
     const handleChange = (event: any) => {
         const { name, value } = event.target;
@@ -110,12 +113,12 @@ export default function Produto() {
                             <Select
                                 isMulti
                                 name="pacoteServicos"
-                                value={pacoteServicos}
                                 onChange={handleChange}
                                 isClearable={true}
                                 isSearchable={true}
-                                isLoading={false}
-                            />
+                                isLoading={false} 
+                                options={options}
+                                />
                         </Form.Group>
                         
                     </Row>
