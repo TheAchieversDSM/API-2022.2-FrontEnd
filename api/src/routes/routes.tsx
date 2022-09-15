@@ -12,7 +12,6 @@ const Routes = () => {
     return (
         <BrowserRouter>
                 <Switch>
-                    <Route path="/criacao-produto" element={<Produto />} />
                     <Route path="/" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>   
                     <Route path="/produto/:id" element={<Visualizacao/>}/>
