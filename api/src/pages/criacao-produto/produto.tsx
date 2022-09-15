@@ -21,7 +21,12 @@ const complementaresModelo = [
     {value:'', label:''}
 ]
 
+type produtoModelo={id:"",nome:""}
+
+
+
 export default function Produto() {
+    let lista: produtoModelo[] = []
 
     const [produtos,setProdutos] = useState(complementaresModelo)
 
@@ -32,7 +37,7 @@ export default function Produto() {
         produtoPreco: "",
         produtoCategoria: "",
         produtoDescricao: "",
-        produtoComplementares:""
+        produtoComplementares: lista
     });
 
     const handleChange = (event: any) => {
@@ -53,19 +58,19 @@ export default function Produto() {
                 [name]: value,
             };
         });
-        console.log(formValue)
+        console.log(formValue.produtoComplementares)
     };
 
-    {/*const handleChangeComplementares = (event: any) => {
-        var produtosSelecionados:  []
+    const handleChangeComplementares = (event: any) => {
+        var produtosSelecionados:  produtoModelo[] =  []
         for (let index = 0; index < event.length; index++) {
-            let produto = {id:event[index].id, nome:event[index].nome}
+            let produto = {id:event[index].value, nome:event[index].label}
+            console.log(produto)
             produtosSelecionados.push(produto)
-            
         }
         setComplementos(produtosSelecionados)
         console.log(formValue)
-    };*/}
+    };
 
     const { produtoNome, produtoPreco, produtoCategoria, produtoDescricao, produtoComplementares } = formValue;
 
@@ -88,7 +93,7 @@ export default function Produto() {
             produtoPreco: "",
             produtoCategoria: "",
             produtoDescricao: "",
-            produtoComplementares: ""
+            produtoComplementares:lista
         }
 
         setFormValue(valores);
@@ -122,7 +127,7 @@ export default function Produto() {
 
                 <h1>Criação de Produto</h1>
 
-                <Form /*noValidate validated={validated} onSubmit={handleSubmit}*/>
+                <Form>
 
                     <Row className="mb-3">
 
@@ -143,7 +148,7 @@ export default function Produto() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Preço </Form.Label>
+                            <Form.Label>Preço do Produto</Form.Label>
                             <Form.Control
                                 required
                                 name="produtoPreco"
@@ -159,7 +164,7 @@ export default function Produto() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Categoria</Form.Label>
+                            <Form.Label>Categoria do Produto</Form.Label>
                             <Select
                                 isMulti = {true}
                                 name="produtoCategoria"
@@ -177,7 +182,7 @@ export default function Produto() {
                     <Row className="mb-3 FormText" >
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Descrição</Form.Label>
+                            <Form.Label>Descrição do Produto</Form.Label>
                             <Form.Control
                                 required
                                 name="produtoDescricao"
@@ -199,7 +204,7 @@ export default function Produto() {
                                 isMulti
                                 name="produtoComplementares"
                                 options={produtos}
-                                onChange={handleChange}
+                                onChange={handleChangeComplementares}
                                 isClearable={true}
                                 isSearchable={true}
                                 closeMenuOnSelect ={false}

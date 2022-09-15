@@ -48,7 +48,7 @@ export default function Visualizacao() {
                     <div className="descricao">
                             <p>{produto.descricao}</p>
                     </div>
-                    <h2 className="preço">{produto.preco}</h2>
+                    <h2 className="preço">R$ {produto.preco}</h2>
                     <Botao/>
                     <a className='texto'>Adicionar ao carrinho</a>
                 </div>
