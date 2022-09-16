@@ -18,8 +18,16 @@ h1 {
 
 .display-login {
     background-color: #3a6ea5;
-    margin-right: 0;
+    position: relative;
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
     
+}
+
+.display-login img {
+    width: 30rem;
 }
 
 .btn-primary {

@@ -1,5 +1,6 @@
 import React from 'react';
 import Navigation from '../../components/navbar';
+import UolLogo from '../../assets/image/logo.svg';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -55,7 +56,7 @@ export default function Home() {
 
                 </div>
 
-                <div className='display-login'></div>
+                <div className='display-login'><img src={UolLogo}/></div>
 
             </div>
 

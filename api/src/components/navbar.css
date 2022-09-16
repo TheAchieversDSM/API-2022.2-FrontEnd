@@ -17,6 +17,12 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light {
 .mobile-logo {
     display:none;
     color: white !important;
+    
+}
+
+.desktop-logo a img {
+    width: 80px;
+    
 }
 
 a {

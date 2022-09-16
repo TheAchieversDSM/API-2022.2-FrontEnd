@@ -1,4 +1,5 @@
 import Button from 'react-bootstrap/Button';
+import LogoUol from '../assets/image/uol.svg';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
@@ -14,9 +15,9 @@ function Navigation() {
             <Navbar bg="light" expand="lg">
                 <Container fluid>
                     <Navbar.Toggle aria-controls="navbarScroll" />
-                    <Navbar.Brand className="mobile-logo"><Link to="/">UOL</Link></Navbar.Brand>
+                    <Navbar.Brand className="mobile-logo"><Link to="/"><img src={LogoUol}/></Link></Navbar.Brand>
                     <Navbar.Collapse id="navbarScroll" className="flex-row-reverse">
-                    <Navbar.Brand className="desktop-logo"><Link to="/">UOL</Link></Navbar.Brand>
+                    <Navbar.Brand className="desktop-logo"><Link to="/"><img src={LogoUol}/></Link></Navbar.Brand>
                         <Nav
                             className="ms-auto my-2 my-lg-0"
                             style={{ maxHeight: '100px' }}

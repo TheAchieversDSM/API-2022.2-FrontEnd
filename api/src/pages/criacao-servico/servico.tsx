@@ -97,7 +97,7 @@ export default function Servico() {
 
             <div className='container-prod'>
             
-                <h1>Criação de Serviço</h1>
+                <h1>Criação de Serviços</h1>
 
                 <Form /*noValidate validated={validated} onSubmit={handleSubmit}*/>
 
