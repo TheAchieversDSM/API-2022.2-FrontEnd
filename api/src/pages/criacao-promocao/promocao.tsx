@@ -15,25 +15,34 @@ const modeloPacote = [
     { value: '', label: '' }
 ];
 
+type pacoteModelo={id:"",nome:""}
+
 export default function Promocao() {
     const [pacotes,setPacotes] = useState(modeloPacote)
+
+    let listaPacotes: pacoteModelo[] = []
 
     const [formValue, setFormValue] = useState({
         promocaoNome: "",
         promocaoPreco: "",
-        promocaoPacotes: ""
+        promocaoPacotes: listaPacotes
     });
 
 
-    const handleChangePacote= (event: any) => {
-        const { name, value } = {name: 'promocaoPacotes', value: event[0].value};
+    const handleChangePacotes= (event: any) => {
+        var pacotesSelecionados:  pacoteModelo[] =  []
+        for (let index = 0; index < event.length; index++) {
+            let pacote = {id:event[index].value, nome:event[index].label}
+            console.log(pacote)
+            pacotesSelecionados.push(pacote)
+        }
+
         setFormValue((prevState) => {
             return {
                 ...prevState,
-                [name]: value,
+                promocaoPacotes: pacotesSelecionados,
             };
         });
-        console.log(formValue)
     };
     
     const handleChange = (event: any) => {
@@ -80,7 +89,7 @@ export default function Promocao() {
         let valores = {
             promocaoNome: "",
             promocaoPreco: "",
-            promocaoPacotes: ""
+            promocaoPacotes: listaPacotes
         }
 
         setFormValue(valores);
@@ -139,7 +148,7 @@ export default function Promocao() {
                                 isMulti
                                 name="promocaoPacotes"
                                 options={pacotes}
-                                onChange={handleChangePacote}
+                                onChange={handleChangePacotes}
                                 isClearable={true}
                                 isSearchable={true}
                                 closeMenuOnSelect ={false}

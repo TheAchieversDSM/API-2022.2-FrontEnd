@@ -17,20 +17,17 @@ const modeloOptions = [
     }
 ];
 
-let modelo = [
-    {
-        'id':'',
-        'nome':'',
-    }
-]
-export default function Servico() {
+type produtoModelo={id:"",nome:""}
 
+export default function Servico() {
+    let listaProdutos: produtoModelo[] = []
+    
     const [options, setOptions] = useState(modeloOptions)
 
     const [formValue, setFormValue] = useState({
         servicoNome: "",
         servicoPreco: "",
-        servicoProduto: "",
+        servicoProduto: listaProdutos,
         servicoDescricao: ""
     });
 
@@ -48,12 +45,17 @@ export default function Servico() {
 
     const { servicoNome, servicoPreco, servicoProduto, servicoDescricao } = formValue;
 
-    const handleChangeProduto= (event: any) => {
-        const { name, value } = {name: 'servicoProduto', value: event[0].value};
+    const handleChangeProdutos = (event: any) => {
+        var produtosSelecionados:  produtoModelo[] =  []
+        for (let index = 0; index < event.length; index++) {
+            let produto = {id:event[index].value, nome:event[index].label}
+            console.log(produto)
+            produtosSelecionados.push(produto)
+        }
         setFormValue((prevState) => {
             return {
                 ...prevState,
-                [name]: value,
+                servicoProduto: produtosSelecionados,
             };
         });
         console.log(formValue)
@@ -64,6 +66,7 @@ export default function Servico() {
             nome: servicoNome,
             descricao: servicoDescricao,
             preco: servicoPreco,
+            produtos: servicoProduto,
         }
         axios.post("http://localhost:8080/servicos/criarServico",servico).then((res)=>{
             alert('Serviço criado!')
@@ -140,7 +143,7 @@ export default function Servico() {
                             <Select 
                                 isMulti
                                 name="servicoProduto"
-                                onChange={handleChangeProduto}
+                                onChange={handleChangeProdutos}
                                 isClearable={true}
                                 isSearchable={true}
                                 closeMenuOnSelect ={false}

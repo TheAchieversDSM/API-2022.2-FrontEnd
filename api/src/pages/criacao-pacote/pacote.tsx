@@ -17,16 +17,25 @@ const options = [
     { value: 'Segurança Digital', label: 'Segurança Digital' },
 ];
 
-export default function Pacote() {
+type servicoModelo={id:"",nome:""}
 
+export default function Pacote() {
+    let listaServicos: servicoModelo[] = []
 
     const [formValue, setFormValue] = useState({
         pacoteNome: "",
         pacoteDescricao: "",
-        pacoteServicos: ""
+        pacoteServicos: listaServicos
     });
 
-
+    const handleChangeServicos = (event: any) =>{
+        var servicosSelecionados:  servicoModelo[] =  []
+        for (let index = 0; index < event.length; index++) {
+            let servico = {id:event[index].value, nome:event[index].label}
+            console.log(servico)
+            servicosSelecionados.push(servico)
+        }
+    }
 
     const handleChange = (event: any) => {
         const { name, value } = event.target;
@@ -55,7 +64,7 @@ export default function Pacote() {
         let valores = {
             pacoteNome: "",
             pacoteDescricao: "",
-            pacoteServicos: ""
+            pacoteServicos: listaServicos
         }
         
         setFormValue(valores);
@@ -113,7 +122,7 @@ export default function Pacote() {
                             <Select
                                 isMulti
                                 name="pacoteServicos"
-                                onChange={handleChange}
+                                onChange={handleChangeServicos}
                                 isClearable={true}
                                 isSearchable={true}
                                 isLoading={false} 

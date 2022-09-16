@@ -26,7 +26,7 @@ type produtoModelo={id:"",nome:""}
 
 
 export default function Produto() {
-    let lista: produtoModelo[] = []
+    let listaProdutos: produtoModelo[] = []
 
     const [produtos,setProdutos] = useState(complementaresModelo)
 
@@ -37,7 +37,7 @@ export default function Produto() {
         produtoPreco: "",
         produtoCategoria: "",
         produtoDescricao: "",
-        produtoComplementares: lista
+        produtoComplementares: listaProdutos
     });
 
     const handleChange = (event: any) => {
@@ -51,14 +51,12 @@ export default function Produto() {
     };
 
     const handleChangeCategoria = (event: any) => {
-        const { name, value } = {name: 'produtoCategoria', value: event[0].value};
         setFormValue((prevState) => {
             return {
                 ...prevState,
-                [name]: value,
+                produtoCategoria: event[0].value,
             };
         });
-        console.log(formValue.produtoComplementares)
     };
 
     const handleChangeComplementares = (event: any) => {
@@ -78,8 +76,9 @@ export default function Produto() {
         const produto = {
             nome: produtoNome,
             preco: produtoPreco,
-            /* produtoCategoria: produtoCategoria, */
-            descricao: produtoDescricao
+            produtoCategoria: produtoCategoria,
+            descricao: produtoDescricao,
+            complementares: complementos
         }
 
         event.preventDefault();
@@ -93,7 +92,7 @@ export default function Produto() {
             produtoPreco: "",
             produtoCategoria: "",
             produtoDescricao: "",
-            produtoComplementares:lista
+            produtoComplementares:listaProdutos
         }
 
         setFormValue(valores);
