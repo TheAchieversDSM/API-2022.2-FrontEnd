@@ -1,6 +1,7 @@
 .flex {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    height: 100vh;
 }
 
 h1 {
@@ -10,14 +11,15 @@ h1 {
 
 .container-login {
     margin-left: 50px !important;
-    margin: auto;
+    width: 30rem;
+    margin: 0 auto;
+    margin-top: 250px;
 }
 
 .display-login {
     background-color: #3a6ea5;
-    width: 800px;
-    height: 697px;
     margin-right: 0;
+    
 }
 
 .btn-primary {
