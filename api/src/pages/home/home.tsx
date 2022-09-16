@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Navigation from '../../components/navbar';
+import { BsFilterCircle, BsBriefcase, BsPlayBtn, BsMusicPlayer, BsBug } from "react-icons/bs"
 
 import './home.css'
-
 
 let modelo = [
     {
@@ -39,11 +39,30 @@ export default function Home() {
 
                 <div className="colecao-categorias">
                     
-                    <div className="categoria"></div>
-                    <div className="categoria"></div>
-                    <div className="categoria"></div>
-                    <div className="categoria"></div>
-                    <div className="categoria"></div>
+                    <div className="categoria">
+                        <BsFilterCircle />
+                        <h4>Todos</h4>
+                    </div>
+
+                    <div className="categoria">
+                        <BsBriefcase />
+                        <h4>Meu Negócio</h4>
+                    </div>
+
+                    <div className="categoria">
+                        <BsPlayBtn />
+                        <h4>Streaming</h4>
+                    </div>
+
+                    <div className="categoria">
+                        <BsMusicPlayer />
+                        <h4>Música</h4>
+                    </div>
+
+                    <div className="categoria">
+                        <BsBug />
+                        <h4>Segurança Digital</h4>
+                    </div>
 
                 </div>
 
@@ -55,14 +74,15 @@ export default function Home() {
                         <div className="card-img"></div>
 
                         <div className="nome-prod">
-                        <h4>{produto.nome}</h4>
-                    </div>
+                            <h4>{produto.nome}</h4>
+                        </div>
                         
                         <div className="card-botao">
                             <Button type="submit"><Link to={`/produto/${produto.id}`}>Ver Produto!</Link></Button>
                         </div>
 
                     </div>
+
                     </>
                 )}
                     
