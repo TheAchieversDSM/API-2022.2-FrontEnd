@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navigation from '../../components/navbar';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -10,16 +10,18 @@ import axios from 'axios';
 
 import './pacote.css'
 
-const options = [
-    { value: 'Meu Negócio', label: 'Meu Negócio' },
-    { value: 'Streaming', label: 'Streaming' },
-    { value: 'Música', label: 'Música' },
-    { value: 'Segurança Digital', label: 'Segurança Digital' },
+const modeloOptions = [
+    { 
+    value: '', 
+    label: '' 
+    }
 ];
 
 type servicoModelo={id:"",nome:""}
 
 export default function Pacote() {
+    const [servicos, setServicos] = useState(modeloOptions)
+
     let listaServicos: servicoModelo[] = []
 
     const [formValue, setFormValue] = useState({
@@ -35,6 +37,12 @@ export default function Pacote() {
             console.log(servico)
             servicosSelecionados.push(servico)
         }
+        setFormValue((prevState) => {
+            return {
+                ...prevState,
+                pacoteServicos: servicosSelecionados,
+            };
+        });
     }
 
     const handleChange = (event: any) => {
@@ -49,10 +57,29 @@ export default function Pacote() {
 
     const { pacoteNome, pacoteDescricao, pacoteServicos} = formValue;
 
+    
+    useEffect(()=>{
+        async function render() { 
+        axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res)=>{
+                var servicos = []
+                for (let index = 0; index < res.data.length; index++) {             
+                    let option = {
+                        value: res.data[index].id,
+                        label: res.data[index].nome
+                    }           
+                    servicos.push(option)
+                }
+                setServicos(servicos)
+            })
+        }
+        render()
+    },[])
+
     const handleSubmit = (event: any) => {
         const pacote = {
             nome: pacoteNome,
-            descricao: pacoteDescricao
+            descricao: pacoteDescricao,
+            servicos: pacoteServicos
         }
 
         event.preventDefault();
@@ -126,7 +153,7 @@ export default function Pacote() {
                                 isClearable={true}
                                 isSearchable={true}
                                 isLoading={false} 
-                                options={options}
+                                options={servicos}
                                 />
                         </Form.Group>
                         

@@ -78,6 +78,7 @@ export default function Promocao() {
         const promocao = {
             nome: promocaoNome,
             preco: promocaoPreco,
+            pacotes: promocaoPacotes
         }
 
         event.preventDefault();
