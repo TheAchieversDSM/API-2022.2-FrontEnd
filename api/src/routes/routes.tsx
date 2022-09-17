@@ -1,7 +1,7 @@
 import { Route, BrowserRouter, Routes as Switch } from "react-router-dom";
 
 import Produto from "../pages/criacao-produto/produto";
-import Visualizacao from "../pages/visualizacao/visualizacao";
+import Visualizacao from "../pages/visualizacao-produto/visualizacao";
 import Promocao from "../pages/criacao-promocao/promocao";
 import Servico from "../pages/criacao-servico/servico";
 import Login from "../pages/login/login";

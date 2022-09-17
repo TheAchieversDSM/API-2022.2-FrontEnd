@@ -105,7 +105,7 @@ export default function Pacote() {
 
             <div className='container-prod'>
             
-                <h1>Criação de Pacote</h1>
+                <h1>Cadastro de Pacotes</h1>
 
                 <Form /*noValidate validated={validated} onSubmit={handleSubmit}*/>
 

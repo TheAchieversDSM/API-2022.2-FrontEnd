@@ -37,7 +37,7 @@ const Header = () => {
           <SidebarHeader>
           <div className="logotext">
               {/* small and big change using menucollapse state */}
-              <p>{menuCollapse ? "Olá" : "Olá, Usuário(a)"}</p>
+              <p>{menuCollapse ? "Olá" : "Olá, Administrador!"}</p>
             </div>
             <div className="closemenu" onClick={menuIconClick}>
                 {/* changing menu collapse icon on click */}
