@@ -13,7 +13,7 @@ import {
 import { FaCartPlus, FaList, FaRegHeart } from "react-icons/fa";
 import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle, FiPackage } from "react-icons/fi";
 import { RiHandHeartLine, RiPencilLine, RiPriceTag3Line } from "react-icons/ri";
-import { BiCog } from "react-icons/bi";
+import { BiCog, BiAddToQueue } from "react-icons/bi";
 
 //import sidebar css from react-pro-sidebar module and our custom css 
 import "react-pro-sidebar/dist/css/styles.css";
@@ -37,7 +37,7 @@ const Header = () => {
           <SidebarHeader>
           <div className="logotext">
               {/* small and big change using menucollapse state */}
-              <p>{menuCollapse ? "Olá" : "Olá, Usuário(a)"}</p>
+              <p>{menuCollapse ? "Olá" : "Olá, Administrador(a)"}</p>
             </div>
             <div className="closemenu" onClick={menuIconClick}>
                 {/* changing menu collapse icon on click */}
@@ -59,6 +59,7 @@ const Header = () => {
               <MenuItem icon={<RiHandHeartLine />}><Link to="/criacao-servico">Cadastro de Serviços</Link></MenuItem>
               <MenuItem icon={<FiPackage />}><Link to="/criacao-pacote">Cadastro de Pacotes</Link></MenuItem>
               <MenuItem icon={<RiPriceTag3Line />}><Link to="/criacao-promocao">Cadastro de Promoções</Link></MenuItem>
+              <MenuItem icon={<BiAddToQueue />}><Link to="/produto-complementar">Inserir Produto Complementar</Link></MenuItem>
               <MenuItem icon={<BiCog />}>Configurações</MenuItem>
               <MenuItem icon={<FiLogOut />}><Link to="/login">Sair</Link></MenuItem>
             </Menu>
