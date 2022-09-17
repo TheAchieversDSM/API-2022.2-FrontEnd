@@ -124,7 +124,7 @@ export default function Produto() {
 
             <div className='container-prod'>
 
-                <h1>Criação de Produto</h1>
+                <h1>Cadastro de Produtos</h1>
 
                 <Form>
 
