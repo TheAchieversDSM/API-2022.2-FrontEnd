@@ -5,12 +5,10 @@ import Outline from '../../components/outlinebutton';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { Link, useParams } from "react-router-dom"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import { Button } from 'react-bootstrap';
 import axios from 'axios';
 
 import './visualizacao.css'
-import { Button } from 'react-bootstrap';
 
 let modelo = [
     {
@@ -19,12 +17,14 @@ let modelo = [
     }
 ]
 
-
 export default function Visualizacao() {
     const [produto,setProduto] = useState(Object)
     const [complementos,setComplementos] = useState(modelo)
     const [pacote,setPacotes] = useState([{}])
     const {id} = useParams();
+
+
+
     useEffect(()=>{
         async function render() { 
         axios.get(`http://localhost:8080/produtos/pegarProduto/${id}`, ).then((res)=>{
@@ -35,9 +35,11 @@ export default function Visualizacao() {
             })
         }
         render()
-    },[])
-    
-    
+    },[produto])
+
+    const topFunction = () => {
+        document.documentElement.scrollTop = 0;
+    }
 
     return (
         <>
@@ -87,7 +89,7 @@ export default function Visualizacao() {
                                     <div className="card-img"></div>
                                     <h4>{complemento.nome}</h4>
                                     <div className="card-botao">
-                                        <Button type="submit"><Link to={`/produto/${complemento.id}`} >Ver Produto!</Link></Button>
+                                        <Button onClick={topFunction} type="submit"><Link to={`/produto/${complemento.id}`}>Ver Produto!</Link></Button>
                                     </div>
                                     <a className='texto'>Adicionar ao carrinho</a>
                                 </div>

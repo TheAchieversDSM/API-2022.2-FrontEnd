@@ -104,7 +104,7 @@ export default function Promocao() {
 
             <div className='container-promo'>
 
-                <h1>Criação de Promoção</h1>
+                <h1>Cadastro de Promoção</h1>
 
                 <Form /*noValidate validated={validated} onSubmit={handleSubmit}*/>
 
