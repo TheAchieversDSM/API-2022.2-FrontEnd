@@ -78,7 +78,7 @@ export default function Produto() {
             preco: produtoPreco,
             produtoCategoria: produtoCategoria,
             descricao: produtoDescricao,
-            complementares: complementos
+            complementares: complementos[0].id != ''? complementos : []
         }
 
         event.preventDefault();
@@ -154,7 +154,7 @@ export default function Produto() {
                                 value={produtoPreco}
                                 onChange={handleChange}
                                 type="number"
-                                placeholder="Preço da Promoção"
+                                placeholder="Preço do Produto"
                             />
                         </Form.Group>
 
