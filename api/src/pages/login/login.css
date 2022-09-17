@@ -1,0 +1,50 @@
+.flex {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+}
+
+h1 {
+    margin-bottom: 1rem;   
+    color: #F06823;
+}
+
+.container-login {
+    margin-left: 50px !important;
+    width: 30rem;
+    margin: 0 auto;
+    margin-top: 250px;
+}
+
+.display-login {
+    background-color: #3a6ea5;
+    position: relative;
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    
+}
+
+.display-login img {
+    width: 30rem;
+}
+
+.btn-primary {
+    background-color: #ff6700;
+    border: none;
+    transition: 0.8s;
+    margin-top: 0.5rem;
+}
+
+.btn-primary:hover {
+    background-color: #3a6ea5;
+    border: none;
+    transition: 0.8s;
+}
+
+.form-label {
+    color: #004e98;
+    font-weight: 500;
+    font-size: 18px;
+}

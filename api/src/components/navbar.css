@@ -1,0 +1,54 @@
+nav.navbar.navbar-expand-lg.navbar-light.bg-light {
+    background-color: #004e98 !important;
+}
+
+.btn-outline-success {
+    color: #ff6700;
+    border: 1px solid #ff6700;
+    transition: 0.6s;
+}
+
+.btn-outline-success:hover {
+    border: 1px solid #ff6700;    
+    background-color: #ff6700;
+    transition: 0.6s;
+}
+
+.d-flex {
+    width: 25%;
+}
+
+.mobile-logo {
+    display:none;
+    color: white !important;
+    
+}
+
+.desktop-logo a img {
+    width: 80px;
+    
+}
+
+a {
+    text-decoration: none;
+    color: white !important;
+}
+
+a.dropdown-item {
+    color: #004e98 !important;
+}
+
+a.nav-link,
+a.desktop-logo.navbar-brand {
+    text-decoration: none;
+    color: white !important;
+}
+
+@media only screen and (max-width: 720px) {
+    .desktop-logo {
+        display:none;
+    }
+    .mobile-logo{
+        display: inline;
+    }
+}

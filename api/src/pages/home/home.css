@@ -1,0 +1,81 @@
+.container {
+    margin-inline: auto;
+    margin-top: 30px;
+    margin-inline: auto;
+    align-items: center !important;
+    display: grid;
+}
+
+.display {
+    background-color: #3a6ea5;
+    height: 300px;
+    width: 100%;
+}
+
+.colecao-categorias {
+    margin: auto;
+    margin-bottom: 40px;
+    width: 500px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 50px;
+    align-items: center !important;
+}
+
+.categoria {
+    background-color: #ff6700;
+    text-align: center !important;
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+}
+
+.feed {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-top: 30px ;
+}
+
+.card {
+    width: 250px;
+    height: 290px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    align-items: center !important;
+}
+
+.card-img {
+    margin-top: 30px;
+    margin-inline: auto;
+    width: 150px;
+    height: 150px;
+    background-color: gray;
+}
+
+.nome-prod > h4 {
+    padding-top: 15px;
+}
+
+.btn.btn-primary {
+    margin-top: 15px;
+    background-color: #ff6700;
+    border: none;
+}
+
+.card-botao > .btn-primary > a {
+    color: white !important;
+}
+
+.categoria > svg {
+    margin-top: 20px;
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.categoria > h4 {
+    margin-top: 22px;
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 1px;
+    text-align: center;
+}

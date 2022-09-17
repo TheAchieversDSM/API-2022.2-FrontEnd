@@ -1,0 +1,33 @@
+h1 {
+    color: #ff6700;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.container-prod {
+    margin-left: 30%;
+    margin-top: 30px;
+}
+
+.btn-primary {
+    background-color: #ff6700;
+    border: none;
+    transition: 0.8s;
+    margin-top: 0.5rem;
+}
+
+.btn-primary:hover {
+    background-color: #3a6ea5;
+    border: none;
+    transition: 0.8s;
+}
+
+.form-label {
+    color: #004e98;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.FormText{
+  max-height: auto;
+}
