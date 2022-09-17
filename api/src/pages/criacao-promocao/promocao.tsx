@@ -161,9 +161,9 @@ export default function Promocao() {
                     <Button type="submit" onClick={handleSubmit}>Criar Promoção!</Button>
                 
                 </Form>
-            
-            </div>
 
+            </div>
+            
         </>
     )
 }
