@@ -13,3 +13,20 @@
 <img src="https://img.shields.io/badge/TypeScript-CED4DA?style=for-the-badge&logo=typescript&logoColor=007ACC"/> 
 <img src="https://img.shields.io/badge/React-CED4DA?style=for-the-badge&logo=react&logoColor=61DAFB"/>
 </p>
+
+<span id="execution">
+<h3>⚙️ Execução do Sistema</h3>
+
+```bash
+# Baixe o repositório ou clone usando o comando:
+git clone https://github.com/TheAchieversDSM/API-2022.2-FrontEnd
+
+# Acesse a pasta do projeto
+cd api
+
+# Instale as dependências
+npm install
+
+# Inicie o sistema
+npm start
+```
