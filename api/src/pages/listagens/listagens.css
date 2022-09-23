@@ -1,0 +1,16 @@
+.container-lista {
+    margin-left: 30%;
+    margin-right: 100px;
+    margin-top: 30px;
+}
+
+.lista-img {
+    margin-inline: auto;
+    width: 30px;
+    height: 30px;
+    background-color: gray;
+}
+
+.img-top {
+    margin-top: 20px;
+}

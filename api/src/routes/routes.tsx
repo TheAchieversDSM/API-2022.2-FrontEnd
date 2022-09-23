@@ -8,6 +8,7 @@ import Login from "../pages/login/login";
 import Home from "../pages/home/home";
 import Pacote from "../pages/criacao-pacote/pacote";
 import Complementar from "../pages/produto-complementar/complementar"
+import Listagens from "../pages/listagens/listagens";
 
 const Routes = () => {
     return (
@@ -16,6 +17,7 @@ const Routes = () => {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>   
                     <Route path="/produto/:id" element={<Visualizacao/>}/>
+                    <Route path="/listagens" element={<Listagens />} /> 
                     <Route path="/criacao-promocao" element={<Promocao />} /> 
                     <Route path="/criacao-produto" element={<Produto />} />
                     <Route path="/criacao-servico" element={<Servico />} />
