@@ -1,10 +1,32 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import Navigation from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
 
 import "./listagens.css"
 
+let modelo = [
+    {
+        'id':'',
+        'nome':'',
+        'preco':'',
+        'descricao':''
+    }
+]
+
 export default function Listagens() {
+    const [produtos,setProdutos] = useState(modelo)
+
+    useEffect(()=>{
+        async function render() { 
+            axios.get(`http://localhost:8080/produtos/pegarTodosProdutos`).then((res)=>{
+                setProdutos(res.data)
+            })
+        }
+        render()
+    },[])
+
     return (
         <>
             <Navigation />
@@ -22,11 +44,13 @@ export default function Listagens() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            {/*<td><div className="lista-img"></div></td>*/}
-                            <td className="img-top">Mark</td>
-                            <td className="img-top">Otto</td>
-                        </tr>
+                        {produtos.map(produto => 
+                            <tr>
+                                {/*<td><div className="lista-img"></div></td>*/}
+                                <td>{produto.nome}</td>
+                                <td>R$ {produto.preco}</td>
+                            </tr>
+                        )}
                     </tbody>
                 </Table>
             </div>
