@@ -8,6 +8,7 @@ import Login from "../pages/login/login";
 import Home from "../pages/home/home";
 import Pacote from "../pages/criacao-pacote/pacote";
 import Complementar from "../pages/produto-complementar/complementar"
+import Carrinho from "../pages/carrinho/carrinho";
 
 const Routes = () => {
     return (
@@ -21,6 +22,7 @@ const Routes = () => {
                     <Route path="/criacao-servico" element={<Servico />} />
                     <Route path="/criacao-pacote" element={<Pacote />} />
                     <Route path="/produto-complementar" element={<Complementar />} />
+                    <Route path="/carrinho" element={<Carrinho />} />
                 </Switch>
         </BrowserRouter>
     )
