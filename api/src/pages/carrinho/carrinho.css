@@ -1,0 +1,51 @@
+.iconeimg{
+    width: 60px;
+    height: 60px;
+    border-radius: 200px;
+    background-color: blue;
+}
+
+.listac{
+    padding: 60px;
+}
+
+td{
+    font-size: 20px;
+    font-weight: 500
+}
+
+.card {
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    align-items: center !important;
+    border: var(--bs-card-border-width) solid var(--bs-card-border-color)
+}
+
+.sugest{
+    width: 180px;
+    height: 200px;
+}
+
+.card-imgc {
+    margin-top: 30px;
+    margin-inline: auto;
+    width: 70px;
+    height: 70px;
+    background-color: gray;
+    border-radius: 200px;
+}
+
+.maissug{
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.precototal{
+    text-align: right;
+    color: #F06823;
+}
+
+.preco1{
+    color: #376FA6;
+}
