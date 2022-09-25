@@ -31,3 +31,10 @@
     background-color: #ff6700;
     transition: 0.8s;
 }
+
+.button-collection > .btn-outline-primary:disabled,
+.button-collection > .btn-outline-primary[disabled] {
+    color: #004e98 !important;
+    border-color: #004e98;
+    transition: 0.8s;
+}

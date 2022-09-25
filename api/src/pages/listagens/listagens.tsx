@@ -39,12 +39,12 @@ export default function Listagens() {
 
     useEffect(() => {
         let url = window.location.href.split("/")
-        if (url[4] === "produtos") {
+        if (url[3] === "produtos") {
             axios.get(`http://localhost:8080/produtos/pegarTodosProdutos`).then((res) => {
                 setProdutos(res.data)
             })
         }
-        else if (url[4] === "servicos") {
+        else if (url[3] === "servicos") {
             axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
                 setProdutos(res.data)
             })
@@ -60,8 +60,16 @@ export default function Listagens() {
                 <h1>Listagens</h1>
 
                 <div className="button-collection">
-                    <Button variant="outline-primary" href="produtos">Produtos</Button>
-                    <Button variant="outline-primary" href="servicos">Serviços</Button>
+                    {window.location.href.split("/")[3] == "produtos" ? 
+                        <Button variant="outline-primary" href="produtos" disabled>Produtos</Button>
+                        : 
+                        <Button variant="outline-primary" href="produtos">Produtos</Button>
+                    }    
+                    {window.location.href.split("/")[3] == "servicos" ? 
+                        <Button variant="outline-primary" href="servicos" disabled>Serviços</Button>
+                        : 
+                        <Button variant="outline-primary" href="servicos">Serviços</Button>
+                    }                      
                 </div>
 
                 <Table striped bordered hover>
