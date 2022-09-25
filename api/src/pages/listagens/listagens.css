@@ -19,13 +19,14 @@
 }
 
 .button-collection > .btn-outline-primary {
-    color: #ff6700;
+    color: #ff6700 !important;
     border-color: #ff6700;
     transition: 0.8s;
 }
 
-.button-collection > .btn-outline-primary:hover {
-    color: white;
+.button-collection > .btn-outline-primary:hover,
+.button-collection > .btn-outline-primary:focus {
+    color: white !important;
     border-color: #ff6700;
     background-color: #ff6700;
     transition: 0.8s;

@@ -17,6 +17,7 @@ let modelo = [
 
 export default function Listagens() {
     const [produtos, setProdutos] = useState(modelo)
+    const [servicos, setServicos] = useState(modelo)
 
     useEffect(() => {
         async function render() {
@@ -27,6 +28,29 @@ export default function Listagens() {
         render()
     }, [])
 
+    useEffect(() => {
+        async function render() {
+            axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
+                setServicos(res.data)
+            })
+        }
+        render()
+    }, [])
+
+    useEffect(() => {
+        let url = window.location.href.split("/")
+        if (url[4] === "produtos") {
+            axios.get(`http://localhost:8080/produtos/pegarTodosProdutos`).then((res) => {
+                setProdutos(res.data)
+            })
+        }
+        else if (url[4] === "servicos") {
+            axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
+                setProdutos(res.data)
+            })
+        }
+    })
+
     return (
         <>
             <Navigation />
@@ -36,16 +60,13 @@ export default function Listagens() {
                 <h1>Listagens</h1>
 
                 <div className="button-collection">
-                    <Button variant="outline-primary">Produtos</Button>
-                    <Button variant="outline-primary">Serviços</Button>
-                    <Button variant="outline-primary">Pacotes</Button>
-                    <Button variant="outline-primary">Promoções</Button>
+                    <Button variant="outline-primary" href="produtos">Produtos</Button>
+                    <Button variant="outline-primary" href="servicos">Serviços</Button>
                 </div>
 
                 <Table striped bordered hover>
                     <thead>
                         <tr>
-                            {/*<th></th>*/}
                             <th>Nome</th>
                             <th>Preço</th>
                         </tr>
@@ -53,7 +74,6 @@ export default function Listagens() {
                     <tbody>
                         {produtos.map(produto =>
                             <tr>
-                                {/*<td><div className="lista-img"></div></td>*/}
                                 <td>{produto.nome}</td>
                                 <td>R$ {produto.preco}</td>
                             </tr>
