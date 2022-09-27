@@ -20,24 +20,6 @@ export default function Listagens() {
     const [servicos, setServicos] = useState(modelo)
 
     useEffect(() => {
-        async function render() {
-            axios.get(`http://localhost:8080/produtos/pegarTodosProdutos`).then((res) => {
-                setProdutos(res.data)
-            })
-        }
-        render()
-    }, [])
-
-    useEffect(() => {
-        async function render() {
-            axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
-                setServicos(res.data)
-            })
-        }
-        render()
-    }, [])
-
-    useEffect(() => {
         let url = window.location.href.split("/")
         if (url[3] === "produtos") {
             axios.get(`http://localhost:8080/produtos/pegarTodosProdutos`).then((res) => {

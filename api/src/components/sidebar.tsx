@@ -53,7 +53,7 @@ const Header = () => {
               <MenuItem active={true} icon={<FiHome />}><Link to="/">Inicio</Link></MenuItem>
               <MenuItem icon={<FaList />}>Categorias</MenuItem>
               <MenuItem icon={<FaRegHeart />}>Favoritos</MenuItem>
-              <MenuItem icon={<BiListUl />}><Link to="/listagens">Listagens</Link></MenuItem>
+              <MenuItem icon={<BiListUl />}><Link to="/produtos">Listagens</Link></MenuItem>
               <MenuItem icon={<FaCartPlus />}><Link to="/criacao-produto">Cadastro de Produtos</Link></MenuItem>
               <MenuItem icon={<RiHandHeartLine />}><Link to="/criacao-servico">Cadastro de Serviços</Link></MenuItem>
               <MenuItem icon={<FiPackage />}><Link to="/criacao-pacote">Cadastro de Pacotes</Link></MenuItem>
