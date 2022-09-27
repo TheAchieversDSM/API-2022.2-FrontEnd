@@ -34,8 +34,10 @@ export default function Carrinho() {
                   </table>
                   <h2 className="precototal">Preço total</h2>
                 </div>
+
                 <div className="sug col-3">
                   <div className="maissug">
+                    <h3 className="titulosug">Sugestões</h3>
                     <div className="card sugest">
                       <div className="card-imgc"></div>
                       <div className="nome-prod">

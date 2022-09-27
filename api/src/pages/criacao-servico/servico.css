@@ -67,6 +67,11 @@
       padding-top: 20px;
   }
   
+  .duvida{
+    background-color: #376FA6 !important;
+    border-radius: 20px !important;
+  }
+
   @media only screen and (max-width: 720px) {
     html {
       overflow: hidden;
