@@ -1,5 +1,6 @@
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import AlertaProm from "../../components/alerta";
 import Navigation from "../../components/navbar";
 import './carrinho.css'
 
@@ -33,6 +34,7 @@ export default function Carrinho() {
                   </tbody>
                   </table>
                   <h2 className="precototal">Preço total</h2>
+                  <AlertaProm prom="Essa promoção contém os seguintes produtos/serviços/pacotes"/>
                 </div>
 
                 <div className="sug col-3">
