@@ -15,7 +15,7 @@ const Routes = () => {
                 <Switch>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>   
-                    <Route path="/produto/:id" element={<Visualizacao/>}/>
+                    <Route path="/servicos/:id" element={<Visualizacao/>}/>
                     <Route path="/criacao-promocao" element={<Promocao />} /> 
                     <Route path="/criacao-produto" element={<Produto />} />
                     <Route path="/criacao-servico" element={<Servico />} />
