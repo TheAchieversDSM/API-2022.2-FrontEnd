@@ -71,7 +71,7 @@ export default function Home() {
                         <>
                             <div className="card">
 
-                                <div className="card-img"></div>
+                                <div className="card-imghome"></div>
 
                                 <div className="nome-prod">
                                     <h4>{servico.nome}</h4>

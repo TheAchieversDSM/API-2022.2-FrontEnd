@@ -8,6 +8,7 @@ import Login from "../pages/login/login";
 import Home from "../pages/home/home";
 import Pacote from "../pages/criacao-pacote/pacote";
 import Complementar from "../pages/produto-complementar/complementar"
+import VisualizacaoServ from "../pages/visualizacao-servico/visu_serv";
 
 const Routes = () => {
     return (
@@ -15,7 +16,8 @@ const Routes = () => {
                 <Switch>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>   
-                    <Route path="/servicos/:id" element={<Visualizacao/>}/>
+                    <Route path="/produto/:id" element={<Visualizacao/>}/>
+                    <Route path="/servicos/:id" element={<VisualizacaoServ/>}/>
                     <Route path="/criacao-promocao" element={<Promocao />} /> 
                     <Route path="/criacao-produto" element={<Produto />} />
                     <Route path="/criacao-servico" element={<Servico />} />
