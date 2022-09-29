@@ -14,7 +14,7 @@ import { Table } from 'react-bootstrap';
 const modeloOptions = [
     {
         value: '',
-        label: 'Selecione um Produto Primeiro!'
+        label: 'Selecione um Serviço Primeiro!'
     }
 ];
 
@@ -27,52 +27,52 @@ let modelo = [
     }
 ]
 
-type produtoModelo = { id: "", nome: "" }
+type servicoModelo = { id: "", nome: "" }
 
 export default function Complementar() {
     const [complementos, setComplementos] = useState(modeloOptions)
 
-    const [produtos, setProdutos] = useState(modeloOptions)
+    const [servicos, setServicos] = useState(modeloOptions)
 
-    let listaProduto: produtoModelo[] = []
+    let listaServico: servicoModelo[] = []
 
     const [formValue, setFormValue] = useState({
-        produto: "",
-        produtosComplementares: listaProduto
+        servico: "",
+        servicosComplementares: listaServico
     });
 
-    const handleChangeProduto = (event: any) => {
-        var produtosSelecionados: produtoModelo[] = []
+    const handleChangeServico = (event: any) => {
+        var servicosSelecionados: servicoModelo[] = []
         for (let index = 0; index < event.length; index++) {
-            let produtos = { id: event[index].value, nome: event[index].label }
-            console.log(produtos)
-            produtosSelecionados.push(produtos)
+            let servicos = { id: event[index].value, nome: event[index].label }
+            console.log(servicos)
+            servicosSelecionados.push(servicos)
         }
         setFormValue((prevState) => {
             return {
                 ...prevState,
-                produtosComplementares: produtosSelecionados,
+                produtosComplementares: servicosSelecionados,
             };
         });
     }
 
 
-    async function complementosProdutoSelecionado() {
-        axios.get(`http://localhost:8080/produtos/pegarTodosExcetoComplementos/${produto}`).then((res) => {
-            var produtos = []
+    async function complementosServicoSelecionado() {
+        axios.get(`http://localhost:8080/servicos/pegarTodosExcetoComplementos/${servico}`).then((res) => {
+            var servicos = []
             for (let index = 0; index < res.data.length; index++) {
                 let option = {
                     value: res.data[index].id,
                     label: res.data[index].nome
                 }
-                produtos.push(option)
+                servicos.push(option)
             }
-            setComplementos(produtos)
+            setComplementos(servicos)
         })
     }
 
     const handleUpdate = () =>{
-        complementosProdutoSelecionado()    
+        complementosServicoSelecionado()    
     }
 
     const handleChange = (event: any) => {
@@ -80,28 +80,28 @@ export default function Complementar() {
             setFormValue((prevState) => {
                 return {
                     ...prevState,
-                    "produto": event.value,
+                    "servico": event.value,
                 };
             });
         }
         return null;
     };
 
-    const { produto, produtosComplementares } = formValue;
+    const { servico, servicosComplementares } = formValue;
 
 
     useEffect(() => {
         async function render() {
-            axios.get(`http://localhost:8080/produtos/pegarTodosProdutos`).then((res) => {
-                var produtos = []
+            axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
+                var servicos = []
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
                         value: res.data[index].id,
                         label: res.data[index].nome
                     }
-                    produtos.push(option)
+                    servicos.push(option)
                 }
-                setProdutos(produtos)
+                setServicos(servicos)
             })
         }
         render()
@@ -110,13 +110,13 @@ export default function Complementar() {
     const handleSubmit = (event: any) => {
         event.preventDefault();
 
-        axios.put(`http://localhost:8080/produtos/atualizarComplementos/${produto}`, produtosComplementares).then((res) => {
+        axios.put(`http://localhost:8080/servicos/atualizarComplementos/${servico}`, servicosComplementares).then((res) => {
             alert('Complemento inserido!');
         })
 
         let valores = {
-            produto: "",
-            produtosComplementares: listaProduto
+            servico: "",
+            servicosComplementares: listaServico
         }
 
         setFormValue(valores);
@@ -137,10 +137,10 @@ export default function Complementar() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Selecione o Produto</Form.Label>
+                            <Form.Label>Selecione o Serviço</Form.Label>
                             <Select
                                 name="produto"
-                                options={produtos}
+                                options={servicos}
                                 onChange={handleChange}
                                 isClearable={true}
                                 isSearchable={true}
@@ -153,13 +153,13 @@ export default function Complementar() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Escolha os Produtos Complementares</Form.Label>
+                            <Form.Label>Escolha os Serviços Complementares</Form.Label>
                             <Select
                                 isMulti
                                 name="produto"
                                 options={complementos}
                                 onFocus={handleUpdate}
-                                onChange={handleChangeProduto}
+                                onChange={handleChangeServico}
                                 isClearable={true}
                                 isSearchable={true}
                                 closeMenuOnSelect={false}
