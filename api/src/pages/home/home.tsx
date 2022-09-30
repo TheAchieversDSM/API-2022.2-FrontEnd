@@ -78,7 +78,7 @@ export default function Home() {
                                 </div>
 
                                 <div className="card-botao">
-                                    <Button type="submit"><Link to={`/servicos/${servico.id}`}>Ver Serviço!</Link></Button>
+                                    <Button type="submit"><Link to={`/servico/${servico.id}`}>Ver Serviço!</Link></Button>
                                 </div>
 
                             </div>
