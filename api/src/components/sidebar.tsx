@@ -59,7 +59,7 @@ const Header = () => {
               <MenuItem icon={<RiHandHeartLine />}><Link to="/criacao-servico">Cadastro de Serviços</Link></MenuItem>
               <MenuItem icon={<FiPackage />}><Link to="/criacao-pacote">Cadastro de Pacotes</Link></MenuItem>
               <MenuItem icon={<RiPriceTag3Line />}><Link to="/criacao-promocao">Cadastro de Promoções</Link></MenuItem>
-              <MenuItem icon={<BiAddToQueue />}><Link to="/produto-complementar">Inserir Produto Complementar</Link></MenuItem>
+              <MenuItem icon={<BiAddToQueue />}><Link to="/servico-complementar">Inserir Serviço Complementar</Link></MenuItem>
               <MenuItem icon={<BiCog />}>Configurações</MenuItem>
               <MenuItem icon={<FiLogOut />}><Link to="/login">Sair</Link></MenuItem>
             </Menu>
