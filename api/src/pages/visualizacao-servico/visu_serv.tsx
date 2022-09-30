@@ -37,6 +37,22 @@ export default function VisualizacaoServ() {
         render()
     },[servico])
 
+    const adicionarCarrinho = (servicoCarrinho: any) =>{
+        servico.preventDefault()
+        if(localStorage.getItem("ServicoCarrinho") != undefined){
+        let carrinho = []
+        carrinho = JSON.parse(localStorage.getItem('carrinhoNaoConcluidas')!)
+        carrinho.push({nomeServico})
+      
+      localStorage.setItem("ServicoCarrinho",JSON.stringify(servico))
+    }
+    else{
+        let carrinho = [{nomeServico}]
+        localStorage.setItem("tarefasNaoConcluidas",JSON.stringify(servico))
+      }
+      setNomeServico('')
+    }
+
     const topFunction = () => {
         document.documentElement.scrollTop = 0;
     }
@@ -54,7 +70,7 @@ export default function VisualizacaoServ() {
                             </div>
                             <h2 className="preço">R$ {servico.preco}</h2>
                             <Botao/>
-                            <p className='texto'>Adicionar ao carrinho</p>
+                            <p className='texto' onClick={() => {adicionarCarrinho({id: servico.id, nome: servico.nome, preco: servico.preco })}}  >Adicionar ao carrinho</p>
                         </div>
                     </div>
                     <div className="prom col-4">
@@ -93,7 +109,8 @@ export default function VisualizacaoServ() {
                         <div className="yours-custom-class container">
                         
                             <div className="row">
-                            {complementos!= null?
+                            {
+                            complementos!= null?
                             complementos.map(complemento =>
                                 <div className="card col-4">
                                     <div className="card-img"></div>
@@ -101,7 +118,7 @@ export default function VisualizacaoServ() {
                                     <div className="card-botao">
                                         <Button onClick={topFunction} type="submit"><Link to={`/produto/${complemento.id}`}>Ver Produto!</Link></Button>
                                     </div>
-                                    <a className='texto'>Adicionar ao carrinho</a>
+                                    <a className='texto' onClick={() => {adicionarCarrinho(complemento)}} >Adicionar ao carrinho</a>
                                 </div>
                                 )
                                 : <></>
