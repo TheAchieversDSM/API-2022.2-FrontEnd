@@ -8,7 +8,7 @@ import { Link, useParams } from "react-router-dom"
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
 
-import './visualizacao.css'
+import './visu.css'
 
 let modelo = [
     {
@@ -17,8 +17,8 @@ let modelo = [
     }
 ]
 
-export default function Visualizacao() {
-    const [produto,setProduto] = useState(Object)
+export default function VisualizacaoServ() {
+    const [servico,setServico] = useState(Object)
     const [complementos,setComplementos] = useState(modelo)
     const [pacote,setPacotes] = useState([{}])
     const {id} = useParams();
@@ -27,15 +27,15 @@ export default function Visualizacao() {
 
     useEffect(()=>{
         async function render() { 
-        axios.get(`http://localhost:8080/produtos/pegarProduto/${id}`, ).then((res)=>{
-            setProduto(res.data)
+        axios.get(`http://localhost:8080/servicos/pegarServico/${id}`, ).then((res)=>{
+            setServico(res.data)
             setComplementos(res.data.complementares)
             console.log(complementos);
             
             })
         }
         render()
-    },[produto])
+    },[servico])
 
     const topFunction = () => {
         document.documentElement.scrollTop = 0;
@@ -48,11 +48,11 @@ export default function Visualizacao() {
                 <div className="row">
                     <div className="principal col-8">
                         <div className="subcont">
-                            <h1 className="name">{produto.nome}</h1>
+                            <h1 className="name">{servico.nome}</h1>
                             <div className="descricao">
-                                    <p>{produto.descricao}</p>
+                                    <p>{servico.descricao}</p>
                             </div>
-                            <h2 className="preço">R$ {produto.preco}</h2>
+                            <h2 className="preço">R$ {servico.preco}</h2>
                             <Botao/>
                             <p className='texto'>Adicionar ao carrinho</p>
                         </div>
@@ -107,9 +107,9 @@ export default function Visualizacao() {
                                 : <></>
                                 }
                             </div>
-                             
+                        
                         </div>
-                       
+                    
                     </AliceCarousel>
                 </div>
             </div>
