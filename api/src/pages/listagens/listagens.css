@@ -1,0 +1,40 @@
+.container-lista {
+    margin-left: 30%;
+    margin-right: 100px;
+    margin-top: 30px;
+}
+
+.lista-img {
+    margin-inline: auto;
+    width: 30px;
+    height: 30px;
+    background-color: gray;
+}
+
+.button-collection {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+    margin-bottom: 30px;
+}
+
+.button-collection > .btn-outline-primary {
+    color: #ff6700 !important;
+    border-color: #ff6700;
+    transition: 0.8s;
+}
+
+.button-collection > .btn-outline-primary:hover,
+.button-collection > .btn-outline-primary:focus {
+    color: white !important;
+    border-color: #ff6700;
+    background-color: #ff6700;
+    transition: 0.8s;
+}
+
+.button-collection > .btn-outline-primary:disabled,
+.button-collection > .btn-outline-primary[disabled] {
+    color: #004e98 !important;
+    border-color: #004e98;
+    transition: 0.8s;
+}
