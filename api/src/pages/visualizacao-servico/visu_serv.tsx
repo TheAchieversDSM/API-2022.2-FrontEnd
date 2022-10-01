@@ -26,31 +26,36 @@ export default function VisualizacaoServ() {
 
 
     useEffect(()=>{
-        async function render() { 
-        axios.get(`http://localhost:8080/servicos/pegarServico/${id}`, ).then((res)=>{
-            setServico(res.data)
-            setComplementos(res.data.complementares)
-            console.log(complementos);
-            
+        function render() { 
+            axios.get(`http://localhost:8080/servicos/pegarServico/${id}`, ).then((res)=>{
+                setServico(res.data)
+                setComplementos(res.data.complementares)  
             })
         }
-        render()
-    },[servico])
 
-    const adicionarCarrinho = (servicoCarrinho: any) =>{
-        servico.preventDefault()
-        if(localStorage.getItem("ServicoCarrinho") != undefined){
+        
+            render() 
+
+    })
+    const deletarCarrinho = () => {
+        localStorage.removeItem('servicoCarrinho')
+    }
+    const adicionarCarrinho = (servicoCarrinho: any) =>{ 
+        if(localStorage.getItem("servicoCarrinho") != undefined){
         let carrinho = []
-        carrinho = JSON.parse(localStorage.getItem('carrinhoNaoConcluidas')!)
-        carrinho.push({nomeServico})
+        carrinho = JSON.parse(localStorage.getItem('servicoCarrinho')!)
+        carrinho = [carrinho]
+        carrinho.push(servicoCarrinho)
       
-      localStorage.setItem("ServicoCarrinho",JSON.stringify(servico))
+        localStorage.setItem("servicoCarrinho",JSON.stringify(servicoCarrinho))
+        console.log(localStorage.getItem("servicoCarrinho"))
     }
     else{
-        let carrinho = [{nomeServico}]
-        localStorage.setItem("tarefasNaoConcluidas",JSON.stringify(servico))
+        let carrinho = [servicoCarrinho]
+        localStorage.setItem("servicoCarrinho",JSON.stringify(servicoCarrinho))
+        console.log(localStorage.getItem("servicoCarrinho"))
       }
-      setNomeServico('')
+      
     }
 
     const topFunction = () => {
@@ -70,7 +75,8 @@ export default function VisualizacaoServ() {
                             </div>
                             <h2 className="preço">R$ {servico.preco}</h2>
                             <Botao/>
-                            <p className='texto' onClick={() => {adicionarCarrinho({id: servico.id, nome: servico.nome, preco: servico.preco })}}  >Adicionar ao carrinho</p>
+                            <Button className="botao" onClick={() => {deletarCarrinho()}}>Deletar</Button>
+                            <Button className='texto' onClick={() => {adicionarCarrinho({id: servico.id, nome: servico.nome, preco: servico.preco })}}  >Adicionar ao carrinho</Button>
                         </div>
                     </div>
                     <div className="prom col-4">
