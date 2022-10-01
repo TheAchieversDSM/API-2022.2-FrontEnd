@@ -45,12 +45,13 @@
     align-items: center !important;
 }
 
-.card-img {
+.card-imghome {
     margin-top: 30px;
     margin-inline: auto;
     width: 150px;
     height: 150px;
     background-color: gray;
+    border-radius: 100%;
 }
 
 .nome-prod > h4 {

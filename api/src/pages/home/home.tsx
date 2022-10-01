@@ -9,25 +9,25 @@ import './home.css'
 
 let modelo = [
     {
-        'id':'',
-        'nome':'',
-        'preco':'',
-        'descricao':''
+        'id': '',
+        'nome': '',
+        'preco': '',
+        'descricao': ''
     }
 ]
 
 export default function Home() {
-    const [produtos,setProdutos] = useState(modelo)
+    const [servicos, setServicos] = useState(modelo)
 
-    useEffect(()=>{
-        async function render() { 
-        axios.get(`http://localhost:8080/produtos/pegarTodosProdutos`).then((res)=>{
-            setProdutos(res.data)
-            console.log(res.data)
+    useEffect(() => {
+        async function render() {
+            axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
+                setServicos(res.data)
+                console.log(res.data)
             })
         }
         render()
-    },[])
+    }, [])
 
     return (
         <>
@@ -52,7 +52,7 @@ export default function Home() {
             <div className='container'>
 
                 <div className="colecao-categorias">
-                    
+
                     <div className="categoria">
                         <BsFilterCircle />
                         <h4>Todos</h4>
@@ -81,27 +81,26 @@ export default function Home() {
                 </div>
 
                 <div className="feed">
-                {produtos.map(produto =>
-                    <>
-                        <div className="card">
+                    {servicos.map(servico =>
+                        <>
+                            <div className="card">
 
-                        <div className="card-img"></div>
+                                <div className="card-imghome"></div>
 
-                        <div className="nome-prod">
-                            <h4>{produto.nome}</h4>
-                        </div>
-                        
-                        <div className="card-botao">
-                            <Button type="submit"><Link to={`/produto/${produto.id}`}>Ver Produto!</Link></Button>
-                        </div>
+                                <div className="nome-prod">
+                                    <h4>{servico.nome}</h4>
+                                </div>
 
-                    </div>
+                                <div className="card-botao">
+                                    <Button type="submit"><Link to={`/servico/${servico.id}`}>Ver Serviço!</Link></Button>
+                                </div>
 
-                    </>
-                )}
-                    
+                            </div>
+                        </>
+                    )}
+
                 </div>
-            
+
             </div>
 
         </>
