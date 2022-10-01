@@ -23,8 +23,6 @@ const complementaresModelo = [
 
 type produtoModelo={id:"",nome:""}
 
-
-
 export default function Produto() {
     let listaProdutos: produtoModelo[] = []
 

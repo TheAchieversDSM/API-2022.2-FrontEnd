@@ -56,7 +56,6 @@ export default function Complementar() {
         });
     }
 
-
     async function complementosServicoSelecionado() {
         axios.get(`http://localhost:8080/servicos/pegarTodosExcetoComplementos/${servico}`).then((res) => {
             var servicos = []
