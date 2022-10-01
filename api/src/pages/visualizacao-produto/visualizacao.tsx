@@ -61,21 +61,21 @@ export default function Visualizacao() {
                         <h2 className="confira">Confira nossos pacotes</h2>
                         <div className="container">
                             <div >
-                                <div className="row">
+                                <div className="row contpac">
                                     <div className="pacotes col-6"></div>
                                     <div className="col-6">
                                         <h3>R$ 180,00</h3>
                                         <Outline/>
                                     </div>
                                 </div>
-                                <div className="row">
+                                <div className="row contpac">
                                     <div className="pacotes col-6"></div>
                                     <div className="col-6">
                                         <h3>R$ 180,00</h3>
                                         <Outline/>
                                     </div>
                                 </div>
-                                <div className="row">
+                                <div className="row contpac">
                                     <div className="pacotes col-6"></div>
                                     <div className="col-6">
                                         <h3>R$ 180,00</h3>
@@ -107,9 +107,7 @@ export default function Visualizacao() {
                                 : <></>
                                 }
                             </div>
-                             
                         </div>
-                       
                     </AliceCarousel>
                 </div>
             </div>
