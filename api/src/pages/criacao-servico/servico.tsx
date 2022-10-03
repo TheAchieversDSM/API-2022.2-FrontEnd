@@ -10,25 +10,23 @@ import Select from 'react-select';
 import './servico.css'
 import axios from 'axios';
 
-const modeloOptions = [
-    {
-        value: '',
-        label: ''
-    }
-];
+const modeloOptions = [{ value: '', label: '' }];
 
-type produtoModelo = { id: "", nome: "" }
+type servicoModelo = { id: "", nome: "" }
 
 export default function Servico() {
-    let listaProdutos: produtoModelo[] = []
-
+    let listaServicos: servicoModelo[] = []
     const [options, setOptions] = useState(modeloOptions)
+    const [optServ, setOptServ] = useState(modeloOptions)
+    const [complementos, setComplementos] = useState(listaServicos)
 
     const [formValue, setFormValue] = useState({
         servicoNome: "",
         servicoPreco: "",
-        servicoProduto: listaProdutos,
-        servicoDescricao: ""
+        servicoDescricao: "",
+        servicoProduto: listaServicos,
+        servicoObrigatorios: listaServicos,
+        servicoComplementares: listaServicos
     });
 
     const handleChange = (event: any) => {
@@ -41,13 +39,13 @@ export default function Servico() {
         });
     };
 
-    const { servicoNome, servicoPreco, servicoProduto, servicoDescricao } = formValue;
+    const { servicoNome, servicoPreco, servicoProduto, servicoDescricao, servicoObrigatorios, servicoComplementares } = formValue;
 
     const handleChangeProdutos = (event: any) => {
-        var produtosSelecionados: produtoModelo[] = []
+        var produtosSelecionados: servicoModelo[] = []
         for (let index = 0; index < event.length; index++) {
             let produto = { id: event[index].value, nome: event[index].label }
-            console.log(produto)
+            //console.log(produto)
             produtosSelecionados.push(produto)
         }
         setFormValue((prevState) => {
@@ -56,7 +54,26 @@ export default function Servico() {
                 servicoProduto: produtosSelecionados,
             };
         });
-        console.log(formValue)
+        //console.log(formValue)
+    };
+
+    const handleChangeComplementares = (event: any) => {
+        var produtosSelecionados: servicoModelo[] = []
+        for (let index = 0; index < event.length; index++) {
+            let produto = { id: event[index].value, nome: event[index].label }
+            //console.log(produto)
+            produtosSelecionados.push(produto)
+        }
+        setComplementos(produtosSelecionados)
+        console.log(complementos);
+        
+        setFormValue((prevState) => {
+            return {
+                ...prevState,
+                servicoComplementares: complementos,
+            };
+        });
+        //console.log(formValue)
     };
 
     const handleSubmit = (event: any) => {
@@ -65,12 +82,21 @@ export default function Servico() {
             descricao: servicoDescricao,
             preco: servicoPreco,
             produtos: servicoProduto,
+            servicoComplementares: complementos[0].id != '' ? complementos : []
         }
         axios.post("http://localhost:8080/servicos/criarServico", servico).then((res) => {
             alert('Serviço criado!')
         })
 
         event.preventDefault();
+
+        let valores = {
+            servicoNome: "",
+            servicoDescricao: "",
+            servicoPreco: ""
+        }
+
+        //setFormValue(valores);
     };
 
     useEffect(() => {
@@ -85,6 +111,23 @@ export default function Servico() {
                     produtos.push(option)
                 }
                 setOptions(produtos)
+            })
+        }
+        render()
+    }, [])
+
+    useEffect(() => {
+        async function render() {
+            axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
+                var servicos = []
+                for (let index = 0; index < res.data.length; index++) {
+                    let option = {
+                        value: res.data[index].id,
+                        label: res.data[index].nome
+                    }
+                    servicos.push(option)
+                }
+                setOptServ(servicos)
             })
         }
         render()
@@ -174,8 +217,9 @@ export default function Servico() {
                             <Form.Label>Serviços Obrigatórios</Form.Label>
                             <Select
                                 isMulti
-                                name=""
+                                name="servicoObrigatorios"
                                 onChange={handleChange}
+                                options={optServ}
                                 isClearable={true}
                                 isSearchable={true}
                                 closeMenuOnSelect={false}
@@ -190,8 +234,9 @@ export default function Servico() {
                             <Form.Label>Serviços Complementares</Form.Label>
                             <Select
                                 isMulti
-                                name=""
-                                onChange={handleChange}
+                                name="servicoComplementares"
+                                onChange={handleChangeComplementares}
+                                options={optServ}
                                 isClearable={true}
                                 isSearchable={true}
                                 closeMenuOnSelect={false}
@@ -200,13 +245,13 @@ export default function Servico() {
 
                     </Row>
 
-                    <Row className="mb-3">
+                    {/*<Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
                             <Form.Label>Serviços Restringentes</Form.Label>
                             <Select
                                 isMulti
-                                name=""
+                                name="servicoRestringentes"
                                 onChange={handleChange}
                                 isClearable={true}
                                 isSearchable={true}
@@ -214,7 +259,7 @@ export default function Servico() {
                             />
                         </Form.Group>
 
-                    </Row>
+                    </Row>*/}
 
                     <Button type="submit" onClick={handleSubmit}>Criar Servico!</Button>
 

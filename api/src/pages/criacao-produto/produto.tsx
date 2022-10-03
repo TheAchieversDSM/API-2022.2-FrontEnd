@@ -28,14 +28,11 @@ export default function Produto() {
 
     const [produtos,setProdutos] = useState(complementaresModelo)
 
-    const [complementos,setComplementos] = useState([{id:"",nome:""}])
-
     const [formValue, setFormValue] = useState({
         produtoNome: "",
         produtoPreco: "",
         produtoCategoria: "",
-        produtoDescricao: "",
-        produtoComplementares: listaProdutos
+        produtoDescricao: ""
     });
 
     const handleChange = (event: any) => {
@@ -57,18 +54,7 @@ export default function Produto() {
         });
     };
 
-    const handleChangeComplementares = (event: any) => {
-        var produtosSelecionados:  produtoModelo[] =  []
-        for (let index = 0; index < event.length; index++) {
-            let produto = {id:event[index].value, nome:event[index].label}
-            console.log(produto)
-            produtosSelecionados.push(produto)
-        }
-        setComplementos(produtosSelecionados)
-        console.log(formValue)
-    };
-
-    const { produtoNome, produtoPreco, produtoCategoria, produtoDescricao, produtoComplementares } = formValue;
+    const { produtoNome, produtoPreco, produtoCategoria, produtoDescricao } = formValue;
 
     const handleSubmit = (event: any) => {
         const produto = {
@@ -76,7 +62,6 @@ export default function Produto() {
             preco: produtoPreco,
             produtoCategoria: produtoCategoria,
             descricao: produtoDescricao,
-            complementares: complementos[0].id != ''? complementos : []
         }
 
         event.preventDefault();
@@ -94,7 +79,6 @@ export default function Produto() {
         }
 
         setFormValue(valores);
-
     };
 
     useEffect(()=>{
