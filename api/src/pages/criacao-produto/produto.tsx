@@ -129,22 +129,6 @@ export default function Produto() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Preço do Produto</Form.Label>
-                            <Form.Control
-                                required
-                                name="produtoPreco"
-                                value={produtoPreco}
-                                onChange={handleChange}
-                                type="number"
-                                placeholder="Preço do Produto"
-                            />
-                        </Form.Group>
-
-                    </Row>
-
-                    <Row className="mb-3">
-
-                        <Form.Group as={Col} md="6">
                             <Form.Label>Categoria do Produto</Form.Label>
                             <Select
                                 isMulti = {true}
