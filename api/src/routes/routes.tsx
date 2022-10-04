@@ -7,7 +7,7 @@ import Servico from "../pages/criacao-servico/servico";
 import Login from "../pages/login/login";
 import Home from "../pages/home/home";
 import Pacote from "../pages/criacao-pacote/pacote";
-import Complementar from "../pages/produto-complementar/complementar"
+import Complementar from "../pages/servico-complementar/complementar"
 import Listagens from "../pages/listagens/listagens";
 import VisualizacaoServ from "../pages/visualizacao-servico/visu_serv";
 
