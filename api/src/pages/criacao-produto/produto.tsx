@@ -30,7 +30,6 @@ export default function Produto() {
 
     const [formValue, setFormValue] = useState({
         produtoNome: "",
-        produtoPreco: "",
         produtoCategoria: "",
         produtoDescricao: ""
     });
@@ -54,13 +53,12 @@ export default function Produto() {
         });
     };
 
-    const { produtoNome, produtoPreco, produtoCategoria, produtoDescricao } = formValue;
+    const { produtoNome, produtoCategoria, produtoDescricao } = formValue;
 
     const handleSubmit = (event: any) => {
         const produto = {
             nome: produtoNome,
-            preco: produtoPreco,
-            produtoCategoria: produtoCategoria,
+            categoria: produtoCategoria,
             descricao: produtoDescricao,
         }
 
@@ -72,10 +70,8 @@ export default function Produto() {
 
         let valores = {
             produtoNome: "",
-            produtoPreco: "",
             produtoCategoria: "",
-            produtoDescricao: "",
-            produtoComplementares:listaProdutos
+            produtoDescricao: ""
         }
 
         setFormValue(valores);
@@ -137,7 +133,7 @@ export default function Produto() {
                                 onChange={handleChangeCategoria}
                                 isClearable={true}
                                 isSearchable={true}
-                                closeMenuOnSelect ={false}
+                                closeMenuOnSelect ={true}
                                 isLoading={false}
                             />
                         </Form.Group>
