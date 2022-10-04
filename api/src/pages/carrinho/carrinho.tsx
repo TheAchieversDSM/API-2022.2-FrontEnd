@@ -1,11 +1,33 @@
+import React, { useEffect, useState } from 'react';
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import AlertaProm from "../../components/alerta";
 import Navigation from "../../components/navbar";
 import './carrinho.css'
 
+let modelo = [
+  {
+      'preco':'',
+      'nome':'',
+      'id':'',
+  }
+]
+
 
 export default function Carrinho() {
+  const [carrinho,setCarrinho] = useState(modelo)
+  console.log(localStorage.getItem("servicoCarrinho"))
+  useEffect(()=>{
+    if(localStorage.getItem("servicoCarrinho") != undefined){
+      setCarrinho(modelo)
+  }
+  else{
+
+    setCarrinho(JSON.parse(localStorage.getItem("servicoCarrinho")!))
+  }
+  
+})
+
     return(
         <>
         <Navigation/>
@@ -18,6 +40,19 @@ export default function Carrinho() {
                       <th scope="row">
                         <div className="iconeimg"></div>
                       </th>
+                      {
+                        carrinho[0].nome != ''?
+                        carrinho.map((carrinho) =>
+                              <div>
+                                  <tr>
+                                  <th scope="row"><div className="iconeimg"></div></th>
+                                  <td>{carrinho.nome}</td>
+                                  <td className="preco1">{carrinho.preco}</td>
+                                  </tr>
+                              </div>
+                                )
+                                : <></>
+                                }
                       <td>Nome do prod/serv</td>
                       <td className="preco1">Preço</td>
                     </tr>
