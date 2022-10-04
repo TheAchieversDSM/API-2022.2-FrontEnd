@@ -18,6 +18,7 @@ export default function Servico() {
     let listaServicos: servicoModelo[] = []
     const [options, setOptions] = useState(modeloOptions)
     const [optServ, setOptServ] = useState(modeloOptions)
+    const [obrigatorios, setObrigatorios] = useState(listaServicos)
     const [complementos, setComplementos] = useState(listaServicos)
 
     const [formValue, setFormValue] = useState({
@@ -58,13 +59,13 @@ export default function Servico() {
     };
 
     const handleChangeComplementares = (event: any) => {
-        var produtosSelecionados: servicoModelo[] = []
+        var servicosSelecionados: servicoModelo[] = []
         for (let index = 0; index < event.length; index++) {
-            let produto = { id: event[index].value, nome: event[index].label }
+            let servico = { id: event[index].value, nome: event[index].label }
             //console.log(produto)
-            produtosSelecionados.push(produto)
+            servicosSelecionados.push(servico)
         }
-        setComplementos(produtosSelecionados)
+        setComplementos(servicosSelecionados)
         console.log(complementos);
         
         setFormValue((prevState) => {
@@ -73,7 +74,24 @@ export default function Servico() {
                 servicoComplementares: complementos,
             };
         });
-        //console.log(formValue)
+    };
+
+    const handleChangeObrigatorios = (event: any) => {
+        var servicosSelecionados: servicoModelo[] = []
+        for (let index = 0; index < event.length; index++) {
+            let servico = { id: event[index].value, nome: event[index].label }
+            //console.log(produto)
+            servicosSelecionados.push(servico)
+        }
+        setComplementos(servicosSelecionados)
+        console.log(complementos);
+        
+        setFormValue((prevState) => {
+            return {
+                ...prevState,
+                servicoComplementares: complementos,
+            };
+        });
     };
 
     const handleSubmit = (event: any) => {
@@ -82,7 +100,8 @@ export default function Servico() {
             descricao: servicoDescricao,
             preco: servicoPreco,
             produtos: servicoProduto,
-            servicoComplementares: complementos[0].id != '' ? complementos : []
+            servicoComplementares: complementos[0].id != '' ? complementos : [],
+            servicoObrigatorios: complementos[0].id != '' ? complementos : []
         }
         axios.post("http://localhost:8080/servicos/criarServico", servico).then((res) => {
             alert('Serviço criado!')
@@ -95,8 +114,6 @@ export default function Servico() {
             servicoDescricao: "",
             servicoPreco: ""
         }
-
-        //setFormValue(valores);
     };
 
     useEffect(() => {
@@ -218,7 +235,7 @@ export default function Servico() {
                             <Select
                                 isMulti
                                 name="servicoObrigatorios"
-                                onChange={handleChange}
+                                onChange={handleChangeObrigatorios}
                                 options={optServ}
                                 isClearable={true}
                                 isSearchable={true}
