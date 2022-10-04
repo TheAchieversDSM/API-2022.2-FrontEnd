@@ -9,6 +9,9 @@ import Select from 'react-select';
 
 import './servico.css'
 import axios from 'axios';
+import Tooltip from 'react-bootstrap/esm/Tooltip';
+import TooltipDuvida from '../../components/tooltip';
+import Badge from 'react-bootstrap/esm/Badge';
 
 const modeloOptions = [
     { 
@@ -123,7 +126,7 @@ export default function Servico() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Preço </Form.Label>
+                            <Form.Label>Preço</Form.Label>
                             <Form.Control
                                 required
                                 name="servicoPreco"
@@ -132,6 +135,23 @@ export default function Servico() {
                                 type="number"
                                 placeholder="Preço do Serviço"
                             />
+                        </Form.Group>
+
+                    </Row>
+
+                    <Row className="mb-3 FormText" >
+                        
+                        <Form.Group as={Col} md="6">
+                            <Form.Label>Descrição</Form.Label>
+                            <Form.Control 
+                                required
+                                name="servicoDescricao"
+                                value={servicoDescricao}
+                                onChange={handleChange}
+                                as="textarea"                                
+                                type="text"
+                                placeholder="Descrição do Serviço"
+                            />                          
                         </Form.Group>
 
                     </Row>
@@ -154,22 +174,43 @@ export default function Servico() {
                         
                     </Row>
 
-                    <Row className="mb-3 FormText" >
-                        
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Descrição</Form.Label>
-                            <Form.Control 
-                                required
-                                name="servicoDescricao"
-                                value={servicoDescricao}
-                                onChange={handleChange}
-                                as="textarea"                                
-                                type="text"
-                                placeholder="Descrição do Serviço"
-                            />                          
-                        </Form.Group>
+                    <Row className="mb-3">
 
+                        <Form.Group as={Col} md="6">
+                            <Form.Label>Serviços obrigatorios <TooltipDuvida mensagem="Escolha os serviços que serao obrigatorios o consumidor obter para a compra deste serviço"/></Form.Label>
+                            <Select 
+                                isMulti
+                                name="servicoProduto"
+                                onChange={handleChangeProdutos}
+                                isClearable={true}
+                                isSearchable={true}
+                                closeMenuOnSelect ={false}
+                                isLoading={false}
+                                options={options}
+                            />
+                        </Form.Group>
+                        
                     </Row>
+
+                    <Row className="mb-3">
+
+                        <Form.Group as={Col} md="6">
+                            <Form.Label>Serviços restringentes <TooltipDuvida mensagem="Escolha os serviços que nao poderao ser obtidos em conjunto com este"/></Form.Label>
+                            <Select 
+                                isMulti
+                                name="servicoProduto"
+                                onChange={handleChangeProdutos}
+                                isClearable={true}
+                                isSearchable={true}
+                                closeMenuOnSelect ={false}
+                                isLoading={false}
+                                options={options}
+                            />
+                        </Form.Group>
+                        
+                    </Row>
+
+                    
 
                     <Button type="submit" onClick={handleSubmit}>Criar Servico!</Button>
 
