@@ -8,6 +8,8 @@ import Login from "../pages/login/login";
 import Home from "../pages/home/home";
 import Pacote from "../pages/criacao-pacote/pacote";
 import Complementar from "../pages/produto-complementar/complementar"
+import Gerenciamento from "../pages/gerenciamento/gerenciamento";
+import Oferta from "../pages/criacao-oferta/oferta";
 
 const Routes = () => {
     return (
@@ -20,7 +22,9 @@ const Routes = () => {
                     <Route path="/criacao-produto" element={<Produto />} />
                     <Route path="/criacao-servico" element={<Servico />} />
                     <Route path="/criacao-pacote" element={<Pacote />} />
-                    <Route path="/produto-complementar" element={<Complementar />} />
+                    <Route path="/servico-complementar" element={<Complementar />} />
+                    <Route path="/gerenciamento" element={<Gerenciamento />} />
+                    <Route path="/criacao-oferta" element={<Oferta />} />
                 </Switch>
         </BrowserRouter>
     )
