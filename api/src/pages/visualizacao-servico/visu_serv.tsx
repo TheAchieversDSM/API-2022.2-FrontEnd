@@ -87,6 +87,7 @@ export default function VisualizacaoServ() {
                                     <div className="pacotes col-6"></div>
                                     <div className="col-6">
                                         <h3>R$ 180,00</h3>
+                                        <Button className='texto' onClick={() => {adicionarCarrinho({id: servico.id, nome: servico.nome, preco: servico.preco })}}  >Adicionar ao carrinho</Button>
                                         <Outline/>
                                     </div>
                                 </div>
