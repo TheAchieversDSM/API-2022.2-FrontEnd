@@ -86,7 +86,7 @@ export default function Listagens() {
                     <thead>
                         <tr>
                             <th>Nome</th>
-                            {window.location.href.split('/')[3] == 'pacotes' ?
+                            {window.location.href.split('/')[3] != 'pacotes' ?
                             <th>Descrição</th>
                             :
                             <th>Preço</th>
@@ -97,7 +97,7 @@ export default function Listagens() {
                         {produtos.map(produto =>
                             <tr>
                                 <td>{produto.nome}</td>
-                                {window.location.href.split('/')[3] == 'pacotes' ?
+                                {window.location.href.split('/')[3] != 'pacotes' ?
                                 <td>{produto.descricao}</td>
                                 :
                                 <td>R$ {produto.preco}</td>
