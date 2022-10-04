@@ -10,6 +10,13 @@ import Select from 'react-select';
 import './servico.css'
 import axios from 'axios';
 
+const categorias = [
+    { value: 'Meu Negócio', label: 'Meu Negócio' },
+    { value: 'Streaming', label: 'Streaming' },
+    { value: 'Música', label: 'Música' },
+    { value: 'Segurança Digital', label: 'Segurança Digital' },
+];
+
 const modeloOptions = [{ value: '', label: '' }];
 
 type servicoModelo = { id: "", nome: "" }
@@ -23,8 +30,8 @@ export default function Servico() {
 
     const [formValue, setFormValue] = useState({
         servicoNome: "",
-        servicoPreco: "",
         servicoDescricao: "",
+        servicoCategoria: "",
         servicoProduto: listaServicos,
         servicoObrigatorios: listaServicos,
         servicoComplementares: listaServicos
@@ -40,13 +47,12 @@ export default function Servico() {
         });
     };
 
-    const { servicoNome, servicoPreco, servicoProduto, servicoDescricao, servicoObrigatorios, servicoComplementares } = formValue;
+    const { servicoNome, servicoProduto, servicoDescricao, servicoCategoria, servicoObrigatorios, servicoComplementares } = formValue;
 
     const handleChangeProdutos = (event: any) => {
         var produtosSelecionados: servicoModelo[] = []
         for (let index = 0; index < event.length; index++) {
             let produto = { id: event[index].value, nome: event[index].label }
-            //console.log(produto)
             produtosSelecionados.push(produto)
         }
         setFormValue((prevState) => {
@@ -55,54 +61,67 @@ export default function Servico() {
                 servicoProduto: produtosSelecionados,
             };
         });
-        //console.log(formValue)
+    };
+
+    const handleChangeCategoria = (event: any) => {
+        setFormValue((prevState) => {
+            return {
+                ...prevState,
+                servicoCategoria: event[0].value,
+            };
+        });
     };
 
     const handleChangeComplementares = (event: any) => {
         var servicosSelecionados: servicoModelo[] = []
         for (let index = 0; index < event.length; index++) {
             let servico = { id: event[index].value, nome: event[index].label }
-            //console.log(produto)
             servicosSelecionados.push(servico)
         }
         setComplementos(servicosSelecionados)
         console.log(complementos);
-        
+
         setFormValue((prevState) => {
             return {
                 ...prevState,
                 servicoComplementares: complementos,
             };
         });
+
+        console.log(formValue);
     };
 
     const handleChangeObrigatorios = (event: any) => {
         var servicosSelecionados: servicoModelo[] = []
         for (let index = 0; index < event.length; index++) {
             let servico = { id: event[index].value, nome: event[index].label }
-            //console.log(produto)
             servicosSelecionados.push(servico)
         }
-        setComplementos(servicosSelecionados)
-        console.log(complementos);
-        
+        setObrigatorios(servicosSelecionados)
+        console.log(obrigatorios);
+
         setFormValue((prevState) => {
             return {
                 ...prevState,
-                servicoComplementares: complementos,
+                servicoObrigatorios: obrigatorios,
             };
         });
+
+        console.log(formValue);
+
     };
 
     const handleSubmit = (event: any) => {
         const servico = {
             nome: servicoNome,
             descricao: servicoDescricao,
-            preco: servicoPreco,
             produtos: servicoProduto,
-            servicoComplementares: complementos[0].id != '' ? complementos : [],
-            servicoObrigatorios: complementos[0].id != '' ? complementos : []
+            categoria: servicoCategoria,
+            complementares: complementos[0].id != '' ? complementos : [],
+            servicosObrigatorios: obrigatorios[0].id != '' ? obrigatorios : []
         }
+        console.log(servico);
+
         axios.post("http://localhost:8080/servicos/criarServico", servico).then((res) => {
             alert('Serviço criado!')
         })
@@ -112,8 +131,13 @@ export default function Servico() {
         let valores = {
             servicoNome: "",
             servicoDescricao: "",
-            servicoPreco: ""
+            servicoCategoria: "",
+            servicoProduto: listaServicos,
+            servicoObrigatorios: listaServicos,
+            servicoComplementares: listaServicos
         }
+
+        setFormValue(valores);
     };
 
     useEffect(() => {
@@ -160,7 +184,7 @@ export default function Servico() {
 
                 <h1>Cadastro de Serviço</h1>
 
-                <Form /*noValidate validated={validated} onSubmit={handleSubmit}*/>
+                <Form>
 
                     <Row className="mb-3">
 
@@ -173,22 +197,6 @@ export default function Servico() {
                                 onChange={handleChange}
                                 type="text"
                                 placeholder="Nome do Serviço"
-                            />
-                        </Form.Group>
-
-                    </Row>
-
-                    <Row className="mb-3">
-
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Preço do Serviço</Form.Label>
-                            <Form.Control
-                                required
-                                name="servicoPreco"
-                                value={servicoPreco}
-                                onChange={handleChange}
-                                type="number"
-                                placeholder="Preço do Serviço"
                             />
                         </Form.Group>
 
@@ -226,6 +234,23 @@ export default function Servico() {
                                 placeholder="Descrição do Serviço"
                             />
                         </Form.Group>
+                    </Row>
+
+                    <Row className="mb-3">
+
+                        <Form.Group as={Col} md="6">
+                            <Form.Label>Categoria do Serviço</Form.Label>
+                            <Select 
+                                isMulti
+                                name="servicoCategoria"
+                                onChange={handleChangeCategoria}
+                                options={categorias}
+                                isClearable={true}
+                                isSearchable={true}
+                                closeMenuOnSelect={true}
+                            />
+                        </Form.Group>
+
                     </Row>
 
                     <Row className="mb-3">
