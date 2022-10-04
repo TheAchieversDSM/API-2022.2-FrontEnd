@@ -6,6 +6,10 @@
     margin-top: 30px
 }
 
+.principal{
+    margin: 80px;
+}
+
 .subcont {
     flex-direction: row;
     justify-content: center;
@@ -30,7 +34,9 @@
     background-color: #376FA6 !important;
     padding: 20px;
     height: fit-content;
-    border-radius: 15px 0px 0px 15px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .comprar {
@@ -42,11 +48,12 @@
     background-color: #004F98 !important;
 }
 
-.pacotes {
-    width: 100px;
-    height: 100px;
-    background-color: beige;
-    margin: 10px;
+.pact {
+    width: 140px;
+    height: 140px;
+    background-color: #004F98;
+    border-radius: 200px;
+    margin: 0px 0px 10px 30px;
 }
 
 .name {
@@ -60,10 +67,14 @@
     color: #004F98;
     font-size: 40px;
     font-weight: 700;
+    text-align: center;
 }
 
-.preço {
-    margin: 40px
+.sugestao-promocao{
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 p.texto {
@@ -72,8 +83,10 @@ p.texto {
     font-weight: 500;
 }
 
-h3 {
-    margin: 10px;
+.prom > .row{
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .descricao {

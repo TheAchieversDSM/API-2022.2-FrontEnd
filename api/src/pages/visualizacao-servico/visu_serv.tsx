@@ -43,48 +43,39 @@ export default function VisualizacaoServ() {
         <>
             <Navigation />
             <div className="geral">
-                <div className="row">
-                    <div className="principal col-8">
+                    <div className="principal">
                         <div className="subcont">
                             <h1 className="name">{servico.nome}</h1>
                             <div className="descricao">
                                 <p>{servico.descricao}</p>
                             </div>
-                            <h2 className="preço">R$ {servico.preco}</h2>
-                            <Botao />
-                            <p className='texto'>Adicionar ao carrinho</p>
                         </div>
                     </div>
 
-                    <div className="prom col-4">
+                    <div className="prom">
                         <h2 className="confira">Confira nossos pacotes</h2>
-                        <div className="container">
-                            <div >
-                                <div className="row">
-                                    <div className="pacotes col-6"></div>
-                                    <div className="col-6">
-                                        <h3>R$ 180,00</h3>
-                                        <Outline />
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="pacotes col-6"></div>
-                                    <div className="col-6">
-                                        <h3>R$ 180,00</h3>
-                                        <Outline />
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="pacotes col-6"></div>
-                                    <div className="col-6">
-                                        <h3>R$ 180,00</h3>
-                                        <Outline />
-                                    </div>
-                                </div>
+                        <div className="row">
+                            <div className="col-4">
+                                <div className="pact"></div>
+                                <h3>Nome do pacote</h3>
+                                <h3>R$ 180,00</h3>
+                                <Outline />
+                            </div>
+                            <div className="col-4">
+                                <div className="pact"></div>
+                                <h3>Nome do pacote</h3>
+                                <h3>R$ 180,00</h3>
+                                <Outline />
+                            </div>
+                            <div className="col-4">
+                                <div className="pact"></div>
+                                <h3>Nome do pacote</h3>
+                                <h3>R$ 180,00</h3>
+                                <Outline />
                             </div>
                         </div>
                     </div>
-                </div>
+
                 
                 <div className="container-sugestoes">
                     <div className="sugestao-promocao">
