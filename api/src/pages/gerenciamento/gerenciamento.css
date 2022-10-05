@@ -1,24 +1,3 @@
-.btn1, .btn2, .btn3{
-    margin: 10px;
-    background-color: #ff6700 !important;
-}
-
-.btn1:hover, .btn2:hover, .btn3:hover{
-    background-color: #3a6ea5 !important;
-}
-
-.lixeira{
-    color: #E10000;
-    background: none !important;
-    margin: 0 !important;
-}
-
-.lixeira:hover{
-    color: white;
-    background-color: #E10000 !important;
-}
-
-.lixo{
-    width: 20px !important;
-    height: 20px !important;
+.mb-3{
+   background-color: white !important;
 }

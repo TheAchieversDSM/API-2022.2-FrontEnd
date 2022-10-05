@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import Select from 'react-select'
-import Check from "../../../components/checkbox";
 
 
 const modeloServico = [
@@ -74,11 +73,6 @@ export default function GerServicos(){
                             <div className="row">
                                 <div className="col-4">
                                     <h2>Serviços</h2>
-                                    <Check titulo="Todos"/>
-                                    <Check titulo="Serviço A"/>
-                                    <Check titulo="Serviço B"/>
-                                    <Check titulo="Serviço C"/>
-                                    <Check titulo="Serviço D"/>
                                 </div>
                                 <div className="col-8">
                                     <h1>Serviços</h1>

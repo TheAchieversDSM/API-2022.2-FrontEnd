@@ -1,9 +1,11 @@
 import Navigation from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
-import { BsTrash } from "react-icons/bs"
-import { Button } from "react-bootstrap";
+import { Tab, Tabs } from "react-bootstrap";
 
 import "./gerenciamento.css"
+
+import GerPromocao from "./promocao/gerPromocao";
+import GerServicos from "./servico/servico";
 
 export default function Gerenciamento(){
     return(
@@ -13,31 +15,24 @@ export default function Gerenciamento(){
             <Sidebar />
 
             <div className="container-prod container">
-                <div className="row">
-                    <div className="col-8">
-                        <h1>Serviços selecionados</h1>
-                        <table className="table table-hover ">
-                                <tbody>
-                                    <tr>
-                                        <td>Nome do serviço</td>
-                                        <td><Button className="lixeira"><BsTrash className="lixo"/></Button></td>
-                                    </tr>
-                                </tbody>
-                        </table>
-                    </div>
-                    
-                </div>
-                <div className="botoes ">
-                        <Button variant="primary" size="lg" className="btn1">
-                            Alterar regras de negócio
-                        </Button>
-                        <Button variant="primary" size="lg" className="btn2">
-                            Atualizar dados de serviço
-                        </Button>
-                        <Button variant="primary" size="lg" className="btn3">
-                            Finalizar
-                        </Button>
-                </div>
+                <Tabs
+                defaultActiveKey="profile"
+                id="fill-tab-example"
+                className="mb-3"
+                >
+                    <Tab eventKey="pacotesOfertas" title="Pacotes/Ofertas" className="tab1">
+
+                    </Tab>
+                    <Tab eventKey="servicos" title="Serviços" className="tab2">
+                        <GerServicos/>
+                    </Tab>
+                    <Tab eventKey="promocoes" title="Promoçoes" className="tab3">
+                        <GerPromocao/>
+                    </Tab>
+                    <Tab eventKey="listagens" title="Listagens" className="tab4">
+
+                    </Tab>
+                </Tabs>
             </div>
         </>
     )
