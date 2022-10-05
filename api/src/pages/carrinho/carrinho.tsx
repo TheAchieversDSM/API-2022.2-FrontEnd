@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import AlertaProm from "../../components/alerta";
 import Navigation from "../../components/navbar";
+import { BsFillTrashFill } from 'react-icons/bs'
 import './carrinho.css'
 
 let modelo = [
@@ -16,17 +17,40 @@ let modelo = [
 
 export default function Carrinho() {
   const [carrinho,setCarrinho] = useState(modelo)
-  console.log(localStorage.getItem("servicoCarrinho"))
+  
   useEffect(()=>{
-    if(localStorage.getItem("servicoCarrinho") != undefined){
-      setCarrinho(modelo)
-  }
-  else{
+      if(localStorage.getItem("servicoCarrinho") != undefined){
+        setCarrinho(JSON.parse(localStorage.getItem("servicoCarrinho")!))
+        console.log(carrinho)
+        
+      }
+      else{
+        setCarrinho(modelo)
+      }
+      
+  
+  },[])
 
-    setCarrinho(JSON.parse(localStorage.getItem("servicoCarrinho")!))
+  function deletar(id: string){
+    for (let index = 0; index < carrinho.length; index++) {
+      if(carrinho[index].id == id){ 
+          console.log(carrinho[index]);
+          carrinho.splice(index,1)
+          localStorage.setItem("servicoCarrinho",JSON.stringify(carrinho))
+      }
+  }
+    window.location.reload()
   }
   
-})
+  function soma(){
+    var soma = 0
+    for (let index = 0; index < carrinho.length; index++) {
+      console.log(parseFloat(carrinho[index].preco));
+      
+      soma += parseFloat(carrinho[index].preco)
+    }
+    return soma
+  }
 
     return(
         <>
@@ -36,39 +60,25 @@ export default function Carrinho() {
                 <div className="listac col-9">
                   <table className="table table-hover">
                   <tbody>
-                    <tr>
-                      <th scope="row">
-                        <div className="iconeimg"></div>
-                      </th>
-                      {
-                        carrinho[0].nome != ''?
+                  
+                  {
+                        carrinho[0] != undefined ?
                         carrinho.map((carrinho) =>
                               <div>
                                   <tr>
                                   <th scope="row"><div className="iconeimg"></div></th>
                                   <td>{carrinho.nome}</td>
-                                  <td className="preco1">{carrinho.preco}</td>
+                                  <td className="preco1">R$ {carrinho.preco}</td>
+                                  <td><BsFillTrashFill onClick={()=>{deletar(carrinho.id)}} /></td>
                                   </tr>
                               </div>
                                 )
-                                : <></>
+                                : <><h4>Você ainda não adicionou produtos ao seu carrinho!</h4></>
                                 }
-                      <td>Nome do prod/serv</td>
-                      <td className="preco1">Preço</td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><div className="iconeimg"></div></th>
-                      <td>Nome do prod/serv</td>
-                      <td className="preco1">Preço</td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><div className="iconeimg"></div></th>
-                      <td >Nome do prod/serv</td>
-                      <td className="preco1">Preço</td>
-                    </tr>
+                     
                   </tbody>
                   </table>
-                  <h2 className="precototal">Preço total</h2>
+                  <h2 className="precototal">R$ {carrinho[0] != undefined ? soma() : 0} Preço total</h2>
                   <AlertaProm prom="Essa promoção contém os seguintes produtos/serviços/pacotes"/>
                 </div>
 
