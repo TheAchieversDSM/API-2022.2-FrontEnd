@@ -67,6 +67,26 @@ export default function Oferta() {
         render()
     }, [])
 
+    const handleSubmit = (event: any) => {
+        const oferta = {
+            preco: ofertaPreco,
+            pacotes: ofertaPacotes
+        }
+
+        event.preventDefault();
+
+        axios.post(`http://localhost:8080/ofertas/criarOferta`, oferta).then((res) => {
+            alert('Oferta criada!');
+        })
+
+        let valores = {
+            ofertaPreco: "",
+            ofertaPacotes: listaPacotes
+        }
+
+        setFormValue(valores);
+    };
+
 
 
     return (
@@ -113,7 +133,7 @@ export default function Oferta() {
 
                     </Row>
 
-                    <Button type="submit" >Criar Oferta!</Button>
+                    <Button type="submit" onClick={handleSubmit}>Criar Oferta!</Button>
 
                 </Form>
 
