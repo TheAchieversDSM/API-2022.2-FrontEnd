@@ -32,8 +32,7 @@ export default function VisualizacaoServ() {
                 setComplementos(res.data.complementares)  
             })
         }
-
-        
+     
             render() 
 
     })
@@ -42,17 +41,16 @@ export default function VisualizacaoServ() {
     }
     const adicionarCarrinho = (servicoCarrinho: any) =>{ 
         if(localStorage.getItem("servicoCarrinho") != undefined){
-        let carrinho = []
-        carrinho = JSON.parse(localStorage.getItem('servicoCarrinho')!)
-        carrinho = [carrinho]
-        carrinho.push(servicoCarrinho)
+            let carrinho = []
+            carrinho = JSON.parse(localStorage.getItem('servicoCarrinho')!)
+            carrinho.push(servicoCarrinho)       
       
-        localStorage.setItem("servicoCarrinho",JSON.stringify(servicoCarrinho))
-        console.log(localStorage.getItem("servicoCarrinho"))
-    }
+            localStorage.setItem("servicoCarrinho",JSON.stringify(carrinho))
+            console.log(JSON.parse(localStorage.getItem('servicoCarrinho')!))
+    }       
     else{
         let carrinho = [servicoCarrinho]
-        localStorage.setItem("servicoCarrinho",JSON.stringify(servicoCarrinho))
+        localStorage.setItem("servicoCarrinho",JSON.stringify(carrinho))
         console.log(localStorage.getItem("servicoCarrinho"))
       }
       
