@@ -2,12 +2,6 @@
    background-color: white !important;
 }
 
-.container-oferta {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-gap: 50px;
-}
-
 .mb-3.nav.nav-tabs,
 .container-prod {
     max-width: 1000px;
