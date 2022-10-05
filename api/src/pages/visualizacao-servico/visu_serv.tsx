@@ -6,20 +6,18 @@ import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { Link, useParams } from "react-router-dom"
 import { Button, Card } from 'react-bootstrap';
+import Slider from 'react-slick'
 import axios from 'axios';
 
 import './visu.css'
 
-let modelo = [
-    {
-        'id': '',
-        'nome': '',
-    }
-]
+let modelo = [{ 'id': '', 'nome': '' }]
+const modeloPromocao = [{ id: '', nome: '', preco: '' }]
 
 export default function VisualizacaoServ() {
     const [servico, setServico] = useState(Object)
     const [complementos, setComplementos] = useState(modelo)
+    const [promocoes, setPromocoes] = useState(modeloPromocao)
     const [pacote, setPacotes] = useState([{}])
     const { id } = useParams();
 
@@ -28,16 +26,26 @@ export default function VisualizacaoServ() {
             axios.get(`http://localhost:8080/servicos/pegarServico/${id}`,).then((res) => {
                 setServico(res.data)
                 setComplementos(res.data.complementares)
-                console.log(complementos);
-
             })
+
+            {/*axios.get(`http://localhost:8080/promocoes/pegarTodasPromocoes`,).then((res) => {
+            setPromocoes(res.data)
+            })*/}
         }
         render()
-    }, [servico])
+    }, [])
+
 
     const topFunction = () => {
         document.documentElement.scrollTop = 0;
     }
+
+    const settings = {
+        infinite: true,
+        speed: 700,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
 
     return (
         <>
@@ -85,20 +93,26 @@ export default function VisualizacaoServ() {
                         </div>
                     </div>
                 </div>
-                
+
                 <div className="container-sugestoes">
                     <div className="sugestao-promocao">
                         <h2 className="sugestao">Promoções</h2>
-                        <Card style={{ width: '18rem' }}>
-                            <div className="card-imgserv"></div>
-                            <Card.Body>
-                                <Card.Title>Nome da Promoção</Card.Title>
-                                <Card.Text>
-                                    Preço da promoção
-                                </Card.Text>
-                                <Button variant="primary">Ver Promoção!</Button>
-                            </Card.Body>
-                        </Card>
+                        <Slider {...settings}>
+                            {promocoes.map((promocao) =>
+                                <div>
+                                    <Card style={{ width: '18rem' }}>
+                                        <div className="card-imgserv"></div>
+                                        <Card.Body>
+                                            <Card.Title>{promocao.nome}</Card.Title>
+                                            <Card.Text>
+                                                {promocao.preco}
+                                            </Card.Text>
+                                            <Button variant="primary">Ver Promoção!</Button>
+                                        </Card.Body>
+                                    </Card>
+                                </div>
+                            )}
+                        </Slider>
                     </div>
                     <div>
                         <h2 className="sugestao">Outras sugestões</h2>

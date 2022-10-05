@@ -53,9 +53,6 @@ export default function Listagens() {
 
     return (
         <>
-            <Navigation />
-            <Sidebar />
-
             <div className="container-lista">
                 <h1>Listagens</h1>
 
@@ -101,8 +98,7 @@ export default function Listagens() {
                                 <td>{produto.descricao}</td>
                                 :
                                 <td>R$ {produto.preco}</td>
-                            }
-                                
+                                }
                             </tr>
                         )}
                     </tbody>
