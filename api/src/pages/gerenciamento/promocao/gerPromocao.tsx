@@ -90,11 +90,11 @@ export default function GerPromocao(){
     return(
         <>
         <div className="container">
-                    <h1>Promoçao</h1>
+                    <h1>Promoção</h1>
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Pacotes</Form.Label>
+                            <Form.Label>Pacotes que compõem a Promoção</Form.Label>
                                 <Select 
                                     isMulti
                                     name="GerOfertaPacotes"

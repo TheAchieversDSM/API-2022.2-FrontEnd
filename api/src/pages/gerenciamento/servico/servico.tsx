@@ -3,31 +3,27 @@ import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import Select from 'react-select'
 
-
 const modeloServico = [
     { value: '', label: '' }
 ];
 
-type pacoteServico={id:"",nome:""}
+type servicoModelo = { id: "", nome: "" }
 
 export default function GerServicos(){
-    const [servicos,setServicos] = useState(modeloServico)
+    const [servicos, setServicos] = useState(modeloServico)
 
-    let listaServicos: pacoteServico[] = []
+    let listaServicos: servicoModelo[] = []
 
     const [formValue, setFormValue] = useState({
         servicoNome: "",
         servicoPreco: "",
-        complementarServico: listaServicos,
-        obrigatorioServico: listaServicos,
-        restringenteServico: listaServicos
+        gerencServicos: listaServicos
     });
 
-
-    const handleChangeServicos= (event: any) => {
-        var servicosSelecionados:  pacoteServico[] =  []
+    const handleChangeServicos = (event: any) => {
+        var servicosSelecionados: servicoModelo[] = []
         for (let index = 0; index < event.length; index++) {
-            let servico = {id:event[index].value, nome:event[index].label}
+            let servico = { id: event[index].value, nome: event[index].label }
             console.log(servico)
             servicosSelecionados.push(servico)
         }
@@ -35,11 +31,11 @@ export default function GerServicos(){
         setFormValue((prevState) => {
             return {
                 ...prevState,
-                servico: servicosSelecionados,
+                ofertaServicos: servicosSelecionados,
             };
         });
     };
-    
+
     const handleChange = (event: any) => {
         const { name, value } = event.target;
         setFormValue((prevState) => {
@@ -50,9 +46,9 @@ export default function GerServicos(){
         });
     };
 
-    useEffect(()=>{
-        async function render() { 
-        axios.get(`http://localhost:8080/pacotes/pegarTodosServicos`).then((res)=>{
+    useEffect(() => {
+        async function render() {
+            axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
                 var servicos = []
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
@@ -65,18 +61,55 @@ export default function GerServicos(){
             })
         }
         render()
-    },[])
+    }, [])
+
+    const { servicoNome, servicoPreco, gerencServicos } = formValue;
+
+    const handleSubmit = (event: any) => {
+        const promocao = {
+            nome: servicoNome,
+            preco: servicoPreco,
+            pacotes: gerencServicos
+        }
+
+        event.preventDefault();
+
+        axios.put(`http://localhost:8080/servicos/atualizarServico`, promocao).then((res) => {
+            alert('Servico atualizada!');
+        })
+
+        let valores = {
+            servicoNome: "",
+            servicoPreco: "",
+            gerencServicos: listaServicos
+        }
+
+        setFormValue(valores);
+    };
 
     return(
         <>
         <div className="container">
-                            <div className="row">
-                                <div className="col-4">
-                                    <h2>Serviços</h2>
-                                </div>
-                                <div className="col-8">
+
                                     <h1>Serviços</h1>
                                     <Form /*noValidate validated={validated} onSubmit={handleSubmit}*/>
+
+                                    <Row className="mb-3">
+
+                                        <Form.Group as={Col} md="6">
+                                            <Form.Label>Serviços a serem alterados</Form.Label>
+                                                <Select 
+                                                    isMulti
+                                                    name="GerServicos"
+                                                    options={servicos}
+                                                    onChange={handleChangeServicos}
+                                                    isClearable={true}
+                                                    isSearchable={true}
+                                                    closeMenuOnSelect ={false}
+                                                />
+                                        </Form.Group>
+
+                                    </Row>
 
                                         <Row className="mb-3">
     
@@ -142,12 +175,10 @@ export default function GerServicos(){
 
                                         </Row>
 
-                                        <Button type="submit">Salvar!</Button>
+                                        <Button type="submit" onClick={handleSubmit}>Salvar!</Button>
 
                                     </Form>
                                 </div>
-                            </div>
-                        </div>
         </>
     )
 }
