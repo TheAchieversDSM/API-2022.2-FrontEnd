@@ -1,4 +1,4 @@
-.geral{
+.geral {
     text-align: center;
     flex-direction: row;
     justify-content: center;
@@ -6,42 +6,49 @@
     margin-top: 30px
 }
 
-.subcont{
+.principal{
+    margin: 80px;
+}
+
+.subcont {
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
 
-.col-4{
-    width: fit-content;
-    margin: 10px 50px 10px 50px;
+.col-3 {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
     padding: 10px;
 }
 
-.yours-custom-class{
+.yours-custom-class {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.prom{
+.prom {
     background-color: #376FA6 !important;
     padding: 20px;
     height: fit-content;
-    
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
-.comprar{
+.comprar {
     background-color: #F06823 !important;
     border-color: #F06823 !important;
 }
 
-.nav{
+.nav {
     background-color: #004F98 !important;
 }
 
-.pact{
+.pact {
     width: 140px;
     height: 140px;
     background-color: #004F98;
@@ -49,16 +56,18 @@
     margin: 0px 0px 10px 30px;
 }
 
-.name{
+.name {
     color: #F06823;
     font-weight: 650;
     font-size: 55px;
 }
 
-.sugestao{
+.preço,
+.sugestao {
     color: #004F98;
     font-size: 40px;
     font-weight: 700;
+    text-align: center;
 }
 
 .sugestao-promocao{
@@ -68,19 +77,19 @@
     align-items: center;
 }
 
+p.texto {
+    margin-top: 20px;
+    color: #004F98 !important;
+    font-weight: 500;
+}
+
 .prom > .row{
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
-p.texto {
-    margin-top: 20px;
-    color:#004F98 !important; 
-    font-weight: 500;
-}
-
-.descricao{
+.descricao {
     font-weight: 450;
     font-size: 20px;
     display: flex;
@@ -88,29 +97,32 @@ p.texto {
     align-items: center;
 }
 
-.descricao > p{
+.descricao > p {
     color: #2D5274;
     width: 70%;
 }
 
-.confira{
+.confira {
     color: aliceblue;
     font-size: 40px;
     font-weight: 700;
 }
 
-.promo{
+.promo,
+.sugestao-promocao > .btn-primary {
     border-color: #F06823 !important;
-    border-width: 4px;
+    border-width: 3px;
     color: white !important;
     font-weight: 500;
+    transition: 0.8s;
 }
 
-.promo:hover{
+.promo:hover {
     background-color: #F06823 !important;
+    transition: 0.8s;
 }
 
-.prom > .row{
+.prom > .row {
     margin: 20px
 }
 
@@ -130,19 +142,33 @@ p.texto {
     border-radius: 100%;
 }
 
-h3{
+h3 {
     color: aliceblue;
 }
 
-.card-botao > .btn-primary > a {
+.card-botao>.btn-primary>a {
     color: white !important;
-    
 }
 
-.card-botao > .btn-primary{
+.card-botao>.btn-primary {
     margin-bottom: 5px;
 }
 
-.contpac{
-    margin: 15px;
+.container-sugestoes {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.sugestao-promocao {
+    margin-left: 100px;
+}
+
+.card-imgserv {
+    margin-top: 30px;
+    margin-inline: auto;
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+    border-radius: 100%;
 }

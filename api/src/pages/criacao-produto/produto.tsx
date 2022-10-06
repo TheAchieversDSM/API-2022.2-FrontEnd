@@ -195,24 +195,6 @@ export default function Produto() {
 
                     </Row>
 
-                    <Row className="mb-3">
-
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Produtos Complementares</Form.Label>
-                            <Select
-                                isMulti
-                                name="produtoComplementares"
-                                options={produtos}
-                                onChange={handleChangeComplementares}
-                                isClearable={true}
-                                isSearchable={true}
-                                closeMenuOnSelect ={false}
-                                isLoading={false}
-                            />
-                        </Form.Group>
-
-                    </Row>
-
                     <Button type="submit" onClick={handleSubmit}>Criar Produto!</Button>
 
                 </Form>
