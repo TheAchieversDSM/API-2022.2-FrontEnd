@@ -8,6 +8,7 @@ import Login from "../pages/login/login";
 import Home from "../pages/home/home";
 import Pacote from "../pages/criacao-pacote/pacote";
 import Complementar from "../pages/produto-complementar/complementar"
+import Oferta from "../pages/criacao-oferta/oferta";
 import Listagens from "../pages/listagens/listagens";
 import VisualizacaoServ from "../pages/visualizacao-servico/visu_serv";
 
@@ -27,7 +28,8 @@ const Routes = () => {
                     <Route path="/criacao-produto" element={<Produto />} />
                     <Route path="/criacao-servico" element={<Servico />} />
                     <Route path="/criacao-pacote" element={<Pacote />} />
-                    <Route path="/produto-complementar" element={<Complementar />} />
+                    <Route path="/servico-complementar" element={<Complementar />} />
+                    <Route path="/criacao-oferta" element={<Oferta />} />
                 </Switch>
         </BrowserRouter>
     )
