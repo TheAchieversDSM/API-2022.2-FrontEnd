@@ -3,6 +3,28 @@
     margin-top: 30px;
 }
 
+.container-lista>.nav.nav-pills.nav-link>a {
+    color: black;
+}
+
+.navlista {
+    background-color: white !important;
+}
+
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link,
+.nav-pills .show > .nav-link > a {
+    color: black !important;
+    background-color: white;
+    border: 0.2px solid black;
+    margin-bottom: 20px;
+}
+
+.navlista.nav.nav-pills a.nav-link {
+    color: #0d6efd !important;
+}
+
 .lista-img {
     margin-inline: auto;
     width: 30px;
@@ -17,22 +39,22 @@
     margin-bottom: 30px;
 }
 
-.button-collection > .btn-outline-primary {
+.button-collection>.btn-outline-primary {
     color: #ff6700 !important;
     border-color: #ff6700;
     transition: 0.8s;
 }
 
-.button-collection > .btn-outline-primary:hover,
-.button-collection > .btn-outline-primary:focus {
+.button-collection>.btn-outline-primary:hover,
+.button-collection>.btn-outline-primary:focus {
     color: white !important;
     border-color: #ff6700;
     background-color: #ff6700;
     transition: 0.8s;
 }
 
-.button-collection > .btn-outline-primary:disabled,
-.button-collection > .btn-outline-primary[disabled] {
+.button-collection>.btn-outline-primary:disabled,
+.button-collection>.btn-outline-primary[disabled] {
     color: #004e98 !important;
     border-color: #004e98;
     transition: 0.8s;
