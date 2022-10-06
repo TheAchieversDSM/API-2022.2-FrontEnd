@@ -11,13 +11,15 @@ type servicoModelo = { id: "", nome: "" }
 
 export default function GerServicos(){
     const [servicos, setServicos] = useState(modeloServico)
-
     let listaServicos: servicoModelo[] = []
 
     const [formValue, setFormValue] = useState({
         servicoNome: "",
-        servicoPreco: "",
-        gerencServicos: listaServicos
+        servicoDescricao: "",
+        servicoCategoria: "",
+        servicoObrigatorios: listaServicos,
+        servicoProdutos: listaServicos,
+        servicoComplementares: listaServicos,
     });
 
     const handleChangeServicos = (event: any) => {
@@ -31,7 +33,39 @@ export default function GerServicos(){
         setFormValue((prevState) => {
             return {
                 ...prevState,
-                ofertaServicos: servicosSelecionados,
+                servicoProdutos: servicosSelecionados,
+            };
+        });
+    };
+
+    const handleChangeObrigatorios = (event: any) => {
+        var servicosSelecionados: servicoModelo[] = []
+        for (let index = 0; index < event.length; index++) {
+            let servico = { id: event[index].value, nome: event[index].label }
+            console.log(servico)
+            servicosSelecionados.push(servico)
+        }
+
+        setFormValue((prevState) => {
+            return {
+                ...prevState,
+                servicoObrigatorios: servicosSelecionados,
+            };
+        });
+    };
+
+    const handleChangeComplementares = (event: any) => {
+        var servicosSelecionados: servicoModelo[] = []
+        for (let index = 0; index < event.length; index++) {
+            let servico = { id: event[index].value, nome: event[index].label }
+            console.log(servico)
+            servicosSelecionados.push(servico)
+        }
+
+        setFormValue((prevState) => {
+            return {
+                ...prevState,
+                servicoComplementares: servicosSelecionados,
             };
         });
     };
@@ -63,13 +97,16 @@ export default function GerServicos(){
         render()
     }, [])
 
-    const { servicoNome, servicoPreco, gerencServicos } = formValue;
+    const { servicoNome, servicoDescricao, servicoCategoria, servicoObrigatorios, servicoProdutos, servicoComplementares } = formValue;
 
     const handleSubmit = (event: any) => {
         const promocao = {
             nome: servicoNome,
-            preco: servicoPreco,
-            pacotes: gerencServicos
+            descricao: servicoDescricao,
+            categoria: servicoCategoria,
+            servicosObrigatorios: servicoObrigatorios,
+            produtos: servicoProdutos,
+            complementares: servicoComplementares
         }
 
         event.preventDefault();
@@ -80,8 +117,11 @@ export default function GerServicos(){
 
         let valores = {
             servicoNome: "",
-            servicoPreco: "",
-            gerencServicos: listaServicos
+            servicoDescricao: "",
+            servicoCategoria: "",
+            servicoObrigatorios: listaServicos,
+            servicoProdutos: listaServicos,
+            servicoComplementares: listaServicos
         }
 
         setFormValue(valores);
@@ -117,7 +157,10 @@ export default function GerServicos(){
                                                 <Form.Label>Nome do Serviço</Form.Label>
                                                 <Form.Control
                                                     required
-
+                                                    name="servicoNome"
+                                                    onChange={handleChange}
+                                                    type="text"
+                                                    placeholder="Insira o nome do Serviço"                    
                                                 />
                                             </Form.Group>
 
@@ -130,7 +173,7 @@ export default function GerServicos(){
                                                 <Select
                                                     isMulti
                                                     name="servicoProduto"
-                                                    onChange={handleChangeServicos}
+                                                    onChange={handleChangeObrigatorios}
                                                     isClearable={true}
                                                     isSearchable={true}
                                                     closeMenuOnSelect ={false}
@@ -147,7 +190,7 @@ export default function GerServicos(){
                                                 <Select
                                                     isMulti
                                                     name="servicoComplementar"
-                                                    onChange={handleChangeServicos}
+                                                    onChange={handleChangeComplementares}
                                                     isClearable={true}
                                                     isSearchable={true}
                                                     closeMenuOnSelect ={false}
@@ -157,7 +200,7 @@ export default function GerServicos(){
                                             </Form.Group>
 
                                         </Row>
-                                        <Row className="mb-3">
+                                        {/*<Row className="mb-3">
 
                                             <Form.Group as={Col} md="6">
                                                 <Form.Label>Incluir Serviço Restringente</Form.Label>
@@ -173,7 +216,7 @@ export default function GerServicos(){
                                                 />
                                             </Form.Group>
 
-                                        </Row>
+                                        </Row>*/}
 
                                         <Button type="submit" onClick={handleSubmit}>Salvar!</Button>
 
