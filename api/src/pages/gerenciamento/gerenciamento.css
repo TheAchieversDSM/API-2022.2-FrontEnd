@@ -22,3 +22,12 @@
     width: 20px !important;
     height: 20px !important;
 }
+
+.mb-3 {
+   background-color: white !important;
+}
+
+.mb-3.nav.nav-tabs,
+.container-prod {
+    max-width: 1000px;
+}
