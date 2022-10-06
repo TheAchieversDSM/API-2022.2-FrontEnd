@@ -51,9 +51,9 @@
 .pact {
     width: 140px;
     height: 140px;
-    background-color: #004F98;
     border-radius: 200px;
-    margin: 0px 0px 10px 30px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .name {
@@ -142,10 +142,6 @@ p.texto {
     border-radius: 100%;
 }
 
-h3 {
-    color: aliceblue;
-}
-
 .card-botao>.btn-primary>a {
     color: white !important;
 }
@@ -158,10 +154,13 @@ h3 {
     margin-top: 40px;
     display: grid;
     grid-template-columns: 1fr 2fr;
+    margin-left: auto;
+    margin-right: auto; 
 }
 
 .sugestao-promocao {
-    margin-left: 100px;
+    margin-left: auto;
+    margin-right: auto; 
 }
 
 .card-imgserv {
@@ -171,4 +170,31 @@ h3 {
     height: 100px;
     background-color: gray;
     border-radius: 100%;
+}
+
+.col-4 > p{
+    font-size: 16px;
+    font-weight: 450;
+}
+
+.pacotinho{
+    background-color: #5486b4;
+    height: fit-content;
+    width: 280px;
+    padding: 20px 10px 20px 10px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pacotin{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.iconecheck{
+    color: #F06823;
+    font-weight: 600 !important;
+    font-size: 25px !important;
 }
