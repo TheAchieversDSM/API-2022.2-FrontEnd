@@ -9,6 +9,9 @@ import Select from 'react-select';
 
 import './servico.css'
 import axios from 'axios';
+import Tooltip from 'react-bootstrap/esm/Tooltip';
+import TooltipDuvida from '../../components/tooltip';
+import Badge from 'react-bootstrap/esm/Badge';
 
 const categorias = [
     { value: 'Meu Negócio', label: 'Meu Negócio' },
@@ -250,13 +253,31 @@ export default function Servico() {
                                 closeMenuOnSelect={true}
                             />
                         </Form.Group>
-
+                        
                     </Row>
 
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Serviços Obrigatórios</Form.Label>
+                            <Form.Label>Serviços restringentes <TooltipDuvida mensagem="Escolha os serviços que nao poderao ser obtidos em conjunto com este"/></Form.Label>
+                            <Select 
+                                isMulti
+                                name="servicoProduto"
+                                onChange={handleChangeProdutos}
+                                isClearable={true}
+                                isSearchable={true}
+                                closeMenuOnSelect ={false}
+                                isLoading={false}
+                                options={options}
+                            />
+                        </Form.Group>
+                        
+                    </Row>
+
+                    <Row className="mb-3">
+
+                        <Form.Group as={Col} md="6">
+                            <Form.Label>Serviços obrigatorios <TooltipDuvida mensagem="Escolha os serviços que serao obrigatorios o consumidor obter para a compra deste serviço"/></Form.Label>
                             <Select
                                 isMulti
                                 name="servicoObrigatorios"

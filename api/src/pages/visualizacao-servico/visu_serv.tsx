@@ -40,8 +40,9 @@ export default function VisualizacaoServ() {
         render()
     }, [servico])
 
-    useEffect(() => {
-        async function render() {
+    useEffect(()=>{
+        function render() { 
+          
             axios.post(`http://localhost:8080/servicos/pegarPacotes`, [servico]).then((res) => {
                 setPacotes(res.data)
             })
@@ -50,23 +51,27 @@ export default function VisualizacaoServ() {
             setPromocoes(res.data)
             })*/}
         }
-        render()
-    }, [])
-
-
-    const adicionarCarrinho = (servicoCarrinho: any) => {
-        servico.preventDefault()
-        if (localStorage.getItem("ServicoCarrinho") != undefined) {
+        render() 
+    })
+    
+    const deletarCarrinho = () => {
+        localStorage.removeItem('servicoCarrinho')
+    }
+    
+    const adicionarCarrinho = (servicoCarrinho: any) => { 
+        if(localStorage.getItem("servicoCarrinho") != undefined) {
             let carrinho = []
-            carrinho = JSON.parse(localStorage.getItem('carrinhoNaoConcluidas')!)
-            carrinho.push({ servicoCarrinho })
-
-            localStorage.setItem("ServicoCarrinho", JSON.stringify(servico))
-        }
+            carrinho = JSON.parse(localStorage.getItem('servicoCarrinho')!)
+            carrinho.push(servicoCarrinho)       
+      
+            localStorage.setItem("servicoCarrinho",JSON.stringify(carrinho))
+            console.log(JSON.parse(localStorage.getItem('servicoCarrinho')!))
+        }       
         else {
-            let carrinho = [{ servicoCarrinho }]
-            localStorage.setItem("tarefasNaoConcluidas", JSON.stringify(servico))
-        }
+            let carrinho = [servicoCarrinho]
+            localStorage.setItem("servicoCarrinho",JSON.stringify(carrinho))
+            console.log(localStorage.getItem("servicoCarrinho"))
+        }  
     }
 
     const topFunction = () => {
@@ -113,7 +118,6 @@ export default function VisualizacaoServ() {
                     </div>
                 </div>
 
-
                 <div className="container-sugestoes">
                     <div className="sugestao-promocao">
                         <h2 className="sugestao">Promoções</h2>
@@ -136,24 +140,25 @@ export default function VisualizacaoServ() {
                     </div>
                     <div>
                         <h2 className="sugestao">Outras sugestões</h2>
-                        <AliceCarousel />
-                        <div className="yours-custom-class container">
-                            <div className="row">
-                                {complementos != null ?
-                                    complementos.map(complemento =>
-                                        <div className="card col-4">
-                                            <div className="card-img"></div>
-                                            <h4>{complemento.nome}</h4>
-                                            <div className="card-botao">
-                                                <Button onClick={topFunction} type="submit"><Link to={`/produto/${complemento.id}`}>Ver Produto!</Link></Button>
+                        <AliceCarousel>
+                            <div className="yours-custom-class container">
+                                <div className="row">
+                                    {complementos != null ?
+                                        complementos.map(complemento =>
+                                            <div className="card col-4">
+                                                <div className="card-img"></div>
+                                                <h4>{complemento.nome}</h4>
+                                                <div className="card-botao">
+                                                    <Button onClick={topFunction} type="submit"><Link to={`/produto/${complemento.id}`}>Ver Produto!</Link></Button>
+                                                </div>
+                                                <a className='texto'>Adicionar ao carrinho</a>
                                             </div>
-                                            <a className='texto'>Adicionar ao carrinho</a>
-                                        </div>
-                                    )
-                                    : <></>
-                                }
+                                        )
+                                        : <></>
+                                    }
+                                </div>
                             </div>
-                        </div>
+                        </AliceCarousel>
                     </div>
                 </div>
             </div>
