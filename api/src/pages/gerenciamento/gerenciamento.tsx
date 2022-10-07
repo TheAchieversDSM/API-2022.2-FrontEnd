@@ -4,12 +4,12 @@ import { BsTrash } from "react-icons/bs"
 import { Button, Col, Form, Row, Tab, Tabs } from "react-bootstrap";
 import Navigation from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
-import Check from "../../components/checkbox";
 import Listagens from "../listagens/listagens";
-import axios from "axios";
+import GerOferta from "./oferta/oferta";
+import GerPromocao from "./promocao/gerPromocao";
+import GerServicos from "./servico/servico";
 
 import "./gerenciamento.css"
-import GerOferta from "./oferta/oferta";
 
 export default function Gerenciamento() {
     return (
@@ -28,10 +28,10 @@ export default function Gerenciamento() {
                         <GerOferta />
                     </Tab>
                     <Tab eventKey="servicos" title="Serviços" className="tab2">
-                        
+                        <GerServicos/>
                     </Tab>
-                    <Tab eventKey="promocoes" title="Promoções" className="tab3">
-
+                    <Tab eventKey="promocoes" title="Promoçoes" className="tab3">
+                        <GerPromocao/>
                     </Tab>
                     <Tab eventKey="listagens" title="Listagens" className="tab4">
                         <Listagens />

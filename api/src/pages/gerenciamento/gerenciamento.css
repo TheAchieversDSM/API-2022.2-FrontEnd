@@ -1,6 +1,5 @@
-.btn1, .btn2, .btn3{
-    margin: 10px;
-    background-color: #ff6700 !important;
+.mb-3{
+   background-color: white !important;
 }
 
 .btn1:hover, .btn2:hover, .btn3:hover{
