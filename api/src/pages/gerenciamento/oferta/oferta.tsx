@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Select from 'react-select';
-import { Col, Form, Row } from "react-bootstrap";
+import { Col, Form, Row, Button } from "react-bootstrap";
 import axios from "axios";
 
 const ofertasTipo = [
@@ -13,19 +13,16 @@ const servicosModelo = [{ value: '', label: '' }]
 type servicosModelo = { id: "", nome: "" }
 
 export default function GerOferta() {
-    let listaServicos: servicosModelo[] = []
+    let listaPacotes: servicosModelo[] = []
 
     const [servicos, setServicos] = useState(servicosModelo)
     const [pacotes, setPacotes] = useState(servicosModelo)
-
     const [servicosSelecionados, setServicosSelecionados] = useState(servicosModelo)
 
     const [formValue, setFormValue] = useState({
         ofertaPreco: "",
         ofertaTipo: "",
-        pacotesSelecionados: listaServicos,
-        servicosObrigatorios: listaServicos,
-        servicosComplementares: listaServicos
+        pacotesSelecionados: listaPacotes
     });
 
     const handleChangeSelecionados = (event: any) => {
@@ -61,35 +58,28 @@ export default function GerOferta() {
         });
     };
 
-    const handleChangeObrigatorios = (event: any) => {
-        var servicosSelecionados: servicosModelo[] = []
-        for (let index = 0; index < event.length; index++) {
-            let servico = { id: event[index].value, nome: event[index].label }
-            servicosSelecionados.push(servico)
-        }
-        setFormValue((prevState) => {
-            return {
-                ...prevState,
-                servicosObrigatorios: servicosSelecionados,
-            };
-        });
-    };
+    const { ofertaPreco, ofertaTipo, pacotesSelecionados } = formValue;
 
-    const handleChangeComplementares = (event: any) => {
-        var servicosSelecionados: servicosModelo[] = []
-        for (let index = 0; index < event.length; index++) {
-            let servico = { id: event[index].value, nome: event[index].label }
-            servicosSelecionados.push(servico)
+    const handleSubmit = (event: any) => {
+        const promocao = {
+            preco: ofertaPreco,
+            pacote: listaPacotes
         }
-        setFormValue((prevState) => {
-            return {
-                ...prevState,
-                servicosComplementares: servicosSelecionados,
-            };
-        });
-    };
 
-    const { ofertaPreco, ofertaTipo, servicosComplementares, servicosObrigatorios } = formValue;
+        event.preventDefault();
+
+        axios.put(`http://localhost:8080/promocoes/atualizarPromocao`, promocao).then((res) => {
+            alert('Promoção atualizada!');
+        })
+
+        let valores = {
+            ofertaPreco: "",
+            ofertaTipo: "",
+            pacotesSelecionados: listaPacotes
+        }
+
+        setFormValue(valores);
+    };
 
     useEffect(() => {
         async function render() {
@@ -130,12 +120,12 @@ export default function GerOferta() {
                     <Form.Group as={Col} md="6">
                         <Select
                             isMulti
-                            name="servicosObrigatorios"
+                            name="pacotesSelecionados"
                             onChange={handleChangeSelecionados}
                             options={pacotes}
                             isClearable={true}
                             isSearchable={true}
-                            closeMenuOnSelect={false}
+                            closeMenuOnSelect={true}
                             isLoading={false}
                         />
                     </Form.Group>
@@ -170,51 +160,8 @@ export default function GerOferta() {
                     </Form.Group>
                 </Row>
 
-                <Row className="mb-3">
-                    <Form.Group as={Col} md="6">
-                        <Form.Label>Incluir serviços obrigatórios</Form.Label>
-                        <Select
-                            isMulti
-                            name="servicosObrigatorios"
-                            onChange={handleChangeObrigatorios}
-                            options={servicos}
-                            isClearable={true}
-                            isSearchable={true}
-                            closeMenuOnSelect={false}
-                            isLoading={false}
-                        />
-                    </Form.Group>
-                </Row>
+                <Button type="submit" onClick={handleSubmit}>Salvar!</Button>
 
-                <Row className="mb-3">
-                    <Form.Group as={Col} md="6">
-                        <Form.Label>Incluir serviços complementares</Form.Label>
-                        <Select
-                            isMulti
-                            name="servicosComplementares"
-                            onChange={handleChangeComplementares}
-                            options={servicos}
-                            isClearable={true}
-                            isSearchable={true}
-                            closeMenuOnSelect={false}
-                            isLoading={false}
-                        />
-                    </Form.Group>
-                </Row>
-
-                {/*<Row className="mb-3">
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Incluir serviços restringentes</Form.Label>
-                            <Select
-                                isMulti
-                                name="servicosRestringentes"
-                                isClearable={true}
-                                isSearchable={true}
-                                closeMenuOnSelect={false}
-                                isLoading={false}
-                            />
-                        </Form.Group>
-                    </Row>*/}
             </Form>
 
         </div>

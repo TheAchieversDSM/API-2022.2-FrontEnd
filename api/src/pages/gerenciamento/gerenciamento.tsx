@@ -4,7 +4,7 @@ import { BsTrash } from "react-icons/bs"
 import { Button, Col, Form, Row, Tab, Tabs } from "react-bootstrap";
 import Navigation from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
-import Listagens from "../listagens/listagens";
+import Listagens from "./listagens/listagens";
 import GerOferta from "./oferta/oferta";
 import GerPromocao from "./promocao/gerPromocao";
 import GerServicos from "./servico/servico";
@@ -30,7 +30,7 @@ export default function Gerenciamento() {
                     <Tab eventKey="servicos" title="Serviços" className="tab2">
                         <GerServicos/>
                     </Tab>
-                    <Tab eventKey="promocoes" title="Promoçoes" className="tab3">
+                    <Tab eventKey="promocoes" title="Promoções" className="tab3">
                         <GerPromocao/>
                     </Tab>
                     <Tab eventKey="listagens" title="Listagens" className="tab4">

@@ -9,7 +9,7 @@ const modeloPacote = [
 
 type pacoteModelo = { id: "", nome: "" }
 
-export default function GerPromocao(){
+export default function GerPromocao() {
     const [pacotes, setPacotes] = useState(modeloPacote)
 
     let listaPacotes: pacoteModelo[] = []
@@ -86,51 +86,51 @@ export default function GerPromocao(){
 
         setFormValue(valores);
     };
-    
-    return(
+
+    return (
         <>
-        <div className="container">
-                    <h1>Promoção</h1>
+            <div className="container">
+                <h1>Promoção</h1>
+                <Row className="mb-3">
+
+                    <Form.Group as={Col} md="6">
+                        <Form.Label>Pacotes que compõem a Promoção</Form.Label>
+                        <Select
+                            isMulti
+                            name="GerOfertaPacotes"
+                            options={pacotes}
+                            onChange={handleChangePacotes}
+                            isClearable={true}
+                            isSearchable={true}
+                            closeMenuOnSelect={false}
+                        />
+                    </Form.Group>
+
+                </Row>
+
+                <Form>
+
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Pacotes que compõem a Promoção</Form.Label>
-                                <Select 
-                                    isMulti
-                                    name="GerOfertaPacotes"
-                                    options={pacotes}
-                                    onChange={handleChangePacotes}
-                                    isClearable={true}
-                                    isSearchable={true}
-                                    closeMenuOnSelect ={false}
-                                />
+                            <Form.Label>Novo nome da Promoçao</Form.Label>
+                            <Form.Control
+                                required
+                                name="promocaoNome"
+                                value={promocaoNome}
+                                onChange={handleChange}
+                                type="text"
+                                placeholder="Nome da Promoção"
+                            />
                         </Form.Group>
 
                     </Row>
 
-                    <Form>
+                    <Row className="mb-3">
 
-                        <Row className="mb-3">
-    
-                            <Form.Group as={Col} md="6">
-                                <Form.Label>Novo nome da Promoçao</Form.Label>
-                                <Form.Control
-                                    required
-                                    name="promocaoNome"
-                                    value={promocaoNome}
-                                    onChange={handleChange}
-                                    type="text"
-                                    placeholder="Nome da Promoção"
-                                />
-                            </Form.Group>
-
-                        </Row>
-
-                        <Row className="mb-3">
-
-                            <Form.Group as={Col} md="6">
-                                <Form.Label>Valor do desconto</Form.Label>
-                                <Form.Control
+                        <Form.Group as={Col} md="6">
+                            <Form.Label>Valor do desconto</Form.Label>
+                            <Form.Control
                                 required
                                 name="promocaoPreco"
                                 value={promocaoPreco}
@@ -138,15 +138,15 @@ export default function GerPromocao(){
                                 type="number"
                                 placeholder="Preço da Promoção"
                                 defaultValue=""
-                                />
-                            </Form.Group>
+                            />
+                        </Form.Group>
 
-                        </Row>
+                    </Row>
 
-                        <Button type="submit" onClick={handleSubmit}>Salvar!</Button>
+                    <Button type="submit" onClick={handleSubmit}>Salvar!</Button>
 
-                    </Form>
-        </div>
+                </Form>
+            </div>
         </>
     )
 }

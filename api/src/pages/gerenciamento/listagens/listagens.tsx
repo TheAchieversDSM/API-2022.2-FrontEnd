@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Nav, Tab, Table, Tabs } from "react-bootstrap";
-import Navigation from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
+import Navigation from "../../../components/navbar";
+import Sidebar from "../../../components/sidebar";
 
 import "./listagens.css"
 
