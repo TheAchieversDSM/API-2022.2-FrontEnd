@@ -33,6 +33,7 @@ function Navigation() {
                                 <NavDropdown.Item>Segurança digital</NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Link>SAC</Nav.Link>
+                            <Nav.Link><Link to="/carrinho">Carrinho</Link></Nav.Link>
                         </Nav>
                         <Form className="d-flex">
                             <Form.Control

@@ -40,8 +40,9 @@ export default function VisualizacaoServ() {
         render()
     }, [servico])
 
-    useEffect(() => {
-        async function render() {
+    useEffect(()=>{
+        function render() { 
+          
             axios.post(`http://localhost:8080/servicos/pegarPacotes`, [servico]).then((res) => {
                 setPacotes(res.data)
             })
@@ -50,6 +51,27 @@ export default function VisualizacaoServ() {
             setPromocoes(res.data)
             })*/}
         }
+        render() 
+    })
+    
+    const deletarCarrinho = () => {
+        localStorage.removeItem('servicoCarrinho')
+    }
+    
+    const adicionarCarrinho = (servicoCarrinho: any) => { 
+        if(localStorage.getItem("servicoCarrinho") != undefined) {
+            let carrinho = []
+            carrinho = JSON.parse(localStorage.getItem('servicoCarrinho')!)
+            carrinho.push(servicoCarrinho)       
+      
+            localStorage.setItem("servicoCarrinho",JSON.stringify(carrinho))
+            console.log(JSON.parse(localStorage.getItem('servicoCarrinho')!))
+        }       
+        else {
+            let carrinho = [servicoCarrinho]
+            localStorage.setItem("servicoCarrinho",JSON.stringify(carrinho))
+            console.log(localStorage.getItem("servicoCarrinho"))
+        }  
         render()
     }, [])
 
@@ -96,7 +118,6 @@ export default function VisualizacaoServ() {
                         )}
                     </div>
                 </div>
-
 
                 <div className="container-sugestoes">
                     <div className="sugestao-promocao">
