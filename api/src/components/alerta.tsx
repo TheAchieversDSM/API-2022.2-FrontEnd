@@ -7,7 +7,7 @@ function AlertaProm(props: any) {
 
   if (show) {
     return (
-      <Alert variant="primary" onClose={() => setShow(false)} dismissible>
+      <Alert variant="primary" onClose={() => setShow(false)} dismissible className="alertaprom">
         <Alert.Heading>Confira esta promoção!</Alert.Heading>
         <p>
           {props.prom}
