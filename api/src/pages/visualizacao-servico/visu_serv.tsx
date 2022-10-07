@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Botao from '../../components/button';
 import Navigation from '../../components/navbar';
-import Outline from '../../components/outlinebutton';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { Link, useParams } from "react-router-dom"
@@ -58,20 +57,17 @@ export default function VisualizacaoServ() {
         localStorage.removeItem('servicoCarrinho')
     }
     
-    const adicionarCarrinho = (servicoCarrinho: any) => { 
+    function adicionarCarrinho (servicoCarrinho: any) {  
         if(localStorage.getItem("servicoCarrinho") != undefined) {
             let carrinho = []
             carrinho = JSON.parse(localStorage.getItem('servicoCarrinho')!)
             carrinho.push(servicoCarrinho)       
 
             localStorage.setItem("servicoCarrinho",JSON.stringify(carrinho))
-            console.log(JSON.parse(localStorage.getItem('servicoCarrinho')!))
         }       
         else {
             let carrinho = [servicoCarrinho]
-            localStorage.setItem("servicoCarrinho",JSON.stringify(carrinho))
-            console.log(localStorage.getItem("servicoCarrinho"))
-        }  
+            localStorage.setItem("servicoCarrinho",JSON.stringify(carrinho))        }  
     }
 
     const topFunction = () => {
@@ -112,7 +108,7 @@ export default function VisualizacaoServ() {
                                         <p><BiCheck className="iconecheck" />{servico.nome}</p>
                                     </div>
                                 )}
-                                <Outline />
+                                <Button onClick={() => adicionarCarrinho(info)} variant="outline-primary" className="promo">Assine agora</Button>
                             </div>
                         )}
                     </div>
