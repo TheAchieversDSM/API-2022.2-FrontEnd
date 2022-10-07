@@ -175,7 +175,7 @@ export default function VisualizacaoServ() {
                                         <div className="card-img"></div>
                                         <h4>{complemento.nome}</h4>
                                         <div className="card-botao">
-                                            <Button onClick={topFunction} type="submit"><Link to={`/produto/${complemento.id}`}>Ver Produto!</Link></Button>
+                                            <Button onClick={topFunction} type="submit"><Link to={`/servico/${complemento.id}`}>Ver Produto!</Link></Button>
                                         </div>
                                         <a className='texto' onClick={() => { adicionarCarrinho(complemento) }} >Adicionar ao carrinho</a>
                                     </div>

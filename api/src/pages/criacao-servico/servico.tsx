@@ -120,8 +120,8 @@ export default function Servico() {
             descricao: servicoDescricao,
             produtos: servicoProduto,
             categoria: servicoCategoria,
-            complementares: complementos[0].id != '' ? complementos : [],
-            servicosObrigatorios: obrigatorios[0].id != '' ? obrigatorios : []
+            complementares: complementos ? complementos : [],
+            servicosObrigatorios: obrigatorios ? obrigatorios : []
         }
         console.log(servico);
 
