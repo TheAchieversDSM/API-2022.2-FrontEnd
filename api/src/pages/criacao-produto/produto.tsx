@@ -23,21 +23,15 @@ const complementaresModelo = [
 
 type produtoModelo={id:"",nome:""}
 
-
-
 export default function Produto() {
     let listaProdutos: produtoModelo[] = []
 
     const [produtos,setProdutos] = useState(complementaresModelo)
 
-    const [complementos,setComplementos] = useState([{id:"",nome:""}])
-
     const [formValue, setFormValue] = useState({
         produtoNome: "",
-        produtoPreco: "",
         produtoCategoria: "",
-        produtoDescricao: "",
-        produtoComplementares: listaProdutos
+        produtoDescricao: ""
     });
 
     const handleChange = (event: any) => {
@@ -59,26 +53,13 @@ export default function Produto() {
         });
     };
 
-    const handleChangeComplementares = (event: any) => {
-        var produtosSelecionados:  produtoModelo[] =  []
-        for (let index = 0; index < event.length; index++) {
-            let produto = {id:event[index].value, nome:event[index].label}
-            console.log(produto)
-            produtosSelecionados.push(produto)
-        }
-        setComplementos(produtosSelecionados)
-        console.log(formValue)
-    };
-
-    const { produtoNome, produtoPreco, produtoCategoria, produtoDescricao, produtoComplementares } = formValue;
+    const { produtoNome, produtoCategoria, produtoDescricao } = formValue;
 
     const handleSubmit = (event: any) => {
         const produto = {
             nome: produtoNome,
-            preco: produtoPreco,
-            produtoCategoria: produtoCategoria,
+            categoria: produtoCategoria,
             descricao: produtoDescricao,
-            complementares: complementos[0].id != ''? complementos : []
         }
 
         event.preventDefault();
@@ -89,14 +70,11 @@ export default function Produto() {
 
         let valores = {
             produtoNome: "",
-            produtoPreco: "",
             produtoCategoria: "",
-            produtoDescricao: "",
-            produtoComplementares:listaProdutos
+            produtoDescricao: ""
         }
 
         setFormValue(valores);
-
     };
 
     useEffect(()=>{
@@ -147,22 +125,6 @@ export default function Produto() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Preço do Produto</Form.Label>
-                            <Form.Control
-                                required
-                                name="produtoPreco"
-                                value={produtoPreco}
-                                onChange={handleChange}
-                                type="number"
-                                placeholder="Preço do Produto"
-                            />
-                        </Form.Group>
-
-                    </Row>
-
-                    <Row className="mb-3">
-
-                        <Form.Group as={Col} md="6">
                             <Form.Label>Categoria do Produto</Form.Label>
                             <Select
                                 isMulti = {true}
@@ -171,7 +133,7 @@ export default function Produto() {
                                 onChange={handleChangeCategoria}
                                 isClearable={true}
                                 isSearchable={true}
-                                closeMenuOnSelect ={false}
+                                closeMenuOnSelect ={true}
                                 isLoading={false}
                             />
                         </Form.Group>

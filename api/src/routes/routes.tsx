@@ -7,9 +7,9 @@ import Servico from "../pages/criacao-servico/servico";
 import Login from "../pages/login/login";
 import Home from "../pages/home/home";
 import Pacote from "../pages/criacao-pacote/pacote";
-import Complementar from "../pages/produto-complementar/complementar"
-import Listagens from "../pages/listagens/listagens";
+import Complementar from "../pages/servico-complementar/complementar"
 import VisualizacaoServ from "../pages/visualizacao-servico/visu_serv";
+import Gerenciamento from "../pages/gerenciamento/gerenciamento";
 
 const Routes = () => {
     return (
@@ -18,16 +18,13 @@ const Routes = () => {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>   
                     <Route path="/produto/:id" element={<Visualizacao/>}/>
-                    <Route path="/produtos" element={<Listagens />} />
-                    <Route path="/servicos" element={<Listagens />} />
-                    <Route path="/promocoes" element={<Listagens />} />
-                    <Route path="/pacotes" element={<Listagens />} />
                     <Route path="/servico/:id" element={<VisualizacaoServ/>}/>
                     <Route path="/criacao-promocao" element={<Promocao />} /> 
                     <Route path="/criacao-produto" element={<Produto />} />
                     <Route path="/criacao-servico" element={<Servico />} />
                     <Route path="/criacao-pacote" element={<Pacote />} />
-                    <Route path="/produto-complementar" element={<Complementar />} />
+                    <Route path="/servico-complementar" element={<Complementar />} />
+                    <Route path="/gerenciamento" element={<Gerenciamento />} />
                 </Switch>
         </BrowserRouter>
     )

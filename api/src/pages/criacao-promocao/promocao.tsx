@@ -127,7 +127,7 @@ export default function Promocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Preço da Promoção</Form.Label>
+                            <Form.Label>Preço do Desconto</Form.Label>
                             <Form.Control
                                 required
                                 name="promocaoPreco"
@@ -144,7 +144,7 @@ export default function Promocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Pacotes que compõem a promoção</Form.Label>
+                            <Form.Label>Ofertas que compõem a promoção</Form.Label>
                             <Select 
                                 isMulti
                                 name="promocaoPacotes"
