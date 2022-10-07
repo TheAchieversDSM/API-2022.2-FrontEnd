@@ -10,15 +10,24 @@ import Slider from 'react-slick'
 import axios from 'axios';
 
 import './visu.css'
+import { BiCheck } from 'react-icons/bi';
 
 let modelo = [{ 'id': '', 'nome': '' }]
 const modeloPromocao = [{ id: '', nome: '', preco: '' }]
 
+let modeloPacote = [
+    {
+        'id': '',
+        'nome': '',
+        'servicos': [{}]
+    }
+]
+
 export default function VisualizacaoServ() {
     const [servico, setServico] = useState(Object)
-    const [complementos, setComplementos] = useState(modelo)
     const [promocoes, setPromocoes] = useState(modeloPromocao)
-    const [pacote, setPacotes] = useState([{}])
+    const [complementos, setComplementos] = useState(modelo)
+    const [pacote, setPacotes] = useState(modeloPacote)
     const { id } = useParams();
 
     useEffect(() => {
@@ -26,6 +35,15 @@ export default function VisualizacaoServ() {
             axios.get(`http://localhost:8080/servicos/pegarServico/${id}`,).then((res) => {
                 setServico(res.data)
                 setComplementos(res.data.complementares)
+            })
+        }
+        render()
+    }, [servico])
+
+    useEffect(() => {
+        async function render() {
+            axios.post(`http://localhost:8080/servicos/pegarPacotes`, [servico]).then((res) => {
+                setPacotes(res.data)
             })
 
             {/*axios.get(`http://localhost:8080/promocoes/pegarTodasPromocoes`,).then((res) => {
@@ -51,48 +69,34 @@ export default function VisualizacaoServ() {
         <>
             <Navigation />
             <div className="geral">
-                <div className="row">
-                    <div className="principal col-8">
-                        <div className="subcont">
-                            <h1 className="name">{servico.nome}</h1>
-                            <div className="descricao">
-                                <p>{servico.descricao}</p>
-                            </div>
-                            <h2 className="preço">R$ {servico.preco}</h2>
-                            <Botao />
-                            <p className='texto'>Adicionar ao carrinho</p>
-                        </div>
-                    </div>
-
-                    <div className="prom col-4">
-                        <h2 className="confira">Confira nossos pacotes</h2>
-                        <div className="container">
-                            <div >
-                                <div className="row">
-                                    <div className="pacotes col-6"></div>
-                                    <div className="col-6">
-                                        <h3>R$ 180,00</h3>
-                                        <Outline />
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="pacotes col-6"></div>
-                                    <div className="col-6">
-                                        <h3>R$ 180,00</h3>
-                                        <Outline />
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="pacotes col-6"></div>
-                                    <div className="col-6">
-                                        <h3>R$ 180,00</h3>
-                                        <Outline />
-                                    </div>
-                                </div>
-                            </div>
+                <div className="principal">
+                    <div className="subcont">
+                        <h1 className="name">{servico.nome}</h1>
+                        <div className="descricao">
+                            <p>{servico.descricao}</p>
                         </div>
                     </div>
                 </div>
+
+                <div className="prom">
+                    <h2 className="confira">Confira nossos pacotes</h2>
+                    <div className="row">
+                        {pacote.map((info: { id: string, nome: string, servicos: any[] }) =>
+                            <div className="col-4 pacotinho">
+                                <div className="pact"></div>
+                                <h3>{info.nome}</h3>
+                                <h3>R$ 180,00</h3>
+                                {info.servicos.map(servico =>
+                                    <div>
+                                        <p><BiCheck className="iconecheck" />{servico.nome}</p>
+                                    </div>
+                                )}
+                                <Outline />
+                            </div>
+                        )}
+                    </div>
+                </div>
+
 
                 <div className="container-sugestoes">
                     <div className="sugestao-promocao">
