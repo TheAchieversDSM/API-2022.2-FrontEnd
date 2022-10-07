@@ -1,4 +1,4 @@
-.geral{
+.geral {
     text-align: center;
     flex-direction: row;
     justify-content: center;
@@ -6,76 +6,90 @@
     margin-top: 30px
 }
 
-.subcont{
+.principal{
+    margin: 80px;
+}
+
+.subcont {
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
 
-.col-3{
+.col-3 {
     width: 200px;
     height: 200px;
     margin: 10px;
     padding: 10px;
 }
 
-.yours-custom-class{
+.yours-custom-class {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.prom{
+.prom {
     background-color: #376FA6 !important;
     padding: 20px;
     height: fit-content;
-    border-radius: 15px 0px 0px 15px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
-.comprar{
+.comprar {
     background-color: #F06823 !important;
     border-color: #F06823 !important;
 }
 
-.nav{
+.nav-geral {
     background-color: #004F98 !important;
 }
 
-.pacotes{
-    width: 100px;
-    height: 100px;
-    background-color: beige;
-    margin: 10px;
+.pact {
+    width: 140px;
+    height: 140px;
+    border-radius: 200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.name{
+.name {
     color: #F06823;
     font-weight: 650;
     font-size: 55px;
 }
 
-.preço, .sugestao{
+.preço,
+.sugestao {
     color: #004F98;
     font-size: 40px;
     font-weight: 700;
+    text-align: center;
 }
 
-.preço{
-    margin: 40px
+.sugestao-promocao{
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 p.texto {
     margin-top: 20px;
-    color:#004F98 !important; 
+    color: #004F98 !important;
     font-weight: 500;
 }
 
-h3{
-    margin: 10px;
+.prom > .row{
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
-.descricao{
+.descricao {
     font-weight: 450;
     font-size: 20px;
     display: flex;
@@ -83,29 +97,32 @@ h3{
     align-items: center;
 }
 
-.descricao > p{
+.descricao > p {
     color: #2D5274;
     width: 70%;
 }
 
-.confira{
+.confira {
     color: aliceblue;
     font-size: 40px;
     font-weight: 700;
 }
 
-.promo{
+.promo,
+.sugestao-promocao > .btn-primary {
     border-color: #F06823 !important;
-    border-width: 4px;
+    border-width: 3px;
     color: white !important;
     font-weight: 500;
+    transition: 0.8s;
 }
 
-.promo:hover{
+.promo:hover {
     background-color: #F06823 !important;
+    transition: 0.8s;
 }
 
-.prom > .row{
+.prom > .row {
     margin: 20px
 }
 
@@ -125,15 +142,59 @@ h3{
     border-radius: 100%;
 }
 
-h3{
-    color: aliceblue;
-}
-
-.card-botao > .btn-primary > a {
+.card-botao>.btn-primary>a {
     color: white !important;
-    
 }
 
-.card-botao > .btn-primary{
+.card-botao>.btn-primary {
     margin-bottom: 5px;
+}
+
+.container-sugestoes {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.sugestao-promocao {
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.card-imgserv {
+    margin-top: 30px;
+    margin-inline: auto;
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+    border-radius: 100%;
+}
+
+.col-4 > p{
+    font-size: 16px;
+    font-weight: 450;
+}
+
+.pacotinho{
+    background-color: #5486b4;
+    height: fit-content;
+    width: 280px;
+    padding: 20px 10px 20px 10px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pacotin{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.iconecheck{
+    color: #F06823;
+    font-weight: 600 !important;
+    font-size: 25px !important;
 }

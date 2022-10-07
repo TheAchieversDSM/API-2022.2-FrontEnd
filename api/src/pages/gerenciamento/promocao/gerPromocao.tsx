@@ -1,24 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import Navigation from '../../components/navbar';
-import { Alert } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Sidebar from '../../components/sidebar';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import Select from 'react-select';
-import axios from 'axios';
-
-import './promocao.css'
 
 const modeloPacote = [
     { value: '', label: '' }
 ];
 
-type pacoteModelo={id:"",nome:""}
+type pacoteModelo = { id: "", nome: "" }
 
-export default function Promocao() {
-    const [pacotes,setPacotes] = useState(modeloPacote)
+export default function GerPromocao() {
+    const [pacotes, setPacotes] = useState(modeloPacote)
 
     let listaPacotes: pacoteModelo[] = []
 
@@ -28,11 +20,10 @@ export default function Promocao() {
         promocaoPacotes: listaPacotes
     });
 
-
-    const handleChangePacotes= (event: any) => {
-        var pacotesSelecionados:  pacoteModelo[] =  []
+    const handleChangePacotes = (event: any) => {
+        var pacotesSelecionados: pacoteModelo[] = []
         for (let index = 0; index < event.length; index++) {
-            let pacote = {id:event[index].value, nome:event[index].label}
+            let pacote = { id: event[index].value, nome: event[index].label }
             console.log(pacote)
             pacotesSelecionados.push(pacote)
         }
@@ -40,11 +31,11 @@ export default function Promocao() {
         setFormValue((prevState) => {
             return {
                 ...prevState,
-                promocaoPacotes: pacotesSelecionados,
+                ofertaPacotes: pacotesSelecionados,
             };
         });
     };
-    
+
     const handleChange = (event: any) => {
         const { name, value } = event.target;
         setFormValue((prevState) => {
@@ -55,9 +46,9 @@ export default function Promocao() {
         });
     };
 
-    useEffect(()=>{
-        async function render() { 
-        axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res)=>{
+    useEffect(() => {
+        async function render() {
+            axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
                 var pacotes = []
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
@@ -70,7 +61,7 @@ export default function Promocao() {
             })
         }
         render()
-    },[])
+    }, [])
 
     const { promocaoNome, promocaoPreco, promocaoPacotes } = formValue;
 
@@ -83,8 +74,8 @@ export default function Promocao() {
 
         event.preventDefault();
 
-        axios.post(`http://localhost:8080/promocoes/criarPromocao`, promocao).then((res) => {
-            alert('Promoção criado!');
+        axios.put(`http://localhost:8080/promocoes/atualizarPromocao`, promocao).then((res) => {
+            alert('Promoção atualizada!');
         })
 
         let valores = {
@@ -95,23 +86,34 @@ export default function Promocao() {
 
         setFormValue(valores);
     };
-    
 
     return (
         <>
-            <Navigation />
-            <Sidebar />
+            <div className="container">
+                <h1>Promoção</h1>
+                <Row className="mb-3">
 
-            <div className='container-promo'>
+                    <Form.Group as={Col} md="6">
+                        <Form.Label>Pacotes que compõem a Promoção</Form.Label>
+                        <Select
+                            isMulti
+                            name="GerOfertaPacotes"
+                            options={pacotes}
+                            onChange={handleChangePacotes}
+                            isClearable={true}
+                            isSearchable={true}
+                            closeMenuOnSelect={false}
+                        />
+                    </Form.Group>
 
-                <h1>Cadastro de Promoção</h1>
+                </Row>
 
-                <Form /*noValidate validated={validated} onSubmit={handleSubmit}*/>
+                <Form>
 
                     <Row className="mb-3">
-                        
+
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Nome da Promoção</Form.Label>
+                            <Form.Label>Novo nome da Promoçao</Form.Label>
                             <Form.Control
                                 required
                                 name="promocaoNome"
@@ -127,7 +129,7 @@ export default function Promocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Preço do Desconto</Form.Label>
+                            <Form.Label>Valor do desconto</Form.Label>
                             <Form.Control
                                 required
                                 name="promocaoPreco"
@@ -141,29 +143,10 @@ export default function Promocao() {
 
                     </Row>
 
-                    <Row className="mb-3">
+                    <Button type="submit" onClick={handleSubmit}>Salvar!</Button>
 
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Ofertas que compõem a promoção</Form.Label>
-                            <Select 
-                                isMulti
-                                name="promocaoPacotes"
-                                options={pacotes}
-                                onChange={handleChangePacotes}
-                                isClearable={true}
-                                isSearchable={true}
-                                closeMenuOnSelect ={false}
-                            />
-                        </Form.Group>
-                        
-                    </Row>
-
-                    <Button type="submit" onClick={handleSubmit}>Criar Promoção!</Button>
-                
                 </Form>
-
             </div>
-            
         </>
     )
 }

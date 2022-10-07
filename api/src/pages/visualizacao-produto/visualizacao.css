@@ -13,10 +13,9 @@
     width: 100%;
 }
 
-.col-3{
-    width: 200px;
-    height: 200px;
-    margin: 10px;
+.col-4{
+    width: fit-content;
+    margin: 10px 50px 10px 50px;
     padding: 10px;
 }
 
@@ -30,7 +29,7 @@
     background-color: #376FA6 !important;
     padding: 20px;
     height: fit-content;
-    border-radius: 15px 0px 0px 15px;
+    
 }
 
 .comprar{
@@ -42,10 +41,12 @@
     background-color: #004F98 !important;
 }
 
-.pacotes{
-    width: 100px;
-    height: 100px;
-    background-color: beige;
+.pact{
+    width: 140px;
+    height: 140px;
+    background-color: #004F98;
+    border-radius: 200px;
+    margin: 0px 0px 10px 30px;
 }
 
 .name{
@@ -54,24 +55,29 @@
     font-size: 55px;
 }
 
-.preço, .sugestao{
+.sugestao{
     color: #004F98;
     font-size: 40px;
     font-weight: 700;
 }
 
-.preço{
-    margin: 40px
+.sugestao-promocao{
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.prom > .row{
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 p.texto {
     margin-top: 20px;
     color:#004F98 !important; 
     font-weight: 500;
-}
-
-h3{
-    margin: 10px;
 }
 
 .descricao{
@@ -135,4 +141,8 @@ h3{
 
 .card-botao > .btn-primary{
     margin-bottom: 5px;
+}
+
+.contpac{
+    margin: 15px;
 }

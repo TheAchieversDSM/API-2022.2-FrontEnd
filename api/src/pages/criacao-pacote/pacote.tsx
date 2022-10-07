@@ -145,7 +145,7 @@ export default function Pacote() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Categoria</Form.Label>
+                            <Form.Label>Serviços que compõem o pacote</Form.Label>
                             <Select
                                 isMulti
                                 name="pacoteServicos"
