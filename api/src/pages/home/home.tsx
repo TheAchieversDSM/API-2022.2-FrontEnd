@@ -19,6 +19,20 @@ let modelo = [
 export default function Home() {
     const [servicos, setServicos] = useState(modelo)
 
+    function filtrar(categoria: string) {
+        if(categoria === 'Todos') {
+            axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
+                setServicos(res.data)
+                console.log(res.data)
+            })
+        }else{
+            axios.get(`http://localhost:8080/servicos//todosServicosPelaCategoria/${categoria}`).then((res) => {
+                setServicos(res.data)
+                console.log(res.data)
+            })
+        }
+    }
+
     useEffect(() => {
         async function render() {
             axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
@@ -54,29 +68,29 @@ export default function Home() {
                 <div className="colecao-categorias">
 
                     <div className="categoria">
-                        <BsFilterCircle />
-                        <h4>Todos</h4>
+                            <BsFilterCircle onClick={()=>filtrar("Todos")} />
+                            <h4>Todos</h4>
                     </div>
 
                     <div className="categoria">
-                        <BsBriefcase />
+                        <BsBriefcase onClick={()=>filtrar("Meu Negócio")} />
                         <h4>Meu Negócio</h4>
                     </div>
 
                     <div className="categoria">
-                        <BsPlayBtn />
+                        <BsPlayBtn onClick={()=>filtrar("Streaming")} />
                         <h4>Streaming</h4>
                     </div>
 
                     <div className="categoria">
-                        <BsMusicPlayer />
+                        <BsMusicPlayer onClick={()=>filtrar("Música")} />
                         <h4>Música</h4>
                     </div>
 
                     <div className="categoria">
-                        <BsBug />
+                        <BsBug onClick={()=>filtrar("Segurança Digital")} />
                         <h4>Segurança Digital</h4>
-                    </div>
+                    </div> 
 
                 </div>
 
