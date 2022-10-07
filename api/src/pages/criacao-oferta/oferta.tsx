@@ -95,21 +95,21 @@ export default function Oferta() {
             <Sidebar />
 
             <div className='container-promo'>
-                <h1>Cadastro de Oferta</h1>
+                <h1>Cadastro de oferta</h1>
 
                 <Form>
 
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Preço da Oferta</Form.Label>
+                            <Form.Label>Preço da oferta</Form.Label>
                             <Form.Control
                                 required
                                 name="ofertaPreco"
                                 value={ofertaPreco}
                                 onChange={handleChange}
                                 type="number"
-                                placeholder="Preço da Oferta"
+                                placeholder="Inserir preço da oferta"
                                 defaultValue=""
                             />
                         </Form.Group>
@@ -119,7 +119,7 @@ export default function Oferta() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Pacotes que compõem a Oferta</Form.Label>
+                            <Form.Label>Pacotes que compõem a oferta</Form.Label>
                             <Select
                                 isMulti
                                 name="ofertaPacotes"
@@ -133,7 +133,7 @@ export default function Oferta() {
 
                     </Row>
 
-                    <Button type="submit" onClick={handleSubmit}>Criar Oferta!</Button>
+                    <Button type="submit" onClick={handleSubmit}>Criar oferta!</Button>
 
                 </Form>
 

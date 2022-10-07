@@ -111,14 +111,14 @@ export default function Promocao() {
                     <Row className="mb-3">
                         
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Nome da Promoção</Form.Label>
+                            <Form.Label>Nome da promoção</Form.Label>
                             <Form.Control
                                 required
                                 name="promocaoNome"
                                 value={promocaoNome}
                                 onChange={handleChange}
                                 type="text"
-                                placeholder="Nome da Promoção"
+                                placeholder="Insira nome da promoção"
                             />
                         </Form.Group>
 
@@ -127,14 +127,14 @@ export default function Promocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Preço do Desconto</Form.Label>
+                            <Form.Label>Valor do desconto</Form.Label>
                             <Form.Control
                                 required
                                 name="promocaoPreco"
                                 value={promocaoPreco}
                                 onChange={handleChange}
                                 type="number"
-                                placeholder="Preço da Promoção"
+                                placeholder="Insira o valor de desconto da Promoção"
                                 defaultValue=""
                             />
                         </Form.Group>
@@ -158,7 +158,7 @@ export default function Promocao() {
                         
                     </Row>
 
-                    <Button type="submit" onClick={handleSubmit}>Criar Promoção!</Button>
+                    <Button type="submit" onClick={handleSubmit}>Criar promoção!</Button>
                 
                 </Form>
 

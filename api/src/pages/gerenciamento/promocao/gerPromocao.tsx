@@ -94,7 +94,7 @@ export default function GerPromocao() {
                 <Row className="mb-3">
 
                     <Form.Group as={Col} md="6">
-                        <Form.Label>Pacotes que compõem a Promoção</Form.Label>
+                        <Form.Label>Pacotes que compõem a promoção</Form.Label>
                         <Select
                             isMulti
                             name="GerOfertaPacotes"
@@ -113,14 +113,14 @@ export default function GerPromocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Novo nome da Promoçao</Form.Label>
+                            <Form.Label>Novo nome da promoçao</Form.Label>
                             <Form.Control
                                 required
                                 name="promocaoNome"
                                 value={promocaoNome}
                                 onChange={handleChange}
                                 type="text"
-                                placeholder="Nome da Promoção"
+                                placeholder="Insira o novo nome da promoção"
                             />
                         </Form.Group>
 
@@ -129,14 +129,14 @@ export default function GerPromocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Valor do desconto</Form.Label>
+                            <Form.Label>Desconto da promoção</Form.Label>
                             <Form.Control
                                 required
                                 name="promocaoPreco"
                                 value={promocaoPreco}
                                 onChange={handleChange}
                                 type="number"
-                                placeholder="Preço da Promoção"
+                                placeholder="Insira o valor de desconto da promoção"
                                 defaultValue=""
                             />
                         </Form.Group>

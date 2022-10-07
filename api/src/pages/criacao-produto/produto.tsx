@@ -109,14 +109,14 @@ export default function Produto() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Nome do Produto</Form.Label>
+                            <Form.Label>Nome do produto</Form.Label>
                             <Form.Control
                                 required
                                 name="produtoNome"
                                 value={produtoNome}
                                 onChange={handleChange}
                                 type="text"
-                                placeholder="Nome do Produto"
+                                placeholder="Insira o nome do produto"
                             />
                         </Form.Group>
 
@@ -125,7 +125,7 @@ export default function Produto() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Categoria do Produto</Form.Label>
+                            <Form.Label>Categoria do produto</Form.Label>
                             <Select
                                 isMulti = {true}
                                 name="produtoCategoria"
@@ -143,7 +143,7 @@ export default function Produto() {
                     <Row className="mb-3 FormText" >
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Descrição do Produto</Form.Label>
+                            <Form.Label>Descrição do produto</Form.Label>
                             <Form.Control
                                 required
                                 name="produtoDescricao"
@@ -151,13 +151,13 @@ export default function Produto() {
                                 onChange={handleChange}
                                 as="textarea"
                                 type="text"
-                                placeholder="Descrição do Produto"
+                                placeholder="Insira a descrição do produto"
                             />
                         </Form.Group>
 
                     </Row>
 
-                    <Button type="submit" onClick={handleSubmit}>Criar Produto!</Button>
+                    <Button type="submit" onClick={handleSubmit}>Criar produto!</Button>
 
                 </Form>
 

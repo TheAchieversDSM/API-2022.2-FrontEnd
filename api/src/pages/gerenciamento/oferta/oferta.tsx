@@ -133,13 +133,13 @@ export default function GerOferta() {
 
                 <Row className="mb-3">
                     <Form.Group as={Col} md="6">
-                        <Form.Label>Preço do Pacote</Form.Label>
+                        <Form.Label>Valor da oferta</Form.Label>
                         <Form.Control
                             required
                             name="precoPacote"
                             onChange={handleChange}
                             type="number"
-                            placeholder="Insira o preço do Pacote"
+                            placeholder="Insira o valor da oferta"
                         />
                     </Form.Group>
                 </Row>
