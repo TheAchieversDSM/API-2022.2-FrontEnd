@@ -54,6 +54,21 @@ export default function VisualizacaoServ() {
     }, [])
 
 
+    const adicionarCarrinho = (servicoCarrinho: any) => {
+        servico.preventDefault()
+        if (localStorage.getItem("ServicoCarrinho") != undefined) {
+            let carrinho = []
+            carrinho = JSON.parse(localStorage.getItem('carrinhoNaoConcluidas')!)
+            carrinho.push({ servicoCarrinho })
+
+            localStorage.setItem("ServicoCarrinho", JSON.stringify(servico))
+        }
+        else {
+            let carrinho = [{ servicoCarrinho }]
+            localStorage.setItem("tarefasNaoConcluidas", JSON.stringify(servico))
+        }
+    }
+
     const topFunction = () => {
         document.documentElement.scrollTop = 0;
     }
@@ -68,6 +83,7 @@ export default function VisualizacaoServ() {
     return (
         <>
             <Navigation />
+
             <div className="geral">
                 <div className="principal">
                     <div className="subcont">
@@ -120,28 +136,53 @@ export default function VisualizacaoServ() {
                     </div>
                     <div>
                         <h2 className="sugestao">Outras sugestões</h2>
-                        <AliceCarousel>
-                            <div className="yours-custom-class container">
-                                <div className="row">
-                                    {complementos != null ?
-                                        complementos.map(complemento =>
-                                            <div className="card col-4">
-                                                <div className="card-img"></div>
-                                                <h4>{complemento.nome}</h4>
-                                                <div className="card-botao">
-                                                    <Button onClick={topFunction} type="submit"><Link to={`/produto/${complemento.id}`}>Ver Produto!</Link></Button>
-                                                </div>
-                                                <a className='texto'>Adicionar ao carrinho</a>
+                        <AliceCarousel />
+                        <div className="yours-custom-class container">
+                            <div className="row">
+                                {complementos != null ?
+                                    complementos.map(complemento =>
+                                        <div className="card col-4">
+                                            <div className="card-img"></div>
+                                            <h4>{complemento.nome}</h4>
+                                            <div className="card-botao">
+                                                <Button onClick={topFunction} type="submit"><Link to={`/produto/${complemento.id}`}>Ver Produto!</Link></Button>
                                             </div>
-                                        )
-                                        : <></>
-                                    }
-                                </div>
+                                            <a className='texto'>Adicionar ao carrinho</a>
+                                        </div>
+                                    )
+                                    : <></>
+                                }
                             </div>
-                        </AliceCarousel>
+                        </div>
                     </div>
                 </div>
             </div>
+            <h2 className="sugestao">Outras sugestões</h2>
+            <AliceCarousel>
+
+                <div className="yours-custom-class container">
+
+                    <div className="row">
+                        {
+                            complementos != null ?
+                                complementos.map(complemento =>
+                                    <div className="card col-4">
+                                        <div className="card-img"></div>
+                                        <h4>{complemento.nome}</h4>
+                                        <div className="card-botao">
+                                            <Button onClick={topFunction} type="submit"><Link to={`/produto/${complemento.id}`}>Ver Produto!</Link></Button>
+                                        </div>
+                                        <a className='texto' onClick={() => { adicionarCarrinho(complemento) }} >Adicionar ao carrinho</a>
+                                    </div>
+                                )
+                                :
+                                <></>
+                        }
+                    </div>
+
+                </div>
+
+            </AliceCarousel >
         </>
     )
 }
