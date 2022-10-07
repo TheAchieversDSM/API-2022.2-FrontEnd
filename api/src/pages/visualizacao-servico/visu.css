@@ -51,6 +51,7 @@
 .pact {
     width: 140px;
     height: 140px;
+    background-color: #004F98;
     border-radius: 200px;
     margin-left: auto;
     margin-right: auto;
@@ -134,10 +135,10 @@ p.texto {
 }
 
 .card-img {
-    margin-top: 30px;
+    margin-top: 20px;
     margin-inline: auto;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     background-color: gray;
     border-radius: 100%;
 }

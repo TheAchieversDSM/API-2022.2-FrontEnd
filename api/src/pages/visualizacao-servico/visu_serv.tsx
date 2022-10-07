@@ -42,7 +42,7 @@ export default function VisualizacaoServ() {
 
     useEffect(()=>{
         function render() { 
-          
+
             axios.post(`http://localhost:8080/servicos/pegarPacotes`, [servico]).then((res) => {
                 setPacotes(res.data)
             })
@@ -63,7 +63,7 @@ export default function VisualizacaoServ() {
             let carrinho = []
             carrinho = JSON.parse(localStorage.getItem('servicoCarrinho')!)
             carrinho.push(servicoCarrinho)       
-      
+
             localStorage.setItem("servicoCarrinho",JSON.stringify(carrinho))
             console.log(JSON.parse(localStorage.getItem('servicoCarrinho')!))
         }       
@@ -162,32 +162,7 @@ export default function VisualizacaoServ() {
                     </div>
                 </div>
             </div>
-            <h2 className="sugestao">Outras sugestões</h2>
-            <AliceCarousel>
 
-                <div className="yours-custom-class container">
-
-                    <div className="row">
-                        {
-                            complementos != null ?
-                                complementos.map(complemento =>
-                                    <div className="card col-4">
-                                        <div className="card-img"></div>
-                                        <h4>{complemento.nome}</h4>
-                                        <div className="card-botao">
-                                            <Button onClick={topFunction} type="submit"><Link to={`/servico/${complemento.id}`}>Ver Produto!</Link></Button>
-                                        </div>
-                                        <a className='texto' onClick={() => { adicionarCarrinho(complemento) }} >Adicionar ao carrinho</a>
-                                    </div>
-                                )
-                                :
-                                <></>
-                        }
-                    </div>
-
-                </div>
-
-            </AliceCarousel >
         </>
     )
 }
