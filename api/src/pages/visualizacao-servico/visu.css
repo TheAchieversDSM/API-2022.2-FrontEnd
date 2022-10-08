@@ -112,15 +112,15 @@ p.texto {
 
 .promo,
 .sugestao-promocao > .btn-primary {
-    border-color: #F06823 !important;
-    border-width: 3px;
+    border: none;
+    background-color: #F06823;
     color: white !important;
     font-weight: 500;
     transition: 0.8s;
 }
 
 .promo:hover {
-    background-color: #F06823 !important;
+    background-color: #004F98 !important;
     transition: 0.8s;
 }
 
@@ -210,3 +210,11 @@ p.texto {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
+/*.promo, .sugestao-promocao > .btn-primary {
+    background-color: #F06823;
+}
+
+.promo:hover, .sugestao-promocao > .btn-primary:hover {
+    background-color: #004F98;
+}*/

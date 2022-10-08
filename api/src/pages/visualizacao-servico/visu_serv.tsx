@@ -152,8 +152,9 @@ export default function VisualizacaoServ() {
                                             {promocoes != null ?
                                                 promocoes.map(promocao =>
                                                     <div className="card col-4">
-                                                        <div className="card-img"></div>
+                                                        <div className="card-imgserv"></div>
                                                         <h4>{promocao.nome}</h4>
+                                                        <h5>R${promocao.preco} OFF</h5>
                                                         <div className="card-botao">
                                                             <Button onClick={() => adicionarCarrinho(promocao)} variant="outline-primary" className="promo">Assine agora</Button>
                                                         </div>
