@@ -18,8 +18,16 @@ const modeloPromocao = [{ id: '', nome: '', preco: '' }]
 let modeloPacote = [
     {
         'id': '',
-        'nome': '',
-        'servicos': [{}]
+        'preco': '',
+        'pacote': {'id': '','nome': ''}
+    }
+]
+
+let modeloOferta = [
+    {
+        'id': '',
+        'preco': '',
+        'pacote': {}
     }
 ]
 
@@ -29,6 +37,7 @@ export default function VisualizacaoServ() {
     const [complementos, setComplementos] = useState(modelo)
     const [pacote, setPacotes] = useState(modeloPacote)
     const { id } = useParams();
+    const [oferta, setOferta] = useState(modeloOferta)
 
     useEffect(() => {
         async function render() {
@@ -43,13 +52,15 @@ export default function VisualizacaoServ() {
     useEffect(()=>{
         function render() { 
           
-            axios.post(`http://localhost:8080/servicos/pegarPacotes`, [servico]).then((res) => {
+            axios.post(`http://localhost:8080/servicos/pegarOfertas`, [servico]).then((res) => {
                 setPacotes(res.data)
+                console.log(res.data)
             })
 
             {/*axios.get(`http://localhost:8080/promocoes/pegarTodasPromocoes`,).then((res) => {
             setPromocoes(res.data)
             })*/}
+
         }
         render() 
     })
@@ -102,17 +113,15 @@ export default function VisualizacaoServ() {
                 <div className="prom">
                     <h2 className="confira">Confira nossos pacotes</h2>
                     <div className="row">
-                        {pacote.map((info: { id: string, nome: string, servicos: any[] }) =>
+                    {pacote.map((info: { id: string, preco: string, pacote: {id:string,nome:string} }) =>
                             <div className="col-4 pacotinho">
                                 <div className="pact"></div>
-                                <h3>{info.nome}</h3>
-                                <h3>R$ 180,00</h3>
-                                {info.servicos.map(servico =>
-                                    <div>
-                                        <p><BiCheck className="iconecheck" />{servico.nome}</p>
-                                    </div>
-                                )}
-                                <Outline />
+                                <h3>{info.pacote.nome}</h3>
+                                <h3>R$ {info.preco}</h3>              
+                                <div>
+                                    <p><BiCheck className="iconecheck" /></p>
+                                </div>             
+                                <Button onClick={() => adicionarCarrinho(info)} variant="outline-primary" className="promo">Assine agora</Button>
                             </div>
                         )}
                     </div>

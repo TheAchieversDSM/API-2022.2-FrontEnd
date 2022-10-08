@@ -25,12 +25,12 @@ export default function Oferta() {
     const { ofertaPreco, ofertaPacotes } = formValue;
 
     const handleChangePacotes = (event: any) => {
+        console.log(event);
         var pacotesSelecionados: pacoteModelo[] = []
-        for (let index = 0; index < event.length; index++) {
-            let pacote = { id: event[index].value, nome: event[index].label }
-            console.log(pacote)
-            pacotesSelecionados.push(pacote)
-        }
+        let pacote = { id: event.value, nome: event.label }
+        console.log(pacote)
+        pacotesSelecionados.push(pacote)
+        
 
         setFormValue((prevState) => {
             return {
@@ -70,8 +70,9 @@ export default function Oferta() {
     const handleSubmit = (event: any) => {
         const oferta = {
             preco: ofertaPreco,
-            pacotes: ofertaPacotes
+            pacote: ofertaPacotes[0]
         }
+        console.log(oferta)
 
         event.preventDefault();
 
@@ -121,7 +122,6 @@ export default function Oferta() {
                         <Form.Group as={Col} md="6">
                             <Form.Label>Pacotes que compõem a Oferta</Form.Label>
                             <Select
-                                isMulti
                                 name="ofertaPacotes"
                                 options={pacotes}
                                 onChange={handleChangePacotes}
