@@ -205,3 +205,8 @@ p.texto {
     color: #004F98 !important;
     font-weight: 500;
 }
+
+.sugestao-promocao-servico {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}

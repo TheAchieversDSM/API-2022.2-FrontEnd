@@ -4,7 +4,7 @@ import Navigation from '../../components/navbar';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { Link, useParams } from "react-router-dom"
-import { Button, Card } from 'react-bootstrap';
+import { Alert, Button, Card } from 'react-bootstrap';
 import Slider from 'react-slick'
 import axios from 'axios';
 
@@ -55,9 +55,9 @@ export default function VisualizacaoServ() {
                 setPacotes(res.data)
             })
 
-            {/*axios.get(`http://localhost:8080/promocoes/pegarTodasPromocoes`,).then((res) => {
-            setPromocoes(res.data)
-            })*/}
+            axios.get(`http://localhost:8080/promocoes/pegarTodasPromocoes`,).then((res) => {
+                setPromocoes(res.data)
+            })
 
         }
         render()
@@ -79,6 +79,10 @@ export default function VisualizacaoServ() {
             let carrinho = [servicoCarrinho]
             localStorage.setItem("servicoCarrinho", JSON.stringify(carrinho))
         }
+
+        <Alert variant="success">
+            <p>Item adicionado ao carrinho!</p>
+        </Alert>
     }
 
     const topFunction = () => {
@@ -138,25 +142,35 @@ export default function VisualizacaoServ() {
                 }
 
                 <div className="container-sugestoes">
-                    <div className="sugestao-promocao">
-                        <h2 className="sugestao">Promoções</h2>
-                        <Slider {...settings}>
-                            {promocoes.map((promocao) =>
-                                <div>
-                                    <Card style={{ width: '18rem' }}>
-                                        <div className="card-imgserv"></div>
-                                        <Card.Body>
-                                            <Card.Title>{promocao.nome}</Card.Title>
-                                            <Card.Text>
-                                                {promocao.preco}
-                                            </Card.Text>
-                                            <Button variant="primary">Ver Promoção!</Button>
-                                        </Card.Body>
-                                    </Card>
-                                </div>
-                            )}
-                        </Slider>
+                    <div>
+                        {promocoes?.length > 0 ?
+                            <>
+                                <h2 className="sugestao">Promoções</h2>
+                                <AliceCarousel>
+                                    <div className="yours-custom-class container">
+                                        <div className="row sugestao-promocao-servico">
+                                            {promocoes != null ?
+                                                promocoes.map(promocao =>
+                                                    <div className="card col-4">
+                                                        <div className="card-img"></div>
+                                                        <h4>{promocao.nome}</h4>
+                                                        <div className="card-botao">
+                                                            <Button onClick={() => adicionarCarrinho(promocao)} variant="outline-primary" className="promo">Assine agora</Button>
+                                                        </div>
+                                                        <a className='texto'>Adicionar ao carrinho</a>
+                                                    </div>
+                                                )
+                                                : <></>
+                                            }
+                                        </div>
+                                    </div>
+                                </AliceCarousel>
+                            </>
+                            :
+                            <></>
+                        }
                     </div>
+
                     <div>
                         {servico.complementares?.length > 0 ?
                             <>
