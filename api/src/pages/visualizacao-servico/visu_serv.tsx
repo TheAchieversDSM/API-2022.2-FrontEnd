@@ -117,7 +117,7 @@ export default function VisualizacaoServ() {
                             <div className="col-4 pacotinho">
                                 <div className="pact"></div>
                                 <h3>{info.pacote.nome}</h3>
-                                <h3>R$ {info.preco}</h3>
+                                <h4>R$ {info.preco}</h4>
                                 <div>
                                     <p><BiCheck className="iconecheck" /></p>
                                 </div>
