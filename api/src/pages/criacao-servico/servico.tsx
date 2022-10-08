@@ -259,7 +259,7 @@ export default function Servico() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Serviços restringentes <TooltipDuvida mensagem="Escolha os serviços que nao poderao ser obtidos em conjunto com este"/></Form.Label>
+                            <Form.Label>Serviços restringentes <TooltipDuvida mensagem="Escolha os serviços que não poderão ser obtidos em conjunto com este"/></Form.Label>
                             <Select 
                                 isMulti
                                 name="servicoProduto"
@@ -277,7 +277,7 @@ export default function Servico() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Serviços obrigatorios <TooltipDuvida mensagem="Escolha os serviços que serao obrigatorios o consumidor obter para a compra deste serviço"/></Form.Label>
+                            <Form.Label>Serviços obrigatorios <TooltipDuvida mensagem="Escolha os serviços que serão obrigatórios o consumidor obter para a compra deste serviço"/></Form.Label>
                             <Select
                                 isMulti
                                 name="servicoObrigatorios"

@@ -30,6 +30,11 @@ export default function Carrinho() {
       
   
   },[])
+  
+  function limparCarrinho (){
+    localStorage.removeItem("servicoCarrinho")
+    window.location.reload()
+  }
 
   function deletar(id: string){
     for (let index = 0; index < carrinho.length; index++) {
@@ -75,12 +80,15 @@ export default function Carrinho() {
                                 )
                                 : <><h4>Você ainda não adicionou produtos ao seu carrinho!</h4></>
                                 }
-                     
+
                   </tbody>
                   </table>
                   <h2 className="precototal">R$ {carrinho[0] != undefined ? soma() : 0} Preço total</h2>
-                  <AlertaProm prom="Essa promoção contém os seguintes produtos/serviços/pacotes"/>
+                  <Button onClick={()=> {limparCarrinho()}} className="limpar">Limpar tudo!</Button>
+                  <AlertaProm prom="Essa promoção contém os seguintes produtos/serviços/pacotes" />
                 </div>
+
+                
 
                 <div className="sug col-3">
                   <div className="maissug">
