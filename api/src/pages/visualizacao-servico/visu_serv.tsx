@@ -18,7 +18,7 @@ let modeloPacote = [
     {
         'id': '',
         'preco': '',
-        'pacote': {'id': '','nome': ''}
+        'pacote': { 'id': '', 'nome': '' }
     }
 ]
 
@@ -48,12 +48,11 @@ export default function VisualizacaoServ() {
         render()
     }, [servico])
 
-    useEffect(()=>{
-        function render() { 
-          
+    useEffect(() => {
+        function render() {
+
             axios.post(`http://localhost:8080/servicos/pegarOfertas`, [servico]).then((res) => {
                 setPacotes(res.data)
-                console.log(res.data)
             })
 
             {/*axios.get(`http://localhost:8080/promocoes/pegarTodasPromocoes`,).then((res) => {
@@ -61,24 +60,25 @@ export default function VisualizacaoServ() {
             })*/}
 
         }
-        render() 
+        render()
     })
-    
+
     const deletarCarrinho = () => {
         localStorage.removeItem('servicoCarrinho')
     }
-    
-    function adicionarCarrinho (servicoCarrinho: any) {  
-        if(localStorage.getItem("servicoCarrinho") != undefined) {
+
+    function adicionarCarrinho(servicoCarrinho: any) {
+        if (localStorage.getItem("servicoCarrinho") != undefined) {
             let carrinho = []
             carrinho = JSON.parse(localStorage.getItem('servicoCarrinho')!)
-            carrinho.push(servicoCarrinho)       
+            carrinho.push(servicoCarrinho)
 
-            localStorage.setItem("servicoCarrinho",JSON.stringify(carrinho))
-        }       
+            localStorage.setItem("servicoCarrinho", JSON.stringify(carrinho))
+        }
         else {
             let carrinho = [servicoCarrinho]
-            localStorage.setItem("servicoCarrinho",JSON.stringify(carrinho))        }  
+            localStorage.setItem("servicoCarrinho", JSON.stringify(carrinho))
+        }
     }
 
     const topFunction = () => {
@@ -109,19 +109,33 @@ export default function VisualizacaoServ() {
                 <div className="prom">
                     <h2 className="confira">Confira nossos pacotes</h2>
                     <div className="row">
-                    {pacote.map((info: { id: string, preco: string, pacote: {id:string,nome:string} }) =>
+                        {pacote.map((info: { id: string, preco: string, pacote: { id: string, nome: string } }) =>
                             <div className="col-4 pacotinho">
                                 <div className="pact"></div>
                                 <h3>{info.pacote.nome}</h3>
-                                <h3>R$ {info.preco}</h3>              
+                                <h3>R$ {info.preco}</h3>
                                 <div>
                                     <p><BiCheck className="iconecheck" /></p>
-                                </div>             
+                                </div>
                                 <Button onClick={() => adicionarCarrinho(info)} variant="outline-primary" className="promo">Assine agora</Button>
                             </div>
                         )}
                     </div>
                 </div>
+
+                {servico.servicosObrigatorios?.length > 0 ?
+                    <>
+                        <p>*Para adquirir um {servico.nome} é preciso ter o(s) seguinte(s) serviço(s):</p>
+                        {servico.servicosObrigatorios.map((servicoObrig: { id: string, nome: string }) =>
+                            <div className="servico-obrig-link">
+                                <Link to={`/servico/${servicoObrig.id}`}><p>{servicoObrig.nome}</p></Link>
+                            </div>
+                        )}
+                    </>
+                    :
+                    <>
+                    </>
+                }
 
                 <div className="container-sugestoes">
                     <div className="sugestao-promocao">
@@ -144,26 +158,32 @@ export default function VisualizacaoServ() {
                         </Slider>
                     </div>
                     <div>
-                        <h2 className="sugestao">Outras sugestões</h2>
-                        <AliceCarousel>
-                            <div className="yours-custom-class container">
-                                <div className="row">
-                                    {complementos != null ?
-                                        complementos.map(complemento =>
-                                            <div className="card col-4">
-                                                <div className="card-img"></div>
-                                                <h4>{complemento.nome}</h4>
-                                                <div className="card-botao">
-                                                    <Button onClick={topFunction} type="submit"><Link to={`/produto/${complemento.id}`}>Ver Produto!</Link></Button>
-                                                </div>
-                                                <a className='texto'>Adicionar ao carrinho</a>
-                                            </div>
-                                        )
-                                        : <></>
-                                    }
-                                </div>
-                            </div>
-                        </AliceCarousel>
+                        {servico.complementares?.length > 0 ?
+                            <>
+                                <h2 className="sugestao">Outras sugestões</h2>
+                                <AliceCarousel>
+                                    <div className="yours-custom-class container">
+                                        <div className="row">
+                                            {complementos != null ?
+                                                complementos.map(complemento =>
+                                                    <div className="card col-4">
+                                                        <div className="card-img"></div>
+                                                        <h4>{complemento.nome}</h4>
+                                                        <div className="card-botao">
+                                                            <Button onClick={topFunction} type="submit"><Link to={`/servico/${complemento.id}`}>Ver serviço!</Link></Button>
+                                                        </div>
+                                                        <a className='texto'>Adicionar ao carrinho</a>
+                                                    </div>
+                                                )
+                                                : <></>
+                                            }
+                                        </div>
+                                    </div>
+                                </AliceCarousel>
+                            </>
+                            :
+                            <></>
+                        }
                     </div>
                 </div>
             </div>

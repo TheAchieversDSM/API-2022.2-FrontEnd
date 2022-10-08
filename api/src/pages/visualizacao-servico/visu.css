@@ -37,6 +37,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .comprar {
@@ -198,4 +199,9 @@ p.texto {
     color: #F06823;
     font-weight: 600 !important;
     font-size: 25px !important;
+}
+
+.servico-obrig-link > a {
+    color: #004F98 !important;
+    font-weight: 500;
 }
