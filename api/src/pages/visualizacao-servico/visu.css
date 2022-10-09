@@ -155,7 +155,7 @@ p.texto {
 .container-sugestoes {
     margin-top: 40px;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 2fr 2fr;
     margin-left: auto;
     margin-right: auto; 
 }
@@ -187,6 +187,7 @@ p.texto {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin: 10px;
 }
 
 .pacotinho > h3 {

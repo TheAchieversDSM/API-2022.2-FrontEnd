@@ -78,7 +78,7 @@ export default function VisualizacaoServ() {
                 setPromocoes(res.data)
             }).catch(error => {
                 console.log(error.message);
-              })
+            })
 
         }
         render()
