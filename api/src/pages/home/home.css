@@ -28,7 +28,21 @@
     border-radius: 50%;
     height: 80px;
     width: 80px;
+    cursor: pointer;
+    transition: 0.8s;
+    color: black;
 }
+
+.categoria:hover {
+    background-color: #376FA6;
+    cursor: pointer;
+    transition: 0.8s;
+    color: white;
+}
+
+.categoria:hover > h4 {
+    color: black;
+} 
 
 .feed {
     display: grid;
