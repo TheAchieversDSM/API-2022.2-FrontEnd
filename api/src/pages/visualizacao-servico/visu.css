@@ -1,0 +1,226 @@
+.geral {
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px
+}
+
+.principal{
+    margin: 80px;
+}
+
+.subcont {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.col-3 {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.yours-custom-class {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.prom {
+    background-color: #376FA6 !important;
+    padding: 20px;
+    height: fit-content;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.comprar {
+    background-color: #F06823 !important;
+    border-color: #F06823 !important;
+}
+
+.nav-geral {
+    background-color: #004F98 !important;
+}
+
+.pact {
+    width: 140px;
+    height: 140px;
+    background-color: #004F98;
+    border-radius: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.name {
+    color: #F06823;
+    font-weight: 650;
+    font-size: 55px;
+}
+
+.preço,
+.sugestao {
+    color: #004F98;
+    font-size: 40px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.sugestao-promocao{
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+p.texto {
+    margin-top: 20px;
+    color: #004F98 !important;
+    font-weight: 500;
+}
+
+.prom > .row{
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.descricao {
+    font-weight: 450;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.descricao > p {
+    color: #2D5274;
+    width: 70%;
+}
+
+.confira {
+    color: aliceblue;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.promo,
+.sugestao-promocao > .btn-primary {
+    border: none;
+    background-color: #F06823;
+    color: white !important;
+    font-weight: 500;
+    transition: 0.8s;
+}
+
+.promo:hover {
+    background-color: #004F98 !important;
+    transition: 0.8s;
+}
+
+.prom > .row {
+    margin: 20px
+}
+
+.card {
+    width: 250px;
+    height: 290px;
+    align-items: center !important;
+    margin: 10px;
+}
+
+.card-img {
+    margin-top: 20px;
+    margin-inline: auto;
+    width: 150px;
+    height: 150px;
+    background-color: gray;
+    border-radius: 100%;
+}
+
+.card-botao>.btn-primary>a {
+    color: white !important;
+}
+
+.card-botao>.btn-primary {
+    margin-bottom: 5px;
+}
+
+.container-sugestoes {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.sugestao-promocao {
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.card-imgserv {
+    margin-top: 30px;
+    margin-inline: auto;
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+    border-radius: 100%;
+}
+
+.col-4 > p{
+    font-size: 16px;
+    font-weight: 450;
+}
+
+.pacotinho{
+    background-color: #5486b4;
+    height: 400px;
+    width: 280px;
+    padding: 20px 10px 20px 10px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.pacotinho > h3 {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+.pacotin{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.iconecheck{
+    color: #F06823;
+    font-weight: 600 !important;
+    font-size: 25px !important;
+}
+
+.servico-obrig-link > a {
+    color: #004F98 !important;
+    font-weight: 500;
+}
+
+.sugestao-promocao-servico {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+/*.promo, .sugestao-promocao > .btn-primary {
+    background-color: #F06823;
+}
+
+.promo:hover, .sugestao-promocao > .btn-primary:hover {
+    background-color: #004F98;
+}*/

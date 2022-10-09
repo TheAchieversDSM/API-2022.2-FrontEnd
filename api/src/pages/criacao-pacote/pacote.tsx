@@ -112,14 +112,14 @@ export default function Pacote() {
                     <Row className="mb-3">
                         
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Nome do Pacote</Form.Label>
+                            <Form.Label>Nome do pacote</Form.Label>
                             <Form.Control
                                 required
                                 name="pacoteNome"
                                 value={pacoteNome}
                                 onChange={handleChange}
                                 type="text"
-                                placeholder="Nome do Pacote"
+                                placeholder="Insira o nome do pacote"
                             />
                         </Form.Group>
 
@@ -128,7 +128,7 @@ export default function Pacote() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Descrição do Pacote</Form.Label>
+                            <Form.Label>Descrição do pacote</Form.Label>
                             <Form.Control
                                 required
                                 name="pacoteDescricao"
@@ -136,7 +136,7 @@ export default function Pacote() {
                                 onChange={handleChange}
                                 as="textarea"
                                 type="text"
-                                placeholder="Descrição da Pacote"
+                                placeholder="Insira a descrição da pacote"
                             />
                         </Form.Group>
 
@@ -145,7 +145,7 @@ export default function Pacote() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Categoria</Form.Label>
+                            <Form.Label>Serviços que compõem o pacote</Form.Label>
                             <Select
                                 isMulti
                                 name="pacoteServicos"
@@ -159,7 +159,7 @@ export default function Pacote() {
                         
                     </Row>
 
-                    <Button type="submit" onClick={handleSubmit}>Criar Pacote!</Button>
+                    <Button type="submit" onClick={handleSubmit}>Criar pacote!</Button>
 
                 </Form>
             

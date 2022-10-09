@@ -15,7 +15,7 @@ const modeloPacote = [
     { value: '', label: '' }
 ];
 
-type pacoteModelo={id:"",nome:""}
+type pacoteModelo={id:"", preco:"" , pacote:{'nome': ''}}
 
 export default function Promocao() {
     const [pacotes,setPacotes] = useState(modeloPacote)
@@ -32,8 +32,9 @@ export default function Promocao() {
     const handleChangePacotes= (event: any) => {
         var pacotesSelecionados:  pacoteModelo[] =  []
         for (let index = 0; index < event.length; index++) {
-            let pacote = {id:event[index].value, nome:event[index].label}
-            console.log(pacote)
+            let pacoteIdPreco = event[index].value.split(',')
+            let pacoteInfos = event[index].label.split('-')
+            let pacote = {id: pacoteIdPreco[0], preco: pacoteIdPreco[1], pacote:{nome: pacoteInfos[1]}  }
             pacotesSelecionados.push(pacote)
         }
 
@@ -57,12 +58,12 @@ export default function Promocao() {
 
     useEffect(()=>{
         async function render() { 
-        axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res)=>{
+        axios.get(`http://localhost:8080/ofertas/pegarTodasOfertas`).then((res)=>{
                 var pacotes = []
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
-                        value: res.data[index].id,
-                        label: res.data[index].nome
+                        value: res.data[index].id + ',' + res.data[index].preco ,
+                        label: `R$ ${res.data[index].preco}-${res.data[index].pacote.nome}`
                     }
                     pacotes.push(option)
                 }
@@ -78,7 +79,7 @@ export default function Promocao() {
         const promocao = {
             nome: promocaoNome,
             preco: promocaoPreco,
-            pacotes: promocaoPacotes
+            ofertas: promocaoPacotes
         }
 
         event.preventDefault();
@@ -111,14 +112,14 @@ export default function Promocao() {
                     <Row className="mb-3">
                         
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Nome da Promoção</Form.Label>
+                            <Form.Label>Nome da promoção</Form.Label>
                             <Form.Control
                                 required
                                 name="promocaoNome"
                                 value={promocaoNome}
                                 onChange={handleChange}
                                 type="text"
-                                placeholder="Nome da Promoção"
+                                placeholder="Insira nome da promoção"
                             />
                         </Form.Group>
 
@@ -127,14 +128,14 @@ export default function Promocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Preço da Promoção</Form.Label>
+                            <Form.Label>Valor do desconto</Form.Label>
                             <Form.Control
                                 required
                                 name="promocaoPreco"
                                 value={promocaoPreco}
                                 onChange={handleChange}
                                 type="number"
-                                placeholder="Preço da Promoção"
+                                placeholder="Insira o valor de desconto da Promoção"
                                 defaultValue=""
                             />
                         </Form.Group>
@@ -144,7 +145,7 @@ export default function Promocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Pacotes que compõem a promoção</Form.Label>
+                            <Form.Label>Ofertas que compõem a promoção</Form.Label>
                             <Select 
                                 isMulti
                                 name="promocaoPacotes"
@@ -158,7 +159,7 @@ export default function Promocao() {
                         
                     </Row>
 
-                    <Button type="submit" onClick={handleSubmit}>Criar Promoção!</Button>
+                    <Button type="submit" onClick={handleSubmit}>Criar promoção!</Button>
                 
                 </Form>
 
