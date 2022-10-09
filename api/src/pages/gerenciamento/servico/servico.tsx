@@ -42,7 +42,8 @@ export default function GerServicos() {
     const handleChangeObrigatorios = (event: any) => {
         var servicosSelecionados: servicoModelo[] = []
         for (let index = 0; index < event.length; index++) {
-            let servico = { id: event[index].value, nome: event[index].label, categoria: '', descricao: '' }
+            let servicoInfos = event[index].value.split(',')
+            let servico = { id: servicoInfos[0], nome: event[index].label, categoria: '', descricao: '' }
             console.log(servico)
             servicosSelecionados.push(servico)
         }
@@ -58,7 +59,8 @@ export default function GerServicos() {
     const handleChangeComplementares = (event: any) => {
         var servicosSelecionados: servicoModelo[] = []
         for (let index = 0; index < event.length; index++) {
-            let servico = { id: event[index].value, nome: event[index].label, categoria: '', descricao: '' }
+            let servicoInfos = event[index].value.split(',')
+            let servico = { id: servicoInfos[0], nome: event[index].label, categoria: '', descricao: '' }
             console.log(servico)
             servicosSelecionados.push(servico)
         }
