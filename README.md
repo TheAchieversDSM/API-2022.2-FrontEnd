@@ -16,6 +16,7 @@
 
 <span id="execution">
 <h3>⚙️ Execução do Sistema</h3>
+<p>Para rodar o projeto localmente, será necessário ter o <a href="https://nodejs.org/en/download/">Node</a> instalado.</p>
 
 ```bash
 # Baixe o repositório ou clone usando o comando:
@@ -29,4 +30,6 @@ npm install
 
 # Inicie o sistema
 npm start
+
+# Pronto! A aplicação estará rodando no endereço http://localhost:8080
 ```
