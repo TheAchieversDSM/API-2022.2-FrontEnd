@@ -10,37 +10,48 @@ import './carrinho.css'
 let modelo = [
     {
         'preco': '',
+        'pacote':{'id': '', 'nome': '', 'servicos': [{'id': '', 'nome': ''}]},
+        'ofertas': [{'preco': ''}],
         'nome': '',
         'id': ''
     }
 ]
 
+var mounted = 0
 
 export default function Carrinho() {
     const [carrinho, setCarrinho] = useState(modelo)
     const [servicos, setServicos] = useState(Object)
+    const [complementares,setComplementares] = useState([{'id': '', 'nome': ''}])
     const [pacotes, setPacotes] = useState(Object)
 
+    
     useEffect(() => {
+
+        function render(){
         if (localStorage.getItem("servicoCarrinho") != undefined) {
             setCarrinho(JSON.parse(localStorage.getItem("servicoCarrinho")!))
-            console.log(carrinho)
-
+            for (let index = 0; index < carrinho.length; index++) {
+    
+                if(carrinho[index].pacote?.nome != ''){
+                    axios.post('http://localhost:8080/servicos/pegarComplementosParaCarrinho',carrinho[index].pacote?.servicos).then(res=>{
+                        setComplementares(res.data)
+                    })
+                }
+                
+            }
+            mounted += 1
         }
+
         else {
             setCarrinho(modelo)
         }
+    }
+        if (mounted <5 ) {
+            render()
+        }
+    })
 
-        axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
-            setServicos(res.data)
-        })
-
-        axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
-            setPacotes(res.data)
-            console.log(pacotes);   
-        })
-
-    }, [])
 
     function limparCarrinho() {
         localStorage.removeItem("servicoCarrinho")
@@ -61,12 +72,39 @@ export default function Carrinho() {
     function soma() {
         var soma = 0
         for (let index = 0; index < carrinho.length; index++) {
-            //console.log(parseFloat(carrinho[index].preco));
+            if(carrinho[index].nome === ''){
+                soma+=0
 
-            soma += parseFloat(carrinho[index].preco)
-        }
+            }else if (carrinho[index].ofertas)  {
+                
+                let valorOriginal = 0
+                for (let ofertaIndex = 0; ofertaIndex < carrinho[index].ofertas?.length; ofertaIndex++) {
+                    valorOriginal += parseFloat(carrinho[index].ofertas[ofertaIndex].preco)
+                    
+                    
+                }
+                soma += valorOriginal * parseFloat(carrinho[index].preco) / 100
+                
+            }else
+            {
+
+                soma += parseFloat(carrinho[index].preco)
+
+            }
+            }
         return soma
     }
+
+    function precoPromocao(promocao: any){
+        var soma = 0
+        for (let index = 0; index < promocao.ofertas.length; index++) {
+            //console.log(parseFloat(carrinho[index].preco));
+
+            soma += parseFloat(promocao.ofertas[index].preco)
+        }
+        return soma * promocao.preco / 100
+    }
+
 
     function obrigatorio(id: string) {
         for (let index = 0; index < carrinho.length; index++) {
@@ -93,8 +131,8 @@ export default function Carrinho() {
                                             <div>
                                                 <tr>
                                                     <th scope="row"><div className="iconeimg"></div></th>
-                                                    <td>{carrinho.nome}</td>
-                                                    <td className="preco1">R$ {carrinho.preco}</td>
+                                                    <td>{carrinho.nome? carrinho.nome: carrinho.pacote.nome }</td>
+                                                    <td className="preco1">R$ {carrinho.nome? precoPromocao(carrinho) : carrinho.preco}</td>
                                                     <td><BsFillTrashFill onClick={() => { deletar(carrinho.id) }} /></td>
                                                 </tr>
                                             </div>
@@ -105,7 +143,7 @@ export default function Carrinho() {
                             </tbody>
                         </table>
                         <h2 className="precototal">Preço total: R$ {carrinho[0] != undefined ? soma() : 0} </h2>
-                        <Button onClick={() => { limparCarrinho() }} className="limpar">Limpar tudo!</Button>
+                        <Button onClick={() => { limparCarrinho() }} className="limpar">Finalizar compra!</Button>
 
                         <AlertaProm prom="Essa promoção contém os seguintes produtos/serviços/pacotes" />
                     </div>
@@ -115,33 +153,18 @@ export default function Carrinho() {
                     <div className="sug col-3">
                         <div className="maissug">
                             <h3 className="titulosug">Sugestões</h3>
+                            {complementares.map((complemento) =>
                             <div className="card sugest">
                                 <div className="card-imgc"></div>
                                 <div className="nome-prod">
-                                    <h5>Nome do produto</h5>
+                                    <h5>{complemento.nome}</h5>
                                 </div>
                                 <div className="card-botao">
-                                    <Button type="submit"><Link to={""} >Ver Produto!</Link></Button>
+                                    <Button type="submit"><Link to={""} >Adicionar ao carrinho!</Link></Button>
                                 </div>
                             </div>
-                            <div className="card sugest">
-                                <div className="card-imgc"></div>
-                                <div className="nome-prod">
-                                    <h5>Nome do produto</h5>
-                                </div>
-                                <div className="card-botao">
-                                    <Button type="submit"><Link to={""} >Ver Produto!</Link></Button>
-                                </div>
-                            </div>
-                            <div className="card sugest">
-                                <div className="card-imgc"></div>
-                                <div className="nome-prod">
-                                    <h5>Nome do produto</h5>
-                                </div>
-                                <div className="card-botao">
-                                    <Button type="submit"><Link to={""} >Ver Produto!</Link></Button>
-                                </div>
-                            </div>
+                            )}
+
                         </div>
                     </div>
                 </div>
