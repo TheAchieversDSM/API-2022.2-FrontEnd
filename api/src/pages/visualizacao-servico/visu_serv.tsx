@@ -17,9 +17,9 @@ let modelo = [{ 'id': '', 'nome': '' }]
 
 let modeloPacote = [
     {
-        'id': '',
-        'preco': '',
-        'pacote': { 'id': '', 'nome': '' }
+        id: '',
+        preco: '',
+        pacote: { id: '', nome: '', servicos: [{ 'id': '', 'nome': ''}] }
     }
 ]
 
@@ -55,12 +55,13 @@ export default function VisualizacaoServ() {
         return valorTotal * parseFloat(desconto) / 100
     }
 
-
     useEffect(() => {
         async function render() {
             axios.get(`http://localhost:8080/servicos/pegarServico/${id}`,).then((res) => {
+                
                 setServico(res.data)
                 setComplementos(res.data.complementares)
+                console.log(res.data.complementares)
             })
         }
         render()
@@ -75,8 +76,9 @@ export default function VisualizacaoServ() {
 
             axios.post(`http://localhost:8080/servicos/pegarPromocoes`, [servico]).then((res) => {
                 setPromocoes(res.data)
-                console.log(res.data)
-            })
+            }).catch(error => {
+                console.log(error.message);
+              })
 
         }
         render()
@@ -132,14 +134,16 @@ export default function VisualizacaoServ() {
                 <div className="prom">
                     <h2 className="confira">Confira nossos pacotes</h2>
                     <div className="row">
-                        {pacote.map((info: { id: string, preco: string, pacote: { id: string, nome: string } }) =>
+                        {pacote.map((info) =>
                             <div className="col-4 pacotinho">
                                 <div className="pact"></div>
                                 <h3>{info.pacote.nome}</h3>
                                 <h4>R$ {info.preco}</h4>
-                                <div>
-                                    <p><BiCheck className="iconecheck" /></p>
-                                </div>
+                                {info.pacote.servicos.map((servico: {id: string,nome: string}) => 
+                                    <div>
+                                        <p><BiCheck className="iconecheck" />{servico.nome}</p>
+                                    </div>
+                                )}
                                 <Button onClick={() => adicionarCarrinho(info)} variant="outline-primary" className="promo">Assine agora</Button>
                             </div>
                         )}
@@ -176,7 +180,7 @@ export default function VisualizacaoServ() {
                                                         <h5>{promocao.preco}% OFF</h5>
                                                             {promocao.ofertas.map(info =>
                                                                 <>
-                                                                   <p><BiCheck className="iconecheck" />{info.pacote.nome} - R$ {info.preco}</p>
+                                                                    <p><BiCheck className="iconecheck" />{info.pacote.nome} - R$ {info.preco}</p>
                                                                 </>
                                                             )}
                                                         <p>Preço original: R$ {soma(promocao.ofertas)} </p>
