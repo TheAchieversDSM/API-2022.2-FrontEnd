@@ -27,10 +27,9 @@ export default function Oferta() {
     const handleChangePacotes = (event: any) => {
         console.log(event);
         var pacotesSelecionados: pacoteModelo[] = []
-        let pacote = { id: event.value, nome: event.label }
-        console.log(pacote)
-        pacotesSelecionados.push(pacote)
+        let pacote = { id: event.value, nome: event.label, servicos: event.servicos }
         
+        pacotesSelecionados.push(pacote)
 
         setFormValue((prevState) => {
             return {
@@ -38,6 +37,7 @@ export default function Oferta() {
                 ofertaPacotes: pacotesSelecionados,
             };
         });
+        
     };
 
     const handleChange = (event: any) => {
@@ -56,7 +56,8 @@ export default function Oferta() {
                 var pacotes = []
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
-                        value: res.data[index].id,
+                        value: res.data[index].id ,
+                        servicos: res.data[index].servicos,
                         label: res.data[index].nome
                     }
                     pacotes.push(option)
