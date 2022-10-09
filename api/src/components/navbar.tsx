@@ -24,15 +24,16 @@ function Navigation() {
                             navbarScroll
                         >
                             <Nav.Link><Link to="/login">Login</Link></Nav.Link>
-                            <Nav.Link>Assine UOL</Nav.Link>
-                            <Nav.Link>Bate Papo</Nav.Link>
+                            {/*<Nav.Link>Assine UOL</Nav.Link>
+                            <Nav.Link>Bate Papo</Nav.Link>*/}
                             <NavDropdown title="Categorias" id="navbarScrollingDropdown">
                                 <NavDropdown.Item>Meu Negócio</NavDropdown.Item>
                                 <NavDropdown.Item>Streaming</NavDropdown.Item>
                                 <NavDropdown.Item>Música</NavDropdown.Item>
                                 <NavDropdown.Item>Segurança digital</NavDropdown.Item>
                             </NavDropdown>
-                            <Nav.Link>SAC</Nav.Link>
+                            {/*<Nav.Link>SAC</Nav.Link>*/}
+                            <Nav.Link><Link to="/carrinho">Carrinho</Link></Nav.Link>
                         </Nav>
                         <Form className="d-flex">
                             <Form.Control
