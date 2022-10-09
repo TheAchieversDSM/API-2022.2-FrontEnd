@@ -15,7 +15,7 @@ const modeloPacote = [
     { value: '', label: '' }
 ];
 
-type pacoteModelo={id:"",nome:""}
+type pacoteModelo={id:"", preco:"" , pacote:{'nome': ''}}
 
 export default function Promocao() {
     const [pacotes,setPacotes] = useState(modeloPacote)
@@ -32,8 +32,9 @@ export default function Promocao() {
     const handleChangePacotes= (event: any) => {
         var pacotesSelecionados:  pacoteModelo[] =  []
         for (let index = 0; index < event.length; index++) {
-            let pacote = {id:event[index].value, nome:event[index].label}
-            console.log(pacote)
+            let pacoteIdPreco = event[index].value.split(',')
+            let pacoteInfos = event[index].label.split('-')
+            let pacote = {id: pacoteIdPreco[0], preco: pacoteIdPreco[1], pacote:{nome: pacoteInfos[1]}  }
             pacotesSelecionados.push(pacote)
         }
 
@@ -61,8 +62,8 @@ export default function Promocao() {
                 var pacotes = []
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
-                        value: res.data[index].id,
-                        label: `R$ ${res.data[index].preco} -  ${res.data[index].pacote.nome}`
+                        value: res.data[index].id + ',' + res.data[index].preco ,
+                        label: `R$ ${res.data[index].preco}-${res.data[index].pacote.nome}`
                     }
                     pacotes.push(option)
                 }

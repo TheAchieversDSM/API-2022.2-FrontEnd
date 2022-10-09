@@ -7,7 +7,7 @@ const modeloPacote = [
     { value: '', label: '' }
 ];
 
-type pacoteModelo = { id: "", nome: "" }
+type pacoteModelo = { id: "", nome: "",  }
 
 export default function GerPromocao() {
     const [pacotes, setPacotes] = useState(modeloPacote)

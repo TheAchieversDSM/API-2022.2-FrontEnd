@@ -12,7 +12,8 @@ import './visu.css'
 import { BiCheck } from 'react-icons/bi';
 
 let modelo = [{ 'id': '', 'nome': '' }]
-const modeloPromocao = [{ id: '', nome: '', preco: '' }]
+
+
 
 let modeloPacote = [
     {
@@ -26,9 +27,12 @@ let modeloOferta = [
     {
         'id': '',
         'preco': '',
-        'pacote': {}
+        'pacote': {'nome': ''}
     }
 ]
+
+const modeloPromocao = [{ id: '', nome: '', preco: '', ofertas: modeloOferta}]
+
 
 export default function VisualizacaoServ() {
     const [servico, setServico] = useState(Object)
@@ -37,6 +41,20 @@ export default function VisualizacaoServ() {
     const [pacote, setPacotes] = useState(modeloPacote)
     const { id } = useParams();
     const [oferta, setOferta] = useState(modeloOferta)
+
+
+    function soma(ofertas: any) {
+        var soma = 0
+        for (let index = 0; index < ofertas.length; index++) {
+            soma += parseFloat(ofertas[index].preco)
+        }
+        return soma
+    }
+
+    function desconto(desconto: any, valorTotal: any){
+        return valorTotal * parseFloat(desconto) / 100
+    }
+
 
     useEffect(() => {
         async function render() {
@@ -155,7 +173,16 @@ export default function VisualizacaoServ() {
                                                     <div className="card col-4">
                                                         <div className="card-imgserv"></div>
                                                         <h4>{promocao.nome}</h4>
-                                                        <h5>R${promocao.preco} OFF</h5>
+                                                        <h5>{promocao.preco}% OFF</h5>
+                                                            {promocao.ofertas.map(info =>
+                                                                <>
+                                                                   <p><BiCheck className="iconecheck" />{info.pacote.nome} - R$ {info.preco}</p>
+                                                                </>
+                                                            )}
+                                                        <p>Preço original: R$ {soma(promocao.ofertas)} </p>
+
+                                                        <p>Preço Com Desconto: R$ {desconto(promocao.preco,soma(promocao.ofertas))} </p>
+                                                                
                                                         <div className="card-botao">
                                                             <Button onClick={() => adicionarCarrinho(promocao)} variant="outline-primary" className="promo">Assine agora</Button>
                                                         </div>
