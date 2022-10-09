@@ -10,8 +10,8 @@ import './carrinho.css'
 let modelo = [
     {
         'preco': '',
-        'pacote':{'id': '', 'nome': '', 'servicos': [{'id': '', 'nome': ''}]},
-        'ofertas': [{'preco': ''}],
+        'pacote': { 'id': '', 'nome': '', 'servicos': [{ 'id': '', 'nome': '' }] },
+        'ofertas': [{ 'preco': '' }],
         'nome': '',
         'id': ''
     }
@@ -22,32 +22,54 @@ var mounted = 0
 export default function Carrinho() {
     const [carrinho, setCarrinho] = useState(modelo)
     const [servicos, setServicos] = useState(Object)
-    const [complementares,setComplementares] = useState([{'id': '', 'nome': ''}])
+    const [complementares, setComplementares] = useState([{ 'id': '', 'nome': '' }])
     const [pacotes, setPacotes] = useState(Object)
 
-    
+
     useEffect(() => {
 
-        function render(){
-        if (localStorage.getItem("servicoCarrinho") != undefined) {
-            setCarrinho(JSON.parse(localStorage.getItem("servicoCarrinho")!))
-            for (let index = 0; index < carrinho.length; index++) {
-    
-                if(carrinho[index].pacote?.nome != ''){
-                    axios.post('http://localhost:8080/servicos/pegarComplementosParaCarrinho',carrinho[index].pacote?.servicos).then(res=>{
-                        setComplementares(res.data)
-                    })
-                }
-                
-            }
-            mounted += 1
-        }
+        function render() {
+            if (localStorage.getItem("servicoCarrinho") != undefined) {
+                setCarrinho(JSON.parse(localStorage.getItem("servicoCarrinho")!))
+                for (let index = 0; index < carrinho.length; index++) {
 
-        else {
-            setCarrinho(modelo)
+                    if (carrinho[index].pacote?.nome != '') {
+                        axios.post('http://localhost:8080/servicos/pegarComplementosParaCarrinho', carrinho[index].pacote?.servicos).then(res => {
+                            setComplementares(res.data)
+                        })
+                    }
+
+                }
+
+                for (let index = 0; index < carrinho.length; index++) {
+                    for (let indexPac = 0; indexPac < carrinho[index].pacote.servicos.length; indexPac++) {
+                        axios.get(`http://localhost:8080/servicos/todosServicosObrigatorios/${carrinho[index].pacote.servicos[indexPac].id}`).then(res => {
+                            for (let indexServ = 0; indexServ < res.data.length; indexServ++) {
+                                for (let indexCarrinho = 0; indexCarrinho < carrinho.length; indexCarrinho++) {
+                                    carrinho[indexCarrinho].pacote.servicos.map(servi => {
+                                        if (res.data[indexServ].id === servi.id) {
+                                            document.getElementsByClassName('limpar')[0].removeAttribute('disabled');
+                                        } else {
+                                            document.getElementsByClassName("limpar")[0].setAttribute("disabled", "disabled");
+                                        }
+                                    })
+                                }
+                            }
+
+                        }).catch((err) => {
+                            console.log(err)
+                        })
+                    }
+                }
+
+                mounted += 1
+            }
+
+            else {
+                setCarrinho(modelo)
+            }
         }
-    }
-        if (mounted <5 ) {
+        if (mounted < 5) {
             render()
         }
     })
@@ -72,30 +94,27 @@ export default function Carrinho() {
     function soma() {
         var soma = 0
         for (let index = 0; index < carrinho.length; index++) {
-            if(carrinho[index].nome === ''){
-                soma+=0
+            if (carrinho[index].nome === '') {
+                soma += 0
 
-            }else if (carrinho[index].ofertas)  {
-                
+            } else if (carrinho[index].ofertas) {
+
                 let valorOriginal = 0
                 for (let ofertaIndex = 0; ofertaIndex < carrinho[index].ofertas?.length; ofertaIndex++) {
                     valorOriginal += parseFloat(carrinho[index].ofertas[ofertaIndex].preco)
-                    
-                    
+
+
                 }
                 soma += valorOriginal * parseFloat(carrinho[index].preco) / 100
-                
-            }else
-            {
 
+            } else {
                 soma += parseFloat(carrinho[index].preco)
-
             }
-            }
+        }
         return soma
     }
 
-    function precoPromocao(promocao: any){
+    function precoPromocao(promocao: any) {
         var soma = 0
         for (let index = 0; index < promocao.ofertas.length; index++) {
             //console.log(parseFloat(carrinho[index].preco));
@@ -103,17 +122,6 @@ export default function Carrinho() {
             soma += parseFloat(promocao.ofertas[index].preco)
         }
         return soma * promocao.preco / 100
-    }
-
-
-    function obrigatorio(id: string) {
-        for (let index = 0; index < carrinho.length; index++) {
-            for (let indexPac = 0; indexPac < pacotes.length; indexPac++ ) {
-                if (pacotes[indexPac].id == carrinho[index].id && pacotes[indexPac].servicosObrigatorios?.length > 0) {
-                    console.log('oiiii');
-                }
-            }
-        }
     }
 
     return (
@@ -124,15 +132,14 @@ export default function Carrinho() {
                     <div className="listac col-9">
                         <table className="table table-hover">
                             <tbody>
-
                                 {
                                     carrinho[0] != undefined ?
                                         carrinho.map((carrinho) =>
                                             <div>
                                                 <tr>
                                                     <th scope="row"><div className="iconeimg"></div></th>
-                                                    <td>{carrinho.nome? carrinho.nome: carrinho.pacote.nome }</td>
-                                                    <td className="preco1">R$ {carrinho.nome? precoPromocao(carrinho) : carrinho.preco}</td>
+                                                    <td>{carrinho.nome ? carrinho.nome : carrinho.pacote.nome}</td>
+                                                    <td className="preco1">R$ {carrinho.nome ? precoPromocao(carrinho) : carrinho.preco}</td>
                                                     <td><BsFillTrashFill onClick={() => { deletar(carrinho.id) }} /></td>
                                                 </tr>
                                             </div>
@@ -154,15 +161,15 @@ export default function Carrinho() {
                         <div className="maissug">
                             <h3 className="titulosug">Sugestões</h3>
                             {complementares.map((complemento) =>
-                            <div className="card sugest">
-                                <div className="card-imgc"></div>
-                                <div className="nome-prod">
-                                    <h5>{complemento.nome}</h5>
+                                <div className="card sugest">
+                                    <div className="card-imgc"></div>
+                                    <div className="nome-prod">
+                                        <h5>{complemento.nome}</h5>
+                                    </div>
+                                    <div className="card-botao">
+                                        <Button type="submit"><Link to={""} >Adicionar ao carrinho!</Link></Button>
+                                    </div>
                                 </div>
-                                <div className="card-botao">
-                                    <Button type="submit"><Link to={""} >Adicionar ao carrinho!</Link></Button>
-                                </div>
-                            </div>
                             )}
 
                         </div>
