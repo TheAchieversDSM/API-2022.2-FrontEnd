@@ -7,7 +7,7 @@ const modeloServico = [
     { value: '', label: '' }
 ];
 
-type servicoModelo = { id: "", nome: "" }
+type servicoModelo = { id: "", nome: "" , categoria: any, descricao: any}
 
 export default function GerServicos() {
     const [servicos, setServicos] = useState(modeloServico)
@@ -25,8 +25,9 @@ export default function GerServicos() {
     const handleChangeServicos = (event: any) => {
         var servicosSelecionados: servicoModelo[] = []
         for (let index = 0; index < event.length; index++) {
-            let servico = { id: event[index].value, nome: event[index].label }
-            console.log(servico)
+            let servicoInfos = event[index].value.split(',')
+            console.log(servicoInfos)
+            let servico = { id: servicoInfos[0], nome: event[index].label, categoria: servicoInfos[1], descricao: servicoInfos[2] }
             servicosSelecionados.push(servico)
         }
 
@@ -41,7 +42,7 @@ export default function GerServicos() {
     const handleChangeObrigatorios = (event: any) => {
         var servicosSelecionados: servicoModelo[] = []
         for (let index = 0; index < event.length; index++) {
-            let servico = { id: event[index].value, nome: event[index].label }
+            let servico = { id: event[index].value, nome: event[index].label, categoria: '', descricao: '' }
             console.log(servico)
             servicosSelecionados.push(servico)
         }
@@ -57,7 +58,7 @@ export default function GerServicos() {
     const handleChangeComplementares = (event: any) => {
         var servicosSelecionados: servicoModelo[] = []
         for (let index = 0; index < event.length; index++) {
-            let servico = { id: event[index].value, nome: event[index].label }
+            let servico = { id: event[index].value, nome: event[index].label, categoria: '', descricao: '' }
             console.log(servico)
             servicosSelecionados.push(servico)
         }
@@ -86,7 +87,7 @@ export default function GerServicos() {
                 var servicos = []
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
-                        value: res.data[index].id,
+                        value: res.data[index].id + ',' + res.data[index].categoria + ',' + res.data[index].descricao  ,
                         label: res.data[index].nome
                     }
                     servicos.push(option)
@@ -100,20 +101,26 @@ export default function GerServicos() {
     const { servicoNome, servicoDescricao, servicoCategoria, servicoObrigatorios, servicoProdutos, servicoComplementares } = formValue;
 
     const handleSubmit = (event: any) => {
-        const promocao = {
-            nome: servicoNome,
-            descricao: servicoDescricao,
-            categoria: servicoCategoria,
-            servicosObrigatorios: servicoObrigatorios,
-            produtos: servicoProdutos,
-            complementares: servicoComplementares
+        for (let index = 0; index < servicoProdutos.length; index++) {  
+            const data = {
+                id: servicoProdutos[index].id,
+                nome: servicoProdutos[index].nome,
+                categoria: servicoProdutos[index].categoria,
+                descricao: servicoProdutos[index].descricao,
+                servicosObrigatorios: servicoObrigatorios,
+                produtos: servicoProdutos,
+                complementares: servicoComplementares
+            }
+            console.log(data)
+
+            event.preventDefault();
+
+            axios.put(`http://localhost:8080/servicos/atualizarServico`, data).then((res) => {
+                alert('Servico atualizada!');
+            })
+
+            
         }
-
-        event.preventDefault();
-
-        axios.put(`http://localhost:8080/servicos/atualizarServico`, promocao).then((res) => {
-            alert('Servico atualizada!');
-        })
 
         let valores = {
             servicoNome: "",
