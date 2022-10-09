@@ -52,7 +52,7 @@ export default function VisualizacaoServ() {
     }
 
     function desconto(desconto: any, valorTotal: any){
-        return valorTotal * parseFloat(desconto) / 100
+        return (valorTotal - (valorTotal * parseFloat(desconto)) / 100).toFixed(2)
     }
 
     useEffect(() => {

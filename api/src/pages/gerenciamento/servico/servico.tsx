@@ -163,21 +163,6 @@ export default function GerServicos() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Nome do serviço</Form.Label>
-                            <Form.Control
-                                required
-                                name="servicoNome"
-                                onChange={handleChange}
-                                type="text"
-                                placeholder="Insira o nome do serviço"
-                            />
-                        </Form.Group>
-
-                    </Row>
-
-                    <Row className="mb-3">
-
-                        <Form.Group as={Col} md="6">
                             <Form.Label>Incluir serviços obrigatórios</Form.Label>
                             <Select
                                 isMulti

@@ -113,22 +113,6 @@ export default function GerPromocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Novo nome da promoçao</Form.Label>
-                            <Form.Control
-                                required
-                                name="promocaoNome"
-                                value={promocaoNome}
-                                onChange={handleChange}
-                                type="text"
-                                placeholder="Insira o novo nome da promoção"
-                            />
-                        </Form.Group>
-
-                    </Row>
-
-                    <Row className="mb-3">
-
-                        <Form.Group as={Col} md="6">
                             <Form.Label>Desconto da promoção</Form.Label>
                             <Form.Control
                                 required

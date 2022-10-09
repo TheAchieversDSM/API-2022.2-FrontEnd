@@ -40,8 +40,9 @@ export default function Carrinho() {
                     }
 
                 }
-
+           
                 for (let index = 0; index < carrinho.length; index++) {
+                if(carrinho[index].pacote){
                     for (let indexPac = 0; indexPac < carrinho[index].pacote.servicos.length; indexPac++) {
                         axios.get(`http://localhost:8080/servicos/todosServicosObrigatorios/${carrinho[index].pacote.servicos[indexPac].id}`).then(res => {
                             for (let indexServ = 0; indexServ < res.data.length; indexServ++) {
@@ -60,6 +61,7 @@ export default function Carrinho() {
                             console.log(err)
                         })
                     }
+                    }
                 }
 
                 mounted += 1
@@ -69,9 +71,7 @@ export default function Carrinho() {
                 setCarrinho(modelo)
             }
         }
-        if (mounted < 5) {
-            render()
-        }
+        render()
     })
 
 
@@ -105,13 +105,13 @@ export default function Carrinho() {
 
 
                 }
-                soma += valorOriginal * parseFloat(carrinho[index].preco) / 100
+                soma += (valorOriginal - (valorOriginal * parseFloat(carrinho[index].preco)) / 100)
 
             } else {
                 soma += parseFloat(carrinho[index].preco)
             }
         }
-        return soma
+        return soma.toFixed(2)
     }
 
     function precoPromocao(promocao: any) {
@@ -121,7 +121,7 @@ export default function Carrinho() {
 
             soma += parseFloat(promocao.ofertas[index].preco)
         }
-        return soma * promocao.preco / 100
+        return (soma - (soma * promocao.preco) / 100 ).toFixed(2)
     }
 
     return (
@@ -152,7 +152,7 @@ export default function Carrinho() {
                         <h2 className="precototal">Preço total: R$ {carrinho[0] != undefined ? soma() : 0} </h2>
                         <Button onClick={() => { limparCarrinho() }} className="limpar">Finalizar compra!</Button>
 
-                        <AlertaProm prom="Essa promoção contém os seguintes produtos/serviços/pacotes" />
+                        {/*<AlertaProm prom="Essa promoção contém os seguintes produtos/serviços/pacotes" />*/}
                     </div>
 
 
@@ -167,7 +167,7 @@ export default function Carrinho() {
                                         <h5>{complemento.nome}</h5>
                                     </div>
                                     <div className="card-botao">
-                                        <Button type="submit"><Link to={""} >Adicionar ao carrinho!</Link></Button>
+                                        <Button type="submit"><a href={`http://localhost:3000/servico/${complemento.id}`}>Ver serviço!</a></Button>
                                     </div>
                                 </div>
                             )}
