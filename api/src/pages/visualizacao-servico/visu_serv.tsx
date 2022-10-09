@@ -55,8 +55,9 @@ export default function VisualizacaoServ() {
                 setPacotes(res.data)
             })
 
-            axios.get(`http://localhost:8080/promocoes/pegarTodasPromocoes`,).then((res) => {
+            axios.post(`http://localhost:8080/servicos/pegarPromocoes`, [servico]).then((res) => {
                 setPromocoes(res.data)
+                console.log(res.data)
             })
 
         }
