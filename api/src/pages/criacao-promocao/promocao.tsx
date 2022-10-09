@@ -57,12 +57,12 @@ export default function Promocao() {
 
     useEffect(()=>{
         async function render() { 
-        axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res)=>{
+        axios.get(`http://localhost:8080/ofertas/pegarTodasOfertas`).then((res)=>{
                 var pacotes = []
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
                         value: res.data[index].id,
-                        label: res.data[index].nome
+                        label: `R$ ${res.data[index].preco} -  ${res.data[index].pacote.nome}`
                     }
                     pacotes.push(option)
                 }
@@ -78,7 +78,7 @@ export default function Promocao() {
         const promocao = {
             nome: promocaoNome,
             preco: promocaoPreco,
-            pacotes: promocaoPacotes
+            ofertas: promocaoPacotes
         }
 
         event.preventDefault();
