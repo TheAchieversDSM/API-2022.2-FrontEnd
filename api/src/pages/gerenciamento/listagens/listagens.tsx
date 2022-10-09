@@ -22,16 +22,37 @@ let modelo = [
     }
 ]
 
+let modeloPromocao = [
+    {
+        'id': '',
+        'nome': '',
+        'preco': ''
+    }
+]
+
+let modeloOferta = [
+    {
+        'id': '',
+        'preco': '',
+        'pacote': {'id': '', 'nome': '' }
+    }
+]
+
 export default function Listagens() {
     const [produtos, setProdutos] = useState(modelo)
     const [servicos, setServicos] = useState(modelo)
     const [pacotes, setPacotes] = useState(modelo)
-    const [promocoes, setPromocoes] = useState(modelo)
+    const [ofertas, setOfertas] = useState(modeloOferta)
+    const [promocoes, setPromocoes] = useState(modeloPromocao)
 
     useEffect(() => {
         async function render() {
             axios.get(`http://localhost:8080/produtos/pegarTodosProdutos`).then(res => {
                 setProdutos(res.data)
+            })
+
+            axios.get(`http://localhost:8080/ofertas/pegarTodasOfertas`).then(res => {
+                setOfertas(res.data)
             })
 
             axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then(res => {
@@ -61,7 +82,7 @@ export default function Listagens() {
                     id="fill-tab-example"
                     className="mb-3"
                 >
-                    <Tab eventKey="pacotesOfertas" title="Pacotes/Ofertas" className="tab1">
+                    <Tab eventKey="pacotesOfertas" title="Produto" className="tab1">
 
                         <Table striped bordered hover>
                             <thead>
@@ -124,20 +145,41 @@ export default function Listagens() {
 
                     </Tab>
 
+                    <Tab eventKey="ofertas" title="Ofertas" className="tab3">
+
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Preço</th>
+                                    <th>Pacote</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {ofertas.map(oferta =>
+                                    <tr>
+                                        <td>R$ {oferta.preco}</td>
+                                        <td>{oferta.pacote.nome}</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </Table>
+
+                    </Tab>
+
                     <Tab eventKey="promocoes" title="Promoção" className="tab3">
 
                         <Table striped bordered hover>
                             <thead>
                                 <tr>
                                     <th>Nome</th>
-                                    <th>Descrição</th>
+                                    <th>Desconto</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {promocoes.map(promocao =>
                                     <tr>
                                         <td>{promocao.nome}</td>
-                                        <td>{promocao.descricao}</td>
+                                        <td>{promocao.preco}%</td>
                                     </tr>
                                 )}
                             </tbody>
