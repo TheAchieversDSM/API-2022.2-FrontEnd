@@ -14,16 +14,12 @@ td{
     font-weight: 500
 }
 
-.card {
+.card{
     padding-bottom: 10px;
     margin-bottom: 20px;
     align-items: center !important;
-    border: var(--bs-card-border-width) solid var(--bs-card-border-color)
-}
-
-.sugest{
-    width: 180px;
-    height: 200px;
+    border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+    height: fit-content !important;
 }
 
 .card-imgc {
@@ -33,6 +29,10 @@ td{
     height: 70px;
     background-color: gray;
     border-radius: 200px;
+}
+
+th, td{
+    width: 300px !important;
 }
 
 .maissug{
