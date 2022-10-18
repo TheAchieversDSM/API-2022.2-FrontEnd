@@ -28,11 +28,11 @@ export default function Gerenciamento() {
                         <GerOferta />
                     </Tab>
                     <Tab eventKey="servicos" title="Serviços" className="tab2">
-                        <GerServicos/>
+                        <GerServicos />
                     </Tab>
-                    <Tab eventKey="promocoes" title="Promoções" className="tab3">
+                    {/*<Tab eventKey="promocoes" title="Promoções" className="tab3">
                         <GerPromocao/>
-                    </Tab>
+                    </Tab>*/}
                     <Tab eventKey="listagens" title="Listagens" className="tab4">
                         <Listagens />
                     </Tab>

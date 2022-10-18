@@ -40,27 +40,27 @@ export default function Carrinho() {
                     }
 
                 }
-           
-                for (let index = 0; index < carrinho.length; index++) {
-                if(carrinho[index].pacote){
-                    for (let indexPac = 0; indexPac < carrinho[index].pacote.servicos.length; indexPac++) {
-                        axios.get(`http://localhost:8080/servicos/todosServicosObrigatorios/${carrinho[index].pacote.servicos[indexPac].id}`).then(res => {
-                            for (let indexServ = 0; indexServ < res.data.length; indexServ++) {
-                                for (let indexCarrinho = 0; indexCarrinho < carrinho.length; indexCarrinho++) {
-                                    carrinho[indexCarrinho].pacote.servicos.map(servi => {
-                                        if (res.data[indexServ].id === servi.id) {
-                                            document.getElementsByClassName('limpar')[0].removeAttribute('disabled');
-                                        } else {
-                                            document.getElementsByClassName("limpar")[0].setAttribute("disabled", "disabled");
-                                        }
-                                    })
-                                }
-                            }
 
-                        }).catch((err) => {
-                            console.log(err)
-                        })
-                    }
+                for (let index = 0; index < carrinho.length; index++) {
+                    if (carrinho[index].pacote) {
+                        for (let indexPac = 0; indexPac < carrinho[index].pacote.servicos.length; indexPac++) {
+                            axios.get(`http://localhost:8080/servicos/todosServicosObrigatorios/${carrinho[index].pacote.servicos[indexPac].id}`).then(res => {
+                                for (let indexServ = 0; indexServ < res.data.length; indexServ++) {
+                                    for (let indexCarrinho = 0; indexCarrinho < carrinho.length; indexCarrinho++) {
+                                        carrinho[indexCarrinho].pacote.servicos.map(servi => {
+                                            if (res.data[indexServ].id === servi.id) {
+                                                document.getElementsByClassName('limpar')[0].removeAttribute('disabled');
+                                            } else {
+                                                document.getElementsByClassName("limpar")[0].setAttribute("disabled", "disabled");
+                                            }
+                                        })
+                                    }
+                                }
+
+                            }).catch((err) => {
+                                console.log(err)
+                            })
+                        }
                     }
                 }
 
@@ -121,7 +121,7 @@ export default function Carrinho() {
 
             soma += parseFloat(promocao.ofertas[index].preco)
         }
-        return (soma - (soma * promocao.preco) / 100 ).toFixed(2)
+        return (soma - (soma * promocao.preco) / 100).toFixed(2)
     }
 
     return (
@@ -156,25 +156,28 @@ export default function Carrinho() {
                     </div>
 
 
+                    {complementares?.length > 0 ?
+                        <div className="sug col-3">
+                            <div className="maissug">
 
-                    <div className="sug col-3">
-                        <div className="maissug">
-                            <h3 className="titulosug">Sugestões</h3>
-                            {complementares.map((complemento) =>
+                                <h3 className="titulosug">Sugestões</h3>
+
                                 <div className="card sugest">
                                     <div className="card-imgc"></div>
                                     <div className="nome-prod">
-                                        <h5>{complemento.nome}</h5>
+                                        <h5>{complementares[0]?.nome}</h5>
                                     </div>
                                     <div className="card-botao">
-                                        <Button type="submit"><a href={`http://localhost:3000/servico/${complemento.id}`}>Ver serviço!</a></Button>
+                                        <Button type="submit"><a href={`http://localhost:3000/servico/${complementares[0]?.id}`}>Ver serviço!</a></Button>
                                     </div>
                                 </div>
-                            )}
 
+                            </div>
                         </div>
-                    </div>
+                        : <></>
+                    }
                 </div>
+
             </div>
         </>
     )

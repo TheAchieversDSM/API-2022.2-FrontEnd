@@ -28,7 +28,7 @@ export default function GerOferta() {
     const handleChangeSelecionados = (event: any) => {
         var pacotesSelecionados: servicosModelo[] = []
         for (let index = 0; index < event.length; index++) {
-            let pacote = { id: event[index].value, nome: event[index].label }
+            let pacote = { id: event[index].value, nome: event[index].label, servicos: event[index].servicos }
             pacotesSelecionados.push(pacote)
         }
         setFormValue((prevState) => {
@@ -61,16 +61,20 @@ export default function GerOferta() {
     const { ofertaPreco, ofertaTipo, pacotesSelecionados } = formValue;
 
     const handleSubmit = (event: any) => {
-        const promocao = {
-            preco: ofertaPreco,
-            pacote: listaPacotes
+        for (let index = 0; index < pacotesSelecionados.length; index++) {             
+            const novaOferta = {                 
+                preco: ofertaPreco,                 
+                pacote: pacotesSelecionados[index]             
+            }                      
+            console.log(novaOferta)
+            axios.post(`http://localhost:8080/ofertas/criarOferta`, novaOferta).then((res) => {
+
+            })
         }
 
-        event.preventDefault();
+        alert('Ofertas inseridas!');
 
-        axios.put(`http://localhost:8080/promocoes/atualizarPromocao`, promocao).then((res) => {
-            alert('Promoção atualizada!');
-        })
+        event.preventDefault();
 
         let valores = {
             ofertaPreco: "",
@@ -87,6 +91,7 @@ export default function GerOferta() {
                 var servicos = []
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
+
                         value: res.data[index].id,
                         label: res.data[index].nome
                     }
@@ -99,7 +104,8 @@ export default function GerOferta() {
                 var pacotes = []
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
-                        value: res.data[index].id,
+                        servicos: res.data[index].servicos,
+                        value: res.data[index].id, 
                         label: res.data[index].nome
                     }
                     pacotes.push(option)
@@ -136,7 +142,7 @@ export default function GerOferta() {
                         <Form.Label>Valor da oferta</Form.Label>
                         <Form.Control
                             required
-                            name="precoPacote"
+                            name="ofertaPreco"
                             onChange={handleChange}
                             type="number"
                             placeholder="Insira o valor da oferta"
