@@ -15,9 +15,8 @@ type servicosModelo = { id: "", nome: "" }
 export default function GerOferta() {
     let listaPacotes: servicosModelo[] = []
 
-    const [servicos, setServicos] = useState(servicosModelo)
     const [pacotes, setPacotes] = useState(servicosModelo)
-    const [servicosSelecionados, setServicosSelecionados] = useState(servicosModelo)
+
 
     const [formValue, setFormValue] = useState({
         ofertaPreco: "",
@@ -87,19 +86,6 @@ export default function GerOferta() {
 
     useEffect(() => {
         async function render() {
-            axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
-                var servicos = []
-                for (let index = 0; index < res.data.length; index++) {
-                    let option = {
-
-                        value: res.data[index].id,
-                        label: res.data[index].nome
-                    }
-                    servicos.push(option)
-                }
-                setServicos(servicos)
-            })
-
             axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
                 var pacotes = []
                 for (let index = 0; index < res.data.length; index++) {

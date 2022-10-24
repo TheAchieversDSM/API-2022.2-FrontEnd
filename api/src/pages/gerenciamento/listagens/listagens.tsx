@@ -6,14 +6,6 @@ import Sidebar from "../../../components/sidebar";
 
 import "./listagens.css"
 
-let modeloPromo = [
-    {
-        'id': '',
-        'nome': '',
-        'descricao': ''
-    }
-]
-
 let modelo = [
     {
         'id': '',
