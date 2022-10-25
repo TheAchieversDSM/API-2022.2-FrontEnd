@@ -7,31 +7,31 @@ const modeloPacote = [
     { value: '', label: '' }
 ];
 
-type pacoteModelo = { id: "", nome: "",  }
+type ofertaModelo = { id: "", preco: "", pacote: {id: '', nome: ''} }
 
 export default function GerPromocao() {
-    const [pacotes, setPacotes] = useState(modeloPacote)
+    const [ofertas, setOfertas] = useState(modeloPacote)
 
-    let listaPacotes: pacoteModelo[] = []
+    let listaOfertas: ofertaModelo[] = []
 
     const [formValue, setFormValue] = useState({
         promocaoNome: "",
         promocaoPreco: "",
-        promocaoPacotes: listaPacotes
+        promocaoOfertas: listaOfertas
     });
 
-    const handleChangePacotes = (event: any) => {
-        var pacotesSelecionados: pacoteModelo[] = []
+    const handleChangeOfertas = (event: any) => {
+        var ofertasSelecionadas: ofertaModelo[] = []
         for (let index = 0; index < event.length; index++) {
-            let pacote = { id: event[index].value, nome: event[index].label }
-            console.log(pacote)
-            pacotesSelecionados.push(pacote)
+            let oferta = { id: event[index].value, pacote:event[index].pacote, preco: event[index].preco }
+            console.log(oferta)
+            ofertasSelecionadas.push(oferta)
         }
 
         setFormValue((prevState) => {
             return {
                 ...prevState,
-                ofertaPacotes: pacotesSelecionados,
+                promocaoOfertas: ofertasSelecionadas,
             };
         });
     };
@@ -48,29 +48,33 @@ export default function GerPromocao() {
 
     useEffect(() => {
         async function render() {
-            axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
-                var pacotes = []
+            axios.get(`http://localhost:8080/ofertas/pegarTodasOfertas`).then((res) => {
+                var ofertas = []
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
-                        value: res.data[index].id,
-                        label: res.data[index].nome
+                        value: res.data[index].id,  
+                        pacote: res.data[index].pacote,
+                        preco: res.data[index].preco,
+                        label: `${res.data[index].pacote.nome} - R$ ${res.data[index].preco}`
                     }
-                    pacotes.push(option)
+                    ofertas.push(option)
                 }
-                setPacotes(pacotes)
+                setOfertas(ofertas)
             })
         }
         render()
     }, [])
 
-    const { promocaoNome, promocaoPreco, promocaoPacotes } = formValue;
+    const { promocaoNome, promocaoPreco, promocaoOfertas: promocaoPacotes } = formValue;
 
     const handleSubmit = (event: any) => {
         const promocao = {
             nome: promocaoNome,
             preco: promocaoPreco,
-            pacotes: promocaoPacotes
+            ofertas: promocaoPacotes
         }
+
+        console.log(promocao)
 
         event.preventDefault();
 
@@ -81,7 +85,7 @@ export default function GerPromocao() {
         let valores = {
             promocaoNome: "",
             promocaoPreco: "",
-            promocaoPacotes: listaPacotes
+            promocaoOfertas: listaOfertas
         }
 
         setFormValue(valores);
@@ -98,8 +102,8 @@ export default function GerPromocao() {
                         <Select
                             isMulti
                             name="GerOfertaPacotes"
-                            options={pacotes}
-                            onChange={handleChangePacotes}
+                            options={ofertas}
+                            onChange={handleChangeOfertas}
                             isClearable={true}
                             isSearchable={true}
                             closeMenuOnSelect={false}

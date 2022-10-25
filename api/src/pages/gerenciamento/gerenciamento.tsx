@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Select from 'react-select';
 import { BsTrash } from "react-icons/bs"
-import { Button, Col, Form, Row, Tab, Tabs } from "react-bootstrap";
+import {Tab, Tabs } from "react-bootstrap";
 import Navigation from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
 import Listagens from "./listagens/listagens";
