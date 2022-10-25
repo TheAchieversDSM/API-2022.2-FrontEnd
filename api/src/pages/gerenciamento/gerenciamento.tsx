@@ -19,7 +19,10 @@ export default function Gerenciamento() {
             <Sidebar />
 
             <div className="container-prod container">
-                <Tabs
+
+                <Listagens />
+
+                {/*<Tabs
                     defaultActiveKey="pacotesOfertas"
                     id="fill-tab-example"
                     className="mb-3"
@@ -30,13 +33,13 @@ export default function Gerenciamento() {
                     <Tab eventKey="servicos" title="Serviços" className="tab2">
                         <GerServicos />
                     </Tab>
-                    {/*<Tab eventKey="promocoes" title="Promoções" className="tab3">
+                    <Tab eventKey="promocoes" title="Promoções" className="tab3">
                         <GerPromocao/>
-                    </Tab>*/}
+                    </Tab>
                     <Tab eventKey="listagens" title="Listagens" className="tab4">
                         <Listagens />
                     </Tab>
-                </Tabs>
+                </Tabs>*/}
             </div>
         </>
     )

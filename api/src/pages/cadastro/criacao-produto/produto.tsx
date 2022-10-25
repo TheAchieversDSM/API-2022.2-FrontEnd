@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import Navigation from '../../components/navbar';
+import Navigation from '../../../components/navbar';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Sidebar from '../../components/sidebar';
+import Sidebar from '../../../components/sidebar';
+import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
 import axios from 'axios';
 
@@ -26,7 +27,7 @@ type produtoModelo={id:"",nome:""}
 export default function Produto() {
     let listaProdutos: produtoModelo[] = []
 
-    const [produtos,setProdutos] = useState(complementaresModelo)
+    const [produtos, setProdutos] = useState(complementaresModelo)
 
     const [formValue, setFormValue] = useState({
         produtoNome: "",
@@ -96,11 +97,8 @@ export default function Produto() {
 
     return (
         <>
-            <Navigation />
 
-            <Sidebar />
-
-            <div className='container-prod'>
+            <div className='container-promo'>
 
                 <h1>Cadastro de Produtos</h1>
 

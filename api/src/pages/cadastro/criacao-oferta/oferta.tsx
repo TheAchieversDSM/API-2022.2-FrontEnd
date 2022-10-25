@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { InputActionMeta } from "react-select";
 import Select from 'react-select';
-import Navigation from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
+import Navigation from "../../../components/navbar";
+import Sidebar from "../../../components/sidebar";
 
 const modeloPacote = [
     { value: '', label: '' }
@@ -93,9 +93,6 @@ export default function Oferta() {
 
     return (
         <>
-            <Navigation />
-            <Sidebar />
-
             <div className='container-promo'>
                 <h1>Cadastro de oferta</h1>
 

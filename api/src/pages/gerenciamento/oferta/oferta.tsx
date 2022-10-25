@@ -13,17 +13,17 @@ const servicosModelo = [{ value: '', label: '' }]
 type servicosModelo = { id: "", nome: "" }
 
 export default function GerOferta() {
+
     let listaPacotes: servicosModelo[] = []
 
     const [servicos, setServicos] = useState(servicosModelo)
     const [pacotes, setPacotes] = useState(servicosModelo)
-    const [servicosSelecionados, setServicosSelecionados] = useState(servicosModelo)
 
-    const [formValue, setFormValue] = useState({
+    const [formValue, setFormValue] = useState([{
         ofertaPreco: "",
         ofertaTipo: "",
         pacotesSelecionados: listaPacotes
-    });
+    }]);
 
     const handleChangeSelecionados = (event: any) => {
         var pacotesSelecionados: servicosModelo[] = []
@@ -58,7 +58,14 @@ export default function GerOferta() {
         });
     };
 
-    const { ofertaPreco, ofertaTipo, pacotesSelecionados } = formValue;
+    const addFields = (event: any) => {
+        if (event.key === 'Tab') {
+            let newfield = { ofertaPreco: "", ofertaTipo: "", pacotesSelecionados: listaPacotes }
+            setFormValue([...formValue, newfield])
+        }
+    }
+
+    const [{ ofertaPreco, ofertaTipo, pacotesSelecionados }] = formValue;
 
     const handleSubmit = (event: any) => {
         for (let index = 0; index < pacotesSelecionados.length; index++) {             
@@ -82,7 +89,7 @@ export default function GerOferta() {
             pacotesSelecionados: listaPacotes
         }
 
-        setFormValue(valores);
+        setFormValue([valores]);
     };
 
     useEffect(() => {
@@ -162,6 +169,7 @@ export default function GerOferta() {
                             isSearchable={true}
                             closeMenuOnSelect={true}
                             isLoading={false}
+                            onKeyDown={event => addFields(event)}  
                         />
                     </Form.Group>
                 </Row>

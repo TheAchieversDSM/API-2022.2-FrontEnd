@@ -52,12 +52,13 @@ const Header = () => {
             <Menu iconShape="square">
               <MenuItem active={true} icon={<FiHome />}><Link to="/">Inicio</Link></MenuItem>
               {/*<MenuItem icon={<FaList />}>Categorias</MenuItem>*/}
-              <MenuItem icon={<BiCog />}><Link to="/gerenciamento">Gerenciamento</Link></MenuItem>
-              <MenuItem icon={<FaCartPlus />}><Link to="/criacao-produto">Cadastro de Produtos</Link></MenuItem>
+              <MenuItem icon={<BiCog />}><Link to="/listagens">Listagens</Link></MenuItem>
+              {/*<MenuItem icon={<FaCartPlus />}><Link to="/criacao-produto">Cadastro de Produtos</Link></MenuItem>
               <MenuItem icon={<RiHandHeartLine />}><Link to="/criacao-servico">Cadastro de Serviços</Link></MenuItem>
               <MenuItem icon={<FiPackage />}><Link to="/criacao-pacote">Cadastro de Pacotes</Link></MenuItem>
               <MenuItem icon={<FaDollarSign />}><Link to="/criacao-oferta">Cadastro de Oferta</Link></MenuItem>
-              <MenuItem icon={<RiPriceTag3Line />}><Link to="/criacao-promocao">Cadastro de Promoções</Link></MenuItem>
+              <MenuItem icon={<RiPriceTag3Line />}><Link to="/criacao-promocao">Cadastro de Promoções</Link></MenuItem>*/}
+              <MenuItem icon={<RiPriceTag3Line />}><Link to="/cadastro">Cadastro</Link></MenuItem>
               {/*<MenuItem icon={<BiCog />}>Configurações</MenuItem>*/}
               <MenuItem icon={<FiLogOut />}><Link to="/login">Sair</Link></MenuItem>
             </Menu>
