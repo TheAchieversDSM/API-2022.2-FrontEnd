@@ -8,15 +8,15 @@ const ofertasTipo = [
     { value: 'Anual', label: 'Anual' },
 ];
 
-const servicosModelo = [{ value: '', label: '' }]
+const ofertasModelo = [{ value: '', label: '' }]
 
-type servicoModelo = { id: "", nome: "" }
+type ofertaModelo = { id: "", nome: "" }
 
 export default function GerOferta() {
 
-    let listaPacotes: servicoModelo[] = []
+    let listaPacotes: ofertaModelo[] = []
 
-    const [pacotes, setPacotes] = useState(servicosModelo)
+    const [pacotes, setPacotes] = useState(ofertasModelo)
 
     const [formValue, setFormValue] = useState([{
         ofertaPreco: "",
@@ -25,7 +25,7 @@ export default function GerOferta() {
     }]);
 
     const handleChangeSelecionados = (event: any) => {
-        var pacotesSelecionados: servicoModelo[] = []
+        var pacotesSelecionados: ofertaModelo[] = []
         for (let index = 0; index < event.length; index++) {
             let pacote = { id: event[index].value, nome: event[index].label, servicos: event[index].servicos }
             pacotesSelecionados.push(pacote)
@@ -78,7 +78,7 @@ export default function GerOferta() {
             })
         }
 
-        alert('Ofertas inseridas!');
+        alert('Ofertas Inseridas!');
 
         event.preventDefault();
 
@@ -132,20 +132,20 @@ export default function GerOferta() {
 
                 <Row className="mb-3">
                     <Form.Group as={Col} md="6">
-                        <Form.Label>Valor da oferta</Form.Label>
+                        <Form.Label>Valor da Oferta</Form.Label>
                         <Form.Control
                             required
                             name="ofertaPreco"
                             onChange={handleChange}
                             type="number"
-                            placeholder="Insira o valor da oferta"
+                            placeholder="Insira o valor da Oferta"
                         />
                     </Form.Group>
                 </Row>
 
                 <Row className="mb-3">
                     <Form.Group as={Col} md="6">
-                        <Form.Label>Tipo de oferta</Form.Label>
+                        <Form.Label>Tipo de Oferta</Form.Label>
                         <Select
                             isMulti
                             name="ofertaTipo"
