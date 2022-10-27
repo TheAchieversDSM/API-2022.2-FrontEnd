@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from "react-bootstrap";
+import { Button, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import AlertaProm from "../../components/alerta";
 import Navigation from "../../components/navbar";
@@ -130,52 +130,73 @@ export default function Carrinho() {
             <div className="cont1">
                 <div className="row">
                     <div className="listac col-9">
-                        <table className="table table-hover">
-                            <tbody>
-                                {
-                                    carrinho[0] != undefined ?
-                                        carrinho.map((carrinho) =>
-                                            <div>
-                                                <tr>
-                                                    <th scope="row"><div className="iconeimg"></div></th>
-                                                    <td>{carrinho.nome ? carrinho.nome : carrinho.pacote.nome}</td>
-                                                    <td className="preco1">R$ {carrinho.nome ? precoPromocao(carrinho) : carrinho.preco}</td>
-                                                    <td><BsFillTrashFill onClick={() => { deletar(carrinho.id) }} /></td>
-                                                </tr>
-                                            </div>
-                                        )
-                                        : <><h4>Você ainda não adicionou produtos ao seu carrinho!</h4></>
-                                }
-
-                            </tbody>
-                        </table>
-                        <h2 className="precototal">Preço total: R$ {carrinho[0] != undefined ? soma() : 0} </h2>
-                        <Button onClick={() => { limparCarrinho() }} className="limpar">Finalizar compra!</Button>
-
+                        <div className="card">
+                            <h5 className="card-header">Nome do serviço</h5>
+                            <div className="card-body">
+                                <p className="card-text">Nulla facilisi. Sed porttitor malesuada mi, nec finibus mi ornare non. Ut mattis tempus ante a ultrices. Aenean ornare massa eget ligula ultricies, vitae sagittis eros faucibus. Maecenas sed volutpat orci, quis euismod metus. Pellentesque mollis consectetur venenatis. Proin euismod risus sapien, ac tincidunt lectus porttitor a.</p>
+                                <div className="row">
+                                    <div className="col-4">
+                                        <Form.Select>
+                                            <option>Plano</option>
+                                            <option>Básico</option>
+                                            <option>Médio</option>
+                                        </Form.Select>
+                                    </div>
+                                    <div className="col-4">
+                                        <Form.Select>
+                                            <option>Período</option>
+                                            <option>Anual</option>
+                                            <option>Mensal</option>
+                                        </Form.Select>
+                                    </div>
+                                    <div className="col-4 value">
+                                        <h5>Valor: </h5>
+                                        <p>R$ 100,00</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <h5 className="card-header"><Form.Check label="Nome do serviço obrigatório"/></h5>
+                            <div className="card-body">
+                                <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac hendrerit ipsum. Vestibulum ullamcorper elit et lorem convallis, quis gravida arcu luctus. In hac habitasse platea dictumst. Mauris sed diam libero. Mauris at dolor fringilla, sagittis tellus id, faucibus odio. Curabitur egestas volutpat vestibulum. Sed erat eros, lobortis id volutpat sed, lobortis a leo.</p>
+                                <div className="row">
+                                    <div className="col-4">
+                                        <Form.Select>
+                                            <option>Plano</option>
+                                            <option>Básico</option>
+                                            <option>Médio</option>
+                                        </Form.Select>
+                                    </div>
+                                    <div className="col-4">
+                                        <Form.Select>
+                                            <option>Período</option>
+                                            <option>Anual</option>
+                                            <option>Mensal</option>
+                                        </Form.Select>
+                                    </div>
+                                    <div className="col-4 value">
+                                        <h5>Valor: </h5>
+                                        <p>R$ 100,00</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         {/*<AlertaProm prom="Essa promoção contém os seguintes produtos/serviços/pacotes" />*/}
                     </div>
 
-
-                    {complementares?.length > 0 ?
-                        <div className="sug col-3">
-                            <div className="maissug">
-
-                                <h3 className="titulosug">Sugestões</h3>
-
-                                <div className="card sugest">
-                                    <div className="card-imgc"></div>
-                                    <div className="nome-prod">
-                                        <h5>{complementares[0]?.nome}</h5>
-                                    </div>
-                                    <div className="card-botao">
-                                        <Button type="submit"><a href={`http://localhost:3000/servico/${complementares[0]?.id}`}>Ver serviço!</a></Button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        : <></>
-                    }
+                    <div className="resumo col-3">
+                        <ul className="list-group">
+                            <li className="list-group-item">RESUMO</li>
+                            <li className="list-group-item"><Form.Check label="A second item"/></li>
+                            <li className="list-group-item"><Form.Check label="A second item"/></li>
+                            <li className="list-group-item"><Form.Check label="A second item"/></li>
+                            <li className="list-group-item"><Form.Check label="A second item"/></li>
+                        </ul>
+                        <h4 className="valor">Valor total: R$ 180,00</h4>
+                        <Button>Finalizar compra!</Button>
+                    </div>
+                    
                 </div>
 
             </div>
