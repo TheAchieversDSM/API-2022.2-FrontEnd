@@ -6,35 +6,35 @@ import Select from 'react-select';
 import Navigation from "../../../components/navbar";
 import Sidebar from "../../../components/sidebar";
 
-const modeloPacote = [
+const modeloOferta = [
     { value: '', label: '' }
 ];
 
-type pacoteModelo = { id: "", nome: "" }
+type ofertaModelo = { id: "", nome: "" }
 
 export default function Oferta() {
-    const [pacotes, setPacotes] = useState(modeloPacote)
+    const [ofertas, setOfertas] = useState(modeloOferta)
 
-    let listaPacotes: pacoteModelo[] = []
+    let listaOfertas: ofertaModelo[] = []
 
     const [formValue, setFormValue] = useState({
         ofertaPreco: "",
-        ofertaPacotes: listaPacotes
+        ofertaPacotes: listaOfertas
     });
 
     const { ofertaPreco, ofertaPacotes } = formValue;
 
-    const handleChangePacotes = (event: any) => {
+    const handleChangeOfertas = (event: any) => {
         console.log(event);
-        var pacotesSelecionados: pacoteModelo[] = []
-        let pacote = { id: event.value, nome: event.label, servicos: event.servicos }
+        var ofertasSelecionados: ofertaModelo[] = []
+        let oferta = { id: event.value, nome: event.label, servicos: event.servicos }
         
-        pacotesSelecionados.push(pacote)
+        ofertasSelecionados.push(oferta)
 
         setFormValue((prevState) => {
             return {
                 ...prevState,
-                ofertaPacotes: pacotesSelecionados,
+                ofertaPacotes: ofertasSelecionados,
             };
         });
         
@@ -53,16 +53,16 @@ export default function Oferta() {
     useEffect(() => {
         async function render() {
             axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
-                var pacotes = []
+                var ofertas = []
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
                         value: res.data[index].id ,
                         servicos: res.data[index].servicos,
                         label: res.data[index].nome
                     }
-                    pacotes.push(option)
+                    ofertas.push(option)
                 }
-                setPacotes(pacotes)
+                setOfertas(ofertas)
             })
         }
         render()
@@ -83,7 +83,7 @@ export default function Oferta() {
 
         let valores = {
             ofertaPreco: "",
-            ofertaPacotes: listaPacotes
+            ofertaPacotes: listaOfertas
         }
 
         setFormValue(valores);
