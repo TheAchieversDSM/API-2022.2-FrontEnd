@@ -10,11 +10,11 @@ const ofertasTipo = [
 
 const servicosModelo = [{ value: '', label: '' }]
 
-type servicosModelo = { id: "", nome: "" }
+type servicoModelo = { id: "", nome: "" }
 
 export default function GerOferta() {
 
-    let listaPacotes: servicosModelo[] = []
+    let listaPacotes: servicoModelo[] = []
 
     const [pacotes, setPacotes] = useState(servicosModelo)
 
@@ -25,7 +25,7 @@ export default function GerOferta() {
     }]);
 
     const handleChangeSelecionados = (event: any) => {
-        var pacotesSelecionados: servicosModelo[] = []
+        var pacotesSelecionados: servicoModelo[] = []
         for (let index = 0; index < event.length; index++) {
             let pacote = { id: event[index].value, nome: event[index].label, servicos: event[index].servicos }
             pacotesSelecionados.push(pacote)
@@ -115,7 +115,7 @@ export default function GerOferta() {
 
             <Form>
                 <Row className="mb-3">
-                    <Form.Label>Pacotes que compõem a oferta</Form.Label>
+                    <Form.Label>Pacotes que compõem a Oferta</Form.Label>
                     <Form.Group as={Col} md="6">
                         <Select
                             isMulti
