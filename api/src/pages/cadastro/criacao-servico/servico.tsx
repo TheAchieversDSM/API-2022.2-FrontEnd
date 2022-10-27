@@ -196,21 +196,21 @@ export default function Servico() {
         <>
             <div className='container-promo'>
 
-                <h1>Cadastro de Serviço</h1>
+                <h1>Cadastro de Serviços</h1>
 
                 <Form>
 
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Nome do serviço</Form.Label>
+                            <Form.Label>Nome do Serviço</Form.Label>
                             <Form.Control
                                 required
                                 name="servicoNome"
                                 value={servicoNome}
                                 onChange={handleChange}
                                 type="text"
-                                placeholder="Insira o nome do serviço"
+                                placeholder="Insira o nome do Serviço"
                             />
                         </Form.Group>
 
@@ -219,7 +219,7 @@ export default function Servico() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Produtos que compõem o serviço</Form.Label>
+                            <Form.Label>Produtos que compõem o Serviço</Form.Label>
                             <Select
                                 isMulti
                                 name="servicoProduto"
@@ -237,7 +237,7 @@ export default function Servico() {
                     <Row className="mb-3 FormText" >
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Descrição do serviço</Form.Label>
+                            <Form.Label>Descrição do Serviço</Form.Label>
                             <Form.Control
                                 required
                                 name="servicoDescricao"
@@ -245,7 +245,7 @@ export default function Servico() {
                                 onChange={handleChange}
                                 as="textarea"
                                 type="text"
-                                placeholder="Insira a descrição do serviço"
+                                placeholder="Insira a descrição do Serviço"
                             />
                         </Form.Group>
                     </Row>
@@ -253,7 +253,7 @@ export default function Servico() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Categoria do serviço</Form.Label>
+                            <Form.Label>Categoria do Serviço</Form.Label>
                             <CreatableSelect 
                                 isMulti 
                                 options={categoriasOpt}                                 name="servicoCategoria"
@@ -269,7 +269,7 @@ export default function Servico() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Serviços restringentes <TooltipDuvida mensagem="Escolha os serviços que não poderão ser obtidos em conjunto a este"/></Form.Label>
+                            <Form.Label>Serviços Restringentes <TooltipDuvida mensagem="Escolha os serviços que não poderão ser obtidos em conjunto a este"/></Form.Label>
                             <Select 
                                 isMulti
                                 name="servicoProduto"
@@ -287,7 +287,7 @@ export default function Servico() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Serviços obrigatórios <TooltipDuvida mensagem="Escolha os serviços que serão obrigatórios o consumidor obter para a compra deste serviço"/></Form.Label>
+                            <Form.Label>Serviços Obrigatórios <TooltipDuvida mensagem="Escolha os serviços que serão obrigatórios o consumidor obter para a compra deste serviço"/></Form.Label>
                             <Select
                                 isMulti
                                 name="servicoObrigatorios"
@@ -304,7 +304,7 @@ export default function Servico() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Serviços complementares</Form.Label>
+                            <Form.Label>Serviços Complementares</Form.Label>
                             <Select
                                 isMulti
                                 name="servicoComplementares"
@@ -334,7 +334,7 @@ export default function Servico() {
 
                     </Row>*/}
 
-                    <Button type="submit" onClick={handleSubmit}>Criar servico!</Button>
+                    <Button type="submit" onClick={handleSubmit}>Criar Servico!</Button>
 
                 </Form>
 
