@@ -5,8 +5,33 @@
     background-color: blue;
 }
 
+.card, .card-header, .card-body{
+    width: 100% !important;
+}
+
+.card-header{
+    background-color: #F06823 !important;
+}
+
 .listac{
     padding: 60px;
+}
+
+.resumo{
+    width: 20% !important;
+    padding-top: 60px !important ;
+}
+.list-group, .list-group-item{
+    width: 100% !important;
+}
+
+.valor{
+    margin: 20px 20px 20px 0px;
+    color: #376FA6;
+}
+
+.value{
+    display: inline;
 }
 
 td{
