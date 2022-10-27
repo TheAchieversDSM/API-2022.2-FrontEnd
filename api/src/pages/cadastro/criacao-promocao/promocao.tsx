@@ -15,10 +15,10 @@ const modeloPromocao = [
     { value: '', label: '' }
 ];
 
-type promocaoModelo={id:"", preco:"" , pacote:{'nome': ''}}
+type promocaoModelo={id:"", preco:"" , promocao:{'nome': ''}}
 
 export default function Promocao() {
-    const [pacotes,setPacotes] = useState(modeloPromocao)
+    const [promocoes,setPromocoes] = useState(modeloPromocao)
 
     let listaPromocao: promocaoModelo[] = []
 
@@ -67,7 +67,7 @@ export default function Promocao() {
                     }
                     promocoes.push(option)
                 }
-                setPacotes(promocoes)
+                setPromocoes(promocoes)
             })
         }
         render()
@@ -102,21 +102,21 @@ export default function Promocao() {
         <>
             <div className='container-promo'>
 
-                <h1>Cadastro de Promoção</h1>
+                <h1>Cadastro de Promoções</h1>
 
                 <Form /*noValidate validated={validated} onSubmit={handleSubmit}*/>
 
                     <Row className="mb-3">
                         
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Nome da promoção</Form.Label>
+                            <Form.Label>Nome da Promoção</Form.Label>
                             <Form.Control
                                 required
                                 name="promocaoNome"
                                 value={promocaoNome}
                                 onChange={handleChange}
                                 type="text"
-                                placeholder="Insira nome da promoção"
+                                placeholder="Insira o nome da Promoção"
                             />
                         </Form.Group>
 
@@ -125,7 +125,7 @@ export default function Promocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Valor do desconto</Form.Label>
+                            <Form.Label>Valor do Desconto</Form.Label>
                             <Form.Control
                                 required
                                 name="promocaoPreco"
@@ -142,12 +142,12 @@ export default function Promocao() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Ofertas que compõem a promoção</Form.Label>
+                            <Form.Label>Ofertas que compõem a Promoção</Form.Label>
                             <Select 
                                 isMulti
                                 name="promocaoPacotes"
-                                options={pacotes}
-                                onChange={handleChangePacotes}
+                                options={promocoes}
+                                onChange={handleChangePromocao}
                                 isClearable={true}
                                 isSearchable={true}
                                 closeMenuOnSelect ={false}
@@ -156,7 +156,7 @@ export default function Promocao() {
                         
                     </Row>
 
-                    <Button type="submit" onClick={handleSubmit}>Criar promoção!</Button>
+                    <Button type="submit" onClick={handleSubmit}>Criar Promoção!</Button>
                 
                 </Form>
 
