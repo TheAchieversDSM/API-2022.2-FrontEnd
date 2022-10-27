@@ -11,37 +11,37 @@ import axios from 'axios';
 
 import './promocao.css'
 
-const modeloPacote = [
+const modeloPromocao = [
     { value: '', label: '' }
 ];
 
-type pacoteModelo={id:"", preco:"" , pacote:{'nome': ''}}
+type promocaoModelo={id:"", preco:"" , pacote:{'nome': ''}}
 
 export default function Promocao() {
-    const [pacotes,setPacotes] = useState(modeloPacote)
+    const [pacotes,setPacotes] = useState(modeloPromocao)
 
-    let listaPacotes: pacoteModelo[] = []
+    let listaPromocao: promocaoModelo[] = []
 
     const [formValue, setFormValue] = useState({
         promocaoNome: "",
         promocaoPreco: "",
-        promocaoPacotes: listaPacotes
+        promocaoPacotes: listaPromocao
     });
 
 
-    const handleChangePacotes= (event: any) => {
-        var pacotesSelecionados:  pacoteModelo[] =  []
+    const handleChangePromocao= (event: any) => {
+        var promocoesSelecionados:  promocaoModelo[] =  []
         for (let index = 0; index < event.length; index++) {
-            let pacoteIdPreco = event[index].value.split(',')
-            let pacoteInfos = event[index].label.split('-')
-            let pacote = {id: pacoteIdPreco[0], preco: pacoteIdPreco[1], pacote:{nome: pacoteInfos[1]}  }
-            pacotesSelecionados.push(pacote)
+            let promocaoIdPreco = event[index].value.split(',')
+            let promocaoInfos = event[index].label.split('-')
+            let promocao = {id: promocaoIdPreco[0], preco: promocaoIdPreco[1], promocao:{nome: promocaoInfos[1]}  }
+            promocoesSelecionados.push(promocao)
         }
 
         setFormValue((prevState) => {
             return {
                 ...prevState,
-                promocaoPacotes: pacotesSelecionados,
+                promocaoPacotes: promocoesSelecionados,
             };
         });
     };
@@ -59,15 +59,15 @@ export default function Promocao() {
     useEffect(()=>{
         async function render() { 
         axios.get(`http://localhost:8080/ofertas/pegarTodasOfertas`).then((res)=>{
-                var pacotes = []
+                var promocoes = []
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
                         value: res.data[index].id + ',' + res.data[index].preco ,
-                        label: `R$ ${res.data[index].preco}-${res.data[index].pacote.nome}`
+                        label: `R$ ${res.data[index].preco}-${res.data[index].promocao.nome}`
                     }
-                    pacotes.push(option)
+                    promocoes.push(option)
                 }
-                setPacotes(pacotes)
+                setPacotes(promocoes)
             })
         }
         render()
@@ -85,13 +85,13 @@ export default function Promocao() {
         event.preventDefault();
 
         axios.post(`http://localhost:8080/promocoes/criarPromocao`, promocao).then((res) => {
-            alert('Promoção criado!');
+            alert('Promoção Criada!');
         })
 
         let valores = {
             promocaoNome: "",
             promocaoPreco: "",
-            promocaoPacotes: listaPacotes
+            promocaoPacotes: listaPromocao
         }
 
         setFormValue(valores);
