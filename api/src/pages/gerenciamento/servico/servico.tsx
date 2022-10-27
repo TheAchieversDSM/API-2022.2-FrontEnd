@@ -118,7 +118,7 @@ export default function GerServicos() {
             event.preventDefault();
 
             axios.put(`http://localhost:8080/servicos/atualizarServico`, data).then((res) => {
-                alert('Servico atualizada!');
+                alert('Servico Atualizado!');
             })
 
             
@@ -146,7 +146,7 @@ export default function GerServicos() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Serviços a serem alterados</Form.Label>
+                            <Form.Label>Serviços a Serem Alterados</Form.Label>
                             <Select
                                 isMulti
                                 name="GerServicos"
@@ -163,7 +163,7 @@ export default function GerServicos() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Incluir serviços obrigatórios</Form.Label>
+                            <Form.Label>Incluir Serviços Obrigatórios</Form.Label>
                             <Select
                                 isMulti
                                 name="servicoProduto"
@@ -180,7 +180,7 @@ export default function GerServicos() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Incluir serviços complementares</Form.Label>
+                            <Form.Label>Incluir Serviços Complementares</Form.Label>
                             <Select
                                 isMulti
                                 name="servicoComplementar"
