@@ -5,7 +5,6 @@ import Carrinho from "../pages/carrinho/carrinho";
 import Complementar from "../pages/servico-complementar/complementar";
 import VisualizacaoServ from "../pages/visualizacao-servico/visu_serv";
 import Gerenciamento from "../pages/gerenciamento/gerenciamento";
-import Teste from "../pages/cadastro/criacao-produto/exemplo";
 import Cadastro from "../pages/cadastro/cadastro";
 
 const Routes = () => {
@@ -24,7 +23,6 @@ const Routes = () => {
                 <Route path="/carrinho" element={<Carrinho />} />
                 <Route path="/servico-complementar" element={<Complementar />} />
                 <Route path="/listagens" element={<Gerenciamento />} />
-                <Route path="/teste" element={<Teste />} />
             </Switch>
         </BrowserRouter>
     )
