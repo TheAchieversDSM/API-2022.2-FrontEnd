@@ -121,8 +121,8 @@ export default function Oferta() {
                             <Form.Label>Pacotes que compõem a oferta</Form.Label>
                             <Select
                                 name="ofertaPacotes"
-                                options={pacotes}
-                                onChange={handleChangePacotes}
+                                options={ofertas}
+                                onChange={handleChangeOfertas}
                                 isClearable={true}
                                 isSearchable={true}
                                 closeMenuOnSelect={false}
