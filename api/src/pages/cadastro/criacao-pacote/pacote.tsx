@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Sidebar from '../../../components/sidebar';
+import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
 import axios from 'axios';
 
@@ -16,6 +17,7 @@ const modeloOptions = [
         label: ''
     }
 ];
+
 
 type servicoModelo = { id: "", nome: "" }
 
@@ -45,14 +47,20 @@ export default function Pacote() {
         });
     }
 
-    const handleChange = (event: any) => {
-        const { name, value } = event.target;
-        setFormValue((prevState) => {
-            return {
-                ...prevState,
-                [name]: value,
-            };
-        });
+    const duplicarTab = (event) => {
+        if (event.key === 'Tab') {
+            let newfield = { pacoteNome: "", pacoteDescricao: "", pacoteServicos: "" }
+            setFormValue([...formValue, newfield])
+        }
+    }
+
+    const handleChange = (index, event) => {
+        console.log(event.target);
+        let data = [...formValue];
+        data[index][event.target.name] = event.target.value;
+        setFormValue(data)
+        console.log(formValue);
+
     };
 
     const { pacoteNome, pacoteDescricao, pacoteServicos } = formValue;
@@ -75,7 +83,7 @@ export default function Pacote() {
         render()
     }, [])
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event) => {
         const pacote = {
             nome: pacoteNome,
             descricao: pacoteDescricao,
@@ -85,7 +93,7 @@ export default function Pacote() {
         event.preventDefault();
 
         axios.post(`http://localhost:8080/pacotes/criarPacote`, pacote).then((res) => {
-            alert('Pacote criado!');
+            alert('Pacote Criado!');
         })
 
         let valores = {
@@ -94,8 +102,28 @@ export default function Pacote() {
             pacoteServicos: listaServicos
         }
 
+        console.log(formValue)
+
+
         setFormValue(valores);
     };
+
+    useEffect(() => {
+        async function render() {
+            axios.get(`http://localhost:8080/produtos/pegarTodosPacotes`).then((res) => {
+                var pacotes = []
+                for (let index = 0; index < res.data.length; index++) {
+                    let option = {
+                        value: res.data[index].id,
+                        label: res.data[index].nome
+                    }
+                    pacotes.push(option)
+                }
+                setPacotes(pacotes)
+            })
+        }
+        render()
+    }, [])
 
     return (
         <>
@@ -103,36 +131,41 @@ export default function Pacote() {
 
                 <h1>Cadastro de Pacotes</h1>
 
-                <Form /*noValidate validated={validated} onSubmit={handleSubmit}*/>
-
-                    <Row className="mb-3">
+                <Form>
+                {formValue.map((fields, index) => {
+                        return (
+                            <div key={index}>
+                                 <h6>{fields.pacoteNome}</h6>
+                            
+                            <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Nome do pacote</Form.Label>
+                            <Form.Label>Nome do Pacote</Form.Label>
                             <Form.Control
                                 required
                                 name="pacoteNome"
                                 value={pacoteNome}
-                                onChange={handleChange}
+                                onChange={event => handleChange(index, event)}
                                 type="text"
-                                placeholder="Insira o nome do pacote"
+                                placeholder="Insira o nome do Pacote"
                             />
                         </Form.Group>
 
                     </Row>
 
-                    <Row className="mb-3">
+                    <Row className="mb-3 FormText">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Descrição do pacote</Form.Label>
+                            <Form.Label>Descrição do Pacote</Form.Label>
                             <Form.Control
                                 required
                                 name="pacoteDescricao"
-                                value={pacoteDescricao}
-                                onChange={handleChange}
+                                value={fields.produtoDescricao}
+                                onChange={event => handleChange(index, event)}
+                                onKeyDown={event => duplicarTab(event)}
                                 as="textarea"
                                 type="text"
-                                placeholder="Insira a descrição da pacote"
+                                placeholder="Insira a descrição da Pacote"
                             />
                         </Form.Group>
 
@@ -141,26 +174,26 @@ export default function Pacote() {
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
-                            <Form.Label>Serviços que compõem o pacote</Form.Label>
+                            <Form.Label>Serviços que compõem o Pacote</Form.Label>
                             <Select
                                 isMulti
                                 name="pacoteServicos"
-                                onChange={handleChangeServicos}
+                                onChange={event => handleChangeServicos(index, event)}
                                 isClearable={true}
                                 isSearchable={true}
+                                closeMenuOnSelect={true}
                                 isLoading={false}
                                 options={servicos}
                             />
                         </Form.Group>
 
                     </Row>
-
-                    <Button type="submit" onClick={handleSubmit}>Criar pacote!</Button>
-
-                </Form>
-
-            </div>
-
+                </div>
+                )
+            })}
+                <Button type="submit" onClick={handleSubmit}>Criar pacote!</Button>
+            </Form>
+         </div>       
         </>
     )
 }
