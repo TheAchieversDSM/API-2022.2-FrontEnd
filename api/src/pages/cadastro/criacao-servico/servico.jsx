@@ -23,13 +23,10 @@ const categoriasOpt = [
 
 const modeloOptions = [{ value: '', label: '' }];
 
-type servicoModelo = { id: "", nome: "" }
-
-type categoriaModelo = { value: "", label: "" }
 
 export default function Servico() {
-    let listaCategorias: categoriaModelo[] = []
-    let listaServicos: servicoModelo[] = []
+    let listaCategorias = []
+    let listaServicos = []
 
     const [options, setOptions] = useState(modeloOptions)
     const [optServ, setOptServ] = useState(modeloOptions)
@@ -37,16 +34,16 @@ export default function Servico() {
     const [obrigatorios, setObrigatorios] = useState(listaServicos)
     const [complementos, setComplementos] = useState(listaServicos)
 
-    const [formValue, setFormValue] = useState({
+    const [formValue, setFormValue] = useState([{
         servicoNome: "",
         servicoDescricao: "",
         servicoCategoria: listaCategorias,
         servicoProduto: listaServicos,
         servicoObrigatorios: listaServicos,
         servicoComplementares: listaServicos
-    });
+    }]);
 
-    const handleChange = (event: any) => {
+    function handleChange (event) {
         const { name, value } = event.target;
         setFormValue((prevState) => {
             return {
@@ -56,10 +53,10 @@ export default function Servico() {
         });
     };
 
-    const { servicoNome, servicoProduto, servicoDescricao, servicoCategoria, servicoObrigatorios, servicoComplementares } = formValue;
+    var { servicoNome, servicoProduto, servicoDescricao, servicoCategoria, servicoObrigatorios, servicoComplementares } = formValue;
 
-    const handleChangeProdutos = (event: any) => {
-        var produtosSelecionados: servicoModelo[] = []
+    const handleChangeProdutos = (event) => {
+        var produtosSelecionados = []
         for (let index = 0; index < event.length; index++) {
             let produto = { id: event[index].value, nome: event[index].label }
             produtosSelecionados.push(produto)
@@ -72,8 +69,8 @@ export default function Servico() {
         });
     };
 
-    const handleChangeCategoria = (event: any) => {
-        var categoriasSelecionadas: categoriaModelo[] = []
+    const handleChangeCategoria = (event) => {
+        var categoriasSelecionadas = []
         for (let index = 0; index < event.length; index++) {
             let categoria = { value: event[index].value, label: event[index].label }
             categoriasSelecionadas.push(categoria)
@@ -90,8 +87,8 @@ export default function Servico() {
         });
     };
 
-    const handleChangeComplementares = (event: any) => {
-        var servicosSelecionados: servicoModelo[] = []
+    const handleChangeComplementares = (event) => {
+        var servicosSelecionados = []
         for (let index = 0; index < event.length; index++) {
             let servico = { id: event[index].value, nome: event[index].label }
             servicosSelecionados.push(servico)
@@ -109,8 +106,8 @@ export default function Servico() {
         console.log(formValue);
     };
 
-    const handleChangeObrigatorios = (event: any) => {
-        var servicosSelecionados: servicoModelo[] = []
+    const handleChangeObrigatorios = (event) => {
+        var servicosSelecionados = []
         for (let index = 0; index < event.length; index++) {
             let servico = { id: event[index].value, nome: event[index].label }
             servicosSelecionados.push(servico)
@@ -129,7 +126,7 @@ export default function Servico() {
 
     };
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event) => {
         const servico = {
             nome: servicoNome,
             descricao: servicoDescricao,
@@ -165,7 +162,7 @@ export default function Servico() {
         }
     }
 
-    const handleChange = (index, event) => {
+    function handleChange (index, event) {
         console.log(event.target);
         let data = [...formValue];
         data[index][event.target.name] = event.target.value;
@@ -173,9 +170,6 @@ export default function Servico() {
         console.log(formValue);
 
     };
-
-    const { servicoNome, servicoDescricao, servicoCategoria, servicoProduto, servicoObrigatorios,  servicoComplementares } = formValue;
-
     useEffect(() => {
         async function render() {
             axios.get(`http://localhost:8080/produtos/pegarTodosProdutos`).then((res) => {
