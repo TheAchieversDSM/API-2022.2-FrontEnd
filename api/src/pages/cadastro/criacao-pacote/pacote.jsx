@@ -19,21 +19,19 @@ const modeloOptions = [
 ];
 
 
-type servicoModelo = { id: "", nome: "" }
-
 export default function Pacote() {
     const [servicos, setServicos] = useState(modeloOptions)
+    const [pacotes, setPacotes] = useState(modeloOptions)
+    let listaServicos = []
 
-    let listaServicos: servicoModelo[] = []
-
-    const [formValue, setFormValue] = useState({
+    const [formValue, setFormValue] = useState([{
         pacoteNome: "",
         pacoteDescricao: "",
         pacoteServicos: listaServicos
-    });
+    }]);
 
-    const handleChangeServicos = (event: any) => {
-        var servicosSelecionados: servicoModelo[] = []
+    const handleChangeServicos = (event) => {
+        var servicosSelecionados = []
         for (let index = 0; index < event.length; index++) {
             let servico = { id: event[index].value, nome: event[index].label }
             console.log(servico)
