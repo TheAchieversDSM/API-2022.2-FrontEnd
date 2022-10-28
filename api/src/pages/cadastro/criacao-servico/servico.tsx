@@ -158,6 +158,24 @@ export default function Servico() {
         setFormValue(valores);
     };
 
+    const duplicarTab = (event) => {
+        if (event.key === 'Tab') {
+            let newfield = { pacoteNome: "", pacoteDescricao: "", pacoteServicos: "" }
+            setFormValue([...formValue, newfield])
+        }
+    }
+
+    const handleChange = (index, event) => {
+        console.log(event.target);
+        let data = [...formValue];
+        data[index][event.target.name] = event.target.value;
+        setFormValue(data)
+        console.log(formValue);
+
+    };
+
+    const { servicoNome, servicoDescricao, servicoCategoria, servicoProduto, servicoObrigatorios,  servicoComplementares } = formValue;
+
     useEffect(() => {
         async function render() {
             axios.get(`http://localhost:8080/produtos/pegarTodosProdutos`).then((res) => {
@@ -199,7 +217,10 @@ export default function Servico() {
                 <h1>Cadastro de Serviços</h1>
 
                 <Form>
-
+                {formValue.map((fields, index) => {
+                    return (
+                        <div key={index}>
+                             <h6>{fields.servicoNome}</h6>
                     <Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
@@ -208,7 +229,7 @@ export default function Servico() {
                                 required
                                 name="servicoNome"
                                 value={servicoNome}
-                                onChange={handleChange}
+                                onChange={event => handleChange(index, event)}
                                 type="text"
                                 placeholder="Insira o nome do Serviço"
                             />
@@ -223,7 +244,7 @@ export default function Servico() {
                             <Select
                                 isMulti
                                 name="servicoProduto"
-                                onChange={handleChangeProdutos}
+                                onChange={event => handleChangeProdutos(index, event)}
                                 isClearable={true}
                                 isSearchable={true}
                                 closeMenuOnSelect={false}
@@ -241,8 +262,9 @@ export default function Servico() {
                             <Form.Control
                                 required
                                 name="servicoDescricao"
-                                value={servicoDescricao}
-                                onChange={handleChange}
+                                value={fields.produtoDescricao}
+                                onChange={event => handleChange(index, event)}
+                                onKeyDown={event => duplicarTab(event)}
                                 as="textarea"
                                 type="text"
                                 placeholder="Insira a descrição do Serviço"
@@ -255,13 +277,13 @@ export default function Servico() {
                         <Form.Group as={Col} md="6">
                             <Form.Label>Categoria do Serviço</Form.Label>
                             <CreatableSelect 
-                                isMulti 
-                                options={categoriasOpt}                                 name="servicoCategoria"
-                                onChange={handleChangeCategoria}
+                                name="serviçoCategoria"
+                                options={categorias}
+                                onChange={event => handleChangeCategoria(index, event)}
                                 isClearable={true}
                                 isSearchable={true}
-                                closeMenuOnSelect={true} 
-                            />
+                                closeMenuOnSelect={true}
+                                isLoading={false} />
                         </Form.Group>
                     
                     </Row>
@@ -317,7 +339,6 @@ export default function Servico() {
                         </Form.Group>
 
                     </Row>
-
                     {/*<Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
@@ -333,10 +354,12 @@ export default function Servico() {
                         </Form.Group>
 
                     </Row>*/}
+                 </div>
+                )
+            })}
 
                     <Button type="submit" onClick={handleSubmit}>Criar Servico!</Button>
-
-                </Form>
+            </Form>
 
             </div>
 
