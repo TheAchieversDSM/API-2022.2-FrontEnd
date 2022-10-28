@@ -43,7 +43,7 @@ export default function Servico() {
         servicoComplementares: listaServicos
     }]);
 
-    function handleChange (event) {
+    function handleChange(event) {
         const { name, value } = event.target;
         setFormValue((prevState) => {
             return {
@@ -77,7 +77,7 @@ export default function Servico() {
         }
         setCategorias(categoriasSelecionadas)
         console.log(categorias);
-        
+
 
         setFormValue((prevState) => {
             return {
@@ -131,7 +131,7 @@ export default function Servico() {
             nome: servicoNome,
             descricao: servicoDescricao,
             produtos: servicoProduto,
-            categoria: servicoCategoria  ? servicoCategoria : [],
+            categoria: servicoCategoria ? servicoCategoria : [],
             complementares: complementos ? complementos : [],
             servicosObrigatorios: obrigatorios ? obrigatorios : []
         }
@@ -162,7 +162,7 @@ export default function Servico() {
         }
     }
 
-    function handleChange (index, event) {
+    function handleChange(index, event) {
         console.log(event.target);
         let data = [...formValue];
         data[index][event.target.name] = event.target.value;
@@ -211,129 +211,129 @@ export default function Servico() {
                 <h1>Cadastro de Serviços</h1>
 
                 <Form>
-                {formValue.map((fields, index) => {
-                    return (
-                        <div key={index}>
-                             <h6>{fields.servicoNome}</h6>
-                    <Row className="mb-3">
+                    {formValue.map((fields, index) => {
+                        return (
+                            <div key={index}>
+                                <h6>{fields.servicoNome}</h6>
+                                <Row className="mb-3">
 
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Nome do Serviço</Form.Label>
-                            <Form.Control
-                                required
-                                name="servicoNome"
-                                value={servicoNome}
-                                onChange={event => handleChange(index, event)}
-                                type="text"
-                                placeholder="Insira o nome do Serviço"
-                            />
-                        </Form.Group>
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Nome do Serviço</Form.Label>
+                                        <Form.Control
+                                            required
+                                            name="servicoNome"
+                                            value={servicoNome}
+                                            onChange={event => handleChange(index, event)}
+                                            type="text"
+                                            placeholder="Insira o nome do Serviço"
+                                        />
+                                    </Form.Group>
 
-                    </Row>
+                                </Row>
 
-                    <Row className="mb-3">
+                                <Row className="mb-3">
 
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Produtos que compõem o Serviço</Form.Label>
-                            <Select
-                                isMulti
-                                name="servicoProduto"
-                                onChange={event => handleChangeProdutos(index, event)}
-                                isClearable={true}
-                                isSearchable={true}
-                                closeMenuOnSelect={false}
-                                isLoading={false}
-                                options={options}
-                            />
-                        </Form.Group>
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Produtos que compõem o Serviço</Form.Label>
+                                        <Select
+                                            isMulti
+                                            name="servicoProduto"
+                                            onChange={event => handleChangeProdutos(index, event)}
+                                            isClearable={true}
+                                            isSearchable={true}
+                                            closeMenuOnSelect={false}
+                                            isLoading={false}
+                                            options={options}
+                                        />
+                                    </Form.Group>
 
-                    </Row>
+                                </Row>
 
-                    <Row className="mb-3 FormText" >
+                                <Row className="mb-3 FormText" >
 
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Descrição do Serviço</Form.Label>
-                            <Form.Control
-                                required
-                                name="servicoDescricao"
-                                value={fields.produtoDescricao}
-                                onChange={event => handleChange(index, event)}
-                                onKeyDown={event => duplicarTab(event)}
-                                as="textarea"
-                                type="text"
-                                placeholder="Insira a descrição do Serviço"
-                            />
-                        </Form.Group>
-                    </Row>
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Descrição do Serviço</Form.Label>
+                                        <Form.Control
+                                            required
+                                            name="servicoDescricao"
+                                            value={fields.produtoDescricao}
+                                            onChange={event => handleChange(index, event)}
+                                            onKeyDown={event => duplicarTab(event)}
+                                            as="textarea"
+                                            type="text"
+                                            placeholder="Insira a descrição do Serviço"
+                                        />
+                                    </Form.Group>
+                                </Row>
 
-                    <Row className="mb-3">
+                                <Row className="mb-3">
 
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Categoria do Serviço</Form.Label>
-                            <CreatableSelect 
-                                name="serviçoCategoria"
-                                options={categorias}
-                                onChange={event => handleChangeCategoria(index, event)}
-                                isClearable={true}
-                                isSearchable={true}
-                                closeMenuOnSelect={true}
-                                isLoading={false} />
-                        </Form.Group>
-                    
-                    </Row>
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Categoria do Serviço</Form.Label>
+                                        <CreatableSelect
+                                            name="serviçoCategoria"
+                                            options={categorias}
+                                            onChange={event => handleChangeCategoria(index, event)}
+                                            isClearable={true}
+                                            isSearchable={true}
+                                            closeMenuOnSelect={true}
+                                            isLoading={false} />
+                                    </Form.Group>
 
-                    <Row className="mb-3">
+                                </Row>
 
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Serviços Restringentes <TooltipDuvida mensagem="Escolha os serviços que não poderão ser obtidos em conjunto a este"/></Form.Label>
-                            <Select 
-                                isMulti
-                                name="servicoProduto"
-                                onChange={handleChangeProdutos}
-                                isClearable={true}
-                                isSearchable={true}
-                                closeMenuOnSelect ={false}
-                                isLoading={false}
-                                options={options}
-                            />
-                        </Form.Group>
-                        
-                    </Row>
+                                <Row className="mb-3">
 
-                    <Row className="mb-3">
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Serviços Restringentes <TooltipDuvida mensagem="Escolha os serviços que não poderão ser obtidos em conjunto a este" /></Form.Label>
+                                        <Select
+                                            isMulti
+                                            name="servicoProduto"
+                                            onChange={handleChangeProdutos}
+                                            isClearable={true}
+                                            isSearchable={true}
+                                            closeMenuOnSelect={false}
+                                            isLoading={false}
+                                            options={options}
+                                        />
+                                    </Form.Group>
 
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Serviços Obrigatórios <TooltipDuvida mensagem="Escolha os serviços que serão obrigatórios o consumidor obter para a compra deste serviço"/></Form.Label>
-                            <Select
-                                isMulti
-                                name="servicoObrigatorios"
-                                onChange={handleChangeObrigatorios}
-                                options={optServ}
-                                isClearable={true}
-                                isSearchable={true}
-                                closeMenuOnSelect={false}
-                            />
-                        </Form.Group>
+                                </Row>
 
-                    </Row>
+                                <Row className="mb-3">
 
-                    <Row className="mb-3">
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Serviços Obrigatórios <TooltipDuvida mensagem="Escolha os serviços que serão obrigatórios o consumidor obter para a compra deste serviço" /></Form.Label>
+                                        <Select
+                                            isMulti
+                                            name="servicoObrigatorios"
+                                            onChange={handleChangeObrigatorios}
+                                            options={optServ}
+                                            isClearable={true}
+                                            isSearchable={true}
+                                            closeMenuOnSelect={false}
+                                        />
+                                    </Form.Group>
 
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Serviços Complementares</Form.Label>
-                            <Select
-                                isMulti
-                                name="servicoComplementares"
-                                onChange={handleChangeComplementares}
-                                options={optServ}
-                                isClearable={true}
-                                isSearchable={true}
-                                closeMenuOnSelect={false}
-                            />
-                        </Form.Group>
+                                </Row>
 
-                    </Row>
-                    {/*<Row className="mb-3">
+                                <Row className="mb-3">
+
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Serviços Complementares</Form.Label>
+                                        <Select
+                                            isMulti
+                                            name="servicoComplementares"
+                                            onChange={handleChangeComplementares}
+                                            options={optServ}
+                                            isClearable={true}
+                                            isSearchable={true}
+                                            closeMenuOnSelect={false}
+                                        />
+                                    </Form.Group>
+
+                                </Row>
+                                {/*<Row className="mb-3">
 
                         <Form.Group as={Col} md="6">
                             <Form.Label>Serviços Restringentes</Form.Label>
@@ -348,12 +348,12 @@ export default function Servico() {
                         </Form.Group>
 
                     </Row>*/}
-                 </div>
-                )
-            })}
+                            </div>
+                        )
+                    })}
 
                     <Button type="submit" onClick={handleSubmit}>Criar Servico!</Button>
-            </Form>
+                </Form>
 
             </div>
 
