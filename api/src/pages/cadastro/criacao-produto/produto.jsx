@@ -26,6 +26,7 @@ export default function Produto() {
     let listaProdutos = []
 
     const [produtos, setProdutos] = useState(complementaresModelo)
+    const [categoria, setCategoria] = useState(complementaresModelo)
 
     const fields = useState({
         produtoNome: "",
@@ -47,18 +48,23 @@ export default function Produto() {
     }
 
     const handleChange = (index, event) => {
-        console.log(event.target);
         let data = [...formValue];
         data[index][event.target.name] = event.target.value;
         setFormValue(data)
-        console.log(formValue);
 
+        console.log(formValue);
     };
 
     const handleChangeCategoria = (index, event) => {
+        console.log(event.label);
+    
         let data = [...formValue];
+
         data[index][event.name] = event.value;
-        setFormValue(data)
+
+        setCategoria(event.label) 
+
+        setFormValue(categoria)
     };
 
     const [{ produtoNome, produtoCategoria, produtoDescricao }] = formValue;
@@ -138,6 +144,7 @@ export default function Produto() {
                                         <Form.Label>Categoria do produto</Form.Label>
                                         <Select
                                             name="produtoCategoria"
+                                            value={fields.produtoCategoria}
                                             options={categorias}
                                             onChange={event => handleChangeCategoria(index, event)}
                                             isClearable={true}

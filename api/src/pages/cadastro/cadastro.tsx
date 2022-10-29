@@ -34,9 +34,9 @@ export default function Cadastro() {
                         <Pacote />
                     </Tab>
 
-                    <Tab eventKey="ofertas" title="Ofertas" className="tab4">
+                    {/*<Tab eventKey="ofertas" title="Ofertas" className="tab4">
                         <Oferta />
-                    </Tab>
+                    </Tab>*/}
 
                     <Tab eventKey="promocoes" title="Promoções" className="tab4">
                         <Promocao />

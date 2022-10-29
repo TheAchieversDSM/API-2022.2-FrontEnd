@@ -37,7 +37,7 @@ export default function Servico() {
     const [formValue, setFormValue] = useState([{
         servicoNome: "",
         servicoDescricao: "",
-        servicoCategoria: listaCategorias,
+        servicoCategoria: "",
         servicoProduto: listaServicos,
         servicoObrigatorios: listaServicos,
         servicoComplementares: listaServicos
