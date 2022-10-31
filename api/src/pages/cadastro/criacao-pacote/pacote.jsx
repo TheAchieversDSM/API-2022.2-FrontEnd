@@ -88,11 +88,18 @@ export default function Pacote() {
             servicos: pacoteServicos
         }
 
-        event.preventDefault();
+        for (let index = 0; index < formValue.length; index++) {
+            pacote = {
+                nome: formValue[index].nome,
+                descricao: formValue[index].descricao,
+                servicos: formValue[index].servicos
+            }
+            axios.post(`http://localhost:8080/pacotes/criarPacote`, pacote).then((res) => {
 
-        axios.post(`http://localhost:8080/pacotes/criarPacote`, pacote).then((res) => {
-            alert('Pacote Criado!');
-        })
+            })
+        }
+
+        event.preventDefault();
 
         let valores = {
             pacoteNome: "",
@@ -104,11 +111,12 @@ export default function Pacote() {
 
 
         setFormValue(valores);
+        alert('Pacote Criado!');
     };
 
     useEffect(() => {
         async function render() {
-            axios.get(`http://localhost:8080/produtos/pegarTodosPacotes`).then((res) => {
+            axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
                 var pacotes = []
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
