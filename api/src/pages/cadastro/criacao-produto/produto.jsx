@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Navigation from '../../../components/navbar';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Sidebar from '../../../components/sidebar';
 import CreatableSelect from 'react-select/creatable';
-import Select from 'react-select';
 import axios from 'axios';
 
 import './produto.css'
@@ -23,26 +20,19 @@ const complementaresModelo = [
 ]
 
 export default function Produto() {
-    let listaProdutos = []
-
     const [produtos, setProdutos] = useState(complementaresModelo)
     const [categoria, setCategoria] = useState(complementaresModelo)
 
-    const fields = useState({
-        produtoNome: "",
-        produtoCategoria: "",
-        produtoDescricao: ""
-    });
-
     const [formValue, setFormValue] = useState([{
         produtoNome: "",
+        produtoQuantidade: "",
         produtoCategoria: "",
         produtoDescricao: ""
     }]);
 
     const duplicarTab = (event) => {
         if (event.key === 'Tab') {
-            let newfield = { produtoNome: "", produtoCategoria: "", produtoDescricao: "" }
+            let newfield = { produtoNome: "", produtoQuantidade: "", produtoCategoria: "", produtoDescricao: "" }
             setFormValue([...formValue, newfield])
         }
     }
@@ -57,21 +47,22 @@ export default function Produto() {
 
     const handleChangeCategoria = (index, event) => {
         console.log(event.label);
-    
+
         let data = [...formValue];
 
         data[index][event.name] = event.value;
 
-        setCategoria(event.label) 
+        setCategoria(event.label)
 
         setFormValue(categoria)
     };
 
-    const [{ produtoNome, produtoCategoria, produtoDescricao }] = formValue;
+    const [{ produtoNome, produtoQuantidade, produtoCategoria, produtoDescricao }] = formValue;
 
     const handleSubmit = (event) => {
         const produto = {
             nome: produtoNome,
+            quantidade: produtoQuantidade,
             categoria: produtoCategoria,
             descricao: produtoDescricao,
         }
@@ -84,6 +75,7 @@ export default function Produto() {
 
         let valores = {
             produtoNome: "",
+            produtoQuantidade: "",
             produtoCategoria: "",
             produtoDescricao: ""
         }
@@ -121,7 +113,7 @@ export default function Produto() {
                     {formValue.map((fields, index) => {
                         return (
                             <div key={index}>
-                                 <h6>{fields.produtoNome}</h6>
+                                <h6>{fields.produtoNome}</h6>
 
                                 <Row className="mb-3">
 
@@ -141,8 +133,23 @@ export default function Produto() {
                                 <Row className="mb-3">
 
                                     <Form.Group as={Col} md="6">
+                                        <Form.Label>Quantidade do produto</Form.Label>
+                                        <Form.Control
+                                            required
+                                            name="produtoQuantidade"
+                                            value={fields.produtoQuantidade}
+                                            onChange={event => handleChange(index, event)}
+                                            type="text"
+                                            placeholder="Insira a quantidade do produto" />
+                                    </Form.Group>
+
+                                </Row>
+
+                                <Row className="mb-3">
+
+                                    <Form.Group as={Col} md="6">
                                         <Form.Label>Categoria do produto</Form.Label>
-                                        <Select
+                                        <CreatableSelect
                                             name="produtoCategoria"
                                             value={fields.produtoCategoria}
                                             options={categorias}
