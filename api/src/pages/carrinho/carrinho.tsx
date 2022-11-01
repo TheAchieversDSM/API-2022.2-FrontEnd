@@ -32,8 +32,10 @@ export default function Carrinho() {
                 
                 setServico(res.data)
                 console.log(res.data.servico)
+
                 setComplementos(res.data.complementares)
                 console.log(res.data.complementares)
+                
                 setObrigatorios(res.data.obrigatorios)
                 console.log(res.data.obrigatorios)
             })
@@ -83,7 +85,7 @@ export default function Carrinho() {
                                     {obrigatorios != null ?
                                         obrigatorios.map(obrigatorio =>
                                             <div className="card">
-                                                <h5 className="card-header"><Form.Check defaultChecked={true} label={servico.obrigatorio}/></h5>
+                                                <h5 className="card-header"><Form.Check defaultChecked={true} label={obrigatorio.nome}/></h5>
                                                 <div className="card-body">
                                                     <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac hendrerit ipsum. Vestibulum ullamcorper elit et lorem convallis, quis gravida arcu luctus. In hac habitasse platea dictumst. Mauris sed diam libero. Mauris at dolor fringilla, sagittis tellus id, faucibus odio. Curabitur egestas volutpat vestibulum. Sed erat eros, lobortis id volutpat sed, lobortis a leo.</p>
                                                     <div className="row">
@@ -121,9 +123,9 @@ export default function Carrinho() {
                                 {complementos != null ?
                                     complementos.map(complemento =>
                                 <div className="card">
-                                    <h5 className="card-header"><Form.Check label={servico.complementar}/></h5>
+                                    <h5 className="card-header"><Form.Check label={complemento.nome}/></h5>
                                     <div className="card-body">
-                                        <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac hendrerit ipsum. Vestibulum ullamcorper elit et lorem convallis, quis gravida arcu luctus. In hac habitasse platea dictumst. Mauris sed diam libero. Mauris at dolor fringilla, sagittis tellus id, faucibus odio. Curabitur egestas volutpat vestibulum. Sed erat eros, lobortis id volutpat sed, lobortis a leo.</p>
+                                        <p className="card-text">{complemento.descricao}</p>
                                         <div className="row">
                                             <div className="col-4">
                                                 <Form.Select>
