@@ -24,7 +24,7 @@ export default function Carrinho() {
     const { id } = useParams();
     const [pacote, setPacotes] = useState(modeloPacote)
     const [complementos, setComplementos] = useState(modelo)
-    const [obrigatorios, setObrigatorios] = useState(modeloObrigatorio)
+    const [servicosObrigatorios, setservicosObrigatorios] = useState(modeloObrigatorio)
 
     useEffect(() => {
         async function render() {
@@ -35,9 +35,10 @@ export default function Carrinho() {
 
                 setComplementos(res.data.complementares)
                 console.log(res.data.complementares)
-                
-                setObrigatorios(res.data.obrigatorios)
-                console.log(res.data.obrigatorios)
+
+                setservicosObrigatorios(res.data.servicosObrigatorios)
+                console.log(res.data.servicosObrigatorios)
+
             })
         }
         render()
@@ -79,45 +80,43 @@ export default function Carrinho() {
                                 </div>
                             </div>
                         </div>
-                        {servico.obrigatorios?.length > 0 ?
-                            <>
-                                <div>
-                                    {obrigatorios != null ?
-                                        obrigatorios.map(obrigatorio =>
-                                            <div className="card">
-                                                <h5 className="card-header"><Form.Check defaultChecked={true} label={obrigatorio.nome}/></h5>
-                                                <div className="card-body">
-                                                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac hendrerit ipsum. Vestibulum ullamcorper elit et lorem convallis, quis gravida arcu luctus. In hac habitasse platea dictumst. Mauris sed diam libero. Mauris at dolor fringilla, sagittis tellus id, faucibus odio. Curabitur egestas volutpat vestibulum. Sed erat eros, lobortis id volutpat sed, lobortis a leo.</p>
-                                                    <div className="row">
-                                                        <div className="col-4">
-                                                            <Form.Select>
-                                                                <option>Plano</option>
-                                                                <option>Básico</option>
-                                                                <option>Médio</option>
-                                                            </Form.Select>
-                                                        </div>
-                                                        <div className="col-4">
-                                                            <Form.Select>
-                                                                <option>Período</option>
-                                                                <option>Anual</option>
-                                                                <option>Mensal</option>
-                                                            </Form.Select>
-                                                        </div>
-                                                        <div className="col-4 value">
-                                                            <h5>Valor: </h5>
-                                                            <p>R$ 100,00</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                        {servico.servicosObrigatorios?.length > 0 ?
+                            <div>
+                                {servicosObrigatorios != null ?
+                                    servicosObrigatorios.map(servicoObrigatorio =>
+                                <div className="card">
+                                    <h5 className="card-header"><Form.Check defaultChecked={true} label={servicoObrigatorio.nome}/></h5>
+                                    <div className="card-body">
+                                        <p className="card-text">{servicoObrigatorio.descricao}</p>
+                                        <div className="row">
+                                            <div className="col-4">
+                                                <Form.Select>
+                                                    <option>Plano</option>
+                                                    <option>Básico</option>
+                                                    <option>Médio</option>
+                                                </Form.Select>
                                             </div>
-                                        )
-                                        : <></>
-                                    }
+                                            <div className="col-4">
+                                                <Form.Select>
+                                                    <option>Período</option>
+                                                    <option>Anual</option>
+                                                    <option>Mensal</option>
+                                                </Form.Select>
+                                            </div>
+                                            <div className="col-4 value">
+                                                <h5>Valor: </h5>
+                                                <p>R$ 100,00</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </>
-                            :
-                            <></>
-                        }
+                                )
+                                : <></>
+                            }
+                        </div>
+                        :
+                        <></>
+                    }
                         {servico.complementares?.length > 0 ?
                             <div>
                                 {complementos != null ?
@@ -155,19 +154,36 @@ export default function Carrinho() {
                         :
                         <></>
                     }
-                        {/*<AlertaProm prom="Essa promoção contém os seguintes produtos/serviços/pacotes" />*/}
                     </div>
 
                     <div className="resumo col-3">
                         <ul className="list-group">
                             <li className="list-group-item"><h4>RESUMO</h4></li>
                             <li className="list-group-item"><Form.Check defaultChecked={true} label={servico.nome}/></li>
-                            <div>
-                                <li className="list-group-item"><Form.Check defaultChecked={true} label="A second item"/></li>
-                            </div>
-                            <div>
-                                <li className="list-group-item"><Form.Check label="A second item"/></li>
-                            </div>
+                            {servico.servicosObrigatorios?.length > 0 ?
+                                <div>
+                                    {servicosObrigatorios != null ?
+                                    servicosObrigatorios.map(obrigatorio =>
+                                    <li className="list-group-item"><Form.Check defaultChecked={true} label={obrigatorio.nome}/></li>
+                                    )
+                                    : <></>
+                                }
+                                    </div>
+                                :
+                                <></>
+                            }
+                            {servico.complementares?.length > 0 ?
+                                <div>
+                                    {complementos != null ?
+                                    complementos.map(complemento =>
+                                    <li className="list-group-item"><Form.Check label={complemento.nome}/></li>
+                                    )
+                                    : <></>
+                                }
+                                    </div>
+                            :
+                            <></>
+                        }
                         </ul>
                         <h4 className="valor">Valor total: R$ 180,00</h4>
                         <Button>Finalizar compra!</Button>
