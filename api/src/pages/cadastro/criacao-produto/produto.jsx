@@ -9,24 +9,22 @@ import axios from 'axios';
 import './produto.css'
 
 const categorias = [
-    { value: 'Meu Negócio', label: 'Meu Negócio', name: 'Meu Negócio' },
-    { value: 'Streaming', label: 'Streaming', name: 'Streaming' },
-    { value: 'Música', label: 'Música', name: 'Música' },
-    { value: 'Segurança Digital', label: 'Segurança Digital', name: 'Segurança Digital' },
+    { value: 'Meu Negócio', label: 'Meu Negócio' },
+    { value: 'Streaming', label: 'Streaming' },
+    { value: 'Música', label: 'Música' },
+    { value: 'Segurança Digital', label: 'Segurança Digital' },
 ];
 
-const complementaresModelo = [
-    { value: '', label: '' }
-]
+const complementaresModelo = [{ value: '', label: '' }]
 
 export default function Produto() {
     const [produtos, setProdutos] = useState(complementaresModelo)
-    const [categoria, setCategoria] = useState(complementaresModelo)
+    let lista = []
 
     const [formValue, setFormValue] = useState([{
         produtoNome: "",
         produtoQuantidade: "",
-        produtoCategoria: "",
+        produtoCategoria: lista,
         produtoDescricao: ""
     }]);
 
@@ -46,29 +44,40 @@ export default function Produto() {
     };
 
     const handleChangeCategoria = (index, event) => {
-        let data = [...formValue];
-        data[index][event.label] = event.label;
+        console.log(event);
+        let data = [...formValue]
+        var categoria = []
 
-        let categoria = { value: event.value, label: event.label }
+        for (let i = 0; i < event.length; i++) {
+            let cat = { id: event[i].value, nome: event[i].label }
+            categoria.push(cat)
+        }
 
-        setFormValue([...formValue, categoria.label])
+        data[index].produtoCategoria = categoria
+
+        setFormValue(data)
+        console.log(formValue);
     }
 
     const [{ produtoNome, produtoQuantidade, produtoCategoria, produtoDescricao }] = formValue;
 
     const handleSubmit = (event) => {
-        const produto = {
-            nome: produtoNome,
-            quantidade: produtoQuantidade,
-            categoria: produtoCategoria,
-            descricao: produtoDescricao,
+        let data = [...formValue]
+
+        for (let i = 0; i < data.length; i++) {
+            let produto = {
+                nome: data[i].produtoNome,
+                quantidade: data[i].produtoQuantidade,
+                categoria: data[i].produtoCategoria[0].nome,
+                descricao: data[i].produtoDescricao,
+            }
+
+            event.preventDefault();
+
+            axios.post(`http://localhost:8080/produtos/criarProduto`, produto).then((res) => {
+                alert('Produto criado!');
+            })
         }
-
-        event.preventDefault();
-
-        axios.post(`http://localhost:8080/produtos/criarProduto`, produto).then((res) => {
-            alert('Produto criado!');
-        })
 
         let valores = {
             produtoNome: "",
@@ -146,6 +155,7 @@ export default function Produto() {
                                     <Form.Group as={Col} md="6">
                                         <Form.Label>Categoria do produto</Form.Label>
                                         <CreatableSelect
+                                            isMulti
                                             name="produtoCategoria"
                                             value={fields.produtoCategoria}
                                             options={categorias}
