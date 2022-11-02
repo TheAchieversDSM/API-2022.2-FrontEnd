@@ -46,16 +46,13 @@ export default function Produto() {
     };
 
     const handleChangeCategoria = (index, event) => {
-        console.log(event.label);
-
         let data = [...formValue];
+        data[index][event.label] = event.label;
 
-        data[index][event.name] = event.value;
+        let categoria = { value: event.value, label: event.label }
 
-        setCategoria(event.label)
-
-        setFormValue(categoria)
-    };
+        setFormValue([...formValue, categoria.label])
+    }
 
     const [{ produtoNome, produtoQuantidade, produtoCategoria, produtoDescricao }] = formValue;
 
@@ -113,7 +110,6 @@ export default function Produto() {
                     {formValue.map((fields, index) => {
                         return (
                             <div key={index}>
-                                <h6>{fields.produtoNome}</h6>
 
                                 <Row className="mb-3">
 
@@ -139,7 +135,7 @@ export default function Produto() {
                                             name="produtoQuantidade"
                                             value={fields.produtoQuantidade}
                                             onChange={event => handleChange(index, event)}
-                                            type="text"
+                                            type="number"
                                             placeholder="Insira a quantidade do produto" />
                                     </Form.Group>
 

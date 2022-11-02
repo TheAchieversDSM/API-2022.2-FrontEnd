@@ -11,10 +11,7 @@ import axios from 'axios';
 import './pacote.css'
 
 const modeloOptions = [
-    {
-        value: '',
-        label: ''
-    }
+    { value: '', label: '' }
 ];
 
 const periodo = [
@@ -29,37 +26,53 @@ const periodo = [
 export default function Pacote() {
     const [servicos, setServicos] = useState(modeloOptions)
     const [pacotes, setPacotes] = useState(modeloOptions)
-    const [produtos, setProdutos] = []
+    const [produto, setProduto] = useState([{ value: '', label: '' }])
     let listaServicos = []
 
     const [formValue, setFormValue] = useState([{
         pacoteNome: "",
         pacoteDescricao: "",
-        pacotePreco: "",
-        pacotePeriodo: "",
+        pacotePeriodo: listaServicos,
         pacoteServicos: listaServicos,
         pacoteProdutos: listaServicos
     }]);
 
     const handleChangePeriodo = (index, event) => {
-        let data = [...formValue];
-        data[index][event.label] = event.label;
+        var periodo = []
 
-        let periodo = { value: event.value, label: event.label }
+        for (let index = 0; index < event.length; index++) {
+            let per = { id: event[index].value, nome: event[index].label }
+            periodo.push(per)
+        }
 
-        setFormValue([...formValue, periodo.label])
+        setFormValue(periodo)
     }
 
     const handleChangeServicos = (index, event) => {
-        var servicosSelecionados = []
+        let data = [...formValue]
+        var pacoteServicos = []
 
-        for (let index = 0; index < event.length; index++) {
-            let servico = { id: event[index].value, nome: event[index].label }
-            servicosSelecionados.push(servico)
+        for (let i = 0; i < event.length; i++) {
+            let servico = { id: event[i].value, nome: event[i].label }
+            pacoteServicos.push(servico)
 
-            console.log(servico)
+            axios.get(`http://localhost:8080/servicos/todosProdutos/${servico.id}`).then((res) => {
+                var produtosLista = []
+
+                for (let iProd = 0; iProd < res.data.length; index++) {
+                    let option = {
+                        value: res.data[iProd].id,
+                        label: res.data[iProd].nome
+                    }
+                    produtosLista.push(option)
+                }
+                setProduto(produtosLista)
+            })
         }
-        setFormValue([...formValue, servicosSelecionados])
+
+        data[index].pacoteServicos = pacoteServicos
+
+        setFormValue(data)
     }
 
     const duplicarTab = (event) => {
@@ -70,17 +83,28 @@ export default function Pacote() {
     }
 
     const handleChangeProdutos = (index, event) => {
+        let data = [...formValue]
+        console.log(event);
+        var pacoteProdutosX = []
 
+        for (let i = 0; i < event.length; i++) {
+            let produto = { id: event[i].value, nome: event[i].label }
+            pacoteProdutosX.push(produto)
+        }
+
+        data[index].pacoteProdutos = pacoteProdutosX
+
+        setFormValue(data)
     }
 
     const handleChange = (index, event) => {
         let data = [...formValue];
         data[index][event.target.name] = event.target.value;
         setFormValue(data)
-        //console.log(formValue);
+        console.log(formValue);
     };
 
-    const { pacoteNome, pacoteDescricao, pacotePreco, pacotePeriodo, pacoteServicos, pacoteProdutos } = formValue;
+    const { pacoteNome, pacoteDescricao, pacotePeriodo, pacoteServicos, pacoteProdutos } = formValue;
 
 
     useEffect(() => {
@@ -99,30 +123,17 @@ export default function Pacote() {
 
                 setServicos(servicos);
             })
-
-
-            axios.get(`http://localhost:8080/servicos/todosProdutos/${servicos.id}`).then((res) => {
-                var produtos = []
-                for (let index = 0; index < res.data.length; index++) {
-                    let option = {
-                        value: res.data[index].id,
-                        label: res.data[index].nome
-                    }
-                    produtos.push(option)
-                }
-                setProdutos(produtos)
-                console.log(produtos);
-            })
-
         }
         render()
     }, [])
 
     const handleSubmit = (event) => {
-        const pacote = {
+        let pacote = {
             nome: pacoteNome,
             descricao: pacoteDescricao,
-            servicos: pacoteServicos
+            periodo: pacotePeriodo,
+            servico: pacoteServicos,
+            produtos: pacoteProdutos
         }
 
         event.preventDefault();
@@ -131,12 +142,14 @@ export default function Pacote() {
             alert('Pacote Criado!');
         })
 
+
         let valores = {
             pacoteNome: "",
             pacoteDescricao: "",
-            pacoteServicos: listaServicos
+            pacotePeriodo: listaServicos,
+            pacoteServicos: listaServicos,
+            pacoteProdutos: listaServicos
         }
-
         setFormValue(valores);
     };
 
@@ -167,8 +180,6 @@ export default function Pacote() {
                     {formValue.map((fields, index) => {
                         return (
                             <div key={index}>
-                                <h6>{fields.pacoteNome}</h6>
-
                                 <Row className="mb-3">
 
                                     <Form.Group as={Col} md="6">
@@ -224,13 +235,14 @@ export default function Pacote() {
                                     <Form.Group as={Col} md="6">
                                         <Form.Label>Período da oferta do pacote</Form.Label>
                                         <CreatableSelect
+                                            isMulti
                                             name="periodoPacote"
                                             value={fields.pacotePeriodo}
                                             options={periodo}
                                             onChange={event => handleChangePeriodo(index, event)}
                                             isClearable={true}
                                             isSearchable={true}
-                                            closeMenuOnSelect={false}
+                                            closeMenuOnSelect={true}
                                         />
                                     </Form.Group>
 
@@ -270,10 +282,11 @@ export default function Pacote() {
                                             isSearchable={true}
                                             closeMenuOnSelect={true}
                                             isLoading={false}
-                                            options={produtos}
+                                            options={produto}
                                         />
                                     </Form.Group>
 
+                                    <hr />
                                 </Row>
 
                             </div>
