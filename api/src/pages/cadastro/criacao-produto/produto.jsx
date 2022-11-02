@@ -75,7 +75,7 @@ export default function Produto() {
             event.preventDefault();
 
             axios.post(`http://localhost:8080/produtos/criarProduto`, produto).then((res) => {
-                alert('Produto criado!');
+                alert('Produto(s) criado(s)!');
             })
         }
 

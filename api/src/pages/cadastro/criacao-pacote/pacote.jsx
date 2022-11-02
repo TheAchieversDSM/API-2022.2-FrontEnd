@@ -27,25 +27,28 @@ export default function Pacote() {
     const [servicos, setServicos] = useState(modeloOptions)
     const [pacotes, setPacotes] = useState(modeloOptions)
     const [produto, setProduto] = useState([{ value: '', label: '' }])
-    let listaServicos = []
+    let lista = []
 
     const [formValue, setFormValue] = useState([{
         pacoteNome: "",
         pacoteDescricao: "",
-        pacotePeriodo: listaServicos,
-        pacoteServicos: listaServicos,
-        pacoteProdutos: listaServicos
+        pacotePeriodo: lista,
+        pacoteServicos: lista,
+        pacoteProdutos: lista
     }]);
 
     const handleChangePeriodo = (index, event) => {
+        let data = [...formValue]
         var periodo = []
 
-        for (let index = 0; index < event.length; index++) {
-            let per = { id: event[index].value, nome: event[index].label }
+        for (let i = 0; i < event.length; i++) {
+            let per = { id: event[i].value, nome: event[i].label }
             periodo.push(per)
         }
 
-        setFormValue(periodo)
+        data[index].pacotePeriodo = periodo
+
+        setFormValue(data)
     }
 
     const handleChangeServicos = (index, event) => {
@@ -59,7 +62,7 @@ export default function Pacote() {
             axios.get(`http://localhost:8080/servicos/todosProdutos/${servico.id}`).then((res) => {
                 var produtosLista = []
 
-                for (let iProd = 0; iProd < res.data.length; index++) {
+                for (let iProd = 0; iProd < res.data.length; iProd++) {
                     let option = {
                         value: res.data[iProd].id,
                         label: res.data[iProd].nome
@@ -84,7 +87,6 @@ export default function Pacote() {
 
     const handleChangeProdutos = (index, event) => {
         let data = [...formValue]
-        console.log(event);
         var pacoteProdutosX = []
 
         for (let i = 0; i < event.length; i++) {
@@ -128,29 +130,33 @@ export default function Pacote() {
     }, [])
 
     const handleSubmit = (event) => {
-        let pacote = {
-            nome: pacoteNome,
-            descricao: pacoteDescricao,
-            periodo: pacotePeriodo,
-            servico: pacoteServicos,
-            produtos: pacoteProdutos
+        let data = [...formValue]
+
+        for (let i = 0; i < data.length; i++) {
+            let pacote = {
+                nome: data[i].pacoteNome,
+                descricao: data[i].pacoteDescricao,
+                periodo: data[i].pacotePeriodo[0].nome,
+                servico: data[i].pacoteServicos[0],
+                produtos: data[i].pacoteProdutos
+            }
+
+            event.preventDefault();
+
+            axios.post(`http://localhost:8080/pacotes/criarPacote`, pacote).then((res) => {
+                alert('Pacote(s) criado(s)!');
+            })
         }
-
-        event.preventDefault();
-
-        axios.post(`http://localhost:8080/pacotes/criarPacote`, pacote).then((res) => {
-            alert('Pacote Criado!');
-        })
-
 
         let valores = {
             pacoteNome: "",
             pacoteDescricao: "",
-            pacotePeriodo: listaServicos,
-            pacoteServicos: listaServicos,
-            pacoteProdutos: listaServicos
+            pacotePeriodo: "",
+            pacoteServicos: "",
+            pacoteProdutos: ""
         }
-        setFormValue(valores);
+        
+        setFormValue([valores]);
     };
 
     useEffect(() => {
