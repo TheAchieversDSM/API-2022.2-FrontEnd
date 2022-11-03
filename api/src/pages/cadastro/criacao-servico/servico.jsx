@@ -14,7 +14,7 @@ import Tooltip from 'react-bootstrap/esm/Tooltip';
 import TooltipDuvida from '../../../components/tooltip';
 import Badge from 'react-bootstrap/esm/Badge';
 
-const categoriasOpt = [
+const categorias = [
     { value: 'Meu Negócio', label: 'Meu Negócio' },
     { value: 'Streaming', label: 'Streaming' },
     { value: 'Música', label: 'Música' },
@@ -25,39 +25,36 @@ const modeloOptions = [{ value: '', label: '' }];
 
 
 export default function Servico() {
-    let listaCategorias = []
-    let listaServicos = []
+    let lista = []
 
     const [options, setOptions] = useState(modeloOptions)
     const [optServ, setOptServ] = useState(modeloOptions)
-    const [categorias, setCategorias] = useState(listaCategorias)
-    const [obrigatorios, setObrigatorios] = useState(listaServicos)
-    const [complementos, setComplementos] = useState(listaServicos)
+    const [obrigatorios, setObrigatorios] = useState(lista)
+    const [complementos, setComplementos] = useState(lista)
 
     const [formValue, setFormValue] = useState([{
         servicoNome: "",
         servicoDescricao: "",
-        servicoCategoria: listaCategorias,
-        servicoProduto: listaServicos,
-        servicoObrigatorios: listaServicos,
-        servicoComplementares: listaServicos
+        servicoCategoria: lista,
+        servicoProduto: lista,
+        servicoObrigatorios: lista,
+        servicoComplementares: lista
     }]);
 
     const handleChange = (index, event) => {
         let data = [...formValue]
-        data[index] [event.target.name] = event.target.value
+        data[index][event.target.name] = event.target.value
         setFormValue(data)
     };
 
-
-    const handleChangeProdutos = (index , event) => {
+    const handleChangeProdutos = (index, event) => {
         let data = [...formValue]
         var produtosSelecionados = []
-        for (let i = 0; i < event.length; i ++) {
+        for (let i = 0; i < event.length; i++) {
             let produto = { id: event[i].value, nome: event[i].label }
             produtosSelecionados.push(produto)
         }
-        data[index].servicoProduto = produtosSelecionados 
+        data[index].servicoProduto = produtosSelecionados
         setFormValue(data)
     };
 
@@ -70,7 +67,6 @@ export default function Servico() {
         }
         data[index].servicoCategoria = categoriasSelecionadas
         setFormValue(data)
-
     };
 
     const handleChangeComplementares = (index, event) => {
@@ -80,7 +76,7 @@ export default function Servico() {
             let servico = { id: event[i].value, nome: event[i].label }
             servicosSelecionados.push(servico)
         }
-        data [index].servicoComplementares = servicosSelecionados
+        data[index].servicoComplementares = servicosSelecionados
         setFormValue(data)
     };
 
@@ -91,43 +87,44 @@ export default function Servico() {
             let servico = { id: event[i].value, nome: event[i].label }
             servicosSelecionados.push(servico)
         }
-        data [index].servicoObrigatorios = servicosSelecionados
+        data[index].servicoObrigatorios = servicosSelecionados
         setFormValue(data)
-
     };
 
     const { servicoNome, servicoProduto, servicoDescricao, servicoCategoria, servicoObrigatorios, servicoComplementares } = formValue;
 
-
     const handleSubmit = (event) => {
         let data = [...formValue]
-        for (let i = 0; i < data.length; i++){
+        for (let i = 0; i < data.length; i++) {
             let servico = {
                 nome: data[i].servicoNome,
                 descricao: data[i].servicoDescricao,
                 produtos: data[i].servicoProduto,
-                categoria: data[i].servicoCategoria ? servicoCategoria : [],
-                complementares: data[i].complementos ? complementos : [],
-                servicosObrigatorios: data[i].obrigatorios ? obrigatorios : []
+                categoria: data[i].servicoCategoria[0],
+                complementares: data[i].complementos,
+                servicosObrigatorios: data[i].obrigatorios 
             }
+
             console.log(servico);
+
             event.preventDefault();
+
             axios.post("http://localhost:8080/servicos/criarServico", servico).then((res) => {
                 alert('Serviço criado!')
-        })
+            })
         }
-        
+
 
         let valores = {
             servicoNome: "",
             servicoDescricao: "",
-            servicoCategoria: listaCategorias,
-            servicoProduto: listaServicos,
-            servicoObrigatorios: listaServicos,
-            servicoComplementares: listaServicos
+            servicoCategoria: "",
+            servicoProduto: lista,
+            servicoObrigatorios: lista,
+            servicoComplementares: lista
         }
 
-        setFormValue(valores);
+        setFormValue([valores]);
     };
 
     const duplicarTab = (event) => {
@@ -136,6 +133,7 @@ export default function Servico() {
             setFormValue([...formValue, newfield])
         }
     }
+
     useEffect(() => {
         async function render() {
             axios.get(`http://localhost:8080/produtos/pegarTodosProdutos`).then((res) => {
@@ -180,7 +178,6 @@ export default function Servico() {
                     {formValue.map((fields, index) => {
                         return (
                             <div key={index}>
-                                <h6>{fields.servicoNome}</h6>
                                 <Row className="mb-3">
 
                                     <Form.Group as={Col} md="6">
@@ -206,7 +203,7 @@ export default function Servico() {
                                             name="servicoProduto"
                                             onChange={event => handleChangeProdutos(index, event)}
                                             isClearable={true}
-                                            value ={fields.servicoProduto}
+                                            value={fields.servicoProduto}
                                             isSearchable={true}
                                             closeMenuOnSelect={false}
                                             isLoading={false}
@@ -237,11 +234,12 @@ export default function Servico() {
                                     <Form.Group as={Col} md="6">
                                         <Form.Label>Categoria do Serviço</Form.Label>
                                         <CreatableSelect
+                                            isMulti
                                             name="serviçoCategoria"
                                             options={categorias}
+                                            value={fields.servicoCategoria}
                                             onChange={event => handleChangeCategoria(index, event)}
                                             isClearable={true}
-                                            value={fields.servicoCategoria}
                                             isSearchable={true}
                                             closeMenuOnSelect={true}
                                             isLoading={false} />
@@ -275,7 +273,7 @@ export default function Servico() {
                                         <Select
                                             isMulti
                                             name="servicoObrigatorios"
-                                            onChange={handleChangeObrigatorios}
+                                            onChange={event => handleChangeObrigatorios(index, event)}
                                             value={fields.servicoObrigatorios}
                                             options={optServ}
                                             isClearable={true}
@@ -293,7 +291,7 @@ export default function Servico() {
                                         <Select
                                             isMulti
                                             name="servicoComplementares"
-                                            onChange={handleChangeComplementares}
+                                            onChange={event => handleChangeComplementares(index, event)}
                                             value={fields.servicoComplementares}
                                             options={optServ}
                                             isClearable={true}

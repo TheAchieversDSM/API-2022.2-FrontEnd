@@ -27,12 +27,6 @@ export default function Produto() {
 
     const [produtos, setProdutos] = useState(complementaresModelo)
 
-    const fields = useState({
-        produtoNome: "",
-        produtoCategoria: "",
-        produtoDescricao: ""
-    });
-
     const [formValue, setFormValue] = useState([{
         produtoNome: "",
         produtoCategoria: "",
@@ -56,8 +50,13 @@ export default function Produto() {
     };
 
     const handleChangeCategoria = (index, event) => {
-        let data = [...formValue];
-        data[index][event.name] = event.value;
+        let data = [...formValue]
+        var categoriasSelecionadas = []
+        for (let i = 0; i < event.length; i++) {
+            let categoria = { value: event[i].value, label: event[i].label }
+            categoriasSelecionadas.push(categoria)
+        }
+        data[index].servicoCategoria = categoriasSelecionadas
         setFormValue(data)
     };
 
