@@ -95,14 +95,15 @@ export default function Servico() {
 
     const handleSubmit = (event) => {
         let data = [...formValue]
+        console.log(data)
         for (let i = 0; i < data.length; i++) {
             let servico = {
                 nome: data[i].servicoNome,
                 descricao: data[i].servicoDescricao,
                 produtos: data[i].servicoProduto,
-                categoria: data[i].servicoCategoria[0],
-                complementares: data[i].complementos,
-                servicosObrigatorios: data[i].obrigatorios 
+                categoria: [data[i].servicoCategoria[0].label],
+                complementares: data[i].servicoComplementares,
+                servicosObrigatorios: data[i].servicoObrigatorios
             }
 
             console.log(servico);
@@ -110,7 +111,7 @@ export default function Servico() {
             event.preventDefault();
 
             axios.post("http://localhost:8080/servicos/criarServico", servico).then((res) => {
-                alert('Serviço criado!')
+                alert('Serviço Criado!')
             })
         }
 
@@ -278,7 +279,8 @@ export default function Servico() {
                                             options={optServ}
                                             isClearable={true}
                                             isSearchable={true}
-                                            closeMenuOnSelect={false}
+                                            closeMenuOnSelect={true}
+                                            isLoading={false}
                                         />
                                     </Form.Group>
 
@@ -296,7 +298,8 @@ export default function Servico() {
                                             options={optServ}
                                             isClearable={true}
                                             isSearchable={true}
-                                            closeMenuOnSelect={false}
+                                            closeMenuOnSelect={true}
+                                            isLoading={false}
                                             onKeyDown={event => duplicarTab(event)}
                                         />
                                     </Form.Group>
