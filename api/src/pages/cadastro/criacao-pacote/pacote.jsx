@@ -245,7 +245,6 @@ export default function Pacote() {
                                         <CreatableSelect
                                             isMulti
                                             name="periodoPacote"
-                                            value={fields.pacotePeriodo}
                                             options={periodo}
                                             onChange={event => handleChangePeriodo(index, event)}
                                             isClearable={true}
@@ -264,7 +263,6 @@ export default function Pacote() {
                                         <Select
                                             isMulti
                                             name="pacoteServicos"
-                                            value={fields.pacoteServicos}
                                             onChange={event => handleChangeServicos(index, event)}
                                             isClearable={true}
                                             isSearchable={true}
@@ -283,7 +281,6 @@ export default function Pacote() {
                                         <Select
                                             isMulti
                                             name="pacoteProdutos"
-                                            value={fields.pacoteProdutos}
                                             onChange={event => handleChangeProdutos(index, event)}
                                             onKeyDown={duplicarTab}
                                             isClearable={true}
