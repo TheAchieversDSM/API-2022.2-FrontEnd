@@ -44,7 +44,6 @@ export default function Produto() {
     };
 
     const handleChangeCategoria = (index, event) => {
-        console.log(event);
         let data = [...formValue]
         var categoria = []
 

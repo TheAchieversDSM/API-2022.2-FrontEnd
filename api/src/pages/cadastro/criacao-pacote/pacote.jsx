@@ -32,6 +32,7 @@ export default function Pacote() {
     const [formValue, setFormValue] = useState([{
         pacoteNome: "",
         pacoteDescricao: "",
+        pacoteOferta: "",
         pacotePeriodo: lista,
         pacoteServicos: lista,
         pacoteProdutos: lista
@@ -80,7 +81,7 @@ export default function Pacote() {
 
     const duplicarTab = (event) => {
         if (event.key === 'Tab') {
-            let newfield = { pacoteNome: "", pacoteDescricao: "", pacoteServicos: "" }
+            let newfield = { pacoteNome: "", pacoteOferta: "", pacoteDescricao: "", pacoteServicos: "" }
             setFormValue([...formValue, newfield])
         }
     }
@@ -106,7 +107,7 @@ export default function Pacote() {
         console.log(formValue);
     };
 
-    const { pacoteNome, pacoteDescricao, pacotePeriodo, pacoteServicos, pacoteProdutos } = formValue;
+    const { pacoteNome, pacoteDescricao, pacoteOferta, pacotePeriodo, pacoteServicos, pacoteProdutos } = formValue;
 
 
     useEffect(() => {
@@ -136,6 +137,7 @@ export default function Pacote() {
             let pacote = {
                 nome: data[i].pacoteNome,
                 descricao: data[i].pacoteDescricao,
+                preco: data[i].pacoteOferta,
                 periodo: data[i].pacotePeriodo[0].nome,
                 servico: data[i].pacoteServicos[0],
                 produtos: data[i].pacoteProdutos
@@ -150,7 +152,8 @@ export default function Pacote() {
 
         let valores = {
             pacoteNome: "",
-            pacoteDescricao: "",
+            pacoteDescricao: "",    
+            pacoteOferta: "",
             pacotePeriodo: "",
             pacoteServicos: "",
             pacoteProdutos: ""
@@ -189,14 +192,14 @@ export default function Pacote() {
                                 <Row className="mb-3">
 
                                     <Form.Group as={Col} md="6">
-                                        <Form.Label>Nome do Pacote</Form.Label>
+                                        <Form.Label>Nome do pacote</Form.Label>
                                         <Form.Control
                                             required
                                             name="pacoteNome"
                                             value={fields.pacoteNome}
                                             onChange={event => handleChange(index, event)}
                                             type="text"
-                                            placeholder="Insira o nome do Pacote"
+                                            placeholder="Insira o nome do pacote"
                                         />
                                     </Form.Group>
 
@@ -205,7 +208,7 @@ export default function Pacote() {
                                 <Row className="mb-3 FormText">
 
                                     <Form.Group as={Col} md="6">
-                                        <Form.Label>Descrição do Pacote</Form.Label>
+                                        <Form.Label>Descrição do pacote</Form.Label>
                                         <Form.Control
                                             required
                                             name="pacoteDescricao"
@@ -213,24 +216,23 @@ export default function Pacote() {
                                             onChange={event => handleChange(index, event)}
                                             as="textarea"
                                             type="text"
-                                            placeholder="Insira a descrição da Pacote"
+                                            placeholder="Insira a descrição do pacote"
                                         />
                                     </Form.Group>
 
                                 </Row>
 
-                                <Row className="mb-3">
+                                <Row className="mb-3 FormText">
 
                                     <Form.Group as={Col} md="6">
-                                        <Form.Label>Preço do pacote</Form.Label>
+                                        <Form.Label>Oferta do pacote</Form.Label>
                                         <Form.Control
                                             required
-                                            name="pacotePreco"
-                                            value={fields.pacotePreco}
+                                            name="pacoteOferta"
+                                            value={fields.produtoOferta}
                                             onChange={event => handleChange(index, event)}
                                             type="number"
-                                            placeholder="Inserir preço do pacote"
-                                            defaultValue=""
+                                            placeholder="Insira a oferta do pacote"
                                         />
                                     </Form.Group>
 
