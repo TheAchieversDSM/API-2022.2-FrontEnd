@@ -22,3 +22,18 @@ h1 {
     font-weight: 500;
     font-size: 18px;
 }
+
+.campobotoes{
+    position: absolute;
+    right: 500px;
+    top: 220px
+}
+
+.submitpromo{
+    position: fixed;
+}
+
+.toppromo{
+    position: fixed;
+    top: 280px;
+}

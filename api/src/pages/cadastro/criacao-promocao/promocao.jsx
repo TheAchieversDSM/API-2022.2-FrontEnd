@@ -40,6 +40,10 @@ export default function Promocao() {
     }
   };
 
+  const topFunction = () => {
+    document.documentElement.scrollTop = 0;
+}
+
   const handleChangePacotes = (index, event) => {
     let data = [...formValue];
     var promocaoPac = [];
@@ -134,7 +138,7 @@ export default function Promocao() {
         <Form>
           {formValue.map((fields, index) => {
             return (
-              <div key={index}>
+              <div key={index} className="row">
 
                 <Row className="mb-3">
                   <Form.Group as={Col} md="6">
@@ -184,9 +188,14 @@ export default function Promocao() {
             );
           })}
 
-          <Button type="submit" onClick={handleSubmit}>
-            Criar Promoção!
-          </Button>
+          <div className="campobotoes">
+              <Button type="submit" onClick={handleSubmit} className="submitpromo">
+                Criar Promoção!
+              </Button>
+              <Button onClick={topFunction} className="toppromo">
+                Scroll top
+              </Button>
+          </div>
 
         </Form>
       </div>
