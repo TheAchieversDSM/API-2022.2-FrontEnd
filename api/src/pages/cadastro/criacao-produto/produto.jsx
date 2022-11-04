@@ -156,7 +156,6 @@ export default function Produto() {
                                         <CreatableSelect
                                             isMulti
                                             name="produtoCategoria"
-                                            value={fields.produtoCategoria}
                                             options={categorias}
                                             onChange={event => handleChangeCategoria(index, event)}
                                             isClearable={true}
