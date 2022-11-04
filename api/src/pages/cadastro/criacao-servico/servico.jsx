@@ -241,9 +241,10 @@ export default function Servico() {
                                             onChange={event => handleChangeProdutos(index, event)}
                                             isClearable={true}
                                             isSearchable={true}
-                                            closeMenuOnSelect={false}
+                                            closeMenuOnSelect={true}
                                             isLoading={false}
                                             options={options}
+                                            value = {fields.servicoProduto}
                                         />
                                     </Form.Group>
 
