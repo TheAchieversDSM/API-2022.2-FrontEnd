@@ -35,6 +35,11 @@ export default function Produto() {
         }
     }
 
+    
+  const topFunction = () => {
+    document.documentElement.scrollTop = 0;
+}
+
     const handleChange = (index, event) => {
         let data = [...formValue];
         data[index][event.target.name] = event.target.value;
@@ -184,7 +189,12 @@ export default function Produto() {
                         )
                     })}
 
-                    <Button type="submit" onClick={handleSubmit}>Criar produto!</Button>
+                    <div class="campobotoes">
+                        <Button type="submit" onClick={handleSubmit} className="submitpromo">Criar produto!</Button>
+                        <Button onClick={topFunction} className="toppromo">
+                            Scroll top
+                        </Button>
+                    </div>
                 </Form>
 
             </div>
