@@ -162,6 +162,11 @@ export default function Servico() {
         }
     }
 
+    
+  const topFunction = () => {
+    document.documentElement.scrollTop = 0;
+}
+
     function handleChange(index, event) {
         console.log(event.target);
         let data = [...formValue];
@@ -353,7 +358,12 @@ export default function Servico() {
                         )
                     })}
 
-                    <Button type="submit" onClick={handleSubmit}>Criar Servico!</Button>
+                    <div class="campobotoes">
+                        <Button type="submit" onClick={handleSubmit} className="submitpromo">Criar Servico!</Button>
+                        <Button onClick={topFunction} className="toppromo">
+                            Scroll top
+                        </Button>
+                    </div>
                 </Form>
 
             </div>
