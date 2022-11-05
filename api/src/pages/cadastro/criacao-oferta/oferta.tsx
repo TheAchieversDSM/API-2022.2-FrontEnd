@@ -94,7 +94,7 @@ export default function Oferta() {
     return (
         <>
             <div className='container-promo'>
-                <h1>Cadastro de oferta</h1>
+                <h1>Cadastro de Oferta</h1>
 
                 <Form>
 
