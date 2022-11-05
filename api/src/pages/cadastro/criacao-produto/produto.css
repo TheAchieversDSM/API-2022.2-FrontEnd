@@ -23,6 +23,14 @@ h1 {
     font-size: 18px;
 }
 
-.FormText{
-  max-height: auto;
+.FormText {
+    max-height: auto;
+}
+
+#myInputProduct {
+    margin-bottom: 15px !important;
+}
+
+#pesquisar {
+    width: 480px
 }

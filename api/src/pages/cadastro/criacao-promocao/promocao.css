@@ -51,3 +51,7 @@ h1 {
     position: fixed;
     top: 400px;
 }
+
+#myInputPromotion {
+    margin-bottom: 15px !important;
+}

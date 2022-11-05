@@ -137,16 +137,16 @@ export default function Promocao() {
 
     return (
         <>
-                <Form id='myInputPromotion' className="d-flex">
-                    <Form.Group as={Col} md="6">
-                        <Form.Label>Pesquisar</Form.Label>
-                        <Form.Control id='pesquisar'
-                            name="promocaoNome"
-                            type="text"
-                            onKeyUp={filter()}
-                            placeholder="Insira o nome da promoção"/>
-                    </Form.Group>
-                </Form>
+            <Form id='myInputPromotion' className="d-flex">
+                <Form.Group as={Col} md="6">
+                    <Form.Label>Pesquisar</Form.Label>
+                    <Form.Control id='pesquisar'
+                        name="promocaoNome"
+                        type="text"
+                        onKeyUp={filter()}
+                        placeholder="Insira o nome da promoção" />
+                </Form.Group>
+            </Form>
 
             <div className="container-promo">
 
@@ -229,20 +229,20 @@ export default function Promocao() {
 
                     <div className="campobotoes">
 
-                        <Button type="submit" onClick={handleSubmit} className="submitpromo">
-                            Criar promoção!
-                        </Button>
-
-                        <Button type="submit" onClick={duplicarClick} className="criarpromo">
+                        <Button type="submit" onClick={duplicarClick} className="submitpromo">
                             Criar mais campos!
                         </Button>
 
-                        <Button onClick={topFunction} className="toppromo">
-                            Scroll top
+                        <Button type="submit" onClick={topFunction} className="criarpromo">
+                            Scroll top!
                         </Button>
 
-                        <Button onClick={bottomFunction} className="botpromo">
+                        <Button onClick={botFunction} className="toppromo">
                             Scroll bottom
+                        </Button>
+
+                        <Button onClick={handleSubmit} className="botpromo">
+                            Criar produto
                         </Button>
 
                     </div >
@@ -250,7 +250,7 @@ export default function Promocao() {
                 </Form >
 
             </div >
-            
+
         </>
     );
 }

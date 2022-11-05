@@ -140,16 +140,16 @@ export default function Produto() {
     return (
         <>
 
-                <Form id='myInputProduct' className="d-flex">
-                    <Form.Group as={Col} md="6">
-                        <Form.Label>Pesquisar</Form.Label>
-                        <Form.Control id='pesquisar'
-                            name="produtoNome"
-                            type="text"
-                            onKeyUp={filter()}
-                            placeholder="Insira o nome do Produto"/>
-                    </Form.Group>
-                </Form>
+            <Form id='myInputProduct' className="d-flex">
+                <Form.Group as={Col} md="6">
+                    <Form.Label>Pesquisar</Form.Label>
+                    <Form.Control id='pesquisar'
+                        name="produtoNome"
+                        type="text"
+                        onKeyUp={filter()}
+                        placeholder="Insira o nome do Produto" />
+                </Form.Group>
+            </Form>
 
             <div className='container-promo'>
 
@@ -247,20 +247,20 @@ export default function Produto() {
 
                     <div className="campobotoes">
 
-                        <Button type="submit" onClick={handleSubmit} className="submitpromo">
-                            Criar produto!
-                        </Button>
-
-                        <Button type="submit" onClick={duplicarClick} className="criarpromo">
+                        <Button type="submit" onClick={duplicarClick} className="submitpromo">
                             Criar mais campos!
                         </Button>
 
-                        <Button onClick={topFunction} className="toppromo">
-                            Voltar ao início!
+                        <Button type="submit" onClick={topFunction} className="criarpromo">
+                            Scroll top!
                         </Button>
 
-                        <Button onClick={bottomFunction} className="botpromo">
-                            Voltar para o final da tela!
+                        <Button onClick={botFunction} className="toppromo">
+                            Scroll bottom
+                        </Button>
+
+                        <Button onClick={handleSubmit} className="botpromo">
+                            Criar produto
                         </Button>
 
                     </div>

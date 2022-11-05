@@ -217,16 +217,16 @@ export default function Pacote() {
 
     return (
         <>
-                <Form id='myInputPackage' className="d-flex">
-                    <Form.Group as={Col} md="6">
-                        <Form.Label>Pesquisar</Form.Label>
-                        <Form.Control id='pesquisar'
-                            name="pacoteNome"
-                            type="text"
-                            onKeyUp={filter()}
-                            placeholder="Insira o nome do Produto"/>
-                    </Form.Group>
-                </Form>
+            <Form id='myInputPackage' className="d-flex">
+                <Form.Group as={Col} md="6">
+                    <Form.Label>Pesquisar</Form.Label>
+                    <Form.Control id='pesquisar'
+                        name="pacoteNome"
+                        type="text"
+                        onKeyUp={filter()}
+                        placeholder="Insira o nome do Produto" />
+                </Form.Group>
+            </Form>
 
             <div className='container-promo'>
 
@@ -357,20 +357,20 @@ export default function Pacote() {
 
                     <div className="campobotoes">
 
-                        <Button type="submit" onClick={handleSubmit} className="submitpromo">
-                            Criar pacote!
-                        </Button>
-
-                        <Button type="submit" onClick={duplicarClick} className="criarpromo">
+                        <Button type="submit" onClick={duplicarClick} className="submitpromo">
                             Criar mais campos!
                         </Button>
 
-                        <Button onClick={topFunction} className="toppromo">
-                            Scroll top
+                        <Button type="submit" onClick={topFunction} className="criarpromo">
+                            Scroll top!
                         </Button>
 
-                        <Button onClick={bottomFunction} className="botpromo">
+                        <Button onClick={botFunction} className="toppromo">
                             Scroll bottom
+                        </Button>
+
+                        <Button onClick={handleSubmit} className="botpromo">
+                            Criar produto
                         </Button>
 
                     </div>

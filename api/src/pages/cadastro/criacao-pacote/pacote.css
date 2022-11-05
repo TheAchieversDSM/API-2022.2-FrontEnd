@@ -30,3 +30,7 @@ hr {
 .FormText{
   max-height: auto;
 }
+
+#myInputPackage {
+    margin-bottom: 15px !important;
+}

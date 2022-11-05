@@ -207,27 +207,30 @@ export default function Servico() {
 
     return (
         <>
-                <Form id='myInput' className="d-flex">
-                    <Form.Group as={Col} md="6">
-                        <Form.Label>Pesquisar</Form.Label>
-                        <Form.Control id='pesquisar'
-                            name="servicoNome"
-                            type="text"
-                            onKeyUp={filter()}
-                            placeholder="Insira o nome do Serviço"/>
-                    </Form.Group>
+            <Form id='myInput' className="d-flex">
+                <Form.Group as={Col} md="6">
+                    <Form.Label>Pesquisar</Form.Label>
+                    <Form.Control id='pesquisar'
+                        name="servicoNome"
+                        type="text"
+                        placeholder="Insira o nome do Serviço" 
+                        onKeyUp={filter()}
+                    />
+                </Form.Group>
 
-                    <Form.Group as={Col} md="6">
-                                        <Form.Label>Categoria</Form.Label>
-                                        <CreatableSelect
-                                            name="serviçoCategoria"
-                                            options={categorias}
-                                            isClearable={true}
-                                            isSearchable={true}
-                                            closeMenuOnSelect={true}
-                                            isLoading={false} />
-                                    </Form.Group>
-                </Form>
+{/*                 <Form.Group as={Col} md="6">
+                    <Form.Label>Categoria</Form.Label>
+                    <CreatableSelect
+                        name="serviçoCategoria"
+                        options={categorias}
+                        isLoading={false}
+                        isClearable={true}
+                        isSearchable={true}
+                        closeMenuOnSelect={true}
+                    />
+                </Form.Group> */}
+            </Form>
+
             <div className='container-promo'>
 
                 <h1>Cadastro de Serviços</h1>
@@ -375,20 +378,20 @@ export default function Servico() {
 
                     <div className="campobotoes">
 
-                        <Button type="submit" onClick={handleSubmit} className="submitpromo">
-                            Criar serviço!
-                        </Button>
-
-                        <Button type="submit" onClick={duplicarClick} className="criarpromo">
+                        <Button type="submit" onClick={duplicarClick} className="submitpromo">
                             Criar mais campos!
                         </Button>
 
-                        <Button onClick={topFunction} className="toppromo">
-                            Scroll top
+                        <Button type="submit" onClick={topFunction} className="criarpromo">
+                            Scroll top!
                         </Button>
 
-                        <Button onClick={bottomFunction} className="botpromo">
+                        <Button onClick={botFunction} className="toppromo">
                             Scroll bottom
+                        </Button>
+
+                        <Button onClick={handleSubmit} className="botpromo">
+                            Criar produto
                         </Button>
 
                     </div>
