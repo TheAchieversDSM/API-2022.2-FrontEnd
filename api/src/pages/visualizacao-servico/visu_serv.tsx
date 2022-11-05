@@ -127,6 +127,7 @@ export default function VisualizacaoServ() {
                         <h1 className="name">{servico.nome}</h1>
                         <div className="descricao">
                             <p>{servico.descricao}</p>
+                            <Button onClick={() => adicionarCarrinho({id: servico.id , nome: servico.nome})} ><Link to={`/carrinho/servico/${servico.id}`}>Ver Serviço!</Link></Button>
                         </div>
                     </div>
                 </div>
