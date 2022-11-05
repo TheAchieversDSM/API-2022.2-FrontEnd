@@ -207,7 +207,7 @@ export default function Servico() {
 
     return (
         <>
-         <Form id='myInput' className="d-flex">
+                <Form id='myInput' className="d-flex">
                     <Form.Group as={Col} md="6">
                         <Form.Label>Pesquisar</Form.Label>
                         <Form.Control id='pesquisar'

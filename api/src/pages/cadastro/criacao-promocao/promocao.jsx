@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import filter from '../../../functions/filter';
+
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
@@ -135,22 +137,34 @@ export default function Promocao() {
 
     return (
         <>
+                <Form id='myInputPromotion' className="d-flex">
+                    <Form.Group as={Col} md="6">
+                        <Form.Label>Pesquisar</Form.Label>
+                        <Form.Control id='pesquisar'
+                            name="promocaoNome"
+                            type="text"
+                            onKeyUp={filter()}
+                            placeholder="Insira o nome da promoção"/>
+                    </Form.Group>
+                </Form>
+
             <div className="container-promo">
 
                 <h1>Cadastro de Promoções</h1>
 
-                <Form>
+                <Form id='myDivPromotion'>
 
                     {formValue.map((fields, index) => {
 
                         return (
 
-                            <div key={index} className="row">
+                            <div key={index} id={`campoPromotion-${index}`} className="row">
 
                                 <Row className="mb-3">
                                     <Form.Group as={Col} md="6">
                                         <Form.Label>Nome da promoção</Form.Label>
                                         <Form.Control
+                                            id={`campoNomePromotion-${index}`}
                                             required
                                             name="promocaoNome"
                                             value={fields.promocaoNome}

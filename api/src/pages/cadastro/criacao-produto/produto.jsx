@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import filter from '../../../functions/filter';
+
 import CreatableSelect from 'react-select/creatable';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -138,22 +140,34 @@ export default function Produto() {
     return (
         <>
 
+                <Form id='myInputProduct' className="d-flex">
+                    <Form.Group as={Col} md="6">
+                        <Form.Label>Pesquisar</Form.Label>
+                        <Form.Control id='pesquisar'
+                            name="produtoNome"
+                            type="text"
+                            onKeyUp={filter()}
+                            placeholder="Insira o nome do Produto"/>
+                    </Form.Group>
+                </Form>
+
             <div className='container-promo'>
 
                 <h1>Cadastro de Produtos</h1>
 
-                <Form>
+                <Form id='myDivProduct'>
 
                     {formValue.map((fields, index) => {
 
                         return (
 
-                            <div key={index}>
+                            <div key={index} id={`campoProduct-${index}`}>
 
                                 <Row className="mb-3">
                                     <Form.Group as={Col} md="6">
                                         <Form.Label>Nome do produto</Form.Label>
                                         <Form.Control
+                                            id={`campoNomeProduct-${index}`}
                                             required
                                             name="produtoNome"
                                             value={fields.produtoNome}
