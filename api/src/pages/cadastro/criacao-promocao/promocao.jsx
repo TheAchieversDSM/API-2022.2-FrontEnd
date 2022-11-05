@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
-import Navigation from "../../../components/navbar";
-import { Alert } from "react-bootstrap";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import Sidebar from "../../../components/sidebar";
 import Select from "react-select";
 import axios from "axios";
 
@@ -16,26 +13,75 @@ const modeloPromocao = [{ value: "", label: "", preco: "" }];
 const promocaoModelo = { id: "", preco: "", nome: "" };
 
 export default function Promocao() {
-    const [promocoes, setPromocoes] = useState(promocaoModelo);
     const [pacotes, setPacotes] = useState([promocaoModelo]);
 
-    let listaPromocao = [];
+    let lista = [];
 
-    const [formValue, setFormValue] = useState([
-        {
+    const [formValue, setFormValue] = useState([{
+        promocaoNome: "",
+        promocaoPreco: "",
+        promocaoPacote: lista
+    }]);
+
+    const handleChange = (index, event) => {
+        let data = [...formValue];
+
+        data[index][event.target.name] = event.target.value;
+
+        setFormValue(data);
+    };
+
+    const handleChangePacotes = (index, event) => {
+        let data = [...formValue];
+        var promocaoPac = [];
+
+        event.map((info) => {
+            let pacote = {
+                id: info.value,
+                nome: info.label,
+                preco: info.preco,
+            };
+
+
+            promocaoPac.push(pacote);
+        })
+
+        data[index].promocaoPacote = promocaoPac;
+
+        setFormValue(data);
+    };
+
+    const { promocaoNome, promocaoPreco, promocaoPacote } = formValue;
+
+    const handleSubmit = (event) => {
+        let data = [...formValue];
+
+        for (let i = 0; i < data.length; i++) {
+            const promocao = {
+                nome: data[i].promocaoNome,
+                preco: data[i].promocaoPreco,
+                pacotes: data[i].promocaoPacote,
+            };
+
+            event.preventDefault();
+
+            axios.post(`http://localhost:8080/promocoes/criarPromocao`, promocao).then((res) => {
+                alert("Promoção criada!");
+            });
+        }
+
+        let valores = {
             promocaoNome: "",
             promocaoPreco: "",
-            promocaoPacote: listaPromocao,
-        },
-    ]);
+            promocaoPacote: "",
+        };
+
+        setFormValue([valores]);
+    };
 
     const duplicarTab = (event) => {
         if (event.key === "Tab") {
-            let newfield = {
-                promocaoNome: "",
-                promocaoPreco: "",
-                promocaoPacote: "",
-            };
+            let newfield = { promocaoNome: "", promocaoPreco: "", promocaoPacote: "" };
             setFormValue([...formValue, newfield]);
         }
     };
@@ -49,42 +95,6 @@ export default function Promocao() {
             top: document.documentElement.scrollHeight,
             behavior: 'smooth'
         });
-    };
-
-    const handleChangePacotes = (index, event) => {
-        let data = [...formValue];
-        var promocaoPac = [];
-        event.map((info) => {
-            let pacote = {
-                id: info.value,
-                nome: info.label,
-                preco: info.preco,
-            };
-            console.log(pacote);
-            promocaoPac.push(pacote);
-        })
-
-        /*for (let i = 0; i < event.length; i++) {
-          let pacote = {
-            id: event[index].value,
-            preco: event[index].preco,
-            nome: event[index].label,
-          };
-          console.log(pacote);
-          promocaoPac.push(pacote);
-        }*/
-
-        data[index].promocaoPacote = promocaoPac;
-
-        setFormValue(data);
-    };
-
-    const handleChange = (index, event) => {
-        let data = [...formValue];
-        data[index][event.target.name] = event.target.value;
-        setFormValue(data);
-
-        console.log(formValue);
     };
 
     useEffect(() => {
@@ -107,39 +117,10 @@ export default function Promocao() {
         render();
     }, []);
 
-    const { promocaoNome, promocaoPreco, promocaoPacote } = formValue;
-
-    const handleSubmit = (event) => {
-        let data = [...formValue];
-
-        for (let i = 0; i < data.length; i++) {
-            const promocao = {
-                nome: data[i].promocaoNome,
-                preco: data[i].promocaoPreco,
-                pacotes: data[i].promocaoPacote,
-            };
-
-            event.preventDefault();
-
-            axios
-                .post(`http://localhost:8080/promocoes/criarPromocao`, promocao)
-                .then((res) => {
-                    alert("Promoção criada!");
-                });
-        }
-
-        let valores = {
-            promocaoNome: "",
-            promocaoPreco: "",
-            promocaoPacote: "",
-        };
-
-        setFormValue([valores]);
-    };
-
     return (
         <>
             <div className="container-promo">
+
                 <h1>Cadastro de Promoções</h1>
 
                 <Form>
@@ -154,9 +135,9 @@ export default function Promocao() {
                                             required
                                             name="promocaoNome"
                                             value={fields.promocaoNome}
-                                            onChange={(event) => handleChange(index, event)}
                                             type="text"
                                             placeholder="Insira o nome da promoção"
+                                            onChange={(event) => handleChange(index, event)}
                                         />
                                     </Form.Group>
                                 </Row>
@@ -168,9 +149,9 @@ export default function Promocao() {
                                             required
                                             name="promocaoPreco"
                                             value={fields.promocaoPreco}
-                                            onChange={(event) => handleChange(index, event)}
                                             type="number"
                                             placeholder="Insira o valor de desconto da promoção"
+                                            onChange={(event) => handleChange(index, event)}
                                         />
                                     </Form.Group>
                                 </Row>
@@ -182,14 +163,17 @@ export default function Promocao() {
                                             isMulti
                                             name="promocaoPacote"
                                             options={pacotes}
-                                            onKeyDown={(event) => duplicarTab(event)}
-                                            onChange={(event) => handleChangePacotes(index, event)}
+                                            isLoading={true}
                                             isClearable={true}
                                             isSearchable={true}
                                             closeMenuOnSelect={false}
+                                            onChange={(event) => handleChangePacotes(index, event)}
+                                            onKeyDown={(event) => duplicarTab(event)}
                                         />
                                     </Form.Group>
                                 </Row>
+
+                                <hr />
 
                             </div>
                         );
@@ -208,9 +192,11 @@ export default function Promocao() {
                         <Button onClick={bottomFunction} className="botpromo">
                             Scroll bottom
                         </Button>
+
                     </div>
 
                 </Form>
+
             </div>
         </>
     );
