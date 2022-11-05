@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import filter from '../../../functions/filter';
 import TooltipDuvida from '../../../components/tooltip';
 import CreatableSelect from 'react-select/creatable';
 import Button from 'react-bootstrap/Button';
@@ -206,23 +207,45 @@ export default function Servico() {
 
     return (
         <>
+         <Form id='myInput' className="d-flex">
+                    <Form.Group as={Col} md="6">
+                        <Form.Label>Pesquisar</Form.Label>
+                        <Form.Control id='pesquisar'
+                            name="servicoNome"
+                            type="text"
+                            onKeyUp={filter()}
+                            placeholder="Insira o nome do Serviço"/>
+                    </Form.Group>
+
+                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Categoria</Form.Label>
+                                        <CreatableSelect
+                                            name="serviçoCategoria"
+                                            options={categorias}
+                                            isClearable={true}
+                                            isSearchable={true}
+                                            closeMenuOnSelect={true}
+                                            isLoading={false} />
+                                    </Form.Group>
+                </Form>
             <div className='container-promo'>
 
                 <h1>Cadastro de Serviços</h1>
 
-                <Form>
+                <Form id='myDIV'>
 
                     {formValue.map((fields, index) => {
 
                         return (
 
-                            <div key={index}>
+                            <div key={index} id={`campo-${index}`}>
 
                                 <Row className="mb-3">
                                     <Form.Group as={Col} md="6">
                                         <Form.Label>Nome do serviço</Form.Label>
                                         <Form.Control
                                             required
+                                            id={`campoNome-${index}`}
                                             name="servicoNome"
                                             value={fields.servicoNome}
                                             type="text"
