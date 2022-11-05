@@ -153,6 +153,19 @@ export default function Pacote() {
         }
     }
 
+    const duplicarClick = (event) => {
+        let newfield = { produtoNome: "", produtoQuantidade: "", produtoCategoria: "", produtoDescricao: "" }
+        setFormValue([...formValue, newfield])
+    }
+
+    const removerTab = (index) => {
+        let data = [...formValue];
+
+        data.splice(index, 1)
+
+        setFormValue(data)
+    }
+
     const topFunction = () => {
         document.documentElement.scrollTop = 0
     }
@@ -306,6 +319,19 @@ export default function Pacote() {
                                     </Form.Group>
                                 </Row>
 
+                                {index > 0 ?
+
+                                    <Button onClick={removerTab}>
+                                        Excluir campos
+                                    </Button>
+
+                                    :
+
+                                    <>
+                                    </>
+
+                                }
+
                                 <hr />
 
                             </div>
@@ -319,6 +345,10 @@ export default function Pacote() {
 
                         <Button type="submit" onClick={handleSubmit} className="submitpromo">
                             Criar pacote!
+                        </Button>
+
+                        <Button type="submit" onClick={duplicarClick} className="criarpromo">
+                            Criar mais campos!
                         </Button>
 
                         <Button onClick={topFunction} className="toppromo">

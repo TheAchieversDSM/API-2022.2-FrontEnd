@@ -97,7 +97,7 @@ export default function Servico() {
 
             servicosSelecionados.push(servico)
         }
-        
+
         data[index].servicoObrigatorios = servicosSelecionados
 
         setFormValue(data)
@@ -144,6 +144,19 @@ export default function Servico() {
         }
     }
 
+    const duplicarClick = (event) => {
+        let newfield = { produtoNome: "", produtoQuantidade: "", produtoCategoria: "", produtoDescricao: "" }
+        setFormValue([...formValue, newfield])
+    }
+
+    const removerTab = (index) => {
+        let data = [...formValue];
+
+        data.splice(index, 1)
+
+        setFormValue(data)
+    }
+
     const topFunction = () => {
         document.documentElement.scrollTop = 0;
     }
@@ -168,7 +181,7 @@ export default function Servico() {
 
                     servicos.push(option)
                 }
-                
+
                 setOptServ(servicos)
             })
 
@@ -187,7 +200,7 @@ export default function Servico() {
                 setOptions(produtos)
             })
         }
-        
+
         render()
     }, [])
 
@@ -316,6 +329,19 @@ export default function Servico() {
                                     </Form.Group>
                                 </Row>
 
+                                {index > 0 ?
+
+                                    <Button onClick={removerTab}>
+                                        Excluir campos
+                                    </Button>
+
+                                    :
+
+                                    <>
+                                    </>
+
+                                }
+
                                 <hr />
 
                             </div>
@@ -328,6 +354,10 @@ export default function Servico() {
 
                         <Button type="submit" onClick={handleSubmit} className="submitpromo">
                             Criar serviço!
+                        </Button>
+
+                        <Button type="submit" onClick={duplicarClick} className="criarpromo">
+                            Criar mais campos!
                         </Button>
 
                         <Button onClick={topFunction} className="toppromo">

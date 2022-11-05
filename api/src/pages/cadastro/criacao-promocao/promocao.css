@@ -23,22 +23,31 @@ h1 {
     font-size: 18px;
 }
 
-.campobotoes{
+.campobotoes {
     position: absolute;
     right: 500px;
     top: 220px
 }
 
-.submitpromo{
+.submitpromo {
+    width: 210px;
     position: fixed;
 }
 
-.toppromo{
+.criarpromo {
+    width: 210px;
     position: fixed;
     top: 280px;
 }
 
-.botpromo{
+.toppromo {
+    width: 210px;
     position: fixed;
     top: 340px;
+}
+
+.botpromo {
+    width: 210px;
+    position: fixed;
+    top: 400px;
 }
