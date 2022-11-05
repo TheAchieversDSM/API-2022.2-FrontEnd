@@ -199,7 +199,7 @@ export default function Produto() {
                                             isMulti
                                             name="produtoCategoria"
                                             options={categorias}
-                                            isLoading={true}
+                                            isLoading={false}
                                             isClearable={true}
                                             isSearchable={true}
                                             closeMenuOnSelect={true}
@@ -245,7 +245,7 @@ export default function Produto() {
 
                     })}
 
-                    <div class="campobotoes">
+                    <div className="campobotoes">
 
                         <Button type="submit" onClick={handleSubmit} className="submitpromo">
                             Criar produto!

@@ -131,7 +131,7 @@ export default function Pacote() {
                 pacote.id = res.data
             })
 
-            axios.post(`http://localhost:8080/atualizarPacotes/${pacote.servico.id}`, pacote).then((res) => {
+            axios.post(`http://localhost:8080/servicos/atualizarPacotes/${pacote.servico.id}`, pacote).then((res) => {
 
             })
         }
@@ -291,7 +291,7 @@ export default function Pacote() {
                                             isMulti
                                             name="periodoPacote"
                                             options={periodo}
-                                            isLoading={true}
+                                            isLoading={false}
                                             isClearable={true}
                                             isSearchable={true}
                                             closeMenuOnSelect={true}
@@ -307,7 +307,7 @@ export default function Pacote() {
                                             isMulti
                                             name="pacoteServicos"
                                             options={servicos}
-                                            isLoading={true}
+                                            isLoading={false}
                                             isClearable={true}
                                             isSearchable={true}
                                             closeMenuOnSelect={true}
@@ -323,7 +323,7 @@ export default function Pacote() {
                                             isMulti
                                             name="pacoteProdutos"
                                             options={produto}
-                                            isLoading={true}
+                                            isLoading={false}
                                             isClearable={true}
                                             isSearchable={true}
                                             closeMenuOnSelect={false}
@@ -355,7 +355,7 @@ export default function Pacote() {
                     })}
 
 
-                    <div class="campobotoes">
+                    <div className="campobotoes">
 
                         <Button type="submit" onClick={handleSubmit} className="submitpromo">
                             Criar pacote!

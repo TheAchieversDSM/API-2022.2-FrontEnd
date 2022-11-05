@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import Botao from '../../components/button';
+import { useEffect, useState } from 'react';
+
+import { Alert, Button, Card } from 'react-bootstrap';
+import 'react-alice-carousel/lib/alice-carousel.css';
 import Navigation from '../../components/navbar';
 import AliceCarousel from 'react-alice-carousel';
-import 'react-alice-carousel/lib/alice-carousel.css';
 import { Link, useParams } from "react-router-dom"
-import { Alert, Button, Card } from 'react-bootstrap';
-import Slider from 'react-slick'
+import { BiCheck } from 'react-icons/bi';
 import axios from 'axios';
 
 import './visu.css'
-import { BiCheck } from 'react-icons/bi';
 
 let modelo = [{ 'id': '', 'nome': '' }]
-
-
 
 let modeloPacote = [
     {
@@ -39,19 +36,20 @@ export default function VisualizacaoServ() {
     const [promocoes, setPromocoes] = useState(modeloPromocao)
     const [complementos, setComplementos] = useState(modelo)
     const [pacote, setPacotes] = useState(modeloPacote)
-    const { id } = useParams();
-    const [oferta, setOferta] = useState(modeloOferta)
 
+    const { id } = useParams();
 
     function soma(ofertas: any) {
         var soma = 0
+
         for (let index = 0; index < ofertas.length; index++) {
             soma += parseFloat(ofertas[index].preco)
         }
+
         return soma
     }
 
-    function desconto(desconto: any, valorTotal: any){
+    function desconto(desconto: any, valorTotal: any) {
         return (valorTotal - (valorTotal * parseFloat(desconto)) / 100).toFixed(2)
     }
 
@@ -84,10 +82,6 @@ export default function VisualizacaoServ() {
         render()
     })
 
-    const deletarCarrinho = () => {
-        localStorage.removeItem('servicoCarrinho')
-    }
-
     function adicionarCarrinho(servicoCarrinho: any) {
         if (localStorage.getItem("servicoCarrinho") != undefined) {
             let carrinho = []
@@ -110,12 +104,35 @@ export default function VisualizacaoServ() {
         document.documentElement.scrollTop = 0;
     }
 
-    const settings = {
-        infinite: true,
-        speed: 700,
-        slidesToShow: 1,
-        slidesToScroll: 1
-    };
+    useEffect(() => {
+        async function render() {
+            axios.get(`http://localhost:8080/servicos/pegarServico/${id}`,).then((res) => {
+                setServico(res.data)
+
+                setComplementos(res.data.complementares)
+                console.log(res.data.complementares)
+            })
+        }
+
+        render()
+    }, [servico])
+
+    useEffect(() => {
+        function render() {
+            axios.post(`http://localhost:8080/servicos/pegarOfertas`, [servico]).then((res) => {
+                setPacotes(res.data)
+            })
+
+            axios.post(`http://localhost:8080/servicos/pegarPromocoes`, [servico]).then((res) => {
+                setPromocoes(res.data)
+            }).catch(error => {
+                console.log(error.message);
+            })
+
+        }
+        
+        render()
+    })
 
     return (
         <>
@@ -127,6 +144,7 @@ export default function VisualizacaoServ() {
                         <h1 className="name">{servico.nome}</h1>
                         <div className="descricao">
                             <p>{servico.descricao}</p>
+                            <Button onClick={() => adicionarCarrinho({id: servico.id , nome: servico.nome})} ><Link to={`/carrinho/servico/${servico.id}`}>Ver Serviço!</Link></Button>
                         </div>
                     </div>
                 </div>
@@ -139,12 +157,11 @@ export default function VisualizacaoServ() {
                                 <div className="pact"></div>
                                 <h3>{info.pacote.nome}</h3>
                                 <h4>R$ {info.preco}</h4>
-                                {info.pacote.servicos.map((servico: {id: string,nome: string}) => 
+                                {info.pacote.servicos.map((servico: { id: string, nome: string }) =>
                                     <div>
                                         <p><BiCheck className="iconecheck" />{servico.nome}</p>
                                     </div>
                                 )}
-                                <Button onClick={() => adicionarCarrinho(info)} variant="outline-primary" className="promo">Assine agora</Button>
                             </div>
                         )}
                     </div>
@@ -178,15 +195,15 @@ export default function VisualizacaoServ() {
                                                         <div className="card-imgserv"></div>
                                                         <h4>{promocao.nome}</h4>
                                                         <h5>{promocao.preco}% OFF</h5>
-                                                            {promocao.ofertas.map(info =>
-                                                                <>
-                                                                    <p><BiCheck className="iconecheck" />{info.pacote.nome} - R$ {info.preco}</p>
-                                                                </>
-                                                            )}
+                                                        {promocao.ofertas.map(info =>
+                                                            <>
+                                                                <p><BiCheck className="iconecheck" />{info.pacote.nome} - R$ {info.preco}</p>
+                                                            </>
+                                                        )}
                                                         <p>Preço original: R$ {soma(promocao.ofertas)} </p>
 
-                                                        <p>Preço Com Desconto: R$ {desconto(promocao.preco,soma(promocao.ofertas))} </p>
-                                                                
+                                                        <p>Preço Com Desconto: R$ {desconto(promocao.preco, soma(promocao.ofertas))} </p>
+
                                                         <div className="card-botao">
                                                             <Button onClick={() => adicionarCarrinho(promocao)} variant="outline-primary" className="promo">Assine agora</Button>
                                                         </div>

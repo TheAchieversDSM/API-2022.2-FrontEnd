@@ -75,7 +75,7 @@ export default function Promocao() {
         let valores = {
             promocaoNome: "",
             promocaoPreco: "",
-            promocaoPacote: lista
+            promocaoPacote: ""
         }
 
         setFormValue([valores])
@@ -196,7 +196,7 @@ export default function Promocao() {
                                             isMulti
                                             name="promocaoPacote"
                                             options={pacotes}
-                                            isLoading={true}
+                                            isLoading={false}
                                             isClearable={true}
                                             isSearchable={true}
                                             closeMenuOnSelect={false}

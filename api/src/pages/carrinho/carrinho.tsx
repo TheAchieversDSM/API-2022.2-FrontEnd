@@ -1,181 +1,207 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Button, Card, Form } from "react-bootstrap";
+import { Link, useParams } from "react-router-dom";
 import AlertaProm from "../../components/alerta";
 import Navigation from "../../components/navbar";
 import { BsFillTrashFill } from 'react-icons/bs'
 import axios from 'axios';
 import './carrinho.css'
 
-let modelo = [
-    {
-        'preco': '',
-        'pacote': { 'id': '', 'nome': '', 'servicos': [{ 'id': '', 'nome': '' }] },
-        'ofertas': [{ 'preco': '' }],
-        'nome': '',
-        'id': ''
-    }
-]
+let modelo = [{ 'id': '', 'nome': '', 'descricao': '', }]
 
-var mounted = 0
+let modeloObrigatorio = [{ 'id': '', 'nome': '', 'descricao': '' }]
+
+var cont = 0
 
 export default function Carrinho() {
-    const [carrinho, setCarrinho] = useState(modelo)
-    const [servicos, setServicos] = useState(Object)
-    const [complementares, setComplementares] = useState([{ 'id': '', 'nome': '' }])
-    const [pacotes, setPacotes] = useState(Object)
-
+    const [servico, setServico] = useState(Object)
+    const { id } = useParams();
+    const [complementos, setComplementos] = useState(modelo)
+    const [servicosObrigatorios, setservicosObrigatorios] = useState(modeloObrigatorio)
 
     useEffect(() => {
+        async function render() {
+            axios.get(`http://localhost:8080/servicos/pegarServico/${id}`,).then((res) => {
 
-        function render() {
-            if (localStorage.getItem("servicoCarrinho") != undefined) {
-                setCarrinho(JSON.parse(localStorage.getItem("servicoCarrinho")!))
-                for (let index = 0; index < carrinho.length; index++) {
+                
+                setServico(res.data)
+                console.log(res.data)
 
-                    if (carrinho[index].pacote?.nome != '') {
-                        axios.post('http://localhost:8080/servicos/pegarComplementosParaCarrinho', carrinho[index].pacote?.servicos).then(res => {
-                            setComplementares(res.data)
-                        })
-                    }
+                setComplementos(res.data.complementares)
+                console.log(res.data.complementares)
 
-                }
+                setservicosObrigatorios(res.data.servicosObrigatorios)
+                console.log(res.data.servicosObrigatorios)
+                
+             
+                
 
-                for (let index = 0; index < carrinho.length; index++) {
-                    if (carrinho[index].pacote) {
-                        for (let indexPac = 0; indexPac < carrinho[index].pacote.servicos.length; indexPac++) {
-                            axios.get(`http://localhost:8080/servicos/todosServicosObrigatorios/${carrinho[index].pacote.servicos[indexPac].id}`).then(res => {
-                                for (let indexServ = 0; indexServ < res.data.length; indexServ++) {
-                                    for (let indexCarrinho = 0; indexCarrinho < carrinho.length; indexCarrinho++) {
-                                        carrinho[indexCarrinho].pacote.servicos.map(servi => {
-                                            if (res.data[indexServ].id === servi.id) {
-                                                document.getElementsByClassName('limpar')[0].removeAttribute('disabled');
-                                            } else {
-                                                document.getElementsByClassName("limpar")[0].setAttribute("disabled", "disabled");
-                                            }
-                                        })
-                                    }
-                                }
 
-                            }).catch((err) => {
-                                console.log(err)
-                            })
-                        }
-                    }
-                }
 
-                mounted += 1
-            }
 
-            else {
-                setCarrinho(modelo)
-            }
+
+            })
+
+            axios.get(`http://localhost:8080/pacotes/pegarPeloServico/${servico.id}`).then((res)=>{
+                setServico({...servico, pacotes: res.data})
+                console.log(res.data)
+            })
         }
-        render()
-    })
-
-
-    function limparCarrinho() {
-        localStorage.removeItem("servicoCarrinho")
-        window.location.reload()
-    }
-
-    function deletar(id: string) {
-        for (let index = 0; index < carrinho.length; index++) {
-            if (carrinho[index].id == id) {
-                //console.log(carrinho[index]);
-                carrinho.splice(index, 1)
-                localStorage.setItem("servicoCarrinho", JSON.stringify(carrinho))
-            }
+        if(cont <=3){
+            render()
+            cont += 1
         }
-        window.location.reload()
-    }
-
-    function soma() {
-        var soma = 0
-        for (let index = 0; index < carrinho.length; index++) {
-            if (carrinho[index].nome === '') {
-                soma += 0
-
-            } else if (carrinho[index].ofertas) {
-
-                let valorOriginal = 0
-                for (let ofertaIndex = 0; ofertaIndex < carrinho[index].ofertas?.length; ofertaIndex++) {
-                    valorOriginal += parseFloat(carrinho[index].ofertas[ofertaIndex].preco)
+        
+    }, [servico])
 
 
-                }
-                soma += (valorOriginal - (valorOriginal * parseFloat(carrinho[index].preco)) / 100)
-
-            } else {
-                soma += parseFloat(carrinho[index].preco)
-            }
-        }
-        return soma.toFixed(2)
-    }
-
-    function precoPromocao(promocao: any) {
-        var soma = 0
-        for (let index = 0; index < promocao.ofertas.length; index++) {
-            //console.log(parseFloat(carrinho[index].preco));
-
-            soma += parseFloat(promocao.ofertas[index].preco)
-        }
-        return (soma - (soma * promocao.preco) / 100).toFixed(2)
-    }
 
     return (
         <>
             <Navigation />
-            <div className="cont1">
+
+            <div className="cont">
                 <div className="row">
                     <div className="listac col-9">
-                        <table className="table table-hover">
-                            <tbody>
-                                {
-                                    carrinho[0] != undefined ?
-                                        carrinho.map((carrinho) =>
-                                            <div>
-                                                <tr>
-                                                    <th scope="row"><div className="iconeimg"></div></th>
-                                                    <td>{carrinho.nome ? carrinho.nome : carrinho.pacote.nome}</td>
-                                                    <td className="preco1">R$ {carrinho.nome ? precoPromocao(carrinho) : carrinho.preco}</td>
-                                                    <td><BsFillTrashFill onClick={() => { deletar(carrinho.id) }} /></td>
-                                                </tr>
-                                            </div>
-                                        )
-                                        : <><h4>Você ainda não adicionou produtos ao seu carrinho!</h4></>
-                                }
-
-                            </tbody>
-                        </table>
-                        <h2 className="precototal">Preço total: R$ {carrinho[0] != undefined ? soma() : 0} </h2>
-                        <Button onClick={() => { limparCarrinho() }} className="limpar">Finalizar compra!</Button>
-
-                        {/*<AlertaProm prom="Essa promoção contém os seguintes produtos/serviços/pacotes" />*/}
-                    </div>
-
-
-                    {complementares?.length > 0 ?
-                        <div className="sug col-3">
-                            <div className="maissug">
-
-                                <h3 className="titulosug">Sugestões</h3>
-
-                                <div className="card sugest">
-                                    <div className="card-imgc"></div>
-                                    <div className="nome-prod">
-                                        <h5>{complementares[0]?.nome}</h5>
+                        <h3>Contratar {servico.nome}</h3>
+                        <div className="card card1">
+                            <h5 className="card-header card-header1">{servico.nome}</h5>
+                            <div className="card-body card-body1">
+                                <p className="card-text card-text1">{servico.descricao}</p>
+                                <div className="row">
+                                    <div className="col-4"> 
+                                    <Form.Select>
+                                        <option>Plano</option>
+                                        {servico.pacote?.map((pacote: any)=>
+                                                <option>{pacote.nome}</option>
+                                            )}
+                                        
+                                    </Form.Select>
+                                    
                                     </div>
-                                    <div className="card-botao">
-                                        <Button type="submit"><a href={`http://localhost:3000/servico/${complementares[0]?.id}`}>Ver serviço!</a></Button>
+                                    <div className="col-4">
+                                        <Form.Select>
+                                            <option>Período</option>
+                                            <option>Anual</option>
+                                            <option>Mensal</option>
+                                        </Form.Select>
+                                    </div>
+                                    <div className="col-4 value">
+                                        <h5>Valor: </h5>
+                                        <p>R$ 100,00</p>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-                        : <></>
+                        {servico.servicosObrigatorios?.length > 0 ?
+                            <div>
+                                {servicosObrigatorios != null ?
+                                    servicosObrigatorios.map(servicoObrigatorio =>
+                                <div className="card card1">
+                                    <h5 className="card-header card-header1"><Form.Check defaultChecked={true} label={servicoObrigatorio.nome}/></h5>
+                                    <div className="card-body card-body1">
+                                        <p className="card-text">{servicoObrigatorio.descricao}</p>
+                                        <div className="row">
+                                            <div className="col-4">
+                                                <Form.Select>
+                                                    <option>Plano</option>
+                                                    <option>Básico</option>
+                                                    <option>Médio</option>
+                                                </Form.Select>
+                                            </div>
+                                            <div className="col-4">
+                                                <Form.Select>
+                                                    <option>Período</option>
+                                                    <option>Anual</option>
+                                                    <option>Mensal</option>
+                                                </Form.Select>
+                                            </div>
+                                            <div className="col-4 value">
+                                                <h5>Valor: </h5>
+                                                <p>R$ 100,00</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                )
+                                : <></>
+                            }
+                        </div>
+                        :
+                        <></>
                     }
+                        {servico.complementares?.length > 0 ?
+                            <div>
+                                {complementos != null ?
+                                    complementos.map(complemento =>
+                                <div className="card card1">
+                                    <h5 className="card-header card-header1"><Form.Check label={complemento.nome}/></h5>
+                                    <div className="card-body card-body1">
+                                        <p className="card-text">{complemento.descricao}</p>
+                                        <div className="row">
+                                            <div className="col-4">
+                                                <Form.Select>
+                                                    <option>Plano</option>
+                                                    <option>Básico</option>
+                                                    <option>Médio</option>
+                                                </Form.Select>
+                                            </div>
+                                            <div className="col-4">
+                                                <Form.Select>
+                                                    <option>Período</option>
+                                                    <option>Anual</option>
+                                                    <option>Mensal</option>
+                                                </Form.Select>
+                                            </div>
+                                            <div className="col-4 value">
+                                                <h5>Valor: </h5>
+                                                <p>R$ 100,00</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                )
+                                : <></>
+                            }
+                        </div>
+                        :
+                        <></>
+                    }
+                    </div>
+
+                    <div className="resumo col-3">
+                        <ul className="list-group">
+                            <li className="list-group-item"><h4>RESUMO</h4></li>
+                            <li className="list-group-item"><Form.Check defaultChecked={true} label={servico.nome}/></li>
+                            {servico.servicosObrigatorios?.length > 0 ?
+                                <div>
+                                    {servicosObrigatorios != null ?
+                                    servicosObrigatorios.map(obrigatorio =>
+                                    <li className="list-group-item"><Form.Check defaultChecked={true} label={obrigatorio.nome}/></li>
+                                    )
+                                    : <></>
+                                }
+                                    </div>
+                                :
+                                <></>
+                            }
+                            {servico.complementares?.length > 0 ?
+                                <div>
+                                    {complementos != null ?
+                                    complementos.map(complemento =>
+                                    <li className="list-group-item"><Form.Check label={complemento.nome}/></li>
+                                    )
+                                    : <></>
+                                }
+                                    </div>
+                            :
+                            <></>
+                        }
+                        </ul>
+                        <h4 className="valor">Valor total: R$ 180,00</h4>
+                        <Button>Finalizar compra!</Button>
+                    </div>
+                    
                 </div>
 
             </div>
