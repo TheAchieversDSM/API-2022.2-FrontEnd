@@ -7,7 +7,6 @@ import Promocao from "./criacao-promocao/promocao";
 import Produto from "./criacao-produto/produto";
 import Servico from "./criacao-servico/servico";
 import Pacote from "./criacao-pacote/pacote";
-import Oferta from "./criacao-oferta/oferta";
 
 export default function Cadastro() {
     return (
@@ -22,7 +21,6 @@ export default function Cadastro() {
                     id="fill-tab-example"
                     className="mb-3"
                 >
-                    
                     <Tab eventKey="produtos" title="Produtos" className="tab1">
                         <Produto />
                     </Tab>
