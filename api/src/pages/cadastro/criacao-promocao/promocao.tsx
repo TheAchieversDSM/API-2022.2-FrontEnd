@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import Navigation from '../../components/navbar';
+import Navigation from '../../../components/navbar';
 import { Alert } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Sidebar from '../../components/sidebar';
+import Sidebar from '../../../components/sidebar';
 import Select from 'react-select';
 import axios from 'axios';
 
@@ -100,9 +100,6 @@ export default function Promocao() {
 
     return (
         <>
-            <Navigation />
-            <Sidebar />
-
             <div className='container-promo'>
 
                 <h1>Cadastro de Promoção</h1>

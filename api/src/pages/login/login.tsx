@@ -52,7 +52,7 @@ export default function Home() {
 
                     </Form>
 
-                    <Button type="submit"><Link to="/criacao-produto">Entrar!</Link></Button>
+                    <Button type="submit"><Link to="/listagens">Entrar!</Link></Button>
 
                 </div>
 

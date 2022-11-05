@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Select from 'react-select';
 import { BsTrash } from "react-icons/bs"
-import { Button, Col, Form, Row, Tab, Tabs } from "react-bootstrap";
+import {Tab, Tabs } from "react-bootstrap";
 import Navigation from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
 import Listagens from "./listagens/listagens";
@@ -19,7 +19,10 @@ export default function Gerenciamento() {
             <Sidebar />
 
             <div className="container-prod container">
-                <Tabs
+
+                <Listagens />
+
+                {/*<Tabs
                     defaultActiveKey="pacotesOfertas"
                     id="fill-tab-example"
                     className="mb-3"
@@ -28,7 +31,7 @@ export default function Gerenciamento() {
                         <GerOferta />
                     </Tab>
                     <Tab eventKey="servicos" title="Serviços" className="tab2">
-                        <GerServicos/>
+                        <GerServicos />
                     </Tab>
                     <Tab eventKey="promocoes" title="Promoções" className="tab3">
                         <GerPromocao/>
@@ -36,7 +39,7 @@ export default function Gerenciamento() {
                     <Tab eventKey="listagens" title="Listagens" className="tab4">
                         <Listagens />
                     </Tab>
-                </Tabs>
+                </Tabs>*/}
             </div>
         </>
     )

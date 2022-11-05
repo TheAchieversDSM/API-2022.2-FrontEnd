@@ -127,6 +127,7 @@ export default function VisualizacaoServ() {
                         <h1 className="name">{servico.nome}</h1>
                         <div className="descricao">
                             <p>{servico.descricao}</p>
+                            <Button onClick={() => adicionarCarrinho({id: servico.id , nome: servico.nome})} ><Link to={`/carrinho/servico/${servico.id}`}>Ver Serviço!</Link></Button>
                         </div>
                     </div>
                 </div>
@@ -144,7 +145,7 @@ export default function VisualizacaoServ() {
                                         <p><BiCheck className="iconecheck" />{servico.nome}</p>
                                     </div>
                                 )}
-                                <Button onClick={() => adicionarCarrinho(info)} variant="outline-primary" className="promo">Assine agora</Button>
+                                <Button variant="outline-primary" className="promo">Assine agora</Button>
                             </div>
                         )}
                     </div>

@@ -6,14 +6,6 @@ import Sidebar from "../../../components/sidebar";
 
 import "./listagens.css"
 
-let modeloPromo = [
-    {
-        'id': '',
-        'nome': '',
-        'descricao': ''
-    }
-]
-
 let modelo = [
     {
         'id': '',
@@ -158,7 +150,7 @@ export default function Listagens() {
                                 {ofertas.map(oferta =>
                                     <tr>
                                         <td>R$ {oferta.preco}</td>
-                                        <td>{oferta.pacote.nome}</td>
+                                        <td>{oferta?.pacote?.nome}</td>
                                     </tr>
                                 )}
                             </tbody>

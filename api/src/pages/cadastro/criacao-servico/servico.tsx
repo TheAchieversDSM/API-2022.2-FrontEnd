@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import Navigation from '../../components/navbar';
+import Navigation from '../../../components/navbar';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Sidebar from '../../components/sidebar';
+import Sidebar from '../../../components/sidebar';
+import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
 
 import './servico.css'
 import axios from 'axios';
 import Tooltip from 'react-bootstrap/esm/Tooltip';
-import TooltipDuvida from '../../components/tooltip';
+import TooltipDuvida from '../../../components/tooltip';
 import Badge from 'react-bootstrap/esm/Badge';
 
-const categorias = [
+const categoriasOpt = [
     { value: 'Meu Negócio', label: 'Meu Negócio' },
     { value: 'Streaming', label: 'Streaming' },
     { value: 'Música', label: 'Música' },
@@ -24,17 +25,22 @@ const modeloOptions = [{ value: '', label: '' }];
 
 type servicoModelo = { id: "", nome: "" }
 
+type categoriaModelo = { value: "", label: "" }
+
 export default function Servico() {
+    let listaCategorias: categoriaModelo[] = []
     let listaServicos: servicoModelo[] = []
+
     const [options, setOptions] = useState(modeloOptions)
     const [optServ, setOptServ] = useState(modeloOptions)
+    const [categorias, setCategorias] = useState(listaCategorias)
     const [obrigatorios, setObrigatorios] = useState(listaServicos)
     const [complementos, setComplementos] = useState(listaServicos)
 
     const [formValue, setFormValue] = useState({
         servicoNome: "",
         servicoDescricao: "",
-        servicoCategoria: "",
+        servicoCategoria: listaCategorias,
         servicoProduto: listaServicos,
         servicoObrigatorios: listaServicos,
         servicoComplementares: listaServicos
@@ -67,10 +73,19 @@ export default function Servico() {
     };
 
     const handleChangeCategoria = (event: any) => {
+        var categoriasSelecionadas: categoriaModelo[] = []
+        for (let index = 0; index < event.length; index++) {
+            let categoria = { value: event[index].value, label: event[index].label }
+            categoriasSelecionadas.push(categoria)
+        }
+        setCategorias(categoriasSelecionadas)
+        console.log(categorias);
+        
+
         setFormValue((prevState) => {
             return {
                 ...prevState,
-                servicoCategoria: event[0].value,
+                servicoCategoria: categorias,
             };
         });
     };
@@ -119,7 +134,7 @@ export default function Servico() {
             nome: servicoNome,
             descricao: servicoDescricao,
             produtos: servicoProduto,
-            categoria: servicoCategoria,
+            categoria: servicoCategoria  ? servicoCategoria : [],
             complementares: complementos ? complementos : [],
             servicosObrigatorios: obrigatorios ? obrigatorios : []
         }
@@ -134,7 +149,7 @@ export default function Servico() {
         let valores = {
             servicoNome: "",
             servicoDescricao: "",
-            servicoCategoria: "",
+            servicoCategoria: listaCategorias,
             servicoProduto: listaServicos,
             servicoObrigatorios: listaServicos,
             servicoComplementares: listaServicos
@@ -179,11 +194,7 @@ export default function Servico() {
 
     return (
         <>
-            <Navigation />
-
-            <Sidebar />
-
-            <div className='container-prod'>
+            <div className='container-promo'>
 
                 <h1>Cadastro de Serviço</h1>
 
@@ -243,17 +254,16 @@ export default function Servico() {
 
                         <Form.Group as={Col} md="6">
                             <Form.Label>Categoria do serviço</Form.Label>
-                            <Select 
-                                isMulti
-                                name="servicoCategoria"
+                            <CreatableSelect 
+                                isMulti 
+                                options={categoriasOpt}                                 name="servicoCategoria"
                                 onChange={handleChangeCategoria}
-                                options={categorias}
                                 isClearable={true}
                                 isSearchable={true}
-                                closeMenuOnSelect={true}
+                                closeMenuOnSelect={true} 
                             />
                         </Form.Group>
-                        
+                    
                     </Row>
 
                     <Row className="mb-3">
