@@ -135,6 +135,25 @@ export default function Servico() {
         }
     }
 
+    const topFunction = () => {
+        document.documentElement.scrollTop = 0;
+    }
+
+    const bottomFunction = () => {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
+        });
+    };
+
+    function handleChange(index, event) {
+        console.log(event.target);
+        let data = [...formValue];
+        data[index][event.target.name] = event.target.value;
+        setFormValue(data)
+        console.log(formValue);
+
+    };
     useEffect(() => {
         async function render() {
             axios.get(`http://localhost:8080/produtos/pegarTodosProdutos`).then((res) => {
@@ -206,7 +225,7 @@ export default function Servico() {
                                             isClearable={true}
                                             value={fields.servicoProduto}
                                             isSearchable={true}
-                                            closeMenuOnSelect={false}
+                                            closeMenuOnSelect={true}
                                             isLoading={false}
                                             options={options}
                                         />
@@ -324,7 +343,21 @@ export default function Servico() {
                         )
                     })}
 
-                    <Button type="submit" onClick={handleSubmit}>Criar Servico!</Button>
+                    <div class="campobotoes">
+
+                        <Button type="submit" onClick={handleSubmit} className="submitpromo">
+                            Criar serviço!
+                        </Button>
+
+                        <Button onClick={topFunction} className="toppromo">
+                            Scroll top
+                        </Button>
+
+                        <Button onClick={bottomFunction} className="botpromo">
+                            Scroll bottom
+                        </Button>
+
+                    </div>
                 </Form>
 
             </div>

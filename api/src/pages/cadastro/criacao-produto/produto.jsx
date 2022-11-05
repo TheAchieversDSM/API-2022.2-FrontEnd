@@ -1,82 +1,97 @@
 import React, { useEffect, useState } from 'react';
-import Navigation from '../../../components/navbar';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Sidebar from '../../../components/sidebar';
 import CreatableSelect from 'react-select/creatable';
-import Select from 'react-select';
 import axios from 'axios';
 
 import './produto.css'
 
 const categorias = [
-    { value: 'Meu Negócio', label: 'Meu Negócio', name: 'Meu Negócio' },
-    { value: 'Streaming', label: 'Streaming', name: 'Streaming' },
-    { value: 'Música', label: 'Música', name: 'Música' },
-    { value: 'Segurança Digital', label: 'Segurança Digital', name: 'Segurança Digital' },
+    { value: 'Meu Negócio', label: 'Meu Negócio' },
+    { value: 'Streaming', label: 'Streaming' },
+    { value: 'Música', label: 'Música' },
+    { value: 'Segurança Digital', label: 'Segurança Digital' },
 ];
 
-const complementaresModelo = [
-    { value: '', label: '' }
-]
+const complementaresModelo = [{ value: '', label: '' }]
 
 export default function Produto() {
-    let listaProdutos = []
-
     const [produtos, setProdutos] = useState(complementaresModelo)
+    let lista = []
 
     const [formValue, setFormValue] = useState([{
         produtoNome: "",
-        produtoCategoria: "",
+        produtoQuantidade: "",
+        produtoCategoria: lista,
         produtoDescricao: ""
     }]);
 
     const duplicarTab = (event) => {
         if (event.key === 'Tab') {
-            let newfield = { produtoNome: "", produtoCategoria: "", produtoDescricao: "" }
+            let newfield = { produtoNome: "", produtoQuantidade: "", produtoCategoria: "", produtoDescricao: "" }
             setFormValue([...formValue, newfield])
         }
     }
 
+
+    const topFunction = () => {
+        document.documentElement.scrollTop = 0;
+    }
+
+    const bottomFunction = () => {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
+        });
+    };
+
     const handleChange = (index, event) => {
-        console.log(event.target);
         let data = [...formValue];
         data[index][event.target.name] = event.target.value;
         setFormValue(data)
-        console.log(formValue);
 
+        console.log(formValue);
     };
 
     const handleChangeCategoria = (index, event) => {
         let data = [...formValue]
-        var categoriasSelecionadas = []
-        for (let i = 0; i < event.length; i++) {
-            let categoria = { value: event[i].value, label: event[i].label }
-            categoriasSelecionadas.push(categoria)
-        }
-        data[index].servicoCategoria = categoriasSelecionadas
-        setFormValue(data)
-    };
+        var categoria = []
 
-    const [{ produtoNome, produtoCategoria, produtoDescricao }] = formValue;
+        for (let i = 0; i < event.length; i++) {
+            let cat = { id: event[i].value, nome: event[i].label }
+            categoria.push(cat)
+        }
+
+        data[index].produtoCategoria = categoria
+
+        setFormValue(data)
+    }
+
+    const [{ produtoNome, produtoQuantidade, produtoCategoria, produtoDescricao }] = formValue;
 
     const handleSubmit = (event) => {
-        const produto = {
-            nome: produtoNome,
-            categoria: produtoCategoria,
-            descricao: produtoDescricao,
+        let data = [...formValue]
+
+        for (let i = 0; i < data.length; i++) {
+            let produto = {
+                nome: data[i].produtoNome,
+                quantidade: data[i].produtoQuantidade,
+                categoria: data[i].produtoCategoria[0].nome,
+                descricao: data[i].produtoDescricao,
+            }
+
+            event.preventDefault();
+
+            axios.post(`http://localhost:8080/produtos/criarProduto`, produto).then((res) => {
+                alert('Produto(s) criado(s)!');
+            })
         }
-
-        event.preventDefault();
-
-        axios.post(`http://localhost:8080/produtos/criarProduto`, produto).then((res) => {
-            alert('Produto criado!');
-        })
 
         let valores = {
             produtoNome: "",
+            produtoQuantidade: "",
             produtoCategoria: "",
             produtoDescricao: ""
         }
@@ -114,7 +129,6 @@ export default function Produto() {
                     {formValue.map((fields, index) => {
                         return (
                             <div key={index}>
-                                 <h6>{fields.produtoNome}</h6>
 
                                 <Row className="mb-3">
 
@@ -134,8 +148,24 @@ export default function Produto() {
                                 <Row className="mb-3">
 
                                     <Form.Group as={Col} md="6">
+                                        <Form.Label>Quantidade do produto</Form.Label>
+                                        <Form.Control
+                                            required
+                                            name="produtoQuantidade"
+                                            value={fields.produtoQuantidade}
+                                            onChange={event => handleChange(index, event)}
+                                            type="number"
+                                            placeholder="Insira a quantidade do produto" />
+                                    </Form.Group>
+
+                                </Row>
+
+                                <Row className="mb-3">
+
+                                    <Form.Group as={Col} md="6">
                                         <Form.Label>Categoria do produto</Form.Label>
-                                        <Select
+                                        <CreatableSelect
+                                            isMulti
                                             name="produtoCategoria"
                                             options={categorias}
                                             onChange={event => handleChangeCategoria(index, event)}
@@ -165,7 +195,20 @@ export default function Produto() {
                         )
                     })}
 
-                    <Button type="submit" onClick={handleSubmit}>Criar produto!</Button>
+                    <div class="campobotoes">
+                        <Button type="submit" onClick={handleSubmit} className="submitpromo">
+                            Criar produto!
+                        </Button>
+
+                        <Button onClick={topFunction} className="toppromo">
+                            Scroll top
+                        </Button>
+
+
+                        <Button onClick={bottomFunction} className="botpromo">
+                            Scroll bottom
+                        </Button>
+                    </div>
                 </Form>
 
             </div>

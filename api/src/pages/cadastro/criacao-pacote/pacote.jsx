@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Sidebar from '../../../components/sidebar';
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
 import axios from 'axios';
@@ -12,62 +11,123 @@ import axios from 'axios';
 import './pacote.css'
 
 const modeloOptions = [
-    {
-        value: '',
-        label: ''
-    }
+    { value: '', label: '' }
 ];
 
+const periodo = [
+    { value: 'Diário', label: 'Diário' },
+    { value: 'Semanal', label: 'Semanal' },
+    { value: 'Quinzenal', label: 'Quinzenal' },
+    { value: 'Mensal', label: 'Mensal' },
+    { value: 'Semestral', label: 'Semestral' },
+    { value: 'Anual', label: 'Anual' }
+]
 
 export default function Pacote() {
     const [servicos, setServicos] = useState(modeloOptions)
     const [pacotes, setPacotes] = useState(modeloOptions)
-    let listaServicos = []
+    const [produto, setProduto] = useState([{ value: '', label: '' }])
+    let lista = []
 
     const [formValue, setFormValue] = useState([{
         pacoteNome: "",
         pacoteDescricao: "",
-        pacoteServicos: listaServicos
+        pacoteOferta: "",
+        pacotePeriodo: lista,
+        pacoteServicos: lista,
+        pacoteProdutos: lista
     }]);
 
-    const handleChangeServicos = (event) => {
-        var servicosSelecionados = []
-        for (let index = 0; index < event.length; index++) {
-            let servico = { id: event[index].value, nome: event[index].label }
-            console.log(servico)
-            servicosSelecionados.push(servico)
+    const handleChangePeriodo = (index, event) => {
+        let data = [...formValue]
+        var periodo = []
+
+        for (let i = 0; i < event.length; i++) {
+            let per = { id: event[i].value, nome: event[i].label }
+            periodo.push(per)
         }
-        setFormValue((prevState) => {
-            return {
-                ...prevState,
-                pacoteServicos: servicosSelecionados,
-            };
-        });
+
+        data[index].pacotePeriodo = periodo
+
+        setFormValue(data)
+    }
+
+    const handleChangeServicos = (index, event) => {
+        let data = [...formValue]
+        var pacoteServicos = []
+
+        for (let i = 0; i < event.length; i++) {
+            let servico = { id: event[i].value, nome: event[i].label }
+            pacoteServicos.push(servico)
+
+            axios.get(`http://localhost:8080/servicos/todosProdutos/${servico.id}`).then((res) => {
+                var produtosLista = []
+
+                for (let iProd = 0; iProd < res.data.length; iProd++) {
+                    let option = {
+                        value: res.data[iProd].id,
+                        label: res.data[iProd].nome
+                    }
+                    produtosLista.push(option)
+                }
+                setProduto(produtosLista)
+            })
+        }
+
+        data[index].pacoteServicos = pacoteServicos
+
+        setFormValue(data)
     }
 
     const duplicarTab = (event) => {
         if (event.key === 'Tab') {
-            let newfield = { pacoteNome: "", pacoteDescricao: "", pacoteServicos: "" }
+            let newfield = { pacoteNome: "", pacoteOferta: "", pacoteDescricao: "", pacoteServicos: "" }
             setFormValue([...formValue, newfield])
         }
     }
 
+
+    const topFunction = () => {
+        document.documentElement.scrollTop = 0
+    }
+
+    const bottomFunction = () => {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
+        });
+    };
+
+    const handleChangeProdutos = (index, event) => {
+        let data = [...formValue]
+        var pacoteProdutosX = []
+
+        for (let i = 0; i < event.length; i++) {
+            let produto = { id: event[i].value, nome: event[i].label }
+            pacoteProdutosX.push(produto)
+        }
+
+        data[index].pacoteProdutos = pacoteProdutosX
+
+        setFormValue(data)
+    }
+
     const handleChange = (index, event) => {
-        console.log(event.target);
         let data = [...formValue];
         data[index][event.target.name] = event.target.value;
         setFormValue(data)
         console.log(formValue);
-
     };
 
-    const { pacoteNome, pacoteDescricao, pacoteServicos } = formValue;
+    const { pacoteNome, pacoteDescricao, pacoteOferta, pacotePeriodo, pacoteServicos, pacoteProdutos } = formValue;
 
 
     useEffect(() => {
         async function render() {
             axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
+                console.log(res.data);
                 var servicos = []
+
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
                         value: res.data[index].id,
@@ -75,43 +135,51 @@ export default function Pacote() {
                     }
                     servicos.push(option)
                 }
-                setServicos(servicos)
+
+                setServicos(servicos);
             })
         }
         render()
     }, [])
 
     const handleSubmit = (event) => {
-        const pacote = {
-            nome: pacoteNome,
-            descricao: pacoteDescricao,
-            servicos: pacoteServicos
-        }
+        let data = [...formValue]
 
-        for (let index = 0; index < formValue.length; index++) {
-            pacote = {
-                nome: formValue[index].nome,
-                descricao: formValue[index].descricao,
-                servicos: formValue[index].servicos
+        for (let i = 0; i < data.length; i++) {
+            let pacote = {
+                id: undefined,
+                nome: data[i].pacoteNome,
+                descricao: data[i].pacoteDescricao,
+                preco: data[i].pacoteOferta,
+                periodo: data[i].pacotePeriodo[0].nome,
+                servico: data[i].pacoteServicos[0],
+                produtos: data[i].pacoteProdutos
             }
+
+            event.preventDefault();
+            console.log(pacote);
             axios.post(`http://localhost:8080/pacotes/criarPacote`, pacote).then((res) => {
+                alert('Pacote(s) criado(s)!');
+
+                pacote.id = res.data
+                console.log(pacote);
+            })
+
+            axios.post(`http://localhost:8080/atualizarPacotes/${pacote.servico.id}`, pacote). then((res) => {
 
             })
         }
 
-        event.preventDefault();
-
         let valores = {
             pacoteNome: "",
             pacoteDescricao: "",
-            pacoteServicos: listaServicos
+            pacoteOferta: "",
+            pacotePeriodo: "",
+            pacoteServicos: "",
+            pacoteProdutos: ""
         }
 
-        console.log(formValue)
-
-
-        setFormValue(valores);
-        alert('Pacote Criado!');
+        setFormValue([valores]);
     };
 
     useEffect(() => {
@@ -137,68 +205,119 @@ export default function Pacote() {
 
                 <h1>Cadastro de Pacotes</h1>
 
-                <Form>
-                    {formValue.map((fields, index) => {
-                        return (
-                            <div key={index}>
-                                <h6>{fields.pacoteNome}</h6>
+                <Row>
+                    <Form>
+                        {formValue.map((fields, index) => {
+                            return (
+                                <div key={index}>
+                                    <Row className="mb-3">
+                                        <Form.Group as={Col} md="6">
+                                            <Form.Label>Nome do pacote</Form.Label>
+                                            <Form.Control
+                                                required
+                                                name="pacoteNome"
+                                                value={fields.pacoteNome}
+                                                onChange={event => handleChange(index, event)}
+                                                type="text"
+                                                placeholder="Insira o nome do pacote"
+                                            />
+                                        </Form.Group>
+                                    </Row>
+                                    <Row className="mb-3 FormText">
+                                        <Form.Group as={Col} md="6">
+                                            <Form.Label>Descrição do pacote</Form.Label>
+                                            <Form.Control
+                                                required
+                                                name="pacoteDescricao"
+                                                value={fields.produtoDescricao}
+                                                onChange={event => handleChange(index, event)}
+                                                as="textarea"
+                                                type="text"
+                                                placeholder="Insira a descrição do pacote"
+                                            />
+                                        </Form.Group>
+                                    </Row>
+                                    <Row className="mb-3 FormText">
+                                        <Form.Group as={Col} md="6">
+                                            <Form.Label>Oferta do pacote</Form.Label>
+                                            <Form.Control
+                                                required
+                                                name="pacoteOferta"
+                                                value={fields.produtoOferta}
+                                                onChange={event => handleChange(index, event)}
+                                                type="number"
+                                                placeholder="Insira a oferta do pacote"
+                                            />
+                                        </Form.Group>
+                                    </Row>
+                                    <Row className="mb-3">
+                                        <Form.Group as={Col} md="6">
+                                            <Form.Label>Período da oferta do pacote</Form.Label>
+                                            <CreatableSelect
+                                                isMulti
+                                                name="periodoPacote"
+                                                options={periodo}
+                                                onChange={event => handleChangePeriodo(index, event)}
+                                                isClearable={true}
+                                                isSearchable={true}
+                                                closeMenuOnSelect={true}
+                                            />
+                                        </Form.Group>
+                                    </Row>
+                                    <Row className="mb-3">
+                                        <Form.Group as={Col} md="6">
+                                            <Form.Label>Serviços que compõem o pacote</Form.Label>
+                                            <Select
+                                                isMulti
+                                                name="pacoteServicos"
+                                                onChange={event => handleChangeServicos(index, event)}
+                                                isClearable={true}
+                                                isSearchable={true}
+                                                closeMenuOnSelect={true}
+                                                isLoading={false}
+                                                options={servicos}
+                                            />
+                                        </Form.Group>
+                                    </Row>
+                                    <Row className="mb-3">
+                                        <Form.Group as={Col} md="6">
+                                            <Form.Label>Produtos que compõem o pacote</Form.Label>
+                                            <Select
+                                                isMulti
+                                                name="pacoteProdutos"
+                                                onChange={event => handleChangeProdutos(index, event)}
+                                                onKeyDown={duplicarTab}
+                                                isClearable={true}
+                                                isSearchable={true}
+                                                closeMenuOnSelect={true}
+                                                isLoading={false}
+                                                options={produto}
+                                            />
+                                        </Form.Group>
+                                        <hr />
+                                    </Row>
+                                </div>
+                            )
+                        })}
 
-                                <Row className="mb-3">
+                        <div class="campobotoes">
 
-                                    <Form.Group as={Col} md="6">
-                                        <Form.Label>Nome do Pacote</Form.Label>
-                                        <Form.Control
-                                            required
-                                            name="pacoteNome"
-                                            value={pacoteNome}
-                                            onChange={event => handleChange(index, event)}
-                                            type="text"
-                                            placeholder="Insira o nome do Pacote"
-                                        />
-                                    </Form.Group>
+                            <Button type="submit" onClick={handleSubmit} className="submitpromo">
+                                Criar pacote!
+                            </Button>
 
-                                </Row>
+                            <Button onClick={topFunction} className="toppromo">
+                                Scroll top
+                            </Button>
 
-                                <Row className="mb-3 FormText">
+                            <Button onClick={bottomFunction} className="botpromo">
+                                Scroll bottom
+                            </Button>
+                        </div>
 
-                                    <Form.Group as={Col} md="6">
-                                        <Form.Label>Descrição do Pacote</Form.Label>
-                                        <Form.Control
-                                            required
-                                            name="pacoteDescricao"
-                                            value={fields.produtoDescricao}
-                                            onChange={event => handleChange(index, event)}
-                                            onKeyDown={event => duplicarTab(event)}
-                                            as="textarea"
-                                            type="text"
-                                            placeholder="Insira a descrição da Pacote"
-                                        />
-                                    </Form.Group>
+                    </Form>
 
-                                </Row>
-
-                                <Row className="mb-3">
-
-                                    <Form.Group as={Col} md="6">
-                                        <Form.Label>Serviços que compõem o Pacote</Form.Label>
-                                        <Select
-                                            isMulti
-                                            name="pacoteServicos"
-                                            onChange={event => handleChangeServicos(index, event)}
-                                            isClearable={true}
-                                            isSearchable={true}
-                                            closeMenuOnSelect={true}
-                                            isLoading={false}
-                                            options={servicos}
-                                        />
-                                    </Form.Group>
-
-                                </Row>
-                            </div>
-                        )
-                    })}
-                    <Button type="submit" onClick={handleSubmit}>Criar pacote!</Button>
-                </Form>
+                </Row>
             </div>
         </>
     )
