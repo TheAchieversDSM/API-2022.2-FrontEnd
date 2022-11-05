@@ -13,8 +13,6 @@ import { BiCheck } from 'react-icons/bi';
 
 let modelo = [{ 'id': '', 'nome': '' }]
 
-
-
 let modeloPacote = [
     {
         id: '',
@@ -84,10 +82,6 @@ export default function VisualizacaoServ() {
         render()
     })
 
-    const deletarCarrinho = () => {
-        localStorage.removeItem('servicoCarrinho')
-    }
-
     function adicionarCarrinho(servicoCarrinho: any) {
         if (localStorage.getItem("servicoCarrinho") != undefined) {
             let carrinho = []
@@ -145,7 +139,6 @@ export default function VisualizacaoServ() {
                                         <p><BiCheck className="iconecheck" />{servico.nome}</p>
                                     </div>
                                 )}
-                                <Button onClick={() => adicionarCarrinho(info)} variant="outline-primary" className="promo">Assine agora</Button>
                             </div>
                         )}
                     </div>
