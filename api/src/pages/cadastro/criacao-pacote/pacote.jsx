@@ -277,7 +277,7 @@ export default function Pacote() {
                                             isMulti
                                             name="periodoPacote"
                                             options={periodo}
-                                            isLoading={true}
+                                            isLoading={false}
                                             isClearable={true}
                                             isSearchable={true}
                                             closeMenuOnSelect={true}
@@ -293,7 +293,7 @@ export default function Pacote() {
                                             isMulti
                                             name="pacoteServicos"
                                             options={servicos}
-                                            isLoading={true}
+                                            isLoading={false}
                                             isClearable={true}
                                             isSearchable={true}
                                             closeMenuOnSelect={true}
@@ -309,7 +309,7 @@ export default function Pacote() {
                                             isMulti
                                             name="pacoteProdutos"
                                             options={produto}
-                                            isLoading={true}
+                                            isLoading={false}
                                             isClearable={true}
                                             isSearchable={true}
                                             closeMenuOnSelect={false}
