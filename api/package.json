@@ -16,6 +16,7 @@
     "@types/react-sidebar": "^3.0.2",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
+    "jquery": "^3.6.1",
     "multiselect-react-dropdown": "^2.0.25",
     "react": "^18.2.0",
     "react-alice-carousel": "^2.6.4",
