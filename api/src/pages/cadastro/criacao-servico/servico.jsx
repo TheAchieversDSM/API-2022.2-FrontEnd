@@ -350,7 +350,7 @@ export default function Servico() {
 
                     })}
 
-                    <div class="campobotoes">
+                    <div className="campobotoes">
 
                         <Button type="submit" onClick={handleSubmit} className="submitpromo">
                             Criar serviço!

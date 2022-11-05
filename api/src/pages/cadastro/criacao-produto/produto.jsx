@@ -231,7 +231,7 @@ export default function Produto() {
 
                     })}
 
-                    <div class="campobotoes">
+                    <div className="campobotoes">
 
                         <Button type="submit" onClick={handleSubmit} className="submitpromo">
                             Criar produto!
