@@ -185,7 +185,7 @@ export default function Produto() {
                                             isMulti
                                             name="produtoCategoria"
                                             options={categorias}
-                                            isLoading={true}
+                                            isLoading={false}
                                             isClearable={true}
                                             isSearchable={true}
                                             closeMenuOnSelect={true}

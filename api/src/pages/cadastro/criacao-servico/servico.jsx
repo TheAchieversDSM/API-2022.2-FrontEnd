@@ -130,9 +130,9 @@ export default function Servico() {
             servicoNome: "",
             servicoDescricao: "",
             servicoCategoria: "",
-            servicoProduto: lista,
-            servicoObrigatorios: lista,
-            servicoComplementares: lista
+            servicoProduto: "",
+            servicoObrigatorios: "",
+            servicoComplementares: ""
         }
 
         setFormValue([valores]);
@@ -293,7 +293,7 @@ export default function Servico() {
                                             isMulti
                                             name="serviçoCategoria"
                                             options={categorias}
-                                            isLoading={true}
+                                            isLoading={false}
                                             isClearable={true}
                                             isSearchable={true}
                                             closeMenuOnSelect={true}
@@ -326,7 +326,7 @@ export default function Servico() {
                                             isMulti
                                             name="servicoObrigatorios"
                                             options={optServ}
-                                            isLoading={true}
+                                            isLoading={false}
                                             isClearable={true}
                                             isSearchable={true}
                                             closeMenuOnSelect={false}
@@ -342,7 +342,7 @@ export default function Servico() {
                                             isMulti
                                             name="servicoComplementares"
                                             options={optServ}
-                                            isLoading={true}
+                                            isLoading={false}
                                             isClearable={true}
                                             isSearchable={true}
                                             closeMenuOnSelect={false}
