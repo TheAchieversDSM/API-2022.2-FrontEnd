@@ -112,6 +112,7 @@ export default function Servico() {
             let servico = { id: event[index].value, nome: event[index].label }
             servicosSelecionados.push(servico)
         }
+        
         setObrigatorios(servicosSelecionados)
         console.log(obrigatorios);
 
@@ -121,9 +122,6 @@ export default function Servico() {
                 servicoObrigatorios: obrigatorios,
             };
         });
-
-        console.log(formValue);
-
     };
 
     const handleSubmit = (event) => {
@@ -162,10 +160,16 @@ export default function Servico() {
         }
     }
 
-    
-  const topFunction = () => {
-    document.documentElement.scrollTop = 0;
-}
+    const topFunction = () => {
+        document.documentElement.scrollTop = 0;
+    }
+
+    const bottomFunction = () => {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
+        });
+    };
 
     function handleChange(index, event) {
         console.log(event.target);
@@ -249,7 +253,6 @@ export default function Servico() {
                                             closeMenuOnSelect={true}
                                             isLoading={false}
                                             options={options}
-                                            value = {fields.servicoProduto}
                                         />
                                     </Form.Group>
 
@@ -359,10 +362,19 @@ export default function Servico() {
                     })}
 
                     <div class="campobotoes">
-                        <Button type="submit" onClick={handleSubmit} className="submitpromo">Criar Servico!</Button>
+
+                        <Button type="submit" onClick={handleSubmit} className="submitpromo">
+                            Criar serviço!
+                        </Button>
+
                         <Button onClick={topFunction} className="toppromo">
                             Scroll top
                         </Button>
+
+                        <Button onClick={bottomFunction} className="botpromo">
+                            Scroll bottom
+                        </Button>
+
                     </div>
                 </Form>
 

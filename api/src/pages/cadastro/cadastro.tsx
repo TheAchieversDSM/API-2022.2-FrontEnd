@@ -22,6 +22,7 @@ export default function Cadastro() {
                     id="fill-tab-example"
                     className="mb-3"
                 >
+                    
                     <Tab eventKey="produtos" title="Produtos" className="tab1">
                         <Produto />
                     </Tab>

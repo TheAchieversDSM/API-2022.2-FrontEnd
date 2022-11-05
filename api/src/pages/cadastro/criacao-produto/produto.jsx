@@ -35,10 +35,17 @@ export default function Produto() {
         }
     }
 
-    
-  const topFunction = () => {
-    document.documentElement.scrollTop = 0;
-}
+
+    const topFunction = () => {
+        document.documentElement.scrollTop = 0;
+    }
+
+    const bottomFunction = () => {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
+        });
+    };
 
     const handleChange = (index, event) => {
         let data = [...formValue];
@@ -60,7 +67,6 @@ export default function Produto() {
         data[index].produtoCategoria = categoria
 
         setFormValue(data)
-        console.log(formValue);
     }
 
     const [{ produtoNome, produtoQuantidade, produtoCategoria, produtoDescricao }] = formValue;
@@ -190,9 +196,17 @@ export default function Produto() {
                     })}
 
                     <div class="campobotoes">
-                        <Button type="submit" onClick={handleSubmit} className="submitpromo">Criar produto!</Button>
+                        <Button type="submit" onClick={handleSubmit} className="submitpromo">
+                            Criar produto!
+                        </Button>
+
                         <Button onClick={topFunction} className="toppromo">
                             Scroll top
+                        </Button>
+
+
+                        <Button onClick={bottomFunction} className="botpromo">
+                            Scroll bottom
                         </Button>
                     </div>
                 </Form>

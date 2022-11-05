@@ -86,10 +86,17 @@ export default function Pacote() {
         }
     }
 
-    
-  const topFunction = () => {
-    document.documentElement.scrollTop = 0;
-}
+
+    const topFunction = () => {
+        document.documentElement.scrollTop = 0
+    }
+
+    const bottomFunction = () => {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
+        });
+    };
 
     const handleChangeProdutos = (index, event) => {
         let data = [...formValue]
@@ -140,6 +147,7 @@ export default function Pacote() {
 
         for (let i = 0; i < data.length; i++) {
             let pacote = {
+                id: undefined,
                 nome: data[i].pacoteNome,
                 descricao: data[i].pacoteDescricao,
                 preco: data[i].pacoteOferta,
@@ -149,21 +157,28 @@ export default function Pacote() {
             }
 
             event.preventDefault();
-
+            console.log(pacote);
             axios.post(`http://localhost:8080/pacotes/criarPacote`, pacote).then((res) => {
                 alert('Pacote(s) criado(s)!');
+
+                pacote.id = res.data
+                console.log(pacote);
+            })
+
+            axios.post(`http://localhost:8080/atualizarPacotes/${pacote.servico.id}`, pacote). then((res) => {
+
             })
         }
 
         let valores = {
             pacoteNome: "",
-            pacoteDescricao: "",    
+            pacoteDescricao: "",
             pacoteOferta: "",
             pacotePeriodo: "",
             pacoteServicos: "",
             pacoteProdutos: ""
         }
-        
+
         setFormValue([valores]);
     };
 
@@ -284,14 +299,24 @@ export default function Pacote() {
                                 </div>
                             )
                         })}
+
                         <div class="campobotoes">
-                            <Button type="submit" onClick={handleSubmit} className="submitpromo">Criar pacote!</Button>
+
+                            <Button type="submit" onClick={handleSubmit} className="submitpromo">
+                                Criar pacote!
+                            </Button>
+
                             <Button onClick={topFunction} className="toppromo">
                                 Scroll top
                             </Button>
+
+                            <Button onClick={bottomFunction} className="botpromo">
+                                Scroll bottom
+                            </Button>
                         </div>
+
                     </Form>
-                    
+
                 </Row>
             </div>
         </>
