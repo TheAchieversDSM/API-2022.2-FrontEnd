@@ -65,12 +65,14 @@ export default function Pacote() {
 
         for (let i = 0; i < event.length; i++) {
             let servico = { id: event[i].value, nome: event[i].label }
+
             pacoteServicos.push(servico)
 
             axios.get(`http://localhost:8080/servicos/todosProdutos/${servico.id}`).then((res) => {
                 var produtosLista = []
 
                 for (let iProd = 0; iProd < res.data.length; iProd++) {
+
                     let option = {
                         value: res.data[iProd].id,
                         label: res.data[iProd].nome
@@ -187,14 +189,14 @@ export default function Pacote() {
                         value: res.data[index].id,
                         label: res.data[index].nome
                     }
-                    
+
                     servicos.push(option)
                 }
 
                 setServicos(servicos);
             })
         }
-        
+
         render()
     }, [])
 
@@ -204,133 +206,135 @@ export default function Pacote() {
 
                 <h1>Cadastro de Pacotes</h1>
 
-                <Row>
-                    <Form>
-                        {formValue.map((fields, index) => {
-                            return (
-                                <div key={index}>
+                <Form>
 
-                                    <Row className="mb-3">
-                                        <Form.Group as={Col} md="6">
-                                            <Form.Label>Nome do pacote</Form.Label>
-                                            <Form.Control
-                                                required
-                                                name="pacoteNome"
-                                                value={fields.pacoteNome}
-                                                type="text"
-                                                placeholder="Insira o nome do pacote"
-                                                onChange={event => handleChange(index, event)}
-                                            />
-                                        </Form.Group>
-                                    </Row>
+                    {formValue.map((fields, index) => {
 
-                                    <Row className="mb-3 FormText">
-                                        <Form.Group as={Col} md="6">
-                                            <Form.Label>Descrição do pacote</Form.Label>
-                                            <Form.Control
-                                                required
-                                                name="pacoteDescricao"
-                                                value={fields.produtoDescricao}
-                                                type="text"
-                                                as="textarea"
-                                                placeholder="Insira a descrição do pacote"
-                                                onChange={event => handleChange(index, event)}
-                                            />
-                                        </Form.Group>
-                                    </Row>
+                        return (
 
-                                    <Row className="mb-3 FormText">
-                                        <Form.Group as={Col} md="6">
-                                            <Form.Label>Oferta do pacote</Form.Label>
-                                            <Form.Control
-                                                required
-                                                name="pacoteOferta"
-                                                value={fields.produtoOferta}
-                                                type="number"
-                                                placeholder="Insira a oferta do pacote"
-                                                onChange={event => handleChange(index, event)}
-                                            />
-                                        </Form.Group>
-                                    </Row>
+                            <div key={index}>
 
-                                    <Row className="mb-3">
-                                        <Form.Group as={Col} md="6">
-                                            <Form.Label>Período da oferta do pacote</Form.Label>
-                                            <CreatableSelect
-                                                isMulti
-                                                name="periodoPacote"
-                                                options={periodo}
-                                                isLoading={true}
-                                                isClearable={true}
-                                                isSearchable={true}
-                                                closeMenuOnSelect={true}
-                                                onChange={event => handleChangePeriodo(index, event)}
-                                            />
-                                        </Form.Group>
-                                    </Row>
+                                <Row className="mb-3">
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Nome do pacote</Form.Label>
+                                        <Form.Control
+                                            required
+                                            name="pacoteNome"
+                                            value={fields.pacoteNome}
+                                            type="text"
+                                            placeholder="Insira o nome do pacote"
+                                            onChange={event => handleChange(index, event)}
+                                        />
+                                    </Form.Group>
+                                </Row>
 
-                                    <Row className="mb-3">
-                                        <Form.Group as={Col} md="6">
-                                            <Form.Label>Serviço que compõe o pacote</Form.Label>
-                                            <Select
-                                                isMulti
-                                                name="pacoteServicos"
-                                                options={servicos}
-                                                isLoading={true}
-                                                isClearable={true}
-                                                isSearchable={true}
-                                                closeMenuOnSelect={true}
-                                                onChange={event => handleChangeServicos(index, event)}
-                                            />
-                                        </Form.Group>
-                                    </Row>
+                                <Row className="mb-3 FormText">
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Descrição do pacote</Form.Label>
+                                        <Form.Control
+                                            required
+                                            name="pacoteDescricao"
+                                            value={fields.produtoDescricao}
+                                            type="text"
+                                            as="textarea"
+                                            placeholder="Insira a descrição do pacote"
+                                            onChange={event => handleChange(index, event)}
+                                        />
+                                    </Form.Group>
+                                </Row>
 
-                                    <Row className="mb-3">
-                                        <Form.Group as={Col} md="6">
-                                            <Form.Label>Produtos que compõem o pacote</Form.Label>
-                                            <Select
-                                                isMulti
-                                                name="pacoteProdutos"
-                                                options={produto}
-                                                isLoading={true}
-                                                isClearable={true}
-                                                isSearchable={true}
-                                                closeMenuOnSelect={false}
-                                                onChange={event => handleChangeProdutos(index, event)}
-                                                onKeyDown={event => duplicarTab(event)}
-                                            />
-                                        </Form.Group>
-                                    </Row>
+                                <Row className="mb-3 FormText">
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Oferta do pacote</Form.Label>
+                                        <Form.Control
+                                            required
+                                            name="pacoteOferta"
+                                            value={fields.produtoOferta}
+                                            type="number"
+                                            placeholder="Insira a oferta do pacote"
+                                            onChange={event => handleChange(index, event)}
+                                        />
+                                    </Form.Group>
+                                </Row>
 
-                                    <hr />
+                                <Row className="mb-3">
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Período da oferta do pacote</Form.Label>
+                                        <CreatableSelect
+                                            isMulti
+                                            name="periodoPacote"
+                                            options={periodo}
+                                            isLoading={true}
+                                            isClearable={true}
+                                            isSearchable={true}
+                                            closeMenuOnSelect={true}
+                                            onChange={event => handleChangePeriodo(index, event)}
+                                        />
+                                    </Form.Group>
+                                </Row>
 
-                                </div>
+                                <Row className="mb-3">
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Serviço que compõe o pacote</Form.Label>
+                                        <Select
+                                            isMulti
+                                            name="pacoteServicos"
+                                            options={servicos}
+                                            isLoading={true}
+                                            isClearable={true}
+                                            isSearchable={true}
+                                            closeMenuOnSelect={true}
+                                            onChange={event => handleChangeServicos(index, event)}
+                                        />
+                                    </Form.Group>
+                                </Row>
 
-                            )
+                                <Row className="mb-3">
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Produtos que compõem o pacote</Form.Label>
+                                        <Select
+                                            isMulti
+                                            name="pacoteProdutos"
+                                            options={produto}
+                                            isLoading={true}
+                                            isClearable={true}
+                                            isSearchable={true}
+                                            closeMenuOnSelect={false}
+                                            onChange={event => handleChangeProdutos(index, event)}
+                                            onKeyDown={event => duplicarTab(event)}
+                                        />
+                                    </Form.Group>
+                                </Row>
 
-                        })}
+                                <hr />
 
-                        <div class="campobotoes">
+                            </div>
 
-                            <Button type="submit" onClick={handleSubmit} className="submitpromo">
-                                Criar pacote!
-                            </Button>
+                        )
 
-                            <Button onClick={topFunction} className="toppromo">
-                                Scroll top
-                            </Button>
+                    })}
 
-                            <Button onClick={bottomFunction} className="botpromo">
-                                Scroll bottom
-                            </Button>
 
-                        </div>
+                    <div class="campobotoes">
 
-                    </Form>
+                        <Button type="submit" onClick={handleSubmit} className="submitpromo">
+                            Criar pacote!
+                        </Button>
 
-                </Row>
+                        <Button onClick={topFunction} className="toppromo">
+                            Scroll top
+                        </Button>
+
+                        <Button onClick={bottomFunction} className="botpromo">
+                            Scroll bottom
+                        </Button>
+
+                    </div>
+
+                </Form>
 
             </div>
+
         </>
     )
 }

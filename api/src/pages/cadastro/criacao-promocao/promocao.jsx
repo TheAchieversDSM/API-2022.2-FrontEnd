@@ -13,18 +13,15 @@ const modeloPromocao = [{ value: "", label: "", preco: "" }];
 const promocaoModelo = { id: "", preco: "", nome: "" };
 
 export default function Promocao() {
-    const [promocoes, setPromocoes] = useState(promocaoModelo);
     const [pacotes, setPacotes] = useState([promocaoModelo]);
 
     let lista = [];
 
-    const [formValue, setFormValue] = useState([
-        {
-            promocaoNome: "",
-            promocaoPreco: "",
-            promocaoPacote: lista,
-        },
-    ]);
+    const [formValue, setFormValue] = useState([{
+        promocaoNome: "",
+        promocaoPreco: "",
+        promocaoPacote: lista
+    }]);
 
     const handleChange = (index, event) => {
         let data = [...formValue];
@@ -44,6 +41,7 @@ export default function Promocao() {
                 nome: info.label,
                 preco: info.preco,
             };
+
 
             promocaoPac.push(pacote);
         })
@@ -75,16 +73,16 @@ export default function Promocao() {
         let valores = {
             promocaoNome: "",
             promocaoPreco: "",
-            promocaoPacote: "",
-        };
+            promocaoPacote: lista
+        }
 
-        setFormValue([valores]);
+        setFormValue([valores])
     };
+
 
     const duplicarTab = (event) => {
         if (event.key === "Tab") {
             let newfield = { promocaoNome: "", promocaoPreco: "", promocaoPacote: "" };
-
             setFormValue([...formValue, newfield]);
         }
     };
@@ -103,20 +101,20 @@ export default function Promocao() {
     useEffect(() => {
         async function render() {
             axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
-                    var pac = [];
+                var pac = [];
 
-                    for (let index = 0; index < res.data.length; index++) {
-                        let option = {
-                            value: res.data[index].id,
-                            label: res.data[index].nome,
-                            preco: res.data[index].preco,
-                        };
+                for (let index = 0; index < res.data.length; index++) {
+                    let option = {
+                        value: res.data[index].id,
+                        label: res.data[index].nome,
+                        preco: res.data[index].preco,
+                    };
 
-                        pac.push(option);
-                    }
+                    pac.push(option);
+                }
 
-                    setPacotes(pac);
-                });
+                setPacotes(pac);
+            });
         }
 
         render();
@@ -202,12 +200,12 @@ export default function Promocao() {
                         <Button onClick={bottomFunction} className="botpromo">
                             Scroll bottom
                         </Button>
-                        
-                    </div>
 
-                </Form>
+                    </div >
 
-            </div>
+                </Form >
+
+            </div >
         </>
     );
 }

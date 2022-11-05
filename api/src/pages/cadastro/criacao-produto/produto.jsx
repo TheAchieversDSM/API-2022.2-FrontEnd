@@ -53,7 +53,7 @@ export default function Produto() {
         setFormValue(data)
     }
 
-    const [{ produtoNome, produtoQuantidade, produtoCategoria, produtoDescricao }] = formValue;
+    const { produtoNome, produtoQuantidade, produtoCategoria, produtoDescricao } = formValue;
 
     const handleSubmit = (event) => {
         let data = [...formValue]
@@ -82,7 +82,7 @@ export default function Produto() {
 
         setFormValue([valores]);
     };
-    
+
     const duplicarTab = (event) => {
         if (event.key === 'Tab') {
             let newfield = { produtoNome: "", produtoQuantidade: "", produtoCategoria: "", produtoDescricao: "" }
@@ -118,7 +118,7 @@ export default function Produto() {
                 setProdutos(produtos)
             })
         }
-        
+
         render()
     }, [])
 
@@ -145,9 +145,9 @@ export default function Produto() {
                                             name="produtoNome"
                                             value={fields.produtoNome}
                                             type="text"
-                                            placeholder="Insira o nome do produto" 
-                                            onChange={event => handleChange(index, event)}                                            
-                                        />    
+                                            placeholder="Insira o nome do produto"
+                                            onChange={event => handleChange(index, event)}
+                                        />
                                     </Form.Group>
                                 </Row>
 
@@ -159,7 +159,7 @@ export default function Produto() {
                                             name="produtoQuantidade"
                                             value={fields.produtoQuantidade}
                                             type="number"
-                                            placeholder="Insira a quantidade do produto" 
+                                            placeholder="Insira a quantidade do produto"
                                             onChange={event => handleChange(index, event)}
                                         />
                                     </Form.Group>
@@ -172,7 +172,7 @@ export default function Produto() {
                                             isMulti
                                             name="produtoCategoria"
                                             options={categorias}
-                                            isLoading={true} 
+                                            isLoading={true}
                                             isClearable={true}
                                             isSearchable={true}
                                             closeMenuOnSelect={true}
@@ -180,7 +180,7 @@ export default function Produto() {
                                         />
                                     </Form.Group>
                                 </Row>
-                                
+
                                 <Row className="mb-3 FormText">
                                     <Form.Group as={Col} md="6">
                                         <Form.Label>Descrição do produto</Form.Label>
@@ -190,7 +190,7 @@ export default function Produto() {
                                             value={fields.produtoDescricao}
                                             type="text"
                                             as="textarea"
-                                            placeholder="Insira a descrição do produto" 
+                                            placeholder="Insira a descrição do produto"
                                             onChange={event => handleChange(index, event)}
                                             onKeyDown={event => duplicarTab(event)}
                                         />
@@ -200,7 +200,7 @@ export default function Produto() {
                                 <hr />
 
                             </div>
-                            
+
                         )
 
                     })}

@@ -11,7 +11,7 @@ import axios from 'axios';
 
 import './servico.css'
 
-const categoriasOpt = [
+const categorias = [
     { value: 'Meu Negócio', label: 'Meu Negócio' },
     { value: 'Streaming', label: 'Streaming' },
     { value: 'Música', label: 'Música' },
@@ -113,7 +113,7 @@ export default function Servico() {
                 nome: data[i].servicoNome,
                 descricao: data[i].servicoDescricao,
                 produtos: data[i].servicoProduto,
-                categoria: [data[i].servicoCategoria[0].label],
+                categoria: data[i].servicoCategoria[0].label,
                 complementares: data[i].servicoComplementares,
                 servicosObrigatorios: data[i].servicoObrigatorios
             }
@@ -121,7 +121,7 @@ export default function Servico() {
             event.preventDefault();
 
             axios.post("http://localhost:8080/servicos/criarServico", servico).then((res) => {
-                alert('Serviço Criado!')
+                alert('Serviço(s) criado(s)!')
             })
         }
 
@@ -168,7 +168,7 @@ export default function Servico() {
 
                     servicos.push(option)
                 }
-
+                
                 setOptServ(servicos)
             })
 
@@ -211,9 +211,9 @@ export default function Servico() {
                                         <Form.Control
                                             required
                                             name="servicoNome"
-                                            value={servicoNome}
+                                            value={fields.servicoNome}
                                             type="text"
-                                            placeholder="Insira o nome do Serviço"
+                                            placeholder="Insira o nome do serviço"
                                             onChange={event => handleChange(index, event)}
                                         />
                                     </Form.Group>
@@ -252,8 +252,9 @@ export default function Servico() {
 
                                 <Row className="mb-3">
                                     <Form.Group as={Col} md="6">
-                                        <Form.Label>Categoria do Serviço</Form.Label>
+                                        <Form.Label>Categoria do serviço</Form.Label>
                                         <CreatableSelect
+                                            isMulti
                                             name="serviçoCategoria"
                                             options={categorias}
                                             isLoading={true}
@@ -275,6 +276,7 @@ export default function Servico() {
                                             isLoading={true}
                                             isClearable={true}
                                             isSearchable={true}
+                                            value={fields.servicoProduto}
                                             closeMenuOnSelect={false}
                                             onChange={event => handleChangeProdutos(index, event)} 
                                         />
@@ -312,7 +314,6 @@ export default function Servico() {
                                             onKeyDown={event => duplicarTab(event)}
                                         />
                                     </Form.Group>
-
                                 </Row>
 
                                 <hr />
