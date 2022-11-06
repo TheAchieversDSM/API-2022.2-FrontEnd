@@ -50,6 +50,11 @@ h1 {
     width: 210px;
     position: fixed;
     top: 400px;
+    background-color: #3a6ea5 !important;
+}
+
+.botpromo:hover {
+    background-color: #ff6700 !important;
 }
 
 #myInputPromotion {
