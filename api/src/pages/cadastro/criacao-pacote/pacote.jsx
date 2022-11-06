@@ -25,7 +25,7 @@ const modeloOptions = [{ value: '', label: '' }];
 
 export default function Pacote() {
     const [servicos, setServicos] = useState(modeloOptions)
-    const [pacotes, setPacotes] = useState(modeloOptions)
+    const [pacoteId, setPacotesId] = useState({ id: "" })
     const [produto, setProduto] = useState([{ value: '', label: '' }])
 
     let lista = []
@@ -113,8 +113,7 @@ export default function Pacote() {
 
         for (let i = 0; i < data.length; i++) {
 
-            let pacote = {
-                id: undefined,
+            var pacote = {
                 nome: data[i].pacoteNome,
                 descricao: data[i].pacoteDescricao,
                 preco: data[i].pacoteOferta,
@@ -128,12 +127,20 @@ export default function Pacote() {
             axios.post(`http://localhost:8080/pacotes/criarPacote`, pacote).then((res) => {
                 alert('Pacote(s) criado(s)!');
 
-                pacote.id = res.data
-            })
+                setPacotesId(res.data)
 
-            axios.post(`http://localhost:8080/servicos/atualizarPacotes/${pacote.servico.id}`, pacote).then((res) => {
+                var pacote = {
+                    id: pacoteId.id,
+                    nome: data[i].pacoteNome,
+                    descricao: data[i].pacoteDescricao,
+                    preco: data[i].pacoteOferta,
+                    periodo: data[i].pacotePeriodo[0].nome,
+                    servico: data[i].pacoteServicos[0],
+                    produtos: data[i].pacoteProdutos
+                }
 
-            })
+                axios.post(`http://localhost:8080/servicos/atualizarPacotes/${pacote.id}`, pacote) 
+            })  
         }
 
         let valores = {
@@ -172,7 +179,7 @@ export default function Pacote() {
         document.documentElement.scrollTop = 0
     }
 
-    const bottomFunction = () => {
+    const botFunction = () => {
         window.scrollTo({
             top: document.documentElement.scrollHeight,
             behavior: 'smooth'
@@ -181,21 +188,6 @@ export default function Pacote() {
 
     useEffect(() => {
         async function render() {
-            axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
-                var pacotes = []
-
-                for (let index = 0; index < res.data.length; index++) {
-                    let option = {
-                        value: res.data[index].id,
-                        label: res.data[index].nome
-                    }
-
-                    pacotes.push(option)
-                }
-
-                setPacotes(pacotes)
-            })
-
             axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
                 var servicos = []
 
@@ -370,7 +362,7 @@ export default function Pacote() {
                         </Button>
 
                         <Button onClick={handleSubmit} className="botpromo">
-                            Criar produto
+                            Criar pacote(s)!
                         </Button>
 
                     </div>

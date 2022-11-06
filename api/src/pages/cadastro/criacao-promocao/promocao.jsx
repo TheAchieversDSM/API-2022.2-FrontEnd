@@ -106,7 +106,7 @@ export default function Promocao() {
         document.documentElement.scrollTop = 0;
     }
 
-    const bottomFunction = () => {
+    const botFunction = () => {
         window.scrollTo({
             top: document.documentElement.scrollHeight,
             behavior: 'smooth'
@@ -242,7 +242,7 @@ export default function Promocao() {
                         </Button>
 
                         <Button onClick={handleSubmit} className="botpromo">
-                            Criar produto
+                            Criar promoção(ões)!
                         </Button>
 
                     </div >

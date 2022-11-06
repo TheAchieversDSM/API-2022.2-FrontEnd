@@ -9,6 +9,8 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 
+import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from 'react-icons/bs'
+
 import './produto.css'
 
 const categorias = [
@@ -109,7 +111,7 @@ export default function Produto() {
         document.documentElement.scrollTop = 0;
     }
 
-    const bottomFunction = () => {
+    const botFunction = () => {
         window.scrollTo({
             top: document.documentElement.scrollHeight,
             behavior: 'smooth'
@@ -252,15 +254,15 @@ export default function Produto() {
                         </Button>
 
                         <Button type="submit" onClick={topFunction} className="criarpromo">
-                            Scroll top!
+                            <BsFillArrowUpCircleFill />
                         </Button>
 
                         <Button onClick={botFunction} className="toppromo">
-                            Scroll bottom
+                            <BsFillArrowDownCircleFill />
                         </Button>
 
                         <Button onClick={handleSubmit} className="botpromo">
-                            Criar produto
+                            Criar produto(s)!
                         </Button>
 
                     </div>
