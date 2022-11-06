@@ -10,6 +10,8 @@ import Row from 'react-bootstrap/Row';
 import Select from 'react-select';
 import axios from 'axios';
 
+import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from 'react-icons/bs'
+
 import './pacote.css'
 
 const periodo = [
@@ -225,8 +227,9 @@ export default function Pacote() {
                     <Form.Control id='pesquisar'
                         name="pacoteNome"
                         type="text"
+                        placeholder="Insira o nome do pacote" 
                         onKeyUp={filter()}
-                        placeholder="Insira o nome do Produto" />
+                    />
                 </Form.Group>
             </Form>
 
@@ -364,11 +367,11 @@ export default function Pacote() {
                         </Button>
 
                         <Button type="submit" onClick={topFunction} className="criarpromo">
-                            Scroll top!
+                            <BsFillArrowUpCircleFill />
                         </Button>
 
                         <Button onClick={botFunction} className="toppromo">
-                            Scroll bottom
+                            <BsFillArrowDownCircleFill />
                         </Button>
 
                         <Button onClick={handleSubmit} className="botpromo">

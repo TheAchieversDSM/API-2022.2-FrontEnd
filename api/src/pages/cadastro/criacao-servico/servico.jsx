@@ -10,6 +10,8 @@ import Row from 'react-bootstrap/Row';
 import Select from 'react-select';
 import axios from 'axios';
 
+import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from 'react-icons/bs'
+
 import './servico.css'
 
 const categorias = [
@@ -213,12 +215,12 @@ export default function Servico() {
                     <Form.Control id='pesquisar'
                         name="servicoNome"
                         type="text"
-                        placeholder="Insira o nome do Serviço" 
+                        placeholder="Insira o nome do serviço" 
                         onKeyUp={filter()}
                     />
                 </Form.Group>
 
-{/*                 <Form.Group as={Col} md="6">
+                {/* <Form.Group as={Col} md="6">
                     <Form.Label>Categoria</Form.Label>
                     <CreatableSelect
                         name="serviçoCategoria"
@@ -383,11 +385,11 @@ export default function Servico() {
                         </Button>
 
                         <Button type="submit" onClick={topFunction} className="criarpromo">
-                            Scroll top!
+                            <BsFillArrowUpCircleFill />
                         </Button>
 
                         <Button onClick={botFunction} className="toppromo">
-                            Scroll bottom
+                            <BsFillArrowDownCircleFill />
                         </Button>
 
                         <Button onClick={handleSubmit} className="botpromo">

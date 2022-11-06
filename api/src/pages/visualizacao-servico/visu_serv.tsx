@@ -77,6 +77,7 @@ export default function VisualizacaoServ() {
                 setPacotes(res.data.pacotes)
                 
                 setComplementos(res.data.complementares)
+
             })
         }
         render()
@@ -84,7 +85,7 @@ export default function VisualizacaoServ() {
 
     useEffect(() => {
         function render() {
-           /*  axios.post(`http://localhost:8080/servicos/pegarPacotes`, [servico]).then((res) => {
+/*             axios.post(`http://localhost:8080/servicos/pegarPacotes`, [servico]).then((res) => {
                 console.log(res.data);
                 
                 setPacotes(res.data)
@@ -98,17 +99,8 @@ export default function VisualizacaoServ() {
                 console.log(error.message);
             }) */
 
-            axios.get(`http://localhost:8080/promocoes/pegarTodasPromocoes`).then((res) => {
-                const promocoes = []
-   
-                console.log(res.data);
-                 
-                for (let i = 0; i < res.data.length; i++) {
-                    if (res.data.pacotes) {
-
-                    }
-                } 
-                
+            axios.post(`http://localhost:8080/servicos/pegarPromocoes`, [servico]).then((res) => {
+                setPromocoes(res.data)
             })
 
         }

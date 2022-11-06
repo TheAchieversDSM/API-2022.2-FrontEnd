@@ -148,8 +148,9 @@ export default function Produto() {
                     <Form.Control id='pesquisar'
                         name="produtoNome"
                         type="text"
+                        placeholder="Insira o nome do produto" 
                         onKeyUp={filter()}
-                        placeholder="Insira o nome do Produto" />
+                    />
                 </Form.Group>
             </Form>
 

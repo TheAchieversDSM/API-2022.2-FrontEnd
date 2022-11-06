@@ -9,6 +9,8 @@ import Row from "react-bootstrap/Row";
 import Select from "react-select";
 import axios from "axios";
 
+import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from 'react-icons/bs'
+
 import "./promocao.css";
 
 const modeloPromocao = [{ value: "", label: "", preco: "" }];
@@ -143,8 +145,9 @@ export default function Promocao() {
                     <Form.Control id='pesquisar'
                         name="promocaoNome"
                         type="text"
+                        placeholder="Insira o nome da promoção" 
                         onKeyUp={filter()}
-                        placeholder="Insira o nome da promoção" />
+                    />
                 </Form.Group>
             </Form>
 
@@ -234,15 +237,15 @@ export default function Promocao() {
                         </Button>
 
                         <Button type="submit" onClick={topFunction} className="criarpromo">
-                            Scroll top!
+                            <BsFillArrowUpCircleFill />
                         </Button>
 
                         <Button onClick={botFunction} className="toppromo">
-                            Scroll bottom
+                            <BsFillArrowDownCircleFill />
                         </Button>
 
                         <Button onClick={handleSubmit} className="botpromo">
-                            Criar promoção(ões)!
+                            Criar produto(s)!
                         </Button>
 
                     </div >
