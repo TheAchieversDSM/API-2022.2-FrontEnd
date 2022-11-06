@@ -1,30 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Card, Form } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
-import AlertaProm from "../../components/alerta";
+import { useEffect, useState } from 'react';
+
 import Navigation from "../../components/navbar";
-import { BsFillTrashFill } from 'react-icons/bs'
+import { Button, Form } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import Select from "react-select";
 import axios from 'axios';
 import './carrinho.css'
 
 let modelo = [{ 'id': '', 'nome': '', 'descricao': '', }]
-
 let modeloObrigatorio = [{ 'id': '', 'nome': '', 'descricao': '' }]
+let modeloPreco = [{ 'id': '', 'nome': '', 'descricao': '' }]
+let modeloPacoteServ = [{ 'id': '', 'nome': '', 'periodo': '', 'preco': '' }]
+const modeloOptions = [{ value: '', label: '' }];
 
 var cont = 0
 
 export default function Carrinho() {
-    const [servico, setServico] = useState(Object)
     const { id } = useParams();
+    const [servico, setServico] = useState(Object)
     const [complementos, setComplementos] = useState(Object)
     const [servicosObrigatorios, setservicosObrigatorios] = useState(Object)
+    const [data, setData] = useState(modeloPreco)
+    const [pacoteServ, setPacoteServ] = useState(modeloPacoteServ)
+    const [preco, setPreco] = useState('')
+
+    const handleChange = (event: any) => {
+        var preco = event.target.value
+
+        console.log(event.target.value);
+         
+        setPreco(preco)
+    }
 
     useEffect(() => {
         async function render() {
             axios.get(`http://localhost:8080/servicos/pegarServico/${id}`,).then((res) => {
                 setServico(res.data)
-                console.log(res.data)
-
+            
                 setComplementos(res.data.complementares)
                 //console.log(res.data.complementares)
 
@@ -36,6 +48,27 @@ export default function Carrinho() {
                 setServico({ ...servico, pacotes: res.data })
                 console.log(res.data)
             })
+
+            axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
+                const pacotesX = []
+                const optionsX = []
+
+                for (let i = 0; i < res.data.length; i++) {
+                    if (res.data[i].servico.id == servico.id) {
+
+                        let opt = { id: res.data[i].id, nome: res.data[i].nome, periodo: res.data[i].periodo, preco: res.data[i].preco}
+
+                        let option = { value: res.data[i].nome, label: res.data[i].nome }
+
+                        pacotesX.push(opt)
+                        optionsX.push(option)
+                    }
+
+                    console.log(pacotesX);
+                }
+
+                setPacoteServ(pacotesX)           
+            })
         }
 
         if (cont <= 3) {
@@ -44,8 +77,6 @@ export default function Carrinho() {
         }
 
     }, [servico])
-
-
 
     return (
         <>
@@ -61,29 +92,18 @@ export default function Carrinho() {
                                 <p className="card-text card-text1">{servico.descricao}</p>
                                 <div className="row">
 
-                                    <div className="col-4">
-                                        <Form.Select>
-                                            <option disabled>Plano</option>
-                                            {servico.pacotes?.map((pacote: any) =>
-                                                <option>{pacote.nome}</option>
-                                            )}
-
-                                        </Form.Select>
-
-                                    </div>
-
-                                    <div className="col-4">
-                                        <Form.Select>
-                                            <option disabled>Período</option>
-                                            {servico.pacotes?.map((pacote: any) => 
-                                                <option>{pacote.periodo}</option>
-                                            )}
+                                    <div className="col-6">
+                                        <Form.Label>Planos & Períodos</Form.Label>
+                                        <Form.Select onChange={(event) => handleChange(event)}>
+                                            {pacoteServ.map((pacote: any) => 
+                                                <option value={pacote.preco}>{pacote.nome} - {pacote.periodo}</option>
+                                            )}  
                                         </Form.Select>
                                     </div>
 
                                     <div className="col-4 value">
                                         <h5>Valor: </h5>
-                                        <p>R$ 100,00</p>
+                                        <p>R$ {preco} </p>
                                     </div>
 
                                 </div>
@@ -101,7 +121,7 @@ export default function Carrinho() {
                                                     <div className="col-4">
                                                         <Form.Select>
                                                             <option disabled>Plano</option>
-                                                            
+
                                                             <option>Básico</option>
                                                             <option>Médio</option>
                                                         </Form.Select>

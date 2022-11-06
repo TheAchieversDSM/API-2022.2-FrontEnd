@@ -16,18 +16,18 @@ let modeloPacote = [
     {
         'preco': '',
         'nome': '',
-        'produtos': [{ 'id': '', 'nome': ''}]
+        'produtos': [{ 'id': '', 'nome': '' }]
     }
 ]
 
-
-const modeloPromocao = [{ id: '', nome: '', preco: '', pacotes: [{'nome': '', 'preco': ''}]}]
+const modeloPromocao = [{ id: '', nome: '', preco: '', pacotes: [{ 'nome': '', 'preco': '' }] }]
 
 export default function VisualizacaoServ() {
     const [servico, setServico] = useState(Object)
     const [promocoes, setPromocoes] = useState(modeloPromocao)
     const [complementos, setComplementos] = useState(modelo)
     const [pacote, setPacotes] = useState(modeloPacote)
+    const [pacoteServ, setPacoteServ] = useState(Object)
 
     const { id } = useParams();
 
@@ -72,12 +72,28 @@ export default function VisualizacaoServ() {
             axios.get(`http://localhost:8080/servicos/pegarServico/${id}`,).then((res) => {
 
                 setServico(res.data)
-                console.log(res.data);
-                
-                setPacotes(res.data.pacotes)
-                
-                setComplementos(res.data.complementares)
+                //console.log(res.data);
 
+                setPacotes(res.data.pacotes)
+
+                setComplementos(res.data.complementares)
+            })
+
+            axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
+                const pacotesX = []
+                
+                for (let i = 0; i < res.data.length; i++) {                    
+                    if (res.data[i].servico.id == servico.id) {
+
+                        let opt = { id: res.data[i].id, nome: res.data[i].nome, periodo: res.data[i].periodo, preco: res.data[i].preco, produtos: res.data[i].produtos }
+
+                        pacotesX.push(opt)
+                    }
+
+                    console.log(pacotesX);
+                }
+
+                setPacoteServ(pacotesX)
             })
         }
         render()
@@ -85,26 +101,26 @@ export default function VisualizacaoServ() {
 
     useEffect(() => {
         function render() {
-/*             axios.post(`http://localhost:8080/servicos/pegarPacotes`, [servico]).then((res) => {
-                console.log(res.data);
-                
-                setPacotes(res.data)
-            }) */
+            /*             axios.post(`http://localhost:8080/servicos/pegarPacotes`, [servico]).then((res) => {
+                            console.log(res.data);
+                            
+                            setPacotes(res.data)
+                        }) */
 
-/*             axios.post(`http://localhost:8080/servicos/pegarPromocoes`, [servico]).then((res) =>{              
-                console.log(res.data);
-                
-                setPromocoes(res.data)
-            }).catch(error => {
-                console.log(error.message);
-            }) */
+            /*             axios.post(`http://localhost:8080/servicos/pegarPromocoes`, [servico]).then((res) =>{              
+                            console.log(res.data);
+                            
+                            setPromocoes(res.data)
+                        }).catch(error => {
+                            console.log(error.message);
+                        }) */
 
             axios.post(`http://localhost:8080/servicos/pegarPromocoes`, [servico]).then((res) => {
                 setPromocoes(res.data)
             })
 
         }
-        
+
         render()
     })
 
@@ -119,14 +135,14 @@ export default function VisualizacaoServ() {
                         <div className="descricao">
                             <p>{servico.descricao}</p>
                         </div>
-                        <Button onClick={() => adicionarCarrinho({id: servico.id , nome: servico.nome})} className="botaocarrinho"><Link to={`/carrinho/servico/${servico.id}`}>Ver Serviço!</Link></Button>
+                        <Button onClick={() => adicionarCarrinho({ id: servico.id, nome: servico.nome })} className="botaocarrinho"><Link to={`/carrinho/servico/${servico.id}`}>Ver Serviço!</Link></Button>
                     </div>
                 </div>
 
                 <div className="prom">
                     <h2 className="confira">Confira nossos pacotes</h2>
                     <div className="row">
-                        {pacote.map((info: any) =>
+                        {pacoteServ.map((info: any) =>
                             <div className="col-4 pacotinho">
                                 <div className="pact"></div>
                                 <h3>{info.nome}</h3>
