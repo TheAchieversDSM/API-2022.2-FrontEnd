@@ -14,22 +14,14 @@ let modelo = [{ 'id': '', 'nome': '' }]
 
 let modeloPacote = [
     {
-        id: '',
-        preco: '',
-        pacote: { id: '', nome: '', servicos: [{ 'id': '', 'nome': ''}] }
-    }
-]
-
-let modeloOferta = [
-    {
-        'id': '',
         'preco': '',
-        'pacote': {'nome': ''}
+        'nome': '',
+        'produtos': [{ 'id': '', 'nome': ''}]
     }
 ]
 
-const modeloPromocao = [{ id: '', nome: '', preco: '', ofertas: modeloOferta}]
 
+const modeloPromocao = [{ id: '', nome: '', preco: '', pacotes: [{'nome': '', 'preco': ''}]}]
 
 export default function VisualizacaoServ() {
     const [servico, setServico] = useState(Object)
@@ -52,35 +44,6 @@ export default function VisualizacaoServ() {
     function desconto(desconto: any, valorTotal: any) {
         return (valorTotal - (valorTotal * parseFloat(desconto)) / 100).toFixed(2)
     }
-
-    useEffect(() => {
-        async function render() {
-            axios.get(`http://localhost:8080/servicos/pegarServico/${id}`,).then((res) => {
-                
-                setServico(res.data)
-                setComplementos(res.data.complementares)
-                console.log(res.data.complementares)
-            })
-        }
-        render()
-    }, [servico])
-
-    useEffect(() => {
-        function render() {
-
-            axios.post(`http://localhost:8080/servicos/pegarOfertas`, [servico]).then((res) => {
-                setPacotes(res.data)
-            })
-
-            axios.post(`http://localhost:8080/servicos/pegarPromocoes`, [servico]).then((res) => {
-                setPromocoes(res.data)
-            }).catch(error => {
-                console.log(error.message);
-            })
-
-        }
-        render()
-    })
 
     function adicionarCarrinho(servicoCarrinho: any) {
         if (localStorage.getItem("servicoCarrinho") != undefined) {
@@ -107,26 +70,45 @@ export default function VisualizacaoServ() {
     useEffect(() => {
         async function render() {
             axios.get(`http://localhost:8080/servicos/pegarServico/${id}`,).then((res) => {
-                setServico(res.data)
 
+                setServico(res.data)
+                console.log(res.data);
+                
+                setPacotes(res.data.pacotes)
+                
                 setComplementos(res.data.complementares)
-                console.log(res.data.complementares)
             })
         }
-
         render()
     }, [servico])
 
     useEffect(() => {
         function render() {
-            axios.post(`http://localhost:8080/servicos/pegarOfertas`, [servico]).then((res) => {
+           /*  axios.post(`http://localhost:8080/servicos/pegarPacotes`, [servico]).then((res) => {
+                console.log(res.data);
+                
                 setPacotes(res.data)
-            })
+            }) */
 
-            axios.post(`http://localhost:8080/servicos/pegarPromocoes`, [servico]).then((res) => {
+/*             axios.post(`http://localhost:8080/servicos/pegarPromocoes`, [servico]).then((res) =>{              
+                console.log(res.data);
+                
                 setPromocoes(res.data)
             }).catch(error => {
                 console.log(error.message);
+            }) */
+
+            axios.get(`http://localhost:8080/promocoes/pegarTodasPromocoes`).then((res) => {
+                const promocoes = []
+   
+                console.log(res.data);
+                 
+                for (let i = 0; i < res.data.length; i++) {
+                    if (res.data.pacotes) {
+
+                    }
+                } 
+                
             })
 
         }
@@ -144,22 +126,22 @@ export default function VisualizacaoServ() {
                         <h1 className="name">{servico.nome}</h1>
                         <div className="descricao">
                             <p>{servico.descricao}</p>
-                            <Button onClick={() => adicionarCarrinho({id: servico.id , nome: servico.nome})} ><Link to={`/carrinho/servico/${servico.id}`}>Ver Serviço!</Link></Button>
                         </div>
+                        <Button onClick={() => adicionarCarrinho({id: servico.id , nome: servico.nome})} className="botaocarrinho"><Link to={`/carrinho/servico/${servico.id}`}>Ver Serviço!</Link></Button>
                     </div>
                 </div>
 
                 <div className="prom">
                     <h2 className="confira">Confira nossos pacotes</h2>
                     <div className="row">
-                        {pacote.map((info) =>
+                        {pacote.map((info: any) =>
                             <div className="col-4 pacotinho">
                                 <div className="pact"></div>
-                                <h3>{info.pacote.nome}</h3>
+                                <h3>{info.nome}</h3>
                                 <h4>R$ {info.preco}</h4>
-                                {info.pacote.servicos.map((servico: { id: string, nome: string }) =>
+                                {info.produtos.map((produto: { id: string, nome: string }) =>
                                     <div>
-                                        <p><BiCheck className="iconecheck" />{servico.nome}</p>
+                                        <p><BiCheck className="iconecheck" />{produto.nome}</p>
                                     </div>
                                 )}
                             </div>
@@ -195,19 +177,15 @@ export default function VisualizacaoServ() {
                                                         <div className="card-imgserv"></div>
                                                         <h4>{promocao.nome}</h4>
                                                         <h5>{promocao.preco}% OFF</h5>
-                                                        {promocao.ofertas.map(info =>
+                                                        {/* {promocao.ofertas.map(info =>
                                                             <>
                                                                 <p><BiCheck className="iconecheck" />{info.pacote.nome} - R$ {info.preco}</p>
                                                             </>
                                                         )}
                                                         <p>Preço original: R$ {soma(promocao.ofertas)} </p>
 
-                                                        <p>Preço Com Desconto: R$ {desconto(promocao.preco, soma(promocao.ofertas))} </p>
+                                                        <p>Preço Com Desconto: R$ {desconto(promocao.preco, soma(promocao.ofertas))} </p> */}
 
-                                                        <div className="card-botao">
-                                                            <Button onClick={() => adicionarCarrinho(promocao)} variant="outline-primary" className="promo">Assine agora</Button>
-                                                        </div>
-                                                        <a className='texto'>Adicionar ao carrinho</a>
                                                     </div>
                                                 )
                                                 : <></>
