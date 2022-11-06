@@ -16,42 +16,33 @@ var cont = 0
 export default function Carrinho() {
     const [servico, setServico] = useState(Object)
     const { id } = useParams();
-    const [complementos, setComplementos] = useState(modelo)
-    const [servicosObrigatorios, setservicosObrigatorios] = useState(modeloObrigatorio)
+    const [complementos, setComplementos] = useState(Object)
+    const [servicosObrigatorios, setservicosObrigatorios] = useState(Object)
 
     useEffect(() => {
         async function render() {
             axios.get(`http://localhost:8080/servicos/pegarServico/${id}`,).then((res) => {
-
-                
                 setServico(res.data)
                 console.log(res.data)
 
                 setComplementos(res.data.complementares)
-                console.log(res.data.complementares)
+                //console.log(res.data.complementares)
 
                 setservicosObrigatorios(res.data.servicosObrigatorios)
-                console.log(res.data.servicosObrigatorios)
-                
-             
-                
-
-
-
-
-
+                //console.log(res.data.servicosObrigatorios)
             })
 
-            axios.get(`http://localhost:8080/pacotes/pegarPeloServico/${servico.id}`).then((res)=>{
-                setServico({...servico, pacotes: res.data})
+            axios.get(`http://localhost:8080/pacotes/pegarPeloServico/${servico.id}`).then((res) => {
+                setServico({ ...servico, pacotes: res.data })
                 console.log(res.data)
             })
         }
-        if(cont <=3){
+
+        if (cont <= 3) {
             render()
             cont += 1
         }
-        
+
     }, [servico])
 
 
@@ -69,139 +60,145 @@ export default function Carrinho() {
                             <div className="card-body card-body1">
                                 <p className="card-text card-text1">{servico.descricao}</p>
                                 <div className="row">
-                                    <div className="col-4"> 
-                                    <Form.Select>
-                                        <option>Plano</option>
-                                        {servico.pacote?.map((pacote: any)=>
-                                                <option>{pacote.nome}</option>
-                                            )}
-                                        
-                                    </Form.Select>
-                                    
-                                    </div>
+
                                     <div className="col-4">
                                         <Form.Select>
-                                            <option>Período</option>
-                                            <option>Anual</option>
-                                            <option>Mensal</option>
+                                            <option disabled>Plano</option>
+                                            {servico.pacotes?.map((pacote: any) =>
+                                                <option>{pacote.nome}</option>
+                                            )}
+
+                                        </Form.Select>
+
+                                    </div>
+
+                                    <div className="col-4">
+                                        <Form.Select>
+                                            <option disabled>Período</option>
+                                            {servico.pacotes?.map((pacote: any) => 
+                                                <option>{pacote.periodo}</option>
+                                            )}
                                         </Form.Select>
                                     </div>
+
                                     <div className="col-4 value">
                                         <h5>Valor: </h5>
                                         <p>R$ 100,00</p>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
                         {servico.servicosObrigatorios?.length > 0 ?
                             <div>
                                 {servicosObrigatorios != null ?
-                                    servicosObrigatorios.map(servicoObrigatorio =>
-                                <div className="card card1">
-                                    <h5 className="card-header card-header1"><Form.Check defaultChecked={true} label={servicoObrigatorio.nome}/></h5>
-                                    <div className="card-body card-body1">
-                                        <p className="card-text">{servicoObrigatorio.descricao}</p>
-                                        <div className="row">
-                                            <div className="col-4">
-                                                <Form.Select>
-                                                    <option>Plano</option>
-                                                    <option>Básico</option>
-                                                    <option>Médio</option>
-                                                </Form.Select>
-                                            </div>
-                                            <div className="col-4">
-                                                <Form.Select>
-                                                    <option>Período</option>
-                                                    <option>Anual</option>
-                                                    <option>Mensal</option>
-                                                </Form.Select>
-                                            </div>
-                                            <div className="col-4 value">
-                                                <h5>Valor: </h5>
-                                                <p>R$ 100,00</p>
+                                    servicosObrigatorios.map((servicoObrigatorio: any) =>
+                                        <div className="card card1">
+                                            <h5 className="card-header card-header1"><Form.Check defaultChecked={true} label={servicoObrigatorio.nome} /></h5>
+                                            <div className="card-body card-body1">
+                                                <p className="card-text">{servicoObrigatorio.descricao}</p>
+                                                <div className="row">
+                                                    <div className="col-4">
+                                                        <Form.Select>
+                                                            <option disabled>Plano</option>
+                                                            
+                                                            <option>Básico</option>
+                                                            <option>Médio</option>
+                                                        </Form.Select>
+                                                    </div>
+                                                    <div className="col-4">
+                                                        <Form.Select>
+                                                            <option>Período</option>
+                                                            <option>Anual</option>
+                                                            <option>Mensal</option>
+                                                        </Form.Select>
+                                                    </div>
+                                                    <div className="col-4 value">
+                                                        <h5>Valor: </h5>
+                                                        <p>R$ 100,00</p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                )
-                                : <></>
-                            }
-                        </div>
-                        :
-                        <></>
-                    }
+                                    )
+                                    : <></>
+                                }
+                            </div>
+                            :
+                            <></>
+                        }
                         {servico.complementares?.length > 0 ?
                             <div>
                                 {complementos != null ?
-                                    complementos.map(complemento =>
-                                <div className="card card1">
-                                    <h5 className="card-header card-header1"><Form.Check label={complemento.nome}/></h5>
-                                    <div className="card-body card-body1">
-                                        <p className="card-text">{complemento.descricao}</p>
-                                        <div className="row">
-                                            <div className="col-4">
-                                                <Form.Select>
-                                                    <option>Plano</option>
-                                                    <option>Básico</option>
-                                                    <option>Médio</option>
-                                                </Form.Select>
-                                            </div>
-                                            <div className="col-4">
-                                                <Form.Select>
-                                                    <option>Período</option>
-                                                    <option>Anual</option>
-                                                    <option>Mensal</option>
-                                                </Form.Select>
-                                            </div>
-                                            <div className="col-4 value">
-                                                <h5>Valor: </h5>
-                                                <p>R$ 100,00</p>
+                                    complementos.map((complemento: any) =>
+                                        <div className="card card1">
+                                            <h5 className="card-header card-header1"><Form.Check label={complemento.nome} /></h5>
+                                            <div className="card-body card-body1">
+                                                <p className="card-text">{complemento.descricao}</p>
+                                                <div className="row">
+                                                    <div className="col-4">
+                                                        <Form.Select>
+                                                            <option>Plano</option>
+                                                            <option>Básico</option>
+                                                            <option>Médio</option>
+                                                        </Form.Select>
+                                                    </div>
+                                                    <div className="col-4">
+                                                        <Form.Select>
+                                                            <option>Período</option>
+                                                            <option>Anual</option>
+                                                            <option>Mensal</option>
+                                                        </Form.Select>
+                                                    </div>
+                                                    <div className="col-4 value">
+                                                        <h5>Valor: </h5>
+                                                        <p>R$ 100,00</p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                )
-                                : <></>
-                            }
-                        </div>
-                        :
-                        <></>
-                    }
+                                    )
+                                    : <></>
+                                }
+                            </div>
+                            :
+                            <></>
+                        }
                     </div>
 
                     <div className="resumo col-3">
                         <ul className="list-group">
                             <li className="list-group-item"><h4>RESUMO</h4></li>
-                            <li className="list-group-item"><Form.Check defaultChecked={true} label={servico.nome}/></li>
+                            <li className="list-group-item"><Form.Check defaultChecked={true} label={servico.nome} /></li>
                             {servico.servicosObrigatorios?.length > 0 ?
                                 <div>
                                     {servicosObrigatorios != null ?
-                                    servicosObrigatorios.map(obrigatorio =>
-                                    <li className="list-group-item"><Form.Check defaultChecked={true} label={obrigatorio.nome}/></li>
-                                    )
-                                    : <></>
-                                }
-                                    </div>
+                                        servicosObrigatorios.map((obrigatorio: any) =>
+                                            <li className="list-group-item"><Form.Check defaultChecked={true} label={obrigatorio.nome} /></li>
+                                        )
+                                        : <></>
+                                    }
+                                </div>
                                 :
                                 <></>
                             }
                             {servico.complementares?.length > 0 ?
                                 <div>
                                     {complementos != null ?
-                                    complementos.map(complemento =>
-                                    <li className="list-group-item"><Form.Check label={complemento.nome}/></li>
-                                    )
-                                    : <></>
-                                }
-                                    </div>
-                            :
-                            <></>
-                        }
+                                        complementos.map((complemento: any) =>
+                                            <li className="list-group-item"><Form.Check label={complemento.nome} /></li>
+                                        )
+                                        : <></>
+                                    }
+                                </div>
+                                :
+                                <></>
+                            }
                         </ul>
                         <h4 className="valor">Valor total: R$ 180,00</h4>
                         <Button>Finalizar compra!</Button>
                     </div>
-                    
+
                 </div>
 
             </div>

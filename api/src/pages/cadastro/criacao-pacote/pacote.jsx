@@ -125,6 +125,8 @@ export default function Pacote() {
                 produtos: data[i].pacoteProdutos
             }
 
+            console.log(pacote);
+
             event.preventDefault();
 
             axios.post(`http://localhost:8080/pacotes/criarPacote`, pacote).then((res) => {
@@ -137,7 +139,7 @@ export default function Pacote() {
 
             console.log(pacote);
 
-            axios.post(`http://localhost:8080/servicos/atualizarPacotes/${pacote.servico.id}`, pacote) 
+            axios.post(`http://localhost:8080/servicos/atualizarPacotes/${pacote.servico.id}`, pacote)
         }
 
         let valores = {
@@ -173,7 +175,11 @@ export default function Pacote() {
     }
 
     const topFunction = () => {
-        document.documentElement.scrollTop = 0
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
     }
 
     const botFunction = () => {
@@ -227,7 +233,7 @@ export default function Pacote() {
                     <Form.Control id='pesquisar'
                         name="pacoteNome"
                         type="text"
-                        placeholder="Insira o nome do pacote" 
+                        placeholder="Insira o nome do pacote"
                         onKeyUp={filter()}
                     />
                 </Form.Group>
@@ -362,11 +368,11 @@ export default function Pacote() {
 
                     <div className="campobotoes">
 
-                        <Button type="submit" onClick={duplicarClick} className="submitpromo">
+                        <Button onClick={duplicarClick} className="submitpromo">
                             Criar mais campos!
                         </Button>
 
-                        <Button type="submit" onClick={topFunction} className="criarpromo">
+                        <Button onClick={topFunction} className="criarpromo">
                             <BsFillArrowUpCircleFill />
                         </Button>
 
@@ -374,7 +380,7 @@ export default function Pacote() {
                             <BsFillArrowDownCircleFill />
                         </Button>
 
-                        <Button onClick={handleSubmit} className="botpromo">
+                        <Button type='submit' onClick={handleSubmit} className="botpromo">
                             Criar pacote(s)!
                         </Button>
 

@@ -105,7 +105,11 @@ export default function Promocao() {
     }
 
     const topFunction = () => {
-        document.documentElement.scrollTop = 0;
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
     }
 
     const botFunction = () => {
@@ -145,7 +149,7 @@ export default function Promocao() {
                     <Form.Control id='pesquisar'
                         name="promocaoNome"
                         type="text"
-                        placeholder="Insira o nome da promoção" 
+                        placeholder="Insira o nome da promoção"
                         onKeyUp={filter()}
                     />
                 </Form.Group>
@@ -211,7 +215,7 @@ export default function Promocao() {
 
                                 {index > 0 ?
 
-                                    <Button onClick={removerTab}>
+                                    <Button id="botao-exluir-promo" onClick={removerTab}>
                                         Excluir campos
                                     </Button>
 
@@ -232,11 +236,11 @@ export default function Promocao() {
 
                     <div className="campobotoes">
 
-                        <Button type="submit" onClick={duplicarClick} className="submitpromo">
+                        <Button onClick={duplicarClick} className="submitpromo">
                             Criar mais campos!
                         </Button>
 
-                        <Button type="submit" onClick={topFunction} className="criarpromo">
+                        <Button onClick={topFunction} className="criarpromo">
                             <BsFillArrowUpCircleFill />
                         </Button>
 
@@ -244,8 +248,8 @@ export default function Promocao() {
                             <BsFillArrowDownCircleFill />
                         </Button>
 
-                        <Button onClick={handleSubmit} className="botpromo">
-                            Criar produto(s)!
+                        <Button type='submit' onClick={handleSubmit} className="botpromo">
+                            Criar promoção(ões)!
                         </Button>
 
                     </div >

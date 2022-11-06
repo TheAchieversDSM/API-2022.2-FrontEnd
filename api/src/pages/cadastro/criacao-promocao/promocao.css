@@ -46,6 +46,10 @@ h1 {
     top: 340px;
 }
 
+#botao-exluir-promo {
+    width: 130px !important;
+}
+
 .botpromo {
     width: 210px;
     position: fixed;

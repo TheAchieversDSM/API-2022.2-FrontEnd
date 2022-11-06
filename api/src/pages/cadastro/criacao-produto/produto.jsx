@@ -108,7 +108,11 @@ export default function Produto() {
     }
 
     const topFunction = () => {
-        document.documentElement.scrollTop = 0;
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
     }
 
     const botFunction = () => {
@@ -148,7 +152,7 @@ export default function Produto() {
                     <Form.Control id='pesquisar'
                         name="produtoNome"
                         type="text"
-                        placeholder="Insira o nome do produto" 
+                        placeholder="Insira o nome do produto"
                         onKeyUp={filter()}
                     />
                 </Form.Group>
@@ -250,11 +254,11 @@ export default function Produto() {
 
                     <div className="campobotoes">
 
-                        <Button type="submit" onClick={duplicarClick} className="submitpromo">
+                        <Button onClick={duplicarClick} className="submitpromo">
                             Criar mais campos!
                         </Button>
 
-                        <Button type="submit" onClick={topFunction} className="criarpromo">
+                        <Button onClick={topFunction} className="criarpromo">
                             <BsFillArrowUpCircleFill />
                         </Button>
 
@@ -262,7 +266,7 @@ export default function Produto() {
                             <BsFillArrowDownCircleFill />
                         </Button>
 
-                        <Button onClick={handleSubmit} className="botpromo">
+                        <Button type='submit' onClick={handleSubmit} className="botpromo">
                             Criar produto(s)!
                         </Button>
 

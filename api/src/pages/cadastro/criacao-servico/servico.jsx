@@ -161,7 +161,11 @@ export default function Servico() {
     }
 
     const topFunction = () => {
-        document.documentElement.scrollTop = 0;
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth',
+        });
     }
 
     const botFunction = () => {
@@ -380,11 +384,11 @@ export default function Servico() {
 
                     <div className="campobotoes">
 
-                        <Button type="submit" onClick={duplicarClick} className="submitpromo">
+                        <Button onClick={duplicarClick} className="submitpromo">
                             Criar mais campos!
                         </Button>
 
-                        <Button type="submit" onClick={topFunction} className="criarpromo">
+                        <Button onClick={topFunction} className="criarpromo">
                             <BsFillArrowUpCircleFill />
                         </Button>
 
@@ -392,7 +396,7 @@ export default function Servico() {
                             <BsFillArrowDownCircleFill />
                         </Button>
 
-                        <Button onClick={handleSubmit} className="botpromo">
+                        <Button type='submit' onClick={handleSubmit} className="botpromo">
                             Criar serviço(s)!
                         </Button>
 
