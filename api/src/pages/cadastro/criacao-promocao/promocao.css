@@ -22,3 +22,45 @@ h1 {
     font-weight: 500;
     font-size: 18px;
 }
+
+.campobotoes {
+    position: absolute;
+    right: 500px;
+    top: 220px
+}
+
+.submitpromo {
+    width: 210px;
+    position: fixed;
+}
+
+.criarpromo {
+    width: 210px;
+    position: fixed;
+    top: 280px;
+}
+
+.toppromo {
+    width: 210px;
+    position: fixed;
+    top: 340px;
+}
+
+#botao-exluir-promo {
+    width: 130px !important;
+}
+
+.botpromo {
+    width: 210px;
+    position: fixed;
+    top: 400px;
+    background-color: #3a6ea5 !important;
+}
+
+.botpromo:hover {
+    background-color: #ff6700 !important;
+}
+
+#myInputPromotion {
+    margin-bottom: 15px !important;
+}

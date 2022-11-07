@@ -6,6 +6,8 @@
     margin-top: 30px
 }
 
+
+
 .principal{
     margin: 80px;
 }
@@ -181,7 +183,7 @@ p.texto {
 
 .pacotinho{
     background-color: #5486b4;
-    height: 400px;
+    height: fit-content;
     width: 280px;
     padding: 20px 10px 20px 10px;
     flex-direction: row;

@@ -4,6 +4,10 @@ h1 {
     margin-bottom: 1rem;
 }
 
+hr {
+    margin-top: 30px !important;
+}
+
 .btn-primary {
     background-color: #ff6700;
     border: none;
@@ -25,4 +29,8 @@ h1 {
 
 .FormText{
   max-height: auto;
+}
+
+#myInputPackage {
+    margin-bottom: 15px !important;
 }

@@ -137,27 +137,6 @@ export default function Listagens() {
 
                     </Tab>
 
-                    <Tab eventKey="ofertas" title="Ofertas" className="tab3">
-
-                        <Table striped bordered hover>
-                            <thead>
-                                <tr>
-                                    <th>Preço</th>
-                                    <th>Pacote</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {ofertas.map(oferta =>
-                                    <tr>
-                                        <td>R$ {oferta.preco}</td>
-                                        <td>{oferta?.pacote?.nome}</td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </Table>
-
-                    </Tab>
-
                     <Tab eventKey="promocoes" title="Promoção" className="tab3">
 
                         <Table striped bordered hover>
