@@ -27,7 +27,7 @@ export default function VisualizacaoServ() {
     const [promocoes, setPromocoes] = useState(modeloPromocao)
     const [complementos, setComplementos] = useState(modelo)
     const [pacote, setPacotes] = useState(modeloPacote)
-    const [pacoteServ, setPacoteServ] = useState(Object)
+    const [pacoteServ, setPacoteServ] = useState(modeloPacote)
 
     const { id } = useParams();
 
