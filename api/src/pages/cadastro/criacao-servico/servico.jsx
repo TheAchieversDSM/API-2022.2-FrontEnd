@@ -124,9 +124,11 @@ export default function Servico() {
             event.preventDefault();
 
             axios.post("http://localhost:8080/servicos/criarServico", servico).then((res) => {
-                alert('Serviço(s) criado(s)!')
+                
             })
         }
+
+        alert('Serviço(s) criado(s)!')
 
         let valores = {
             servicoNome: "",

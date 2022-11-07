@@ -26,8 +26,6 @@ export default function Carrinho() {
 
     const handleChange = (event: any) => {
         var preco = event.target.value
-
-        console.log(event.target.value);
          
         setPreco(preco)
     }
@@ -38,15 +36,12 @@ export default function Carrinho() {
                 setServico(res.data)
             
                 setComplementos(res.data.complementares)
-                //console.log(res.data.complementares)
 
                 setservicosObrigatorios(res.data.servicosObrigatorios)
-                //console.log(res.data.servicosObrigatorios)
             })
 
             axios.get(`http://localhost:8080/pacotes/pegarPeloServico/${servico.id}`).then((res) => {
                 setServico({ ...servico, pacotes: res.data })
-                console.log(res.data)
             })
 
             axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
@@ -63,10 +58,7 @@ export default function Carrinho() {
                         pacotesX.push(opt)
                         optionsX.push(option)
                     }
-
-                    console.log(pacotesX);
                 }
-
                 setPacoteServ(pacotesX)           
             })
         }

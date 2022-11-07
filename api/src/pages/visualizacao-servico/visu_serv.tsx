@@ -72,7 +72,6 @@ export default function VisualizacaoServ() {
             axios.get(`http://localhost:8080/servicos/pegarServico/${id}`,).then((res) => {
 
                 setServico(res.data)
-                //console.log(res.data);
 
                 setPacotes(res.data.pacotes)
 
@@ -89,8 +88,6 @@ export default function VisualizacaoServ() {
 
                         pacotesX.push(opt)
                     }
-
-                    console.log(pacotesX);
                 }
 
                 setPacoteServ(pacotesX)
@@ -101,24 +98,19 @@ export default function VisualizacaoServ() {
 
     useEffect(() => {
         function render() {
-            /*             axios.post(`http://localhost:8080/servicos/pegarPacotes`, [servico]).then((res) => {
-                            console.log(res.data);
-                            
-                            setPacotes(res.data)
-                        }) */
+            /*axios.post(`http://localhost:8080/servicos/pegarPacotes`, [servico]).then((res) => { 
+                setPacotes(res.data)
+            }) */
 
-            /*             axios.post(`http://localhost:8080/servicos/pegarPromocoes`, [servico]).then((res) =>{              
-                            console.log(res.data);
-                            
-                            setPromocoes(res.data)
-                        }).catch(error => {
-                            console.log(error.message);
-                        }) */
+            /*axios.post(`http://localhost:8080/servicos/pegarPromocoes`, [servico]).then((res) =>{              
+                setPromocoes(res.data)
+            }).catch(error => {
+                console.log(error.message);
+            }) */
 
             axios.post(`http://localhost:8080/servicos/pegarPromocoes`, [servico]).then((res) => {
                 setPromocoes(res.data)
             })
-
         }
 
         render()

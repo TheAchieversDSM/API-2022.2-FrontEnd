@@ -125,22 +125,16 @@ export default function Pacote() {
                 produtos: data[i].pacoteProdutos
             }
 
-            console.log(pacote);
-
             event.preventDefault();
 
             axios.post(`http://localhost:8080/pacotes/criarPacote`, pacote).then((res) => {
-                alert('Pacote(s) criado(s)!');
-
-                console.log(res.data);
-
                 pacote.id = res.data
             })
 
-            console.log(pacote);
-
-            axios.post(`http://localhost:8080/servicos/atualizarPacotes/${pacote.servico.id}`, pacote)
+            /* axios.post(`http://localhost:8080/servicos/atualizarPacotes/${pacote.servico.id}`, pacote) */
         }
+
+        alert('Pacote(s) criado(s)!');
 
         let valores = {
             pacoteNome: "",

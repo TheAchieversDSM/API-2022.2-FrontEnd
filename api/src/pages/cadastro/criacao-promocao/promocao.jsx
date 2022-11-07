@@ -70,9 +70,11 @@ export default function Promocao() {
             event.preventDefault();
 
             axios.post(`http://localhost:8080/promocoes/criarPromocao`, promocao).then((res) => {
-                alert("Promoção criada!");
+
             });
         }
+
+        alert("Promoção(ões) criada(s)!");
 
         let valores = {
             promocaoNome: "",
