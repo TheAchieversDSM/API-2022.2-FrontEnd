@@ -26,7 +26,7 @@ export default function Carrinho() {
 
     const handleChange = (event: any) => {
         var preco = event.target.value
-         
+         console.log(preco)
         setPreco(preco)
     }
 
@@ -95,7 +95,7 @@ export default function Carrinho() {
 
                                     <div className="col-4 value">
                                         <h5>Valor: </h5>
-                                        <p>R$ {preco} </p>
+                                        <p>R$ {pacoteServ?.length > 1? preco : pacoteServ[0]?.preco} </p>
                                     </div>
 
                                 </div>
