@@ -146,6 +146,8 @@ export default function Pacote() {
         }
 
         setFormValue([valores]);
+
+        window.location.reload()
     };
 
     const duplicarTab = (event) => {

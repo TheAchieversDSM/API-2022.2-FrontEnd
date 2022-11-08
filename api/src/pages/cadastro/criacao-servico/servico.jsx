@@ -140,6 +140,8 @@ export default function Servico() {
         }
 
         setFormValue([valores]);
+
+        window.location.reload()
     };
 
     const duplicarTab = (event) => {

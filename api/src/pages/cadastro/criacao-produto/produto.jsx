@@ -87,6 +87,8 @@ export default function Produto() {
         }
 
         setFormValue([valores]);
+        
+        window.location.reload()
     };
 
     const duplicarTab = (event) => {

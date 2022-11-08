@@ -83,6 +83,9 @@ export default function Promocao() {
         }
 
         setFormValue([valores])
+
+        window.location.reload()
+
     };
 
 
