@@ -1,10 +1,14 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { InputActionMeta } from "react-select";
 import Select from 'react-select';
+
+import axios from "axios";
+
 import Navigation from "../../../components/navbar";
 import Sidebar from "../../../components/sidebar";
+import filter from "../../../functions/filter";
 
 const modeloOferta = [
     { value: '', label: '' }
@@ -28,7 +32,7 @@ export default function Oferta() {
         console.log(event);
         var ofertasSelecionados: ofertaModelo[] = []
         let oferta = { id: event.value, nome: event.label, servicos: event.servicos }
-        
+
         ofertasSelecionados.push(oferta)
 
         setFormValue((prevState) => {
@@ -37,7 +41,7 @@ export default function Oferta() {
                 ofertaPacotes: ofertasSelecionados,
             };
         });
-        
+
     };
 
     const handleChange = (event: any) => {
@@ -56,7 +60,7 @@ export default function Oferta() {
                 var ofertas = []
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
-                        value: res.data[index].id ,
+                        value: res.data[index].id,
                         servicos: res.data[index].servicos,
                         label: res.data[index].nome
                     }
@@ -89,11 +93,35 @@ export default function Oferta() {
         setFormValue(valores);
     };
 
-
-
     return (
         <>
+
+            <Navigation />
+
+            <Sidebar />
+
             <div className='container-promo'>
+                
+                {/*<Form id='myInputOferta' className="d-flex">
+                    <Form.Group as={Col} md="6">
+                        <Form.Label>Pesquisar</Form.Label>
+                        <Form.Control id='pesquisar'
+                            name="ofertaNome"
+                            type="text"
+                            placeholder="Insira o nome da oferta"
+                            onKeyUp={filter()}
+                        />
+                    </Form.Group>
+                </Form> */}
+
+                <div className="tab">
+                    <Button href="/criacao-produto">Produto</Button>
+                    <Button href="/criacao-servico">Serviço</Button>
+                    <Button href="/criacao-pacote">Pacote</Button>
+                    <Button href="/criacao-oferta" id="tab-ativa" disabled>Oferta</Button>
+                    <Button href="/criacao-promocao">Promoção</Button>
+                </div>
+
                 <h1>Cadastro de Oferta</h1>
 
                 <Form>

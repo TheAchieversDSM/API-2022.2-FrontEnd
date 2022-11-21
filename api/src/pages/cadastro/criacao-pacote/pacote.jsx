@@ -14,6 +14,9 @@ import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from 'react-icons/
 
 import './pacote.css'
 
+import Navigation from '../../../components/navbar';
+import Sidebar from '../../../components/sidebar';
+
 const periodo = [
     { value: 'Diário', label: 'Diário' },
     { value: 'Semanal', label: 'Semanal' },
@@ -223,19 +226,32 @@ export default function Pacote() {
 
     return (
         <>
-            <Form id='myInputPackage' className="d-flex">
-                <Form.Group as={Col} md="6">
-                    <Form.Label>Pesquisar</Form.Label>
-                    <Form.Control id='pesquisar'
-                        name="pacoteNome"
-                        type="text"
-                        placeholder="Insira o nome do pacote"
-                        onKeyUp={filter()}
-                    />
-                </Form.Group>
-            </Form>
+
+            <Navigation />
+
+            <Sidebar />
 
             <div className='container-promo'>
+
+                <div className="tab">
+                    <Button href="/criacao-produto">Produto</Button>
+                    <Button href="/criacao-servico">Serviço</Button>
+                    <Button href="/criacao-pacote" id="tab-ativa" disabled>Pacote</Button>
+                    <Button href="/criacao-oferta">Oferta</Button>
+                    <Button href="/criacao-promocao">Promoção</Button>
+                </div>
+
+                <Form id='myInputPackage' className="d-flex">
+                    <Form.Group as={Col} md="6">
+                        <Form.Label>Pesquisar</Form.Label>
+                        <Form.Control id='pesquisar'
+                            name="pacoteNome"
+                            type="text"
+                            placeholder="Insira o nome do pacote"
+                            onKeyUp={filter()}
+                        />
+                    </Form.Group>
+                </Form>
 
                 <h1>Cadastro de Pacotes</h1>
 
