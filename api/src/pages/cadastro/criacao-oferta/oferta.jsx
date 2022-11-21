@@ -2,53 +2,75 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { InputActionMeta } from "react-select";
+import CreatableSelect from 'react-select/creatable';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import Select from 'react-select';
-import Navigation from "../../../components/navbar";
-import Sidebar from "../../../components/sidebar";
+import filter from '../../../functions/filter';
 
-const modeloOferta = [
-    { value: '', label: '' }
-];
+import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from 'react-icons/bs'
 
-type ofertaModelo = { id: "", nome: "" }
+import './oferta.css'
+
+const periodo = [
+    { value: 'Diário', label: 'Diário' },
+    { value: 'Semanal', label: 'Semanal' },
+    { value: 'Quinzenal', label: 'Quinzenal' },
+    { value: 'Mensal', label: 'Mensal' },
+    { value: 'Semestral', label: 'Semestral' },
+    { value: 'Anual', label: 'Anual' }
+]
+
+const ofertaModelo = [{ id: "", nome: "" }];
 
 export default function Oferta() {
     const [ofertas, setOfertas] = useState(modeloOferta)
+    const [pacotes, setPacotes] = useState(modeloOptions)
+    const [produto, setProduto] = useState([{ value: '', label: '' }])
 
-    let listaOfertas: ofertaModelo[] = []
+    let listaOfertas = []
 
-    const [formValue, setFormValue] = useState({
-        ofertaPreco: "",
+    const [formValue, setFormValue] = useState([{
+        ofertaNome: "",
+        ofertaDescricao: "",
         ofertaPacotes: listaOfertas
-    });
+    }]);
 
-    const { ofertaPreco, ofertaPacotes } = formValue;
+    const { ofertaNome, ofertaDescricao, ofertaPacotes } = formValue;
 
-    const handleChangeOfertas = (event: any) => {
-        console.log(event);
-        var ofertasSelecionados: ofertaModelo[] = []
-        let oferta = { id: event.value, nome: event.label, servicos: event.servicos }
-        
-        ofertasSelecionados.push(oferta)
+    const handleChangeOfertas = (index, event) => {
+        let data = [...formValue];
 
-        setFormValue((prevState) => {
-            return {
-                ...prevState,
-                ofertaPacotes: ofertasSelecionados,
-            };
-        });
-        
+        data[index][event.target.name] = event.target.value;
+
+        setFormValue(data)
     };
 
-    const handleChange = (event: any) => {
-        const { name, value } = event.target;
-        setFormValue((prevState) => {
-            return {
-                ...prevState,
-                [name]: value,
-            };
-        });
+    
+
+    const handleChange = = (index, event) => {
+        let data = [...formValue];
+
+        data[index][event.target.name] = event.target.value;
+
+        setFormValue(data)
     };
+
+    const handleChangePeriodo = (index, event) => {
+        let data = [...formValue]
+        var periodo = []
+
+        for (let i = 0; i < event.length; i++) {
+            let per = { id: event[i].value, nome: event[i].label }
+            periodo.push(per)
+        }
+
+        data[index].pacotePeriodo = periodo
+
+        setFormValue(data)
+    }
 
     useEffect(() => {
         async function render() {

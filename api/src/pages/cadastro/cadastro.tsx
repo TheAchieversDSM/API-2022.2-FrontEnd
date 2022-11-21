@@ -7,6 +7,7 @@ import Promocao from "./criacao-promocao/promocao";
 import Produto from "./criacao-produto/produto";
 import Servico from "./criacao-servico/servico";
 import Pacote from "./criacao-pacote/pacote";
+import Oferta from "./criacao-oferta/oferta";
 
 export default function Cadastro() {
     return (
@@ -33,9 +34,9 @@ export default function Cadastro() {
                         <Pacote />
                     </Tab>
 
-                    {/*<Tab eventKey="ofertas" title="Ofertas" className="tab4">
+                    <Tab eventKey="ofertas" title="Ofertas" className="tab4">
                         <Oferta />
-                    </Tab>*/}
+                    </Tab>
 
                     <Tab eventKey="promocoes" title="Promoções" className="tab4">
                         <Promocao />
