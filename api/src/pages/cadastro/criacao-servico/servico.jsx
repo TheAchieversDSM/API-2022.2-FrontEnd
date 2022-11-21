@@ -1,3 +1,4 @@
+import {Link, Routes, Route, useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import filter from '../../../functions/filter';
@@ -27,6 +28,8 @@ const categorias = [
 const modeloOptions = [{ value: '', label: '' }];
 
 export default function Servico() {
+    const navigate = useNavigate();
+    
     const [options, setOptions] = useState(modeloOptions)
     const [optServ, setOptServ] = useState(modeloOptions)
 
@@ -144,7 +147,7 @@ export default function Servico() {
 
         setFormValue([valores]);
 
-        window.location.reload()
+        navigate("/criacao-pacote")
     };
 
     const duplicarTab = (event) => {

@@ -1,3 +1,4 @@
+import {Link, Routes, Route, useNavigate} from 'react-router-dom';
 import { useEffect, useState } from "react";
 
 import { Button, Col, Form, Row } from "react-bootstrap";
@@ -17,6 +18,8 @@ const modeloOferta = [
 type ofertaModelo = { id: "", nome: "" }
 
 export default function Oferta() {
+    const navigate = useNavigate();
+
     const [ofertas, setOfertas] = useState(modeloOferta)
 
     let listaOfertas: ofertaModelo[] = []
@@ -27,6 +30,16 @@ export default function Oferta() {
     });
 
     const { ofertaPreco, ofertaPacotes } = formValue;
+
+    const handleChange = (event: any) => {
+        const { name, value } = event.target;
+        setFormValue((prevState) => {
+            return {
+                ...prevState,
+                [name]: value,
+            };
+        });
+    };
 
     const handleChangeOfertas = (event: any) => {
         console.log(event);
@@ -44,14 +57,26 @@ export default function Oferta() {
 
     };
 
-    const handleChange = (event: any) => {
-        const { name, value } = event.target;
-        setFormValue((prevState) => {
-            return {
-                ...prevState,
-                [name]: value,
-            };
-        });
+    const handleSubmit = (event: any) => {
+        const oferta = {
+            preco: ofertaPreco,
+            pacote: ofertaPacotes[0]
+        }
+
+        event.preventDefault();
+
+        axios.post(`http://localhost:8080/ofertas/criarOferta`, oferta).then((res) => {
+            alert('Oferta criada!');
+        })
+
+        let valores = {
+            ofertaPreco: "",
+            ofertaPacotes: listaOfertas
+        }
+
+        setFormValue(valores);
+
+        navigate("/criacao-promocao")
     };
 
     useEffect(() => {
@@ -71,27 +96,6 @@ export default function Oferta() {
         }
         render()
     }, [])
-
-    const handleSubmit = (event: any) => {
-        const oferta = {
-            preco: ofertaPreco,
-            pacote: ofertaPacotes[0]
-        }
-        console.log(oferta)
-
-        event.preventDefault();
-
-        axios.post(`http://localhost:8080/ofertas/criarOferta`, oferta).then((res) => {
-            alert('Oferta criada!');
-        })
-
-        let valores = {
-            ofertaPreco: "",
-            ofertaPacotes: listaOfertas
-        }
-
-        setFormValue(valores);
-    };
 
     return (
         <>

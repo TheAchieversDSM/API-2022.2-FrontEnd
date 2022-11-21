@@ -1,3 +1,4 @@
+import {Link, Routes, Route, useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import filter from '../../../functions/filter';
@@ -26,6 +27,8 @@ const categorias = [
 const complementaresModelo = [{ value: '', label: '' }]
 
 export default function Produto() {
+    const navigate = useNavigate();
+
     const [produtos, setProdutos] = useState(complementaresModelo)
 
     let lista = []
@@ -91,7 +94,7 @@ export default function Produto() {
 
         setFormValue([valores]);
 
-        window.location.href('/criacao-servico')
+        navigate("/criacao-servico")
     };
 
     const duplicarTab = (event) => {

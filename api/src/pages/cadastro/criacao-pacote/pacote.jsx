@@ -1,3 +1,4 @@
+import {Link, Routes, Route, useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import filter from '../../../functions/filter';
@@ -29,6 +30,8 @@ const periodo = [
 const modeloOptions = [{ value: '', label: '' }];
 
 export default function Pacote() {
+    const navigate = useNavigate();
+    
     const [servicos, setServicos] = useState(modeloOptions)
     const [pacotes, setPacotes] = useState(modeloOptions)
     const [produto, setProduto] = useState([{ value: '', label: '' }])
@@ -150,8 +153,8 @@ export default function Pacote() {
 
         setFormValue([valores]);
 
-        window.location.reload()
-    };
+        navigate("/criacao-oferta")   
+     };
 
     const duplicarTab = (event) => {
         if (event.key === 'Tab') {
