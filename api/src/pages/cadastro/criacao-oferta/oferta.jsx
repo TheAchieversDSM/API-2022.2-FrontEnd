@@ -57,7 +57,7 @@ export default function Oferta() {
         setFormValue(data)
     }
 
-    const { ofertaNome, ofertaPacotes, ofertaPeriodo } = formValue;
+    const { ofertaPacotes, ofertaPeriodo } = formValue;
 
     const handleSubmit = (event) => {
         let data = [...formValue]
@@ -89,7 +89,7 @@ export default function Oferta() {
 
     const duplicarTab = (event) => {
         if (event.key === 'Tab') {
-            let newfield = { pacoteNome: "", pacoteOferta: "", pacotePeriodo: "", }
+            let newfield = { ofertaPacotes: "", ofertaPeriodo: "", }
             setFormValue([...formValue, newfield])
         }
     }
@@ -145,18 +145,7 @@ export default function Oferta() {
 
     return (
         <>
-            <Form id='myInputPackage' className="d-flex">
-                <Form.Group as={Col} md="6">
-                    <Form.Label>Pesquisar</Form.Label>
-                    <Form.Control id='pesquisar'
-                        name="ofertaNome"
-                        type="text"
-                        placeholder="Insira o nome da oferta"
-                        onKeyUp={filter()}
-                    />
-                </Form.Group>
-            </Form>
-
+           
             <div className='container-promo'>
 
                 <h1>Cadastro de Ofertas</h1>
@@ -197,6 +186,7 @@ export default function Oferta() {
                                             isLoading={false}
                                             isClearable={true}
                                             isSearchable={true}
+                                            onKeyDown={event => duplicarTab(event)}
                                             closeMenuOnSelect={true}
                                             onChange={event => handleChangePeriodo(index, event)}
                                         />
