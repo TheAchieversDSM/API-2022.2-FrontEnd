@@ -277,36 +277,6 @@ export default function Pacote() {
                                     </Form.Group>
                                 </Row>
 
-                                <Row className="mb-3 FormText">
-                                    <Form.Group as={Col} md="6">
-                                        <Form.Label>Oferta do pacote</Form.Label>
-                                        <Form.Control
-                                            required
-                                            name="pacoteOferta"
-                                            value={fields.produtoOferta}
-                                            type="number"
-                                            placeholder="Insira a oferta do pacote"
-                                            onChange={event => handleChange(index, event)}
-                                        />
-                                    </Form.Group>
-                                </Row>
-
-                                <Row className="mb-3">
-                                    <Form.Group as={Col} md="6">
-                                        <Form.Label>Período da oferta do pacote</Form.Label>
-                                        <CreatableSelect
-                                            isMulti
-                                            name="periodoPacote"
-                                            options={periodo}
-                                            isLoading={false}
-                                            isClearable={true}
-                                            isSearchable={true}
-                                            closeMenuOnSelect={true}
-                                            onChange={event => handleChangePeriodo(index, event)}
-                                        />
-                                    </Form.Group>
-                                </Row>
-
                                 <Row className="mb-3">
                                     <Form.Group as={Col} md="6">
                                         <Form.Label>Serviço que compõe o pacote</Form.Label>
