@@ -29,10 +29,18 @@ export default function Oferta() {
     let listaOfertas = []
 
     const [formValue, setFormValue] = useState([{
-        ofertaNome: "",
-        ofertaDescricao: "",
+        ofertaPreco: "",
+        ofertaPeriodo: "",
         ofertaPacotes: listaOfertas
     }]);
+
+    const handleChange = (index, event) => {
+        let data = [...formValue];
+
+        data[index][event.target.name] = event.target.value;
+
+        setFormValue(data);
+    };
 
 
     const handleChangeOfertas = (index, event) => {
@@ -57,7 +65,7 @@ export default function Oferta() {
         setFormValue(data)
     }
 
-    const { ofertaPacotes, ofertaPeriodo } = formValue;
+    const { ofertaPreco, ofertaPacotes, ofertaPeriodo } = formValue;
 
     const handleSubmit = (event) => {
         let data = [...formValue]
@@ -67,7 +75,8 @@ export default function Oferta() {
             var pacote = {
                 id: undefined,
                 nome: data[i].pacoteNome,
-                periodo: data[i].pacotePeriodo[0].nome,
+                preco: data[i].ofertaPreco,
+                periodo: data[i].ofertaPeriodo
             }
 
             event.preventDefault();
@@ -81,6 +90,12 @@ export default function Oferta() {
 
         alert('Oferta criada!');
 
+        let preco = {
+            ofertaPreco: "",
+            ofertaPacotes: "",
+            ofertaPeriodo: ""
+        }
+
         setFormValue([ofertas]);
 
         window.location.reload()
@@ -89,13 +104,13 @@ export default function Oferta() {
 
     const duplicarTab = (event) => {
         if (event.key === 'Tab') {
-            let newfield = { ofertaPacotes: "", ofertaPeriodo: "", }
+            let newfield = { ofertaPreco: "", ofertaPacotes: "", ofertaPeriodo: "", }
             setFormValue([...formValue, newfield])
         }
     }
 
     const duplicarClick = (event) => {
-        let newfield = { produtoNome: "", produtoQuantidade: "", produtoCategoria: "", produtoDescricao: "" }
+        let newfield = { ofertaPreco: "", ofertaPacotes: "", ofertaPeriodo: "" }
         setFormValue([...formValue, newfield])
     }
 
@@ -130,6 +145,7 @@ export default function Oferta() {
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
                         value: res.data[index].id,
+                        preco: res.data[index].preco,
                         label: res.data[index].nome
                     }
 
@@ -157,6 +173,23 @@ export default function Oferta() {
                         return (
 
                             <div key={index} id={`campoPackage-${index}`}>
+                                
+                                <Row className="mb-3">
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Preço da Oferta</Form.Label>
+                                        <Form.Control
+                                            id={`campoNomePackage-${index}`}
+                                            required
+                                            name="preco"
+                                            value={fields.precoOferta}
+                                            type="text"
+                                            placeholder="Preço da Oferta"
+                                            onChange={event => handleChange(index, event)}
+                                        />
+                                    </Form.Group>
+                                </Row>
+
+
 
                                 <Row className="mb-3">
 
