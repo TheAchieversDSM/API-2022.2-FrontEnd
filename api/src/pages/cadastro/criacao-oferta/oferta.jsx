@@ -44,9 +44,15 @@ export default function Oferta() {
 
 
     const handleChangeOfertas = (index, event) => {
-        let data = [...formValue];
+        let data = [...formValue]
+        var pacoteProdutosX = []
 
-        data[index][event.target.name] = event.target.value;
+        for (let i = 0; i < event.length; i++) {
+            let produto = { id: event[i].value, nome: event[i].label }
+            pacoteProdutosX.push(produto)
+        }
+
+        data[index].pacoteProdutos = pacoteProdutosX
 
         setFormValue(data)
     };
@@ -141,7 +147,7 @@ export default function Oferta() {
         async function render() {
             axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
                 var pacotes = []
-
+                console.log(res.data)
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
                         value: res.data[index].id,
@@ -198,7 +204,7 @@ export default function Oferta() {
                                         <Select
                                             isMulti
                                             name="ofertaPacotes"
-                                            options={ofertas}
+                                            options={pacotes}
                                             isClearable={true}
                                             isLoading={false}
                                             isSearchable={true}
