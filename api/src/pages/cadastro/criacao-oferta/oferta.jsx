@@ -3,10 +3,6 @@ import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { InputActionMeta } from "react-select";
 import CreatableSelect from 'react-select/creatable';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import Select from 'react-select';
 import filter from '../../../functions/filter';
 
@@ -23,10 +19,10 @@ const periodo = [
     { value: 'Anual', label: 'Anual' }
 ]
 
-const ofertaModelo = [{ id: "", nome: "" }];
+const modeloOptions = [{ value: '', label: '' }];
 
 export default function Oferta() {
-    const [ofertas, setOfertas] = useState(modeloOferta)
+    const [ofertas, setOfertas] = useState(modeloOptions)
     const [pacotes, setPacotes] = useState(modeloOptions)
     const [produto, setProduto] = useState([{ value: '', label: '' }])
 
@@ -38,19 +34,8 @@ export default function Oferta() {
         ofertaPacotes: listaOfertas
     }]);
 
-    const { ofertaNome, ofertaDescricao, ofertaPacotes } = formValue;
 
     const handleChangeOfertas = (index, event) => {
-        let data = [...formValue];
-
-        data[index][event.target.name] = event.target.value;
-
-        setFormValue(data)
-    };
-
-    
-
-    const handleChange = = (index, event) => {
         let data = [...formValue];
 
         data[index][event.target.name] = event.target.value;
@@ -72,93 +57,193 @@ export default function Oferta() {
         setFormValue(data)
     }
 
+    const { ofertaNome, ofertaPacotes, ofertaPeriodo } = formValue;
+
+    const handleSubmit = (event) => {
+        let data = [...formValue]
+
+        for (let i = 0; i < data.length; i++) {
+
+            var pacote = {
+                id: undefined,
+                nome: data[i].pacoteNome,
+                periodo: data[i].pacotePeriodo[0].nome,
+            }
+
+            event.preventDefault();
+
+            // eslint-disable-next-line no-loop-func
+            axios.post(`http://localhost:8080/ofertas/criarOferta`, ofertas).then((res) => {
+                pacote.id = res.data
+            })
+
+        }
+
+        alert('Oferta criada!');
+
+        setFormValue([ofertas]);
+
+        window.location.reload()
+
+    };
+
+    const duplicarTab = (event) => {
+        if (event.key === 'Tab') {
+            let newfield = { pacoteNome: "", pacoteOferta: "", pacotePeriodo: "", }
+            setFormValue([...formValue, newfield])
+        }
+    }
+
+    const duplicarClick = (event) => {
+        let newfield = { produtoNome: "", produtoQuantidade: "", produtoCategoria: "", produtoDescricao: "" }
+        setFormValue([...formValue, newfield])
+    }
+
+    const removerTab = (index) => {
+        let data = [...formValue];
+
+        data.splice(index, 1)
+
+        setFormValue(data)
+    }
+
+    const topFunction = () => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    const botFunction = () => {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
+        });
+    };
+
     useEffect(() => {
         async function render() {
             axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
-                var ofertas = []
+                var pacotes = []
+
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
-                        value: res.data[index].id ,
-                        servicos: res.data[index].servicos,
+                        value: res.data[index].id,
                         label: res.data[index].nome
                     }
-                    ofertas.push(option)
+
+                    pacotes.push(option)
                 }
-                setOfertas(ofertas)
+
+                setPacotes(pacotes)
             })
         }
         render()
     }, [])
 
-    const handleSubmit = (event: any) => {
-        const oferta = {
-            preco: ofertaPreco,
-            pacote: ofertaPacotes[0]
-        }
-        console.log(oferta)
-
-        event.preventDefault();
-
-        axios.post(`http://localhost:8080/ofertas/criarOferta`, oferta).then((res) => {
-            alert('Oferta criada!');
-        })
-
-        let valores = {
-            ofertaPreco: "",
-            ofertaPacotes: listaOfertas
-        }
-
-        setFormValue(valores);
-    };
-
-
 
     return (
         <>
+            <Form id='myInputPackage' className="d-flex">
+                <Form.Group as={Col} md="6">
+                    <Form.Label>Pesquisar</Form.Label>
+                    <Form.Control id='pesquisar'
+                        name="ofertaNome"
+                        type="text"
+                        placeholder="Insira o nome da oferta"
+                        onKeyUp={filter()}
+                    />
+                </Form.Group>
+            </Form>
+
             <div className='container-promo'>
-                <h1>Cadastro de Oferta</h1>
 
-                <Form>
+                <h1>Cadastro de Ofertas</h1>
 
-                    <Row className="mb-3">
+                <Form id='myDivPackage'>
 
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Preço da oferta</Form.Label>
-                            <Form.Control
-                                required
-                                name="ofertaPreco"
-                                value={ofertaPreco}
-                                onChange={handleChange}
-                                type="number"
-                                placeholder="Inserir preço da oferta"
-                                defaultValue=""
-                            />
-                        </Form.Group>
+                    {formValue.map((fields, index) => {
 
-                    </Row>
+                        return (
 
-                    <Row className="mb-3">
+                            <div key={index} id={`campoPackage-${index}`}>
 
-                        <Form.Group as={Col} md="6">
-                            <Form.Label>Pacotes que compõem a oferta</Form.Label>
-                            <Select
-                                name="ofertaPacotes"
-                                options={ofertas}
-                                onChange={handleChangeOfertas}
-                                isClearable={true}
-                                isSearchable={true}
-                                closeMenuOnSelect={false}
-                            />
-                        </Form.Group>
+                                <Row className="mb-3">
 
-                    </Row>
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Selecione o Pacote</Form.Label>
+                                        <Select
+                                            isMulti
+                                            name="ofertaPacotes"
+                                            options={ofertas}
+                                            isClearable={true}
+                                            isLoading={false}
+                                            isSearchable={true}
+                                            closeMenuOnSelect={false}
+                                            onChange={event => handleChangeOfertas(index, event)}
+                                        />
+                                    </Form.Group>
 
-                    <Button type="submit" onClick={handleSubmit}>Criar oferta!</Button>
+                                </Row>
+
+                                <Row className="mb-3">
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Selecione o Período</Form.Label>
+                                        <CreatableSelect
+                                            isMulti
+                                            name="periodoOferta"
+                                            options={periodo}
+                                            isLoading={false}
+                                            isClearable={true}
+                                            isSearchable={true}
+                                            closeMenuOnSelect={true}
+                                            onChange={event => handleChangePeriodo(index, event)}
+                                        />
+                                    </Form.Group>
+                                </Row>
+
+                                {index > 0 ?
+
+                                    <Button onClick={removerTab}>
+                                        Excluir campos
+                                    </Button>
+
+                                    :
+
+                                    <>
+                                    </>
+
+                                }
+
+                                <hr />
+
+                            </div>
+                        )
+                    })}
+
+                    <div className="campobotoes">
+
+                        <Button onClick={duplicarClick} className="submitpromo">
+                            Criar mais campos!
+                        </Button>
+
+                        <Button onClick={topFunction} className="criarpromo">
+                            <BsFillArrowUpCircleFill />
+                        </Button>
+
+                        <Button onClick={botFunction} className="toppromo">
+                            <BsFillArrowDownCircleFill />
+                        </Button>
+
+                        <Button type='submit' onClick={handleSubmit} className="botpromo">
+                            Criar oferta(s)!
+                        </Button>
+
+                    </div>
 
                 </Form>
-
-            </div>
-
+            </div >
         </>
     )
 }
