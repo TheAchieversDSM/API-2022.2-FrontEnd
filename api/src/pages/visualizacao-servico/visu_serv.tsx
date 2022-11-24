@@ -14,17 +14,18 @@ let modelo = [{ 'id': '', 'nome': '' }]
 
 let modeloPacote = [
     {
+        'id': '',
         'preco': '',
         'nome': '',
         'produtos': [{ 'id': '', 'nome': '' }]
     }
 ]
 
-const modeloPromocao = [{ id: '', nome: '', preco: '', pacotes: [{ 'nome': '', 'preco': '' }] }]
+const modeloPromocao = [{ id: '', nome: '', preco: '', pacotes: [{ 'id': '', 'nome': '', 'preco': '' }] }]
 
 export default function VisualizacaoServ() {
     const [servico, setServico] = useState(Object)
-    const [promocoes, setPromocoes] = useState(modeloPromocao)
+    const [promocoes, setPromocoes] = useState(Object)
     const [complementos, setComplementos] = useState(modelo)
     const [pacote, setPacotes] = useState(modeloPacote)
     const [pacoteServ, setPacoteServ] = useState(modeloPacote)
@@ -80,8 +81,8 @@ export default function VisualizacaoServ() {
 
             axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
                 const pacotesX = []
-                
-                for (let i = 0; i < res.data.length; i++) {                    
+
+                for (let i = 0; i < res.data.length; i++) {
                     if (res.data[i].servico.id == servico.id) {
 
                         let opt = { id: res.data[i].id, nome: res.data[i].nome, periodo: res.data[i].periodo, preco: res.data[i].preco, produtos: res.data[i].produtos }
@@ -90,7 +91,29 @@ export default function VisualizacaoServ() {
                     }
                 }
 
-                setPacoteServ(pacotesX)
+                setPacoteServ(pacotesX)                
+            })
+
+            axios.get(`http://localhost:8080/promocoes/pegarTodasPromocoes`).then((res) => {
+                const promocoesX = []
+                console.log(res.data);
+                console.log(pacoteServ);
+                
+
+                for (let i = 0; i < res.data.length; i++) {
+                    for (let ind = 0; ind < res.data[i].pacotes.length; ind++) {
+                        for (let index = 0; index < pacoteServ.length; index++) {
+                            if (res.data[i].pacotes[ind].id == pacoteServ[index].id) {
+
+                                let opt = { id: res.data[i].pacotes[ind].id, nome: res.data[i].nome, preco: res.data[i].preco }
+                                
+                                promocoesX.push(opt)
+                            }
+                        }
+                    }
+                }
+
+                setPromocoes(promocoesX)
             })
         }
         render()
@@ -107,10 +130,6 @@ export default function VisualizacaoServ() {
             }).catch(error => {
                 console.log(error.message);
             }) */
-
-            axios.post(`http://localhost:8080/servicos/pegarPromocoes`, [servico]).then((res) => {
-                setPromocoes(res.data)
-            })
         }
 
         render()
@@ -172,7 +191,7 @@ export default function VisualizacaoServ() {
                                     <div className="yours-custom-class container">
                                         <div className="row sugestao-promocao-servico">
                                             {promocoes != null ?
-                                                promocoes.map(promocao =>
+                                                promocoes.map((promocao:any) =>
                                                     <div className="card col-4">
                                                         <div className="card-imgserv"></div>
                                                         <h4>{promocao.nome}</h4>
@@ -181,10 +200,10 @@ export default function VisualizacaoServ() {
                                                             <>
                                                                 <p><BiCheck className="iconecheck" />{info.pacote.nome} - R$ {info.preco}</p>
                                                             </>
-                                                        )}
+                                                        )} 
                                                         <p>Preço original: R$ {soma(promocao.ofertas)} </p>
 
-                                                        <p>Preço Com Desconto: R$ {desconto(promocao.preco, soma(promocao.ofertas))} </p> */}
+                                                        <p>Preço Com Desconto: R$ {desconto(promocao.preco, soma(promocao.ofertas))} </p>*/}
 
                                                     </div>
                                                 )
