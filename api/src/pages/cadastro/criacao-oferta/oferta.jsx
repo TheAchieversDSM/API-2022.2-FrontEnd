@@ -78,9 +78,8 @@ export default function Oferta() {
 
         for (let i = 0; i < data.length; i++) {
 
-            var pacote = {
-                id: undefined,
-                nome: data[i].pacoteNome,
+            var ofertas = {
+                pacote: data[i].ofertaPacotes[0],
                 preco: data[i].ofertaPreco,
                 periodo: data[i].ofertaPeriodo
             }
@@ -89,20 +88,19 @@ export default function Oferta() {
 
             // eslint-disable-next-line no-loop-func
             axios.post(`http://localhost:8080/ofertas/criarOferta`, ofertas).then((res) => {
-                pacote.id = res.data
             })
 
         }
 
         alert('Oferta criada!');
 
-        let preco = {
+        let valores = {
             ofertaPreco: "",
             ofertaPacotes: "",
             ofertaPeriodo: ""
         }
 
-        setFormValue([ofertas]);
+        setFormValue([valores]);
 
         window.location.reload()
 
@@ -186,8 +184,8 @@ export default function Oferta() {
                                         <Form.Control
                                             id={`campoNomePackage-${index}`}
                                             required
-                                            name="preco"
-                                            value={fields.precoOferta}
+                                            name="ofertaPreco"
+                                            value={fields.ofertaPreco}
                                             type="text"
                                             placeholder="Preço da Oferta"
                                             onChange={event => handleChange(index, event)}
@@ -220,7 +218,7 @@ export default function Oferta() {
                                         <Form.Label>Selecione o Período</Form.Label>
                                         <CreatableSelect
                                             isMulti
-                                            name="periodoOferta"
+                                            name="ofertaPeriodo"
                                             options={periodo}
                                             isLoading={false}
                                             isClearable={true}
