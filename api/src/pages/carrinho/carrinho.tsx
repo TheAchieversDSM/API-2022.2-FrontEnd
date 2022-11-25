@@ -9,9 +9,10 @@ import './carrinho.css'
 
 let modelo = [{ 'id': '', 'nome': '', 'descricao': '', }]
 let modeloObrigatorio = [{ 'id': '', 'nome': '', 'descricao': '' }]
-let modeloPreco = [{ 'id': '', 'nome': '', 'descricao': '' }]
-let modeloPacoteServ = [{ 'id': '', 'nome': '', 'periodo': '', 'preco': '' }]
+let modeloPreco = [{ 'id': '', 'nome': '', 'pacote': ''}]
+let modeloPacoteServ = [{ 'id': '', 'nome': ''}]
 const modeloOptions = [{ value: '', label: '' }];
+let modeloOferta = [{'id': '', 'pacote':{ 'id': '', 'nome': ''}, 'preco': {'valor': '', 'periodo': ''}}]
 
 var cont = 0
 
@@ -22,13 +23,15 @@ export default function Carrinho() {
     const [servicosObrigatorios, setservicosObrigatorios] = useState(Object)
     const [data, setData] = useState(modeloPreco)
     const [pacoteServ, setPacoteServ] = useState(modeloPacoteServ)
+    const [oferta, setOferta] = useState(modeloOferta)
     const [preco, setPreco] = useState('')
 
     const handleChange = (event: any) => {
-        var preco = event.target.value
-         console.log(preco)
-        setPreco(preco)
+        setPreco(event.target.value)
+        console.log(preco)
     }
+    
+
 
     useEffect(() => {
         async function render() {
@@ -47,11 +50,11 @@ export default function Carrinho() {
             axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
                 const pacotesX = []
                 const optionsX = []
-
+                console.log(res.data)
                 for (let i = 0; i < res.data.length; i++) {
                     if (res.data[i].servico.id == servico.id) {
 
-                        let opt = { id: res.data[i].id, nome: res.data[i].nome, periodo: res.data[i].periodo, preco: res.data[i].preco}
+                        let opt = { id: res.data[i].id, nome: res.data[i].nome}
 
                         let option = { value: res.data[i].nome, label: res.data[i].nome }
 
@@ -59,11 +62,19 @@ export default function Carrinho() {
                         optionsX.push(option)
                     }
                 }
-                setPacoteServ(pacotesX)           
+
+                setPacoteServ(pacotesX)  
+                         
             })
+
+            axios.post(`http://localhost:8080/ofertas/pegarOfertasPacotes`, pacoteServ).then((res) => {
+                setOferta(res.data)  
+                setPreco(res.data[0].preco.valor)
+                }        
+            )
         }
 
-        if (cont <= 3) {
+        if (cont <= 5) {
             render()
             cont += 1
         }
@@ -87,15 +98,15 @@ export default function Carrinho() {
                                     <div className="col-6">
                                         <Form.Label>Planos & Períodos</Form.Label>
                                         <Form.Select onChange={(event) => handleChange(event)}>
-                                            {pacoteServ.map((pacote: any) => 
-                                                <option value={pacote.preco}>{pacote.nome} - {pacote.periodo}</option>
+                                            {oferta.map((ofe: any) => 
+                                                <option value={ofe.preco.valor}>{ofe.pacote.nome} - {ofe.preco.periodo}</option>
                                             )}  
                                         </Form.Select>
                                     </div>
 
                                     <div className="col-4 value">
                                         <h5>Valor: </h5>
-                                        <p>R$ {pacoteServ?.length > 1? preco : pacoteServ[0]?.preco} </p>
+                                        <p>R$ {preco? preco : null}</p>
                                     </div>
 
                                 </div>
@@ -106,7 +117,7 @@ export default function Carrinho() {
                                 {servicosObrigatorios != null ?
                                     servicosObrigatorios.map((servicoObrigatorio: any) =>
                                         <div className="card card1">
-                                            <h5 className="card-header card-header1"><Form.Check defaultChecked={true} label={servicoObrigatorio.nome} /></h5>
+                                            <h5 className="card-header card-header1"><Form.Check disabled defaultChecked={true} label={servicoObrigatorio.nome} /></h5>
                                             <div className="card-body card-body1">
                                                 <p className="card-text">{servicoObrigatorio.descricao}</p>
                                                 <div className="row">
@@ -181,12 +192,12 @@ export default function Carrinho() {
                     <div className="resumo col-3">
                         <ul className="list-group">
                             <li className="list-group-item"><h4>RESUMO</h4></li>
-                            <li className="list-group-item"><Form.Check defaultChecked={true} label={servico.nome} /></li>
+                            <li className="list-group-item"><Form.Check disabled defaultChecked={true} label={servico.nome} /></li>
                             {servico.servicosObrigatorios?.length > 0 ?
                                 <div>
                                     {servicosObrigatorios != null ?
                                         servicosObrigatorios.map((obrigatorio: any) =>
-                                            <li className="list-group-item"><Form.Check defaultChecked={true} label={obrigatorio.nome} /></li>
+                                            <li className="list-group-item"><Form.Check disabled defaultChecked={true} label={obrigatorio.nome} /></li>
                                         )
                                         : <></>
                                     }
