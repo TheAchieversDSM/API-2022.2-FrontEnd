@@ -27,7 +27,7 @@ let modeloOferta = [
 		"id": "",
 		"pacote": { "id": "", "nome": "" },
 		"periodo": [ "" ],
-		"preco": []
+		"preco": [ "" ]
 	}
 ]
 
@@ -143,14 +143,19 @@ export default function Listagens() {
                         <Table striped bordered hover>
                             <thead>
                                 <tr>
-                                    <th>Nome</th>
-                                    <th>Descrição</th>
+                                    <th>Pacote</th>
+                                    <th>Preço</th>
+                                    <th>Período</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {ofertas.map(oferta =>
                                     <tr>
                                         <td>{oferta.pacote.nome}</td>
+                                        <td>{oferta.preco.map(prec =>
+                                            <p>{prec}</p>    
+                                        )}
+                                        </td>
                                         <td>
                                         {oferta.periodo.map(per => 
                                             <p>{per}</p>
