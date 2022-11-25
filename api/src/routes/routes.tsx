@@ -5,7 +5,6 @@ import Carrinho from "../pages/carrinho/carrinho";
 import Complementar from "../pages/servico-complementar/complementar";
 import VisualizacaoServ from "../pages/visualizacao-servico/visu_serv";
 import Gerenciamento from "../pages/gerenciamento/gerenciamento";
-import Cadastro from "../pages/cadastro/cadastro";
 import Pacote from "../pages/cadastro/criacao-pacote/pacote";
 import Oferta from "../pages/cadastro/criacao-oferta/oferta";
 import Servico from "../pages/cadastro/criacao-servico/servico";
@@ -24,7 +23,6 @@ const Routes = () => {
                 <Route path="/criacao-servico" element={<Servico />} />
                 <Route path="/criacao-oferta" element={<Oferta />} />
                 <Route path="/criacao-pacote" element={<Pacote />} />
-                {/* <Route path="/cadastro" element={<Cadastro />} /> */}
                 <Route path="/carrinho/servico/:id" element={<Carrinho />} />
                 <Route path="/servico-complementar" element={<Complementar />} />
                 <Route path="/listagens" element={<Gerenciamento />} />
