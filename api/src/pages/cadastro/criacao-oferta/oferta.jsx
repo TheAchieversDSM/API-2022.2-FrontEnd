@@ -29,16 +29,13 @@ export default function Oferta() {
     let listaOfertas = []
 
     const [formValue, setFormValue] = useState([{
-        ofertaPreco: "",
-        ofertaPeriodo: "",
+        ofertaPreco: {valor: '', periodo: ''},
         ofertaPacotes: listaOfertas
     }]);
 
     const handleChange = (index, event) => {
         let data = [...formValue];
-
-        data[index][event.target.name] = event.target.value;
-
+        data[index].ofertaPreco.valor = event.target.value;
         setFormValue(data);
     };
 
@@ -52,23 +49,18 @@ export default function Oferta() {
             pacoteProdutosX.push(produto)
         }
 
-        data[index].pacoteProdutos = pacoteProdutosX
-
+        data[index].ofertaPacotes = pacoteProdutosX
         setFormValue(data)
     };
 
     const handleChangePeriodo = (index, event) => {
         let data = [...formValue]
-        var periodo = []
-
-        for (let i = 0; i < event.length; i++) {
-            let per = { id: event[i].value, nome: event[i].label }
-            periodo.push(per)
-        }
-
-        data[index].pacotePeriodo = periodo
+        console.log(event.value)
+        console.log(data[index])
+        data[index].ofertaPreco.periodo = event.value
 
         setFormValue(data)
+        console.log(formValue)
     }
 
     const { ofertaPreco, ofertaPacotes, ofertaPeriodo } = formValue;
@@ -77,19 +69,18 @@ export default function Oferta() {
         let data = [...formValue]
 
         for (let i = 0; i < data.length; i++) {
-
-            var ofertas = {
-                pacote: data[i].ofertaPacotes[0],
-                preco: data[i].ofertaPreco,
-                periodo: data[i].ofertaPeriodo
+            for (let index = 0; index < data[i].ofertaPacotes.length; index++) {
+                var ofertas = {
+                    pacote: data[i].ofertaPacotes[index],
+                    preco: data[i].ofertaPreco,
+                    periodo: data[i].ofertaPeriodo
+                }
+                axios.post(`http://localhost:8080/ofertas/criarOferta`, ofertas).then((res) => {
+                })
             }
+          
 
-            event.preventDefault();
-
-            // eslint-disable-next-line no-loop-func
-            axios.post(`http://localhost:8080/ofertas/criarOferta`, ofertas).then((res) => {
-            })
-
+     
         }
 
         alert('Oferta criada!');
@@ -185,7 +176,7 @@ export default function Oferta() {
                                             id={`campoNomePackage-${index}`}
                                             required
                                             name="ofertaPreco"
-                                            value={fields.ofertaPreco}
+                                            value={fields.ofertaPreco.valor}
                                             type="text"
                                             placeholder="Preço da Oferta"
                                             onChange={event => handleChange(index, event)}
@@ -217,7 +208,6 @@ export default function Oferta() {
                                     <Form.Group as={Col} md="6">
                                         <Form.Label>Selecione o Período</Form.Label>
                                         <CreatableSelect
-                                            isMulti
                                             name="ofertaPeriodo"
                                             options={periodo}
                                             isLoading={false}
