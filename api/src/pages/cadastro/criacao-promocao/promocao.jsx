@@ -13,6 +13,9 @@ import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from 'react-icons/
 
 import "./promocao.css";
 
+import Navigation from '../../../components/navbar';
+import Sidebar from '../../../components/sidebar';
+
 const modeloPromocao = [{ value: "", label: "", preco: "" }];
 const promocaoModelo = { id: "", preco: "", nome: "" };
 
@@ -85,7 +88,6 @@ export default function Promocao() {
         setFormValue([valores])
 
         window.location.reload()
-
     };
 
 
@@ -148,19 +150,32 @@ export default function Promocao() {
 
     return (
         <>
-            <Form id='myInputPromotion' className="d-flex">
-                <Form.Group as={Col} md="6">
-                    <Form.Label>Pesquisar</Form.Label>
-                    <Form.Control id='pesquisar'
-                        name="promocaoNome"
-                        type="text"
-                        placeholder="Insira o nome da promoção"
-                        onKeyUp={filter()}
-                    />
-                </Form.Group>
-            </Form>
+
+            <Navigation />
+
+            <Sidebar />
 
             <div className="container-promo">
+
+                <div className="tab">
+                    <Button href="/criacao-produto">Produto</Button>
+                    <Button href="/criacao-servico">Serviço</Button>
+                    <Button href="/criacao-pacote">Pacote</Button>
+                    <Button href="/criacao-oferta">Oferta</Button>
+                    <Button href="/criacao-promocao" id="tab-ativa" disabled>Promoção</Button>
+                </div>
+
+                <Form id='myInputPromotion' className="d-flex">
+                    <Form.Group as={Col} md="6">
+                        <Form.Label>Pesquisar</Form.Label>
+                        <Form.Control id='pesquisar'
+                            name="promocaoNome"
+                            type="text"
+                            placeholder="Insira o nome da promoção"
+                            onKeyUp={filter()}
+                        />
+                    </Form.Group>
+                </Form>
 
                 <h1>Cadastro de Promoções</h1>
 
