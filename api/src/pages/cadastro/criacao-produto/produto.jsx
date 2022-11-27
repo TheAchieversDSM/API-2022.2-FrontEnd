@@ -95,6 +95,8 @@ export default function Produto() {
         setFormValue([valores]);
 
         navigate("/criacao-servico")
+
+        topFunction()
     };
 
     const duplicarTab = (event) => {

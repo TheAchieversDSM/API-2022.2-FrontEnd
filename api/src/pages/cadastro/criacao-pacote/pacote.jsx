@@ -147,7 +147,9 @@ export default function Pacote() {
 
         setFormValue([valores]);
 
-        navigate("/criacao-oferta")   
+        navigate("/criacao-oferta")  
+        
+        topFunction()
      };
 
     const duplicarTab = (event) => {

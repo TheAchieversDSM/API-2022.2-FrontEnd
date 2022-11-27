@@ -95,6 +95,8 @@ export default function Oferta() {
         setFormValue([valores]);
 
         navigate("/criacao-promocao")
+
+        topFunction()
     };
 
     const duplicarTab = (event) => {
@@ -219,7 +221,7 @@ export default function Oferta() {
                                             required
                                             name="ofertaPreco"
                                             value={fields.ofertaPreco.valor}
-                                            type="text"
+                                            type="number"
                                             placeholder="Preço da Oferta"
                                             onChange={event => handleChange(index, event)}
                                             onKeyDown={event => duplicarTab(event)}

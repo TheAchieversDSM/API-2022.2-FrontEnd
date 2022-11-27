@@ -110,6 +110,8 @@ export default function Servico() {
         data[index].servicoObrigatorios = servicosSelecionados
 
         setFormValue(data)
+
+        topFunction()
     };
 
     const { servicoNome, servicoProduto, servicoDescricao, servicoCategoria, servicoObrigatorios, servicoComplementares } = formValue;
