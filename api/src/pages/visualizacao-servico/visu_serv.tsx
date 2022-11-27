@@ -101,8 +101,7 @@ export default function VisualizacaoServ() {
                     for (let ind = 0; ind < res.data[i].pacotes.length; ind++) {
                         for (let index = 0; index < pacoteServ.length; index++) {
                             if (res.data[i].pacotes[ind].id == pacoteServ[index].id) {
-
-                                let opt = { id: res.data[i].pacotes[ind].id, nome: res.data[i].nome, preco: res.data[i].preco }
+                                let opt = { id: res.data[i].pacotes[ind].id, nome: res.data[i].nome, preco: res.data[i].preco, pacotes: res.data[i].pacotes }
                                 
                                 promocoesX.push(opt)
                             }
@@ -110,7 +109,7 @@ export default function VisualizacaoServ() {
                     }
                 }
 
-                setPromocoes(promocoesX)
+                setPromocoes(promocoesX)                
             })
         }
 
@@ -192,11 +191,11 @@ export default function VisualizacaoServ() {
                                                         <div className="card-imgserv"></div>
                                                         <h4>{promocao.nome}</h4>
                                                         <h5>{promocao.preco}% OFF</h5>
-                                                        {/* {promocao.ofertas.map(info =>
+                                                         {promocao.pacotes.map((info: any) =>
                                                             <>
-                                                                <p><BiCheck className="iconecheck" />{info.pacote.nome} - R$ {info.preco}</p>
+                                                                <p><BiCheck className="iconecheck" />{info.nome}</p>
                                                             </>
-                                                        )} 
+                                                        )} {/*
                                                         <p>Preço original: R$ {soma(promocao.ofertas)} </p>
 
                                                         <p>Preço Com Desconto: R$ {desconto(promocao.preco, soma(promocao.ofertas))} </p>*/}
