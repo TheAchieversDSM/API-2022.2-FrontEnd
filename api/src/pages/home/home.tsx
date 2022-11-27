@@ -23,12 +23,10 @@ export default function Home() {
         if(categoria === 'Todos') {
             axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
                 setServicos(res.data)
-                console.log(res.data)
             })
         }else{
             axios.get(`http://localhost:8080/servicos//todosServicosPelaCategoria/${categoria}`).then((res) => {
                 setServicos(res.data)
-                console.log(res.data)
             })
         }
     }
@@ -37,7 +35,6 @@ export default function Home() {
         async function render() {
             axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
                 setServicos(res.data)
-                console.log(res.data)
             })
         }
         render()

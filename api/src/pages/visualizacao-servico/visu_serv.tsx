@@ -95,10 +95,7 @@ export default function VisualizacaoServ() {
             })
 
             axios.get(`http://localhost:8080/promocoes/pegarTodasPromocoes`).then((res) => {
-                const promocoesX = []
-                console.log(res.data);
-                console.log(pacoteServ);
-                
+                const promocoesX = []              
 
                 for (let i = 0; i < res.data.length; i++) {
                     for (let ind = 0; ind < res.data[i].pacotes.length; ind++) {
@@ -129,7 +126,6 @@ export default function VisualizacaoServ() {
             /*axios.post(`http://localhost:8080/servicos/pegarPromocoes`, [servico]).then((res) =>{              
                 setPromocoes(res.data)
             }).catch(error => {
-                console.log(error.message);
             }) */
         }
 

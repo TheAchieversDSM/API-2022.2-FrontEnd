@@ -32,7 +32,6 @@ export default function Carrinho() {
 
     const handleChange = (event: any) => {
         setPreco(event.target.value)
-        console.log(preco)
     }
 
     useEffect(() => {
@@ -42,7 +41,6 @@ export default function Carrinho() {
             axios.get(`http://localhost:8080/servicos/pegarServico/${id}`,).then((res) => {
                 serv = { descricao: res.data.descricao, id: res.data.id, nome: res.data.nome, complementares: res.data.complementares, obrigatorios: res.data.servicosObrigatorios }
                 setServico(serv)
-                console.log(servico);
 
                 // SERVIÇOS COMPLEMENTARES ✨
                 axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
@@ -75,7 +73,6 @@ export default function Carrinho() {
                     }
 
                     setServicosComplementares(comp)
-                    console.log(comp);
                 })
 
                 // SERVIÇOS OBRIGATÓRIOS ✨
@@ -117,10 +114,6 @@ export default function Carrinho() {
                             axios.post(`http://localhost:8080/ofertas/pegarOfertasPacotes`, pacoteObrig).then((res) => {
                                 setOfertaObrig(res.data)
                                 setPrecoObrig(res.data[0].preco.valor)
-                                console.log(ofertaObrig);
-                                console.log(precoObrig);
-
-
                             })
                         }
                     }

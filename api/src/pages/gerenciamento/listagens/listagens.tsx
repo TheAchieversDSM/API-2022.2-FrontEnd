@@ -59,9 +59,7 @@ export default function Listagens() {
                 setPromocoes(res.data)
             })
         }
-        render()
-        console.log(promocoes);
-        
+        render()        
     }, [])
 
     return (

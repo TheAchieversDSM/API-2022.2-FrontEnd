@@ -45,7 +45,6 @@ export default function Complementar() {
         var servicosSelecionados: servicoModelo[] = []
         for (let index = 0; index < event.length; index++) {
             let servicos = { id: event[index].value, nome: event[index].label }
-            console.log(servicos)
             servicosSelecionados.push(servicos)
         }
         setFormValue((prevState) => {

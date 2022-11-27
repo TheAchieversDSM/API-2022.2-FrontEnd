@@ -71,7 +71,6 @@ export default function Oferta() {
 
     const handleSubmit = (event) => {
         let data = [...formValue]
-        console.log(data);
 
         for (let i = 0; i < data.length; i++) {
             for (let index = 0; index < data[i].ofertaPacotes.length; index++) {
@@ -137,7 +136,6 @@ export default function Oferta() {
         async function render() {
             axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
                 var pacotes = []
-                console.log(res.data)
                 for (let index = 0; index < res.data.length; index++) {
                     let option = {
                         value: res.data[index].id,
