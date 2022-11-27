@@ -93,6 +93,7 @@ export default function VisualizacaoServ() {
                 setPacoteServ(pacotesX)
             })
         }
+
         render()
     }, [servico])
 
@@ -138,7 +139,6 @@ export default function VisualizacaoServ() {
                             <div className="col-4 pacotinho">
                                 <div className="pact"></div>
                                 <h3>{info.nome}</h3>
-                                <h4>R$ {info.preco}</h4>
                                 {info.produtos.map((produto: { id: string, nome: string }) =>
                                     <div>
                                         <p><BiCheck className="iconecheck" />{produto.nome}</p>
