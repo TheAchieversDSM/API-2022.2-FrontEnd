@@ -35,8 +35,6 @@ export default function Pacote() {
     const [formValue, setFormValue] = useState([{
         pacoteNome: "",
         pacoteDescricao: "",
-        pacoteOferta: "",
-        pacotePeriodo: lista,
         pacoteServicos: lista,
         pacoteProdutos: lista
     }]);
@@ -108,7 +106,7 @@ export default function Pacote() {
         setFormValue(data)
     }
 
-    const { pacoteNome, pacoteDescricao, pacoteOferta, pacotePeriodo, pacoteServicos, pacoteProdutos } = formValue;
+    const { pacoteNome, pacoteDescricao, pacoteServicos, pacoteProdutos } = formValue;
 
     const handleSubmit = (event) => {
         let data = [...formValue]
@@ -119,8 +117,6 @@ export default function Pacote() {
                 id: undefined,
                 nome: data[i].pacoteNome,
                 descricao: data[i].pacoteDescricao,
-                preco: data[i].pacoteOferta,
-                periodo: data[i].pacotePeriodo[0].nome,
                 servico: data[i].pacoteServicos[0],
                 produtos: data[i].pacoteProdutos
             }
@@ -139,8 +135,6 @@ export default function Pacote() {
         let valores = {
             pacoteNome: "",
             pacoteDescricao: "",
-            pacoteOferta: "",
-            pacotePeriodo: "",
             pacoteServicos: "",
             pacoteProdutos: ""
         }

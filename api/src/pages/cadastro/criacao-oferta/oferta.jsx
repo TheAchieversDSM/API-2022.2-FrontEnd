@@ -29,7 +29,7 @@ export default function Oferta() {
     let listaOfertas = []
 
     const [formValue, setFormValue] = useState([{
-        ofertaPreco: {valor: '', periodo: ''},
+        ofertaPreco: { valor: '', periodo: '' },
         ofertaPacotes: listaOfertas
     }]);
 
@@ -38,7 +38,6 @@ export default function Oferta() {
         data[index].ofertaPreco.valor = event.target.value;
         setFormValue(data);
     };
-
 
     const handleChangeOfertas = (index, event) => {
         let data = [...formValue]
@@ -55,18 +54,17 @@ export default function Oferta() {
 
     const handleChangePeriodo = (index, event) => {
         let data = [...formValue]
-        console.log(event.value)
-        console.log(data[index])
+        
         data[index].ofertaPreco.periodo = event.value
 
         setFormValue(data)
-        console.log(formValue)
     }
 
     const { ofertaPreco, ofertaPacotes, ofertaPeriodo } = formValue;
 
     const handleSubmit = (event) => {
         let data = [...formValue]
+        console.log(data);
 
         for (let i = 0; i < data.length; i++) {
             for (let index = 0; index < data[i].ofertaPacotes.length; index++) {
@@ -78,12 +76,9 @@ export default function Oferta() {
                 axios.post(`http://localhost:8080/ofertas/criarOferta`, ofertas).then((res) => {
                 })
             }
-          
-
-     
         }
 
-        alert('Oferta criada!');
+        alert('Oferta(s) criada(s)!');
 
         let valores = {
             ofertaPreco: "",
@@ -93,13 +88,11 @@ export default function Oferta() {
 
         setFormValue([valores]);
 
-        window.location.reload()
-
     };
 
     const duplicarTab = (event) => {
         if (event.key === 'Tab') {
-            let newfield = { ofertaPreco: "", ofertaPacotes: "", ofertaPeriodo: "", }
+            let newfield = { ofertaPreco: "", ofertaPreco: { periodo: "", valor: ""} }
             setFormValue([...formValue, newfield])
         }
     }
@@ -156,7 +149,7 @@ export default function Oferta() {
 
     return (
         <>
-           
+
             <div className='container-promo'>
 
                 <h1>Cadastro de Ofertas</h1>
@@ -168,24 +161,6 @@ export default function Oferta() {
                         return (
 
                             <div key={index} id={`campoPackage-${index}`}>
-                                
-                                <Row className="mb-3">
-                                    <Form.Group as={Col} md="6">
-                                        <Form.Label>Preço da Oferta</Form.Label>
-                                        <Form.Control
-                                            id={`campoNomePackage-${index}`}
-                                            required
-                                            name="ofertaPreco"
-                                            value={fields.ofertaPreco.valor}
-                                            type="text"
-                                            placeholder="Preço da Oferta"
-                                            onChange={event => handleChange(index, event)}
-                                        />
-                                    </Form.Group>
-                                </Row>
-
-
-
                                 <Row className="mb-3">
 
                                     <Form.Group as={Col} md="6">
@@ -197,7 +172,7 @@ export default function Oferta() {
                                             isClearable={true}
                                             isLoading={false}
                                             isSearchable={true}
-                                            closeMenuOnSelect={false}
+                                            closeMenuOnSelect={true}
                                             onChange={event => handleChangeOfertas(index, event)}
                                         />
                                     </Form.Group>
@@ -213,9 +188,24 @@ export default function Oferta() {
                                             isLoading={false}
                                             isClearable={true}
                                             isSearchable={true}
-                                            onKeyDown={event => duplicarTab(event)}
                                             closeMenuOnSelect={true}
                                             onChange={event => handleChangePeriodo(index, event)}
+                                        />
+                                    </Form.Group>
+                                </Row>
+
+                                <Row className="mb-3">
+                                    <Form.Group as={Col} md="6">
+                                        <Form.Label>Preço da Oferta</Form.Label>
+                                        <Form.Control
+                                            id={`campoNomePackage-${index}`}
+                                            required
+                                            name="ofertaPreco"
+                                            value={fields.ofertaPreco.valor}
+                                            type="text"
+                                            placeholder="Preço da Oferta"
+                                            onChange={event => handleChange(index, event)}
+                                            onKeyDown={event => duplicarTab(event)}
                                         />
                                     </Form.Group>
                                 </Row>
@@ -253,7 +243,7 @@ export default function Oferta() {
                             <BsFillArrowDownCircleFill />
                         </Button>
 
-                        <Button type='submit' onClick={handleSubmit} className="botpromo">
+                        <Button /* type='submit' */ onClick={handleSubmit} className="botpromo">
                             Criar oferta(s)!
                         </Button>
 
