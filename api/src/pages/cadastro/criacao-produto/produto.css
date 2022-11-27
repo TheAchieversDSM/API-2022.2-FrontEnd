@@ -34,3 +34,21 @@ h1 {
 #pesquisar {
     width: 480px
 }
+
+.tab {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  
+.tab .btn-primary {
+    background-color: #ff6700;
+    float: left;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-right: 10px;
+}
+  
+#tab-ativa {
+    background-color: #004e98;
+}  
