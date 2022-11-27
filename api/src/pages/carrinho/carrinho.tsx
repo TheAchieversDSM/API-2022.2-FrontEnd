@@ -12,7 +12,7 @@ let modeloObrigatorio = [{ 'id': '', 'nome': '', 'descricao': '' }]
 let modeloPreco = [{ 'id': '', 'nome': '', 'pacote': '' }]
 let modeloPacoteServ = [{ 'id': '', 'nome': '' }]
 const modeloOptions = [{ value: '', label: '' }];
-let modeloServico = [{ 'descricao': "", 'id': "", 'nome': "", 'pacotes': [{/*  'id': '', 'nome': ''  */ }], 'ofertas': [{}] }]
+let modeloServico = [{ 'descricao': "", 'id': "", 'nome': "", 'pacotes': [{/*  'id': '', 'nome': ''  */ }], 'ofertas': [{ preco: { 'id': '', 'valor': '' } }] }]
 let modeloOferta = [{ 'id': '', 'pacote': { 'id': '', 'nome': '' }, 'preco': { 'valor': '', 'periodo': '' } }]
 
 var cont = 0
@@ -29,9 +29,18 @@ export default function Carrinho() {
     const [preco, setPreco] = useState('')
     const [ofertaObrig, setOfertaObrig] = useState(modeloOferta)
     const [precoObrig, setPrecoObrig] = useState([''])
+    const [precoCompl, setPrecoCompl] = useState([''])
 
     const handleChange = (event: any) => {
         setPreco(event.target.value)
+    }
+
+    const handleChangePrecoObrig = (event: any) => {
+        setPrecoObrig(event.target.value)
+    }
+
+    const handleChangePrecoCompl = (event: any) => {
+        setPrecoCompl(event.target.value)
     }
 
     useEffect(() => {
@@ -42,6 +51,27 @@ export default function Carrinho() {
                 serv = { descricao: res.data.descricao, id: res.data.id, nome: res.data.nome, complementares: res.data.complementares, obrigatorios: res.data.servicosObrigatorios }
                 setServico(serv)
 
+                // SERVIÇO PRINCIPAL ✨
+                axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
+                    const pacotesX = []
+                    const optionsX = []
+
+                    for (let i = 0; i < res.data.length; i++) {
+                        if (res.data[i].servico.id == servico.id) {
+
+                            let opt = { id: res.data[i].id, nome: res.data[i].nome }
+
+                            let option = { value: res.data[i].nome, label: res.data[i].nome }
+
+                            pacotesX.push(opt)
+                            optionsX.push(option)
+                        }
+                    }
+
+                    setPacoteServ(pacotesX)
+                })
+
+
                 // SERVIÇOS COMPLEMENTARES ✨
                 axios.get(`http://localhost:8080/servicos/pegarTodosServicos`).then((res) => {
                     let comp = []
@@ -49,29 +79,36 @@ export default function Carrinho() {
                     for (let i = 0; i < servico.complementares?.length; i++) {
                         for (let index = 0; index < res.data.length; index++) {
                             if (servico.complementares[i].id == res.data[index].id) {
-                                let servComp = { id: res.data[index].id, nome: res.data[index].nome, descricao: res.data[index].descricao, pacotes: res.data[index].pacotes, ofertas: res.data[index].ofertas }
+                                var servComp = { id: res.data[index].id, nome: res.data[index].nome, descricao: res.data[index].descricao, pacotes: [{ 'id': '', 'nome': '' }], 'ofertas': [{ preco: { 'id': '', 'valor': '' } }] }
 
                                 axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
                                     const pacotes = res.data
-
                                     for (let inde = 0; inde < pacotes.length; inde++) {
                                         if (pacotes[inde].servico.id == servComp.id) {
-                                            servComp.pacotes = [{ id: pacotes[inde].id, nome: pacotes[inde].nome }]
+                                            servComp.pacotes.push(pacotes[inde])
                                         }
                                     }
-
-                                    let pacotinhos = servComp.pacotes
-
-                                    axios.post(`http://localhost:8080/ofertas/pegarOfertasPacotes`, pacotinhos).then((res) => {
-                                        servComp.ofertas = res.data
-                                    })
                                 })
+
+                                let pacotesCompl = servComp.pacotes
+
+                                for (let indexCompl = 0; indexCompl < servComp.pacotes.length; indexCompl++) {
+                                    axios.get(`http://localhost:8080/ofertas/pegarTodasOfertas`).then((res) => {
+                                        for (let indexData = 0; indexData < res.data.length; indexData++) {
+                                            if (servComp.pacotes[indexCompl].id == res.data[indexData].id) {
+                                                servComp.ofertas.push(res.data[indexData])
+                                                setPrecoCompl(res.data[indexData].preco.valor)
+                                            }
+                                        }
+                                    })
+                                }
+
 
                                 comp.push(servComp)
                             }
                         }
                     }
-
+                    console.log(comp)
                     setServicosComplementares(comp)
                 })
 
@@ -109,50 +146,22 @@ export default function Carrinho() {
 
                     for (let i = 0; i < servicosObrigatorios.length; i++) {
                         for (let ind = 0; ind < servicosObrigatorios[i].pacotes.length; ind++) {
-                            let pacoteObrig = servicosObrigatorios[i].pacotes[ind]
-
-                            axios.post(`http://localhost:8080/ofertas/pegarOfertasPacotes`, pacoteObrig).then((res) => {
+                            axios.post(`http://localhost:8080/ofertas/pegarOfertasPacotes`, servicosObrigatorios[i].pacotes).then((res) => {
                                 setOfertaObrig(res.data)
-                                setPrecoObrig(res.data[0].preco.valor)
+                                setPrecoObrig(res.data[0]?.preco?.valor)
                             })
                         }
                     }
-
-
                 })
 
-                // SERVIÇO PRINCIPAL ✨
-                axios.get(`http://localhost:8080/pacotes/pegarPeloServico/${servico.id}`).then((res) => {
-                    setServico({ ...servico, pacotes: res.data })
-                })
-
-                axios.get(`http://localhost:8080/pacotes/pegarTodosPacotes`).then((res) => {
-                    const pacotesX = []
-                    const optionsX = []
-
-                    for (let i = 0; i < res.data.length; i++) {
-                        if (res.data[i].servico.id == servico.id) {
-
-                            let opt = { id: res.data[i].id, nome: res.data[i].nome }
-
-                            let option = { value: res.data[i].nome, label: res.data[i].nome }
-
-                            pacotesX.push(opt)
-                            optionsX.push(option)
-                        }
-                    }
-
-                    setPacoteServ(pacotesX)
-                })
 
                 axios.post(`http://localhost:8080/ofertas/pegarOfertasPacotes`, pacoteServ).then((res) => {
                     setOferta(res.data)
-                    setPreco(res.data[0].preco.valor)
                 })
             })
         }
 
-        if (cont <= 5) {
+        if (cont <= 8) {
             render()
             cont += 1
         }
@@ -189,6 +198,7 @@ export default function Carrinho() {
                                             {oferta.map((ofe: any) =>
 
                                                 <option value={ofe.preco.valor}>{ofe.pacote.nome} - {ofe.preco.periodo}</option>
+
                                             )}
 
                                         </Form.Select>
@@ -224,19 +234,18 @@ export default function Carrinho() {
                                                 <div className="row">
 
                                                     <div className="col-4">
-
                                                         <Form.Label>Planos & Períodos</Form.Label>
 
-                                                        <Form.Select onChange={(event) => handleChange(event)}>
+                                                        <Form.Select onChange={(event) => handleChangePrecoObrig(event)}>
 
-                                                            {obrigatorio.ofertas?.map((ofe: any) =>
-                                                                <option value={ofe.preco.valor}>{ofe.preco?.valor} - {ofe.preco?.periodo}</option>
+                                                            {ofertaObrig.map((ofe: any) =>
+                                                                <option value={ofe.preco?.valor}>{ofe.pacote?.nome} - {ofe.preco?.periodo}</option>
                                                             )}
 
                                                         </Form.Select>
 
                                                         {/* SELECTS SEPARADOS ✨
-                                                                                                                                                                <Form.Label>Preço da oferta</Form.Label>
+                                                                                                                                                                                                    <Form.Label>Preço da oferta</Form.Label>
 
                                                         <Form.Select onChange={(event) => handleChange(event)}>
 
@@ -264,7 +273,7 @@ export default function Carrinho() {
                                                     <div className="col-4 value">
                                                         <h5>Valor: </h5>
 
-                                                        <p>R$ 100,00</p>
+                                                        <p>R$ {precoObrig ? precoObrig : ''}</p>
                                                     </div>
 
                                                 </div>
@@ -300,14 +309,13 @@ export default function Carrinho() {
                                                 <div className="row">
 
                                                     <div className="col-4">
-
                                                         <Form.Label>Planos & Períodos</Form.Label>
-                                                        <Form.Select>
-                                                            {complemento?.ofertas?.map((ofe: any) =>
-                                                            <option value={ofe.preco.valork}>{ofe.preco?.valor} - {ofe.preco?.periodo}</option>
+                                                        <Form.Select onChange={(event) => handleChangePrecoCompl(event)}>
+                                                            {complemento.ofertas?.map((ofe: any) =>
+
+                                                                <option value={ofe.preco?.valor}>{ofe.pacote?.nome} - {ofe.preco?.periodo}</option>
                                                             )}
                                                         </Form.Select>
-                                                    
 
                                                         {/* SELECTS SEPARADOS ✨
 
@@ -329,8 +337,8 @@ export default function Carrinho() {
                                                     </div>
 
                                                     <div className="col-4 value">
-                                                        <h5>Valor: </h5>
-                                                        <p>R$ 100,00</p>
+                                                        <h5>Valor:</h5>
+                                                        <p> R$ {precoCompl ? precoCompl : ''} </p>
                                                     </div>
 
                                                 </div>
