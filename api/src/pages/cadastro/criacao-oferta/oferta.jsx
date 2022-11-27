@@ -1,9 +1,15 @@
-import axios from "axios";
+import {Link, Routes, Route, useNavigate} from 'react-router-dom';
 import { useEffect, useState } from "react";
+
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { InputActionMeta } from "react-select";
 import CreatableSelect from 'react-select/creatable';
+import { InputActionMeta } from "react-select";
 import Select from 'react-select';
+
+import axios from "axios";
+
+import Navigation from '../../../components/navbar';
+import Sidebar from '../../../components/sidebar';
 import filter from '../../../functions/filter';
 
 import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from 'react-icons/bs'
@@ -22,6 +28,7 @@ const periodo = [
 const modeloOptions = [{ value: '', label: '' }];
 
 export default function Oferta() {
+    const navigate = useNavigate();
     const [ofertas, setOfertas] = useState(modeloOptions)
     const [pacotes, setPacotes] = useState(modeloOptions)
     const [produto, setProduto] = useState([{ value: '', label: '' }])
@@ -88,6 +95,7 @@ export default function Oferta() {
 
         setFormValue([valores]);
 
+        navigate("/criacao-promocao")
     };
 
     const duplicarTab = (event) => {
@@ -149,8 +157,19 @@ export default function Oferta() {
 
     return (
         <>
+            <Navigation />
+
+            <Sidebar />
 
             <div className='container-promo'>
+                
+                <div className="tab">
+                    <Button href="/criacao-produto">Produto</Button>
+                    <Button href="/criacao-servico">Serviço</Button>
+                    <Button href="/criacao-pacote">Pacote</Button>
+                    <Button href="/criacao-oferta" id="tab-ativa" disabled>Oferta</Button>
+                    <Button href="/criacao-promocao">Promoção</Button>
+                </div>
 
                 <h1>Cadastro de Ofertas</h1>
 
@@ -243,7 +262,7 @@ export default function Oferta() {
                             <BsFillArrowDownCircleFill />
                         </Button>
 
-                        <Button /* type='submit' */ onClick={handleSubmit} className="botpromo">
+                        <Button type='submit'  onClick={handleSubmit} className="botpromo">
                             Criar oferta(s)!
                         </Button>
 
