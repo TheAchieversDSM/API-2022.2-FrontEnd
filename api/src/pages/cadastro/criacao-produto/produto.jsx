@@ -1,3 +1,4 @@
+import {Link, Routes, Route, useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import filter from '../../../functions/filter';
@@ -13,6 +14,9 @@ import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from 'react-icons/
 
 import './produto.css'
 
+import Navigation from '../../../components/navbar';
+import Sidebar from '../../../components/sidebar';
+
 const categorias = [
     { value: 'Meu Negócio', label: 'Meu Negócio' },
     { value: 'Streaming', label: 'Streaming' },
@@ -23,6 +27,8 @@ const categorias = [
 const complementaresModelo = [{ value: '', label: '' }]
 
 export default function Produto() {
+    const navigate = useNavigate();
+
     const [produtos, setProdutos] = useState(complementaresModelo)
 
     let lista = []
@@ -87,6 +93,10 @@ export default function Produto() {
         }
 
         setFormValue([valores]);
+
+        navigate("/criacao-servico")
+
+        topFunction()
     };
 
     const duplicarTab = (event) => {
@@ -148,19 +158,31 @@ export default function Produto() {
     return (
         <>
 
-            <Form id='myInputProduct' className="d-flex">
-                <Form.Group as={Col} md="6">
-                    <Form.Label>Pesquisar</Form.Label>
-                    <Form.Control id='pesquisar'
-                        name="produtoNome"
-                        type="text"
-                        placeholder="Insira o nome do produto"
-                        onKeyUp={filter()}
-                    />
-                </Form.Group>
-            </Form>
+            <Navigation />
+
+            <Sidebar />
 
             <div className='container-promo'>
+
+                <div className="tab">
+                    <Button href="/criacao-produto" id="tab-ativa" disabled>Produto</Button>
+                    <Button href="/criacao-servico">Serviço</Button>
+                    <Button href="/criacao-pacote">Pacote</Button>
+                    <Button href="/criacao-oferta">Oferta</Button>
+                    <Button href="/criacao-promocao">Promoção</Button>
+                </div>
+
+                <Form id='myInputProduct' className="d-flex">
+                    <Form.Group as={Col} md="6">
+                        <Form.Label>Pesquisar</Form.Label>
+                        <Form.Control id='pesquisar'
+                            name="produtoNome"
+                            type="text"
+                            placeholder="Insira o nome do produto"
+                            onKeyUp={filter()}
+                        />
+                    </Form.Group>
+                </Form>
 
                 <h1>Cadastro de Produtos</h1>
 

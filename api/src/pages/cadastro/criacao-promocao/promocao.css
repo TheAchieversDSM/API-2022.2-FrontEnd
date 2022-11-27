@@ -25,7 +25,7 @@ h1 {
 
 .campobotoes {
     position: absolute;
-    right: 500px;
+    right: 350px;
     top: 220px
 }
 
@@ -63,4 +63,8 @@ h1 {
 
 #myInputPromotion {
     margin-bottom: 15px !important;
+}
+
+.container-promo {
+    margin-left: 30%;
 }

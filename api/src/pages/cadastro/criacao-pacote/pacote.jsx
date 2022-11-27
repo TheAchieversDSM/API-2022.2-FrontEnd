@@ -1,3 +1,4 @@
+import {Link, Routes, Route, useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import filter from '../../../functions/filter';
@@ -14,6 +15,9 @@ import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from 'react-icons/
 
 import './pacote.css'
 
+import Navigation from '../../../components/navbar';
+import Sidebar from '../../../components/sidebar';
+
 const periodo = [
     { value: 'Diário', label: 'Diário' },
     { value: 'Semanal', label: 'Semanal' },
@@ -26,6 +30,8 @@ const periodo = [
 const modeloOptions = [{ value: '', label: '' }];
 
 export default function Pacote() {
+    const navigate = useNavigate();
+    
     const [servicos, setServicos] = useState(modeloOptions)
     const [pacotes, setPacotes] = useState(modeloOptions)
     const [produto, setProduto] = useState([{ value: '', label: '' }])
@@ -35,8 +41,6 @@ export default function Pacote() {
     const [formValue, setFormValue] = useState([{
         pacoteNome: "",
         pacoteDescricao: "",
-        pacoteOferta: "",
-        pacotePeriodo: lista,
         pacoteServicos: lista,
         pacoteProdutos: lista
     }]);
@@ -108,7 +112,7 @@ export default function Pacote() {
         setFormValue(data)
     }
 
-    const { pacoteNome, pacoteDescricao, pacoteOferta, pacotePeriodo, pacoteServicos, pacoteProdutos } = formValue;
+    const { pacoteNome, pacoteDescricao, pacoteServicos, pacoteProdutos } = formValue;
 
     const handleSubmit = (event) => {
         let data = [...formValue]
@@ -119,8 +123,6 @@ export default function Pacote() {
                 id: undefined,
                 nome: data[i].pacoteNome,
                 descricao: data[i].pacoteDescricao,
-                preco: data[i].pacoteOferta,
-                periodo: data[i].pacotePeriodo[0].nome,
                 servico: data[i].pacoteServicos[0],
                 produtos: data[i].pacoteProdutos
             }
@@ -139,14 +141,16 @@ export default function Pacote() {
         let valores = {
             pacoteNome: "",
             pacoteDescricao: "",
-            pacoteOferta: "",
-            pacotePeriodo: "",
             pacoteServicos: "",
             pacoteProdutos: ""
         }
 
         setFormValue([valores]);
-    };
+
+        navigate("/criacao-oferta")  
+        
+        topFunction()
+     };
 
     const duplicarTab = (event) => {
         if (event.key === 'Tab') {
@@ -221,19 +225,32 @@ export default function Pacote() {
 
     return (
         <>
-            <Form id='myInputPackage' className="d-flex">
-                <Form.Group as={Col} md="6">
-                    <Form.Label>Pesquisar</Form.Label>
-                    <Form.Control id='pesquisar'
-                        name="pacoteNome"
-                        type="text"
-                        placeholder="Insira o nome do pacote"
-                        onKeyUp={filter()}
-                    />
-                </Form.Group>
-            </Form>
+
+            <Navigation />
+
+            <Sidebar />
 
             <div className='container-promo'>
+
+                <div className="tab">
+                    <Button href="/criacao-produto">Produto</Button>
+                    <Button href="/criacao-servico">Serviço</Button>
+                    <Button href="/criacao-pacote" id="tab-ativa" disabled>Pacote</Button>
+                    <Button href="/criacao-oferta">Oferta</Button>
+                    <Button href="/criacao-promocao">Promoção</Button>
+                </div>
+
+                <Form id='myInputPackage' className="d-flex">
+                    <Form.Group as={Col} md="6">
+                        <Form.Label>Pesquisar</Form.Label>
+                        <Form.Control id='pesquisar'
+                            name="pacoteNome"
+                            type="text"
+                            placeholder="Insira o nome do pacote"
+                            onKeyUp={filter()}
+                        />
+                    </Form.Group>
+                </Form>
 
                 <h1>Cadastro de Pacotes</h1>
 
@@ -271,36 +288,6 @@ export default function Pacote() {
                                             as="textarea"
                                             placeholder="Insira a descrição do pacote"
                                             onChange={event => handleChange(index, event)}
-                                        />
-                                    </Form.Group>
-                                </Row>
-
-                                <Row className="mb-3 FormText">
-                                    <Form.Group as={Col} md="6">
-                                        <Form.Label>Oferta do pacote</Form.Label>
-                                        <Form.Control
-                                            required
-                                            name="pacoteOferta"
-                                            value={fields.produtoOferta}
-                                            type="number"
-                                            placeholder="Insira a oferta do pacote"
-                                            onChange={event => handleChange(index, event)}
-                                        />
-                                    </Form.Group>
-                                </Row>
-
-                                <Row className="mb-3">
-                                    <Form.Group as={Col} md="6">
-                                        <Form.Label>Período da oferta do pacote</Form.Label>
-                                        <CreatableSelect
-                                            isMulti
-                                            name="periodoPacote"
-                                            options={periodo}
-                                            isLoading={false}
-                                            isClearable={true}
-                                            isSearchable={true}
-                                            closeMenuOnSelect={true}
-                                            onChange={event => handleChangePeriodo(index, event)}
                                         />
                                     </Form.Group>
                                 </Row>

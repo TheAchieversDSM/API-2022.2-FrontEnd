@@ -23,11 +23,11 @@ let modeloPromocao = [
 ]
 
 let modeloOferta = [
-    {
-        'id': '',
-        'preco': '',
-        'pacote': {'id': '', 'nome': '' }
-    }
+	{
+		"id": "",
+		"pacote": { "id": "", "nome": "" },
+		"preco":  { 'valor': '', 'periodo': ''}
+	}
 ]
 
 export default function Listagens() {
@@ -59,9 +59,7 @@ export default function Listagens() {
                 setPromocoes(res.data)
             })
         }
-        render()
-        console.log(promocoes);
-        
+        render()        
     }, [])
 
     return (
@@ -137,7 +135,30 @@ export default function Listagens() {
 
                     </Tab>
 
-                    <Tab eventKey="promocoes" title="Promoção" className="tab3">
+                    <Tab eventKey="ofertas" title="Ofertas" className="tab3">
+
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Pacote</th>
+                                    <th>Preço</th>
+                                    <th>Período</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {ofertas?.map(oferta =>
+                                    <tr>
+                                        <td>{oferta.pacote.nome}</td>
+                                        <td>{oferta.preco.valor}</td>
+                                        <td>{oferta.preco.periodo}</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </Table>
+
+                    </Tab>
+
+                    <Tab eventKey="promocoes" title="Promoções" className="tab3">
 
                         <Table striped bordered hover>
                             <thead>

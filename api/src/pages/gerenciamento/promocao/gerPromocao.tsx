@@ -24,7 +24,6 @@ export default function GerPromocao() {
         var ofertasSelecionadas: gerPromoModelo[] = []
         for (let index = 0; index < event.length; index++) {
             let oferta = { id: event[index].value, pacote:event[index].pacote, preco: event[index].preco }
-            console.log(oferta)
             ofertasSelecionadas.push(oferta)
         }
 
@@ -73,8 +72,6 @@ export default function GerPromocao() {
             preco: promocaoPreco,
             ofertas: promocaoPacotes
         }
-
-        console.log(promocao)
 
         event.preventDefault();
 

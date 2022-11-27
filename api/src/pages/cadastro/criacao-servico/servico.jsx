@@ -1,3 +1,4 @@
+import {Link, Routes, Route, useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import filter from '../../../functions/filter';
@@ -14,6 +15,9 @@ import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from 'react-icons/
 
 import './servico.css'
 
+import Navigation from '../../../components/navbar';
+import Sidebar from '../../../components/sidebar';
+
 const categorias = [
     { value: 'Meu Negócio', label: 'Meu Negócio' },
     { value: 'Streaming', label: 'Streaming' },
@@ -24,6 +28,8 @@ const categorias = [
 const modeloOptions = [{ value: '', label: '' }];
 
 export default function Servico() {
+    const navigate = useNavigate();
+    
     const [options, setOptions] = useState(modeloOptions)
     const [optServ, setOptServ] = useState(modeloOptions)
 
@@ -104,6 +110,8 @@ export default function Servico() {
         data[index].servicoObrigatorios = servicosSelecionados
 
         setFormValue(data)
+
+        topFunction()
     };
 
     const { servicoNome, servicoProduto, servicoDescricao, servicoCategoria, servicoObrigatorios, servicoComplementares } = formValue;
@@ -124,7 +132,7 @@ export default function Servico() {
             event.preventDefault();
 
             axios.post("http://localhost:8080/servicos/criarServico", servico).then((res) => {
-                
+
             })
         }
 
@@ -140,6 +148,8 @@ export default function Servico() {
         }
 
         setFormValue([valores]);
+
+        navigate("/criacao-pacote")
     };
 
     const duplicarTab = (event) => {
@@ -215,31 +225,43 @@ export default function Servico() {
 
     return (
         <>
-            <Form id='myInput' className="d-flex">
-                <Form.Group as={Col} md="6">
-                    <Form.Label>Pesquisar</Form.Label>
-                    <Form.Control id='pesquisar'
-                        name="servicoNome"
-                        type="text"
-                        placeholder="Insira o nome do serviço" 
-                        onKeyUp={filter()}
-                    />
-                </Form.Group>
+            <Navigation />
 
-                {/* <Form.Group as={Col} md="6">
-                    <Form.Label>Categoria</Form.Label>
-                    <CreatableSelect
-                        name="serviçoCategoria"
-                        options={categorias}
-                        isLoading={false}
-                        isClearable={true}
-                        isSearchable={true}
-                        closeMenuOnSelect={true}
-                    />
-                </Form.Group> */}
-            </Form>
+            <Sidebar />
 
             <div className='container-promo'>
+
+                <div className="tab">
+                    <Button href="/criacao-produto">Produto</Button>
+                    <Button href="/criacao-servico" id="tab-ativa" disabled>Serviço</Button>
+                    <Button href="/criacao-pacote">Pacote</Button>
+                    <Button href="/criacao-oferta">Oferta</Button>
+                    <Button href="/criacao-promocao">Promoção</Button>
+                </div>
+
+                <Form id='myInput' className="d-flex">
+                    <Form.Group as={Col} md="6">
+                        <Form.Label>Pesquisar</Form.Label>
+                        <Form.Control id='pesquisar'
+                            name="servicoNome"
+                            type="text"
+                            placeholder="Insira o nome do serviço"
+                            onKeyUp={filter()}
+                        />
+                    </Form.Group>
+
+                    {/* <Form.Group as={Col} md="6">
+                        <Form.Label>Categoria</Form.Label>
+                        <CreatableSelect
+                            name="serviçoCategoria"
+                            options={categorias}
+                            isLoading={false}
+                            isClearable={true}
+                            isSearchable={true}
+                            closeMenuOnSelect={true}
+                        />
+                    </Form.Group> */}
+                </Form>
 
                 <h1>Cadastro de Serviços</h1>
 

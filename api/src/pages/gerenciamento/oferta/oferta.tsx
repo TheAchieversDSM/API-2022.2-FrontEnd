@@ -72,7 +72,6 @@ export default function GerOferta() {
                 preco: ofertaPreco,                 
                 pacote: pacotesSelecionados[index]             
             }                      
-            console.log(novaOferta)
             axios.post(`http://localhost:8080/ofertas/criarOferta`, novaOferta).then((res) => {
 
             })
